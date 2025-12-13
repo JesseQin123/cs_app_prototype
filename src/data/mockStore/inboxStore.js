@@ -1,5 +1,5 @@
-import photo1 from "@/assets/mock/verragio/brand/campaigns/1/product.jpg";
-import photo2 from "@/assets/mock/verragio/brand/campaigns/2/product.jpg";
+const photo1 = "/mock/verragio/brand/campaigns/1/product.jpg";
+const photo2 = "/mock/verragio/brand/campaigns/2/product.jpg";
 
 export const emailData = {
   folders: [

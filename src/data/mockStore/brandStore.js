@@ -1,5 +1,5 @@
-import logo_verragio from "../../assets/mock/verragio/logo.jpg";
-import heroImage_verragio from "@/assets/mock/verragio/brand/cover/cover1.png";
+export const logo_verragio = "/mock/verragio/logo.jpg";
+const heroImage_verragio = "/mock/verragio/brand/cover/cover1.png";
 
 export const brands = [
   {

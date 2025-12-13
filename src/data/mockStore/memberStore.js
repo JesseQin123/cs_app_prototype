@@ -1,4 +1,4 @@
-import logo_verragio from "../../assets/mock/verragio/logo.jpg";
+import { logo_verragio } from "./brandStore";
 
 const DOMAIN = "verragio.com";
 

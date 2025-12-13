@@ -1,151 +1,151 @@
+export const LUXURY_RETAILERS = [
+  "Alson Jewelers",
+  "Brent L. Miller Jewelers & Goldsmiths",
+  "CD Peacock",
+  "Clarkson Jewelers",
+  "Davis Jewelers",
+  "De Boulle Diamond & Jewelry",
+  "DeVons Jewelers",
+  "Feldmar Watch Co.",
+  "Gunderson’s Jewelers",
+  "Heller Jewelers",
+  "Henne Jewelers",
+  "J.R Dunn Jewelry",
+  "James & Sons Fine Jewelers",
+  "James Free Jewelers",
+  "King Jewelers Fine Jewelry & Luxury",
+  "Lee Michaels Fine Jewelry",
+  "Leonardo Jewelers",
+  "Little Switzerland",
+  "Littlebirdms",
+  "London Jewelers",
+  "Long’s Jewelers",
+  "Louis Anthony Jewelers",
+  "Lux Bond & Green",
+  "Manfredi Jewels",
+  "MP Demetre Jewelers",
+  "O.C. Tanner Jewelers",
+  "Polacheck’s Jewelers",
+  "Razny Jewelers",
+  "REEDS Jewelers",
+  "R.F. Moeller Jeweler",
+  "Richter & Phillips Jewelers",
+  "The 1916 Company",
+  "TIVOL",
+  "Tourneau | Bucherer",
+  "Trout Fine Jewellers",
+  "Walters & Hogsett Jewelers",
+];
+
+// --- Constants for Segmentation ---
+
 export const zones = [
-  { id: "northeast", label: "Northeast" },
-  { id: "southeast", label: "Southeast" },
-  { id: "midwest", label: "Midwest" },
-  { id: "southwest", label: "Southwest" },
-  { id: "west-coast", label: "West Coast" },
-  { id: "international", label: "International" },
+  { id: "z-ne", label: "North East" },
+  { id: "z-se", label: "South East" },
+  { id: "z-mw", label: "Midwest" },
+  { id: "z-w", label: "West Coast" },
+  { id: "z-sw", label: "South West" },
 ];
 
 export const tiers = [
-  { id: "platinum", label: "Platinum" },
-  { id: "gold", label: "Gold" },
-  { id: "silver", label: "Silver" },
+  { id: "t-1", label: "T1 - Strategic Partner" },
+  { id: "t-2", label: "T2 - Growth Partner" },
+  { id: "t-3", label: "T3 - Authorized Retailer" },
 ];
 
 export const groups = [
-  { id: "vip", label: "VIP Retailers" },
-  { id: "high-risk", label: "High Risk" },
-  { id: "new-partners", label: "New Partners" },
+  { id: "g-ijo", label: "IJO Members" },
+  { id: "g-rjo", label: "RJO Members" },
+  { id: "g-cbg", label: "CBG Members" },
 ];
 
-// Helper to generate consistent mock data
-const generateRetailers = (count) => {
-  const retailers = [];
-  const names = [
-    "Luxe Jewelers",
-    "Diamond Haven",
-    "Smith & Co.",
-    "Royal Gems",
-    "Elite Timepieces",
-    "Golden Era",
-    "Prestige Jewelers",
-    "Crown & Caliber",
-    "Timeless Treasures",
-    "Sparkle Boutique",
-    "Vantage Watches",
-    "Heritage Gold",
-    "Pure Radiance",
-    "Noble Gems",
-    "Legacy Jewelers",
-    "Summit Stones",
-    "Pacific Pearls",
-    "Metro Diamonds",
-    "Capital Jewelers",
-    "Starlight Gems",
-  ];
+// Helper to generate a consistent avatar
+const getAvatar = (seed) =>
+  `https://ui-avatars.com/api/?name=${seed}&background=random&color=fff`;
 
-  const locations = [
-    "New York, NY",
-    "Los Angeles, CA",
-    "Chicago, IL",
-    "Houston, TX",
-    "Miami, FL",
-    "Seattle, WA",
-    "Boston, MA",
-  ];
+// Helper to pick random attributes
+const pickRandom = (arr) => arr[Math.floor(Math.random() * arr.length)];
+const pickRandomSubset = (arr) => arr.filter(() => Math.random() > 0.7);
 
-  for (let i = 1; i <= count; i++) {
-    const zone = zones[Math.floor(Math.random() * zones.length)];
-    const tier = tiers[Math.floor(Math.random() * tiers.length)];
-    const baseName = names[Math.floor(Math.random() * names.length)];
-    const location = locations[Math.floor(Math.random() * locations.length)];
+// Create Mock Retailers from the Global List
+export const retailers = LUXURY_RETAILERS.map((name, index) => {
+  const tier = index < 5 ? tiers[0] : index < 15 ? tiers[1] : tiers[2];
+  const zone = pickRandom(zones);
+  const retailerGroups = pickRandomSubset(groups); // A retailer can belong to multiple groups
 
-    // 30% chance to be in a special group
-    const group =
-      Math.random() > 0.7
-        ? groups[Math.floor(Math.random() * groups.length)].id
-        : null;
+  return {
+    id: `r-${index + 1}`,
+    name: name,
+    location: "New York, NY", // Mock
+    tier: tier,
+    zone: zone,
+    groups: retailerGroups,
+    logo: getAvatar(name),
+  };
+});
 
-    retailers.push({
-      id: `r-${i}`,
-      name: `${baseName} ${i}`, // Unique element
-      email: `store${i}@example.com`,
-      location: location,
-      zone: zone.id,
-      tier: tier.id,
-      group: group,
-      initials: baseName.substring(0, 2).toUpperCase(),
-      avatarColor: [
-        "bg-blue-600",
-        "bg-emerald-600",
-        "bg-purple-600",
-        "bg-amber-600",
-        "bg-rose-600",
-        "bg-gray-800",
-      ][i % 6],
-      joinedDate: new Date(2023, 0, 1 + i).toISOString().split("T")[0],
-      isActive: Math.random() > 0.05, // 95% active
-    });
-  }
-  return retailers;
-};
-
-export const retailers = generateRetailers(152);
-
-// Helpers
+// Logic to estimate retailer count based on filters
 export const getRetailerCount = (filters = {}) => {
-  if (!filters || Object.keys(filters).length === 0) return retailers.length;
+  const {
+    zones: filterZones,
+    tiers: filterTiers,
+    groups: filterGroups,
+  } = filters;
 
-  return retailers.filter((r) => {
-    // Check Zone (OR logic within zones if array, but simple match for now)
-    if (
-      filters.zones &&
-      filters.zones.length > 0 &&
-      !filters.zones.includes(r.zone)
-    )
-      return false;
-    // Check Tier
-    if (
-      filters.tiers &&
-      filters.tiers.length > 0 &&
-      !filters.tiers.includes(r.tier)
-    )
-      return false;
-    // Check Group
-    if (
-      filters.groups &&
-      filters.groups.length > 0 &&
-      r.group !== filters.groups[0]
-    )
-      return false; // Simple single group logic for now
+  // Start with all retailers
+  let matches = retailers;
 
-    return true;
-  }).length;
+  // Filter by Zone (OR logic within zones usually, but let's assume if any selected, must match one)
+  if (filterZones && filterZones.length > 0) {
+    matches = matches.filter((r) => filterZones.includes(r.zone.id));
+  }
+
+  // Filter by Tier
+  if (filterTiers && filterTiers.length > 0) {
+    matches = matches.filter((r) => filterTiers.includes(r.tier.id));
+  }
+
+  // Filter by Group (Must belong to at least one of the selected groups?)
+  if (filterGroups && filterGroups.length > 0) {
+    matches = matches.filter((r) =>
+      r.groups.some((g) => filterGroups.includes(g.id))
+    );
+  }
+
+  return matches.length;
 };
 
-export const filterRetailers = (filters = {}) => {
-  if (!filters) return retailers;
+// Create Mock Users for the Retailer App (Admin & Member)
+// We'll attach them to the first retailer: "Alson Jewelers"
+const primaryRetailer = retailers[0]; // Alson Jewelers
 
-  return retailers.filter((r) => {
-    if (
-      filters.search &&
-      !r.name.toLowerCase().includes(filters.search.toLowerCase())
-    )
-      return false;
-    if (
-      filters.zones &&
-      filters.zones.length > 0 &&
-      !filters.zones.includes(r.zone)
-    )
-      return false;
-    if (
-      filters.tiers &&
-      filters.tiers.length > 0 &&
-      !filters.tiers.includes(r.tier)
-    )
-      return false;
-    // if filters.selectedIds exists, we might want to return only those or exclude... usually specific filtering logic
-    return true;
-  });
-};
+export const retailerUsers = [
+  {
+    id: "ru-admin",
+    name: "Sarah Jenkins",
+    email: `sarah@${primaryRetailer.name
+      .replace(/\s+/g, "")
+      .toLowerCase()}.com`,
+    role: "Admin", // Admin
+    storeId: primaryRetailer.id,
+    storeName: primaryRetailer.name,
+    avatarType: "image",
+    avatarUrl:
+      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop",
+    initials: "SJ",
+  },
+  {
+    id: "ru-member",
+    name: "Jason Smith",
+    email: `jason@${primaryRetailer.name
+      .replace(/\s+/g, "")
+      .toLowerCase()}.com`,
+    role: "Associate", // Member
+    storeId: primaryRetailer.id,
+    storeName: primaryRetailer.name,
+    avatarType: "initials",
+    initials: "JS",
+  },
+];
+
+export const currentRetailerUser = retailerUsers[0]; // Default to Admin

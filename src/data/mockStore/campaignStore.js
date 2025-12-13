@@ -1,20 +1,28 @@
-import coverImage_1 from "@/assets/mock/verragio/brand/campaigns/1/cover.png";
-import coverImage_2 from "@/assets/mock/verragio/brand/campaigns/2/cover.png";
-import coverImage_3 from "@/assets/mock/verragio/brand/campaigns/3/cover.png";
-import coverImage_4 from "@/assets/mock/verragio/brand/campaigns/4/cover.png";
-import coverImage_5 from "@/assets/mock/verragio/brand/campaigns/5/cover.png";
-import coverImage_6 from "@/assets/mock/verragio/brand/campaigns/6/cover.png";
-import coverImage_7 from "@/assets/mock/verragio/brand/campaigns/7/cover.png";
-import coverImage_8 from "@/assets/mock/verragio/brand/campaigns/8/cover.png";
-import coverImage_9 from "@/assets/mock/verragio/brand/campaigns/9/cover.png";
-import coverImage_10 from "@/assets/mock/verragio/brand/campaigns/10/cover.png";
-import coverImage_11 from "@/assets/mock/verragio/brand/campaigns/11/cover.png";
-import coverImage_12 from "@/assets/mock/verragio/brand/campaigns/12/cover.png";
-import coverImage_13 from "@/assets/mock/verragio/brand/campaigns/13/cover.png";
-import coverImage_14 from "@/assets/mock/verragio/brand/campaigns/14/cover.png";
-import coverImage_15 from "@/assets/mock/verragio/brand/campaigns/15/cover.png";
-import coverImage_16 from "@/assets/mock/verragio/brand/campaigns/16/cover.png";
-import coverImage_17 from "@/assets/mock/verragio/brand/campaigns/17/cover.png";
+const coverImage_1 = "/mock/verragio/brand/campaigns/1/cover.png";
+const coverImage_2 = "/mock/verragio/brand/campaigns/2/cover.png";
+const coverImage_3 = "/mock/verragio/brand/campaigns/3/cover.png";
+const coverImage_4 = "/mock/verragio/brand/campaigns/4/cover.png";
+const coverImage_5 = "/mock/verragio/brand/campaigns/5/cover.png";
+const coverImage_6 = "/mock/verragio/brand/campaigns/6/cover.png";
+const coverImage_7 = "/mock/verragio/brand/campaigns/7/cover.png";
+const coverImage_8 = "/mock/verragio/brand/campaigns/8/cover.png";
+const coverImage_9 = "/mock/verragio/brand/campaigns/9/cover.png";
+const coverImage_10 = "/mock/verragio/brand/campaigns/10/cover.png";
+const coverImage_11 = "/mock/verragio/brand/campaigns/11/cover.png";
+const coverImage_12 = "/mock/verragio/brand/campaigns/12/cover.png";
+const coverImage_13 = "/mock/verragio/brand/campaigns/13/cover.png";
+const coverImage_14 = "/mock/verragio/brand/campaigns/14/cover.png";
+const coverImage_15 = "/mock/verragio/brand/campaigns/15/cover.png";
+const coverImage_16 = "/mock/verragio/brand/campaigns/16/cover.png";
+const coverImage_17 = "/mock/verragio/brand/campaigns/17/cover.png";
+
+const mediaImage_1 = "/mock/verragio/brand/campaigns/1/product.jpg";
+const mediaImage_2 = "/mock/verragio/brand/campaigns/2/product.jpg";
+const mediaImage_3 = "/mock/verragio/brand/campaigns/3/product.jpg";
+const mediaImage_4 = "/mock/verragio/brand/campaigns/4/product.jpg";
+const mediaImage_5 = "/mock/verragio/brand/campaigns/5/product.png";
+const mediaImage_6 = "/mock/verragio/brand/campaigns/6/product.jpg";
+const mediaImage_7 = "/mock/verragio/brand/campaigns/7/product.jpg";
 
 // External Covers for Other Brands
 const ROLEX_COVER =
@@ -26,54 +34,8 @@ const PATEK_COVER =
 const OMEGA_COVER =
   "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&q=80&w=800"; // Fixed URL
 
-import mediaImage_1 from "@/assets/mock/verragio/brand/campaigns/1/product.jpg";
-import mediaImage_2 from "@/assets/mock/verragio/brand/campaigns/2/product.jpg";
-import mediaImage_3 from "@/assets/mock/verragio/brand/campaigns/3/product.jpg";
-import mediaImage_4 from "@/assets/mock/verragio/brand/campaigns/4/product.jpg";
-import mediaImage_5 from "@/assets/mock/verragio/brand/campaigns/5/product.png";
-import mediaImage_6 from "@/assets/mock/verragio/brand/campaigns/6/product.jpg";
-import mediaImage_7 from "@/assets/mock/verragio/brand/campaigns/7/product.jpg";
-
 import { getMember } from "./memberStore";
-
-const LUXURY_RETAILERS = [
-  "Alson Jewelers",
-  "Brent L. Miller Jewelers & Goldsmiths",
-  "CD Peacock",
-  "Clarkson Jewelers",
-  "Davis Jewelers",
-  "De Boulle Diamond & Jewelry",
-  "DeVons Jewelers",
-  "Feldmar Watch Co.",
-  "Gunderson’s Jewelers",
-  "Heller Jewelers",
-  "Henne Jewelers",
-  "J.R Dunn Jewelry",
-  "James & Sons Fine Jewelers",
-  "James Free Jewelers",
-  "King Jewelers Fine Jewelry & Luxury",
-  "Lee Michaels Fine Jewelry",
-  "Leonardo Jewelers",
-  "Little Switzerland",
-  "Littlebirdms",
-  "London Jewelers",
-  "Long’s Jewelers",
-  "Louis Anthony Jewelers",
-  "Lux Bond & Green",
-  "Manfredi Jewels",
-  "MP Demetre Jewelers",
-  "O.C. Tanner Jewelers",
-  "Polacheck’s Jewelers",
-  "Razny Jewelers",
-  "REEDS Jewelers",
-  "R.F. Moeller Jeweler",
-  "Richter & Phillips Jewelers",
-  "The 1916 Company",
-  "TIVOL",
-  "Tourneau | Bucherer",
-  "Trout Fine Jewellers",
-  "Walters & Hogsett Jewelers",
-];
+import { LUXURY_RETAILERS } from "./retailerStore";
 
 export const campaignData = {
   // 1. Master Campaign List

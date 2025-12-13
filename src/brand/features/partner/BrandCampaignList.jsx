@@ -273,7 +273,7 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
       {/* [C] Filter & Control Bar (Sticky) */}
       <div className="sticky top-0 z-40 bg-gray-50 pt-2 pb-4 mb-4 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-200 px-8 shadow-sm">
          {/* Left: Status Tabs */}
-         <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
+         <div className="flex items-center gap-2 flex-wrap">
             {statusTabs.map(tab => {
                 const count = campaigns.filter(c => tab.id === 'All' ? c.status !== 'Archived' : c.status === tab.id).length;
                 const isActive = filterStatus === tab.id;

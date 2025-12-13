@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import RetailerSidebar from './retailer/components/RetailerSidebar';
 import BrandCenter from './retailer/features/brand-center/BrandCenter';
+import Dashboard from './retailer/features/dashboard/Dashboard';
+
+import { currentRetailerUser } from './data/mockStore/retailerStore';
 
 const RetailerApp = ({ campaigns, catalogs, templates, files, showEmptyState }) => {
-  const [activePage, setActivePage] = useState('brand-center-overview');
+  const [activePage, setActivePage] = useState('dashboard');
   
-  const user = {
-    name: 'Sarah Jenkins',
-    email: 'sarah@nordstrom.com',
-    initials: 'SJ'
-  };
+  const user = currentRetailerUser;
 
   return (
     <div className="flex h-screen w-full bg-gray-50 font-sans text-gray-900 relative">
@@ -25,6 +24,8 @@ const RetailerApp = ({ campaigns, catalogs, templates, files, showEmptyState }) 
               files={files} 
               onNavigate={(pageId) => setActivePage(pageId)}
            />
+        ) : activePage === 'dashboard' ? (
+           <Dashboard user={user} onNavigate={setActivePage} />
         ) : (
            <div className="p-12 flex items-center justify-center h-full text-gray-400">
               {activePage.charAt(0).toUpperCase() + activePage.slice(1)} View Placeholder
