@@ -1,22 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Users, Calendar, Shield, Lock, Unlock, Upload, Image as ImageIcon, X, Check, AlertCircle } from 'lucide-react';
-import AudienceSelector from '../../../../components/audience/AudienceSelector';
+import AudienceSelector from '@/brand/components/audience/AudienceSelector';
+import FileUploadTrigger from '@/components/FileUploadTrigger';
 
-import cover1 from '@/assets/mock/verragio/brand/cover/cover1.png';
-import cover2 from '@/assets/mock/verragio/brand/cover/cover2.png';
-import cover3 from '@/assets/mock/verragio/brand/cover/cover3.png';
-import cover4 from '@/assets/mock/verragio/brand/cover/cover4.png';
-import cover5 from '@/assets/mock/verragio/brand/cover/cover5.png';
-import cover6 from '@/assets/mock/verragio/brand/cover/cover6.png';
-import cover7 from '@/assets/mock/verragio/brand/cover/cover7.png';
-import cover8 from '@/assets/mock/verragio/brand/cover/cover8.png';
+
 
 const SettingsTab = ({ campaign, onUpdate }) => {
   // Local state for buffering changes
-  // Local state for buffering changes
   const [localCampaign, setLocalCampaign] = useState(campaign);
-  const [isLibraryOpen, setIsLibraryOpen] = useState(false);
-  const fileInputRef = useRef(null);
 
   // Sync local state when prop changes
   useEffect(() => {
@@ -46,18 +37,7 @@ const SettingsTab = ({ campaign, onUpdate }) => {
     setLocalCampaign(campaign);
   };
 
-  const handleFileUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const objectUrl = URL.createObjectURL(file);
-      setLocalCampaign({ ...localCampaign, coverImage: objectUrl });
-    }
-  };
 
-  const mockLibraryImages = [
-    cover1, cover2, cover3, cover4,
-    cover5, cover6, cover7, cover8
-  ];
 
   return (
     <div className="max-w-3xl mx-auto space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-24">
@@ -104,70 +84,13 @@ const SettingsTab = ({ campaign, onUpdate }) => {
            {/* Cover Image */}
            <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Cover Image</label>
-              <div className="flex items-start gap-4">
-                 <div className="w-40 aspect-video bg-gray-100 rounded-lg overflow-hidden border border-gray-200 flex-shrink-0 relative group">
-                    {localCampaign.coverImage ? (
-                       <img src={localCampaign.coverImage} alt="Cover" className="w-full h-full object-cover" />
-                    ) : (
-                       <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs">No Image</div>
-                    )}
-                    {/* Remove Image Button */}
-                    {localCampaign.coverImage && (
-                        <button 
-                            onClick={() => setLocalCampaign({...localCampaign, coverImage: ''})}
-                            className="absolute top-1 right-1 p-1 bg-black/50 text-white rounded-full hover:bg-black/70 opacity-0 group-hover:opacity-100 transition"
-                        >
-                            <X size={12} />
-                        </button>
-                    )}
-                 </div>
-                 <div className="flex-1 space-y-3">
-                    <div className="flex gap-3">
-                        <input 
-                            type="file" 
-                            ref={fileInputRef} 
-                            className="hidden" 
-                            accept="image/*"
-                            onChange={handleFileUpload}
-                        />
-                        <button 
-                            onClick={() => fileInputRef.current?.click()}
-                            className="px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 hover:border-gray-300 transition flex items-center gap-2"
-                        >
-                            <Upload size={16} /> Upload Image
-                        </button>
-                        <button 
-                            onClick={() => setIsLibraryOpen(!isLibraryOpen)}
-                            className={`px-4 py-2 border rounded-lg text-sm font-medium transition flex items-center gap-2 ${isLibraryOpen ? 'bg-gray-100 border-gray-300 text-black' : 'bg-white border-gray-200 text-gray-700 hover:bg-gray-50'}`}
-                        >
-                            <ImageIcon size={16} /> Select from Library
-                        </button>
-                    </div>
-                    <p className="text-xs text-gray-500">Recommended size: 1920x1080px. Max 5MB.</p>
-                    
-                    {/* Mock Library Popover */}
-                    {isLibraryOpen && (
-                        <div className="p-3 bg-gray-50 border border-gray-200 rounded-lg animate-in fade-in zoom-in-95">
-                            <div className="text-xs font-bold text-gray-500 mb-2 uppercase tracking-wider">Asset Library</div>
-                            <div className="grid grid-cols-4 gap-2">
-                                {mockLibraryImages.map((img, idx) => (
-                                    <div 
-                                        key={idx} 
-                                        onClick={() => {
-                                            setLocalCampaign({...localCampaign, coverImage: img});
-                                            setIsLibraryOpen(false);
-                                        }}
-                                        className="aspect-video rounded overflow-hidden cursor-pointer hover:ring-2 hover:ring-black transition relative group"
-                                    >
-                                        <img src={img} className="w-full h-full object-cover" alt={`Library ${idx}`} />
-                                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition"></div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    )}
-                 </div>
-              </div>
+              <FileUploadTrigger
+                  label="Change Cover Image"
+                  currentFile={localCampaign.coverImage ? { url: localCampaign.coverImage } : null}
+                  onFileSelect={(asset) => setLocalCampaign({...localCampaign, coverImage: asset.url})}
+                  requiredAspectRatios={[[16,9]]}
+              />
+              <p className="text-xs text-gray-500 mt-2">Recommended: 1920x1080px (16:9). Max 5MB.</p>
            </div>
         </div>
       </section>

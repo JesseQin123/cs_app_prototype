@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Image as ImageIcon } from 'lucide-react';
-import AudienceSelector from '../../../../components/audience/AudienceSelector';
+import AudienceSelector from '@/brand/components/audience/AudienceSelector';
+import FileUploadTrigger from '@/components/FileUploadTrigger';
 
 const CreateCampaignModal = ({ isOpen, onClose, onSave }) => {
   const [formData, setFormData] = useState({
@@ -59,17 +60,7 @@ const CreateCampaignModal = ({ isOpen, onClose, onSave }) => {
     }
   };
 
-  // ... (Image Upload Logic same as before) ...
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-       if (file.size > 1024 * 1024) {
-          alert('File size must be less than 1MB');
-          return;
-       }
-       setFormData({...formData, coverImage: URL.createObjectURL(file)});
-    }
-  };
+
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
@@ -125,30 +116,19 @@ const CreateCampaignModal = ({ isOpen, onClose, onSave }) => {
               {/* 2. Cover Image */}
               <div>
                  <label className="block text-sm font-bold text-gray-900 mb-2">Cover Image <span className="text-red-500">*</span></label>
-                 <div className={`border-2 border-dashed rounded-xl p-8 text-center transition group relative overflow-hidden ${formData.coverImage ? 'border-transparent' : 'border-gray-300 hover:border-indigo-400 hover:bg-indigo-50'}`}>
-                    
-                    {formData.coverImage ? (
-                       <div className="relative w-full aspect-video rounded-lg overflow-hidden shadow-sm group-hover:opacity-90 transition">
-                          <img src={formData.coverImage} alt="Preview" className="w-full h-full object-cover" />
-                          <button 
-                             type="button"
-                             onClick={() => setFormData({...formData, coverImage: null})}
-                             className="absolute top-2 right-2 p-1.5 bg-white/80 hover:bg-white text-red-600 rounded-full shadow-sm backdrop-blur-sm"
-                          >
-                             <X size={16}/>
-                          </button>
-                       </div>
-                    ) : (
-                       <label className="cursor-pointer flex flex-col items-center justify-center h-full">
-                          <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-gray-400 mb-3 group-hover:scale-110 transition-transform">
-                             <ImageIcon size={24}/>
-                          </div>
-                          <p className="text-sm font-medium text-gray-900">Click to upload cover image</p>
-                          <p className="text-xs text-gray-500 mt-1">16:9 aspect ratio recommended. Max 1MB.</p>
-                          <input type="file" className="hidden" accept="image/*" onChange={handleImageUpload} />
-                       </label>
-                    )}
-                 </div>
+                 <FileUploadTrigger 
+                    label="Campaign Cover Image"
+                    // 1. Upload Limit: Allow 50MB raw files for convenience
+                    maxUploadSizeMB={50}
+                    // 2. Output Target: Auto-compress to <1MB for performance
+                    compressTargetMB={1}
+                    currentFile={formData.coverImage ? { url: formData.coverImage } : null}
+                    onFileSelect={(asset) => {
+                        setFormData({...formData, coverImage: asset.url});
+                        if (errors.coverImage) setErrors({...errors, coverImage: null});
+                    }}
+                    requiredAspectRatios={[[16,9],[4,3],[1,1]]}
+                 />
                  {errors.coverImage && <p className="text-xs text-red-500 mt-1">{errors.coverImage}</p>}
               </div>
 

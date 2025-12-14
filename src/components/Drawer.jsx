@@ -9,7 +9,9 @@ const Drawer = ({
   children, 
   footer, 
   width = "max-w-md", // Allow custom width classes
-  zIndex = "z-[9999]" 
+  height = "h-auto max-h-[90vh]", // For bottom placement
+  zIndex = "z-[9999]",
+  placement = "right" // 'right' | 'bottom'
 }) => {
   const [isMounted, setIsMounted] = useState(isOpen);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -36,28 +38,35 @@ const Drawer = ({
 
   if (!isMounted) return null;
 
+  // Placement Specific Classes
+  const containerClasses = placement === 'right' 
+      ? 'flex justify-end' 
+      : 'flex flex-col justify-end'; // Bottom placement needs flex-col to push content down
+
+  const panelBaseClasses = `relative bg-white w-full shadow-2xl flex flex-col transform transition-transform duration-300 ease-out`;
+
+  const panelPlacementClasses = placement === 'right'
+      ? `${width} h-full ${isAnimating ? 'translate-x-0' : 'translate-x-full'}`
+      : `${height} rounded-t-2xl ${isAnimating ? 'translate-y-0' : 'translate-y-full'}`;
+
   return createPortal(
-    <div className={`fixed inset-0 ${zIndex} flex justify-end`}>
+    <div className={`fixed inset-0 ${zIndex} ${containerClasses}`}>
       {/* Backdrop */}
       <div 
-        className={`fixed inset-0 bg-black/20 backdrop-blur-sm transition-opacity duration-300 ease-out ${
+        className={`fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300 ease-out ${
           isAnimating ? 'opacity-100' : 'opacity-0'
         }`}
         onClick={onClose}
       />
       
       {/* Drawer Panel */}
-      <div 
-        className={`relative bg-white w-full ${width} h-full shadow-2xl flex flex-col transform transition-transform duration-300 ease-out ${
-          isAnimating ? 'translate-x-0' : 'translate-x-full'
-        }`}
-      >
+      <div className={`${panelBaseClasses} ${panelPlacementClasses}`}>
         {/* Header */}
         {(title || onClose) && (
-          <div className="p-6 border-b border-gray-100 flex justify-between items-start bg-gray-50/50 flex-shrink-0">
+          <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-white flex-shrink-0 rounded-t-2xl">
             <div className="flex-1">
               {typeof title === 'string' ? (
-                <h3 className="text-lg font-bold text-gray-900">{title}</h3>
+                <h3 className="text-xl font-semibold text-gray-900">{title}</h3>
               ) : (
                 title
               )}
@@ -65,9 +74,9 @@ const Drawer = ({
             {onClose && (
               <button 
                 onClick={onClose} 
-                className="p-2 -mr-2 hover:bg-gray-200 rounded-full transition text-gray-500 hover:text-gray-900"
+                className="p-2 -mr-2 hover:bg-gray-100 rounded-full transition text-gray-500 hover:text-gray-900"
               >
-                <X size={20} />
+                <X size={24} />
               </button>
             )}
           </div>

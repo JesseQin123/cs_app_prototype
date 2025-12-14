@@ -151,4 +151,21 @@ export const fileStore = [
   ...specialFiles,
 ];
 
+// Alias commonly expected name 'files' if deemed useful, but currently named 'fileStore'
+export const files = fileStore;
+
 export const getFileById = (id) => fileStore.find((f) => f.id === id);
+
+export const addFile = (newFile) => {
+  const fileEntry = {
+    ...newFile,
+    id: newFile.id || `f-new-${Date.now()}`,
+    status: "active",
+    lastUpdated: new Date().toISOString().split("T")[0],
+    sourceType: newFile.sourceType || "upload",
+    fileOrigin: newFile.isDerived ? "derived" : "upload",
+    parentFileId: newFile.parentFileId || null,
+  };
+  fileStore.unshift(fileEntry);
+  return fileEntry;
+};
