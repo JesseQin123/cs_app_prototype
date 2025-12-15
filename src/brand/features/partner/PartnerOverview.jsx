@@ -232,7 +232,7 @@ const PartnerOverview = () => {
             {/* Header & Filters */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900 mb-1">Network Overview</h1>
+                    <h1 className="text-2xl font-bold text-gray-900 mb-1">Partner Overview</h1>
                     <p className="text-gray-500 text-sm">Monitor the performance and adoption health of your B2B partners.</p>
                 </div>
                 <div className="flex flex-wrap items-center gap-3">

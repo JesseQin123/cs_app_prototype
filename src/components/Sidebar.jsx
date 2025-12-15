@@ -84,21 +84,21 @@ const Sidebar = ({
                     >
                         <div className="overflow-hidden">
                             <div className="space-y-1 py-1">
-                                {item.subItems.map((sub) => (
+                                {item.subItems.map(({ id, label }) => (
                                     <button
-                                        key={sub.id}
-                                        onClick={() => setActivePage(sub.id)}
+                                        key={id}
+                                        onClick={() => setActivePage(id)}
                                         className={cn(
                                             "w-full flex items-center justify-between px-3 py-2 text-sm transition-all relative rounded-lg group/sub",
-                                            isSubActive(sub.id) 
+                                            isSubActive(id) 
                                                 ? "text-gray-900 font-medium" 
                                                 : "text-gray-500 hover:text-gray-700 hover:bg-gray-50/50"
                                         )}
                                     >
-                                    <span className={cn("tracking-normal ml-1", isSubActive(sub.id) ? "" : "")}>{sub.label}</span>
+                                    <span className={cn("tracking-normal ml-1", isSubActive(id) ? "" : "")}>{label}</span>
                                         
                                         {/* Submenu Right Indicator */}
-                                        {isSubActive(sub.id) && (
+                                        {isSubActive(id) && (
                                             <div className="w-1.5 h-1.5 rounded-full bg-[#C5A065] shadow-sm"></div>
                                         )}
                                     </button>

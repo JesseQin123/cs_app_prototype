@@ -77,8 +77,8 @@ export const retailers = LUXURY_RETAILERS.map((name, index) => {
     id: `r-${index + 1}`,
     name: name,
     location: "New York, NY", // Mock
-    tier: tier,
-    zone: zone,
+    tier: tier.id,
+    zone: zone.id,
     groups: retailerGroups,
     logo: getAvatar(name),
   };
@@ -95,14 +95,14 @@ export const getRetailerCount = (filters = {}) => {
   // Start with all retailers
   let matches = retailers;
 
-  // Filter by Zone (OR logic within zones usually, but let's assume if any selected, must match one)
+  // Filter by Zone
   if (filterZones && filterZones.length > 0) {
-    matches = matches.filter((r) => filterZones.includes(r.zone.id));
+    matches = matches.filter((r) => filterZones.includes(r.zone));
   }
 
   // Filter by Tier
   if (filterTiers && filterTiers.length > 0) {
-    matches = matches.filter((r) => filterTiers.includes(r.tier.id));
+    matches = matches.filter((r) => filterTiers.includes(r.tier));
   }
 
   // Filter by Group (Must belong to at least one of the selected groups?)

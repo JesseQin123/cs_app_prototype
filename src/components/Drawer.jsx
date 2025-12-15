@@ -8,7 +8,7 @@ const Drawer = ({
   title, 
   children, 
   footer, 
-  width = "max-w-md", // Allow custom width classes
+  width = "w-full max-w-md", // Allow custom width classes
   height = "h-auto max-h-[90vh]", // For bottom placement
   zIndex = "z-[9999]",
   placement = "right" // 'right' | 'bottom'
@@ -43,7 +43,7 @@ const Drawer = ({
       ? 'flex justify-end' 
       : 'flex flex-col justify-end'; // Bottom placement needs flex-col to push content down
 
-  const panelBaseClasses = `relative bg-white w-full shadow-2xl flex flex-col transform transition-transform duration-300 ease-out`;
+  const panelBaseClasses = `relative bg-white shadow-2xl flex flex-col transform transition-transform duration-300 ease-out`;
 
   const panelPlacementClasses = placement === 'right'
       ? `${width} h-full ${isAnimating ? 'translate-x-0' : 'translate-x-full'}`

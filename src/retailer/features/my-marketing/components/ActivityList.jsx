@@ -13,6 +13,8 @@ const STATUS_CONFIG = {
     'Failed': 'bg-red-50 text-red-700 border-red-100',
 };
 
+import ActivityPerformanceDrawer from './ActivityPerformanceDrawer';
+
 const ActivityList = ({ activities, onDuplicate }) => {
     // Local Filters State
     const [searchQuery, setSearchQuery] = useState('');
@@ -20,8 +22,20 @@ const ActivityList = ({ activities, onDuplicate }) => {
     const [channelFilter, setChannelFilter] = useState('All');
     const [statusFilter, setStatusFilter] = useState('All');
 
+    // Drawer State
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const [selectedActivity, setSelectedActivity] = useState(null);
+
+    const handleViewPerformance = (activity) => {
+        setSelectedActivity(activity);
+        setIsDrawerOpen(true);
+    };
+
     // Filter Logic
     const filteredActivities = activities.filter(act => {
+        // TEMPORARY: Hide SMS as per requirement
+        if (act.type === 'sms') return false;
+
         const matchesSearch = act.internalName.toLowerCase().includes(searchQuery.toLowerCase());
         const matchesBrand = brandFilter === 'All' || act.brandId === brandFilter; // Simplified Brand ID check
         const matchesChannel = channelFilter === 'All' || act.type.toLowerCase() === channelFilter.toLowerCase();
@@ -51,6 +65,7 @@ const ActivityList = ({ activities, onDuplicate }) => {
     };
 
     return (
+        <>
         <div className="flex flex-col h-full">
             {/* Unified Card Container */}
             <div className="flex flex-col h-full bg-white border border-gray-200 shadow-sm rounded-xl overflow-hidden">
@@ -81,7 +96,7 @@ const ActivityList = ({ activities, onDuplicate }) => {
                         />
                         <DropdownSelect 
                             label="Channel"
-                            options={['All', 'Email', 'Social', 'SMS']}
+                            options={['All', 'Email', 'Social']}
                             value={channelFilter}
                             onChange={setChannelFilter}
                         />
@@ -111,12 +126,12 @@ const ActivityList = ({ activities, onDuplicate }) => {
                             <tr>
                                 <th className="py-3 px-6 text-[10px] font-bold text-gray-500 uppercase tracking-widest w-[20%]">Activity Name</th>
                                 <th className="py-3 px-6 text-[10px] font-bold text-gray-500 uppercase tracking-widest w-[12%]">Brand</th>
-                                <th className="py-3 px-6 text-[10px] font-bold text-gray-500 uppercase tracking-widest w-[18%]">Source Campaign</th>
+                                <th className="py-3 px-6 text-[10px] font-bold text-gray-500 uppercase tracking-widest w-[16%]">Source Campaign</th>
                                 <th className="py-3 px-6 text-[10px] font-bold text-gray-500 uppercase tracking-widest w-[10%]">Date</th>
-                                <th className="py-3 px-6 text-[10px] font-bold text-gray-500 uppercase tracking-widest w-[12%]">Channel</th>
+                                <th className="py-3 px-6 text-[10px] font-bold text-gray-500 uppercase tracking-widest w-[10%]">Channel</th>
                                 <th className="py-3 px-6 text-[10px] font-bold text-gray-500 uppercase tracking-widest w-[10%]">Status</th>
                                 <th className="py-3 px-6 text-[10px] font-bold text-gray-500 uppercase tracking-widest w-[10%]">Performance</th>
-                                <th className="py-3 px-6 text-[10px] font-bold text-gray-500 uppercase tracking-widest text-right w-[8%]">Action</th>
+                                <th className="py-3 px-6 text-[10px] font-bold text-gray-500 uppercase tracking-widest text-right w-[12%]">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-50">
@@ -125,6 +140,7 @@ const ActivityList = ({ activities, onDuplicate }) => {
                                     const sourceCampaign = getCampaignById(act.campaignId);
                                     const statusClass = STATUS_CONFIG[act.status] || STATUS_CONFIG['Draft'];
                                     const brandName = getBrandName(act.brandId);
+                                    const canViewPerformance = ['Sent', 'Posted'].includes(act.status);
 
                                     return (
                                         <tr key={act.id} className="group hover:bg-gray-50/50 transition-colors">
@@ -198,45 +214,50 @@ const ActivityList = ({ activities, onDuplicate }) => {
 
                                             {/* Actions */}
                                             <td className="py-4 px-6 align-middle text-right">
-                                                <Popover.Root>
-                                                    <Popover.Trigger asChild>
-                                                        <button className="p-1.5 text-gray-300 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors outline-none focus:outline-none">
-                                                            <MoreHorizontal size={16} />
-                                                        </button>
-                                                    </Popover.Trigger>
-                                                    <Popover.Portal>
-                                                        <Popover.Content className="w-48 bg-white border border-gray-100 rounded-lg shadow-xl p-1 z-50 animate-in fade-in zoom-in-95" align="end" sideOffset={5}>
-                                                             <div className="flex flex-col gap-0.5">
-                                                                {/* Edit */}
-                                                                <button className="flex items-center gap-2 px-3 py-2 text-xs font-medium text-gray-700 hover:bg-gray-50 rounded-md text-left w-full transition-colors">
-                                                                    <Edit size={14} className="text-gray-400" /> Edit Activity
-                                                                </button>
-
-                                                                {/* View Report */}
-                                                                {['Sent', 'Posted'].includes(act.status) && (
+                                                <div className="flex items-center justify-end gap-1">
+                                                    {canViewPerformance && (
+                                                         <button 
+                                                            onClick={() => handleViewPerformance(act)}
+                                                            className="p-1.5 text-gray-400 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
+                                                            title="View Activity Performance"
+                                                         >
+                                                            <BarChart2 size={16} />
+                                                         </button>
+                                                    )}
+                                                    
+                                                    <Popover.Root>
+                                                        <Popover.Trigger asChild>
+                                                            <button className="p-1.5 text-gray-400 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors outline-none focus:outline-none">
+                                                                <MoreHorizontal size={16} />
+                                                            </button>
+                                                        </Popover.Trigger>
+                                                        <Popover.Portal>
+                                                            <Popover.Content className="w-48 bg-white border border-gray-100 rounded-lg shadow-xl p-1 z-50 animate-in fade-in zoom-in-95" align="end" sideOffset={5}>
+                                                                 <div className="flex flex-col gap-0.5">
+                                                                    {/* Edit */}
                                                                     <button className="flex items-center gap-2 px-3 py-2 text-xs font-medium text-gray-700 hover:bg-gray-50 rounded-md text-left w-full transition-colors">
-                                                                        <BarChart2 size={14} className="text-gray-400" /> View Performance
+                                                                        <Edit size={14} className="text-gray-400" /> Edit Activity
                                                                     </button>
-                                                                )}
-                                                                
-                                                                <div className="h-px bg-gray-100 my-1"></div>
 
-                                                                {/* Duplicate */}
-                                                                <button 
-                                                                    onClick={() => onDuplicate && onDuplicate(act.id)}
-                                                                    className="flex items-center gap-2 px-3 py-2 text-xs font-medium text-gray-700 hover:bg-gray-50 rounded-md text-left w-full transition-colors"
-                                                                >
-                                                                    <Copy size={14} className="text-gray-400" /> Duplicate
-                                                                </button>
+                                                                    <div className="h-px bg-gray-100 my-1"></div>
 
-                                                                {/* Delete */}
-                                                                <button className="flex items-center gap-2 px-3 py-2 text-xs font-medium text-red-600 hover:bg-red-50 rounded-md text-left w-full transition-colors">
-                                                                    <Trash2 size={14} /> Delete
-                                                                </button>
-                                                             </div>
-                                                        </Popover.Content>
-                                                    </Popover.Portal>
-                                                </Popover.Root>
+                                                                    {/* Duplicate */}
+                                                                    <button 
+                                                                        onClick={() => onDuplicate && onDuplicate(act.id)}
+                                                                        className="flex items-center gap-2 px-3 py-2 text-xs font-medium text-gray-700 hover:bg-gray-50 rounded-md text-left w-full transition-colors"
+                                                                    >
+                                                                        <Copy size={14} className="text-gray-400" /> Duplicate
+                                                                    </button>
+
+                                                                    {/* Delete */}
+                                                                    <button className="flex items-center gap-2 px-3 py-2 text-xs font-medium text-red-600 hover:bg-red-50 rounded-md text-left w-full transition-colors">
+                                                                        <Trash2 size={14} /> Delete
+                                                                    </button>
+                                                                 </div>
+                                                            </Popover.Content>
+                                                        </Popover.Portal>
+                                                    </Popover.Root>
+                                                </div>
                                             </td>
                                         </tr>
                                     )
@@ -257,6 +278,14 @@ const ActivityList = ({ activities, onDuplicate }) => {
                 </div>
             </div>
         </div>
+
+        {/* Performance Drawer */}
+        <ActivityPerformanceDrawer 
+            isOpen={isDrawerOpen}
+            onClose={() => setIsDrawerOpen(false)}
+            activity={selectedActivity}
+        />
+        </>
     );
 };
 

@@ -91,7 +91,7 @@ const ACTIVITIES = [
     type: "social",
     platform: ["instagram", "facebook"],
     status: "Posted",
-    performance: { metric: "Likes", value: "1.2K" },
+    performance: { metric: "Engagement", value: "1.4K" },
     updatedAt: "2025-12-08T11:00:00",
     scheduledDate: "2025-12-08T11:00:00",
     author: {
@@ -108,7 +108,7 @@ const ACTIVITIES = [
     type: "social",
     platform: ["instagram", "facebook", "x"],
     status: "Posted",
-    performance: { metric: "Reach", value: "5.5K" },
+    performance: { metric: "Engagement", value: "425" },
     updatedAt: "2025-12-05T09:00:00",
     scheduledDate: "2025-12-05T09:00:00",
     author: {

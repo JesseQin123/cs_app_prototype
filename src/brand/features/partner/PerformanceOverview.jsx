@@ -90,7 +90,10 @@ const PerformanceOverview = ({ campaigns }) => {
       {/* 1. Header & Controls */}
       <div className="flex items-center justify-between mb-4 border-b border-gray-100 pb-4">
          <div className="flex items-center gap-4 py-1">
-            <h2 className="text-lg font-bold text-gray-900">Performance Overview</h2>
+            <div className="flex items-baseline gap-3">
+               <h2 className="text-lg font-bold text-gray-900">Performance Overview</h2>
+               <span className="text-xs font-medium text-gray-400 bg-gray-50 px-2 py-0.5 rounded border border-gray-200">Last 30 Days</span>
+            </div>
             <button 
               onClick={() => setIsExpanded(!isExpanded)}
               className="p-1 hover:bg-gray-100 rounded-full text-gray-400 transition"

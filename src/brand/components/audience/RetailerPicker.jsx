@@ -214,12 +214,7 @@ const RetailerPicker = ({ isOpen, onClose, selectedIds = [], onConfirm }) => {
             I'll let it scroll for now or merge into sticky block.
             Let's merge into sticky block to keep 'Select All' available.
         */}
-        <div className="px-6 py-2 bg-gray-50 border-b border-gray-100 flex items-center justify-between text-xs font-medium text-gray-500 sticky top-[157px] z-10 hidden">
-           {/* Can't easily sticky multiple elements without container. I'll put it in the sticky container above if I want it sticky, or leave it scrolling. 
-               Let's leave it scrolling for simplicity of refactor, or just accept it's part of the list flow.
-               Actually, a separate sticky header for 'Select All' is nice.
-           */}
-        </div>
+
         
         {/* Re-implementing List Header as simple scrolling element for now to avoid layout complexity inside Drawer children */}
         <div className="px-6 py-2 bg-gray-50 border-b border-gray-100 flex items-center justify-between text-xs font-medium text-gray-500">
@@ -268,8 +263,8 @@ const RetailerPicker = ({ isOpen, onClose, selectedIds = [], onConfirm }) => {
                             <div className="flex items-center gap-2 mb-0.5">
                                <span className={`text-sm font-semibold truncate ${isSelected ? 'text-black' : 'text-gray-900'}`}>{retailer.name}</span>
                                <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider leading-none ${
-                                   retailer.tier === 'platinum' ? 'bg-slate-900 text-white' : 
-                                   retailer.tier === 'gold' ? 'bg-amber-100 text-amber-800' : 
+                                   retailer.tier === 't-1' ? 'bg-slate-900 text-white' : 
+                                   retailer.tier === 't-2' ? 'bg-amber-100 text-amber-800' : 
                                    'bg-gray-100 text-gray-600'
                                }`}>
                                    {tierLabel}
