@@ -1,5 +1,5 @@
 import React from 'react';
-import { LayoutDashboard, Store, Users, Mail, FolderOpen, BarChart3, Settings } from 'lucide-react';
+import { LayoutDashboard, Store, Users, Mail, FolderOpen, BarChart3, Settings, Megaphone } from 'lucide-react';
 import BrandLogo from '@/assets/crownsync_logo-with-text.svg';
 import Sidebar from '../../components/Sidebar';
 
@@ -19,6 +19,7 @@ const RetailerSidebar = ({ activePage, setActivePage, user }) => {
         { id: 'brand-center-downloads', label: 'Download History' },
       ]
     },
+    { id: 'my-marketing', icon: Megaphone, label: 'My Marketing' },
     { id: 'crm', icon: Users, label: 'CRM' },
     { id: 'inbox', icon: Mail, label: 'Unify Inbox' },
     { id: 'analytics', icon: BarChart3, label: 'Analytics' },

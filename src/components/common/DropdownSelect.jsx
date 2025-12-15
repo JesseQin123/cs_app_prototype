@@ -67,7 +67,7 @@ const DropdownSelect = ({
         <div className="flex items-center gap-2 truncate pr-2">
             {Icon && <Icon size={14} className="text-gray-400 flex-shrink-0" />}
             <span className={`text-sm font-medium truncate ${isModified ? 'text-gray-900' : 'text-gray-600'}`}>
-                {getLabel(value) || placeholder}
+                {(label ? label + ': ' : '') + getLabel(value) || placeholder}
             </span>
         </div>
 

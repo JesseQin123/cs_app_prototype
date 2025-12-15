@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import RetailerSidebar from './retailer/components/RetailerSidebar';
 import BrandCenter from './retailer/features/brand-center/BrandCenter';
 import Dashboard from './retailer/features/dashboard/Dashboard';
+import MyMarketing from './retailer/features/my-marketing/MyMarketing';
 
 import { currentRetailerUser } from './data/mockStore/retailerStore';
 
@@ -26,6 +27,8 @@ const RetailerApp = ({ campaigns, catalogs, templates, files, showEmptyState }) 
            />
         ) : activePage === 'dashboard' ? (
            <Dashboard user={user} onNavigate={setActivePage} />
+        ) : activePage === 'my-marketing' ? (
+           <MyMarketing onNavigate={setActivePage} />
         ) : (
            <div className="p-12 flex items-center justify-center h-full text-gray-400">
               {activePage.charAt(0).toUpperCase() + activePage.slice(1)} View Placeholder
