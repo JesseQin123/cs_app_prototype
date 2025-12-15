@@ -117,17 +117,21 @@ const CreateCampaignModal = ({ isOpen, onClose, onSave }) => {
               <div>
                  <label className="block text-sm font-bold text-gray-900 mb-2">Cover Image <span className="text-red-500">*</span></label>
                  <FileUploadTrigger 
-                    label="Campaign Cover Image"
-                    // 1. Upload Limit: Allow 50MB raw files for convenience
-                    maxUploadSizeMB={50}
-                    // 2. Output Target: Auto-compress to <1MB for performance
+                    mode="card"
+                    // Output Target: Auto-compress to <1MB for performance
                     compressTargetMB={1}
                     currentFile={formData.coverImage ? { url: formData.coverImage } : null}
                     onFileSelect={(asset) => {
                         setFormData({...formData, coverImage: asset.url});
                         if (errors.coverImage) setErrors({...errors, coverImage: null});
                     }}
-                    requiredAspectRatios={[[16,9],[4,3],[1,1]]}
+                    requiredAspectRatios={[[16,9]]}
+                    helperText={{
+                        ratio: "Recommended Ratio: 16:9",
+                        size: "Max Size: 1MB (Auto-Compressed)",
+                        format: "Supports JPG / PNG / WebP",
+                        note: "Smart cropping & compression enabled"
+                    }}
                  />
                  {errors.coverImage && <p className="text-xs text-red-500 mt-1">{errors.coverImage}</p>}
               </div>

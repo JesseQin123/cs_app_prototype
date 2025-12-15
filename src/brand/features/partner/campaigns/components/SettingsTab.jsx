@@ -90,7 +90,7 @@ const SettingsTab = ({ campaign, onUpdate }) => {
                   onFileSelect={(asset) => setLocalCampaign({...localCampaign, coverImage: asset.url})}
                   requiredAspectRatios={[[16,9]]}
               />
-              <p className="text-xs text-gray-500 mt-2">Recommended: 1920x1080px (16:9). Max 5MB.</p>
+              <p className="text-xs text-gray-500 mt-2">Recommended: 1280x720px (16:9). Max 1MB.</p>
            </div>
         </div>
       </section>

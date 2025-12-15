@@ -1,9 +1,9 @@
-import cover1 from "../../assets/mock/verragio/brand/cover/cover1.png";
-import cover2 from "../../assets/mock/verragio/brand/cover/cover2.png";
-import cover3 from "../../assets/mock/verragio/brand/cover/cover3.png";
-import cover4 from "../../assets/mock/verragio/brand/cover/cover4.png";
-import cover5 from "../../assets/mock/verragio/brand/cover/cover5.png";
-import cover6 from "../../assets/mock/verragio/brand/cover/cover6.png";
+const cover1 = "/mock/verragio/brand/cover/cover1.png";
+const cover2 = "/mock/verragio/brand/cover/cover2.png";
+const cover3 = "/mock/verragio/brand/cover/cover3.png";
+const cover4 = "/mock/verragio/brand/cover/cover4.png";
+const cover5 = "/mock/verragio/brand/cover/cover5.png";
+const cover6 = "/mock/verragio/brand/cover/cover6.png";
 
 export const resourceData = {
   folders: [
@@ -78,126 +78,94 @@ export const resourceData = {
   files: {
     "res-001": [
       {
-        id: "f1",
-        name: "VM_Guide_Spring_2025.pdf",
-        type: "pdf",
-        size: "12.5 MB",
+        id: "res-f-img-01",
+        name: "M126729VTNR-0001_2501stojan_002_RVB_1080x1080.jpg",
+        type: "jpg",
+        size: "76 KB",
         addedAt: "2d ago",
+        url: "/mock/files/M126729VTNR-0001_2501stojan_002_RVB_1080x1080.jpg",
       },
       {
-        id: "f2",
-        name: "Window_Display_Planogram.jpg",
-        type: "image",
-        size: "4.2 MB",
+        id: "res-f-img-02",
+        name: "M127285TBR-0002_2501fj_003_1080x1080.jpg",
+        type: "jpg",
+        size: "125 KB",
         addedAt: "2d ago",
-      },
-      {
-        id: "f3",
-        name: "Showcase_Lighting_Specs.pdf",
-        type: "pdf",
-        size: "1.8 MB",
-        addedAt: "5d ago",
-      },
-      {
-        id: "f4",
-        name: "Fixture_Order_Form.xlsx",
-        type: "sheet",
-        size: "45 KB",
-        addedAt: "1w ago",
+        url: "/mock/files/M127285TBR-0002_2501fj_003_1080x1080.jpg",
       },
     ],
     "res-002": [
       {
-        id: "f5",
-        name: "Verragio_Logo_Pack.zip",
-        type: "zip",
-        size: "156 MB",
-        addedAt: "1 week ago",
-      },
-      {
-        id: "f6",
-        name: "Brand_Voice_Guidelines.pdf",
+        id: "res-f-pdf-01",
+        name: "Print_Article_2P_NP25_package.pdf",
         type: "pdf",
-        size: "3.4 MB",
+        size: "483 KB",
         addedAt: "1 week ago",
+        url: "/mock/files/Print_Article_2P_NP25_package.pdf",
       },
       {
-        id: "f7",
-        name: "Typography_SuisseIntl.zip",
-        type: "zip",
-        size: "12 MB",
+        id: "res-f-doc-01",
+        name: "Print_Article_6P_NP25_package_en.docx",
+        type: "doc",
+        size: "24 KB",
         addedAt: "1 week ago",
-      },
-      {
-        id: "f8",
-        name: "Color_Palette_2025.ase",
-        type: "file",
-        size: "2 KB",
-        addedAt: "1 week ago",
+        url: "/mock/files/Print_Article_6P_NP25_package_en.docx",
       },
     ],
     "res-003": [
       {
-        id: "f9",
-        name: "VIP_Event_Invitation_Template.indd",
-        type: "file",
-        size: "45 MB",
+        id: "res-f-vid-01",
+        name: "Rolex_MP_OLV_WATCHMAKING_MANIFESTO_en_1080x1080.mp4",
+        type: "mp4",
+        size: "11.2 MB",
         addedAt: "3d ago",
-      },
-      {
-        id: "f10",
-        name: "Concierge_Service_Manual.pdf",
-        type: "pdf",
-        size: "2.1 MB",
-        addedAt: "3d ago",
-      },
-      {
-        id: "f11",
-        name: "High_Jewelry_Catalog_Digital.pdf",
-        type: "pdf",
-        size: "85 MB",
-        addedAt: "3d ago",
+        url: "/mock/files/Rolex_MP_OLV_WATCHMAKING_MANIFESTO_en_1080x1080.mp4",
       },
     ],
     "res-004": [
       {
-        id: "f12",
-        name: "Draft_Setup_Diagram.png",
-        type: "image",
-        size: "2.3 MB",
+        id: "res-f-vid-02",
+        name: "Rolex_MP_OLV_WATCHMAKING_PRECISION_EN_1080x1920.mp4",
+        type: "mp4",
+        size: "24.6 MB",
         addedAt: "Just now",
+        url: "/mock/files/Rolex_MP_OLV_WATCHMAKING_PRECISION_EN_1080x1920.mp4",
       },
     ],
     "res-005": [
       {
-        id: "f13",
-        name: "Legal_Claims_Matrix.xlsx",
-        type: "sheet",
-        size: "35 KB",
+        id: "res-f-img-04",
+        name: "alexander-andrews-anUOLC3zMD4-unsplash.jpg",
+        type: "jpg",
+        size: "5.8 MB",
         addedAt: "1 mo ago",
+        url: "/mock/files/alexander-andrews-anUOLC3zMD4-unsplash.jpg",
       },
       {
-        id: "f14",
-        name: "Q1_Talking_Points.pdf",
-        type: "pdf",
-        size: "1.2 MB",
+        id: "res-f-txt-01",
+        name: "bltcb4f881468b7afa1_en-gb.txt",
+        type: "txt",
+        size: "1 KB",
         addedAt: "1 mo ago",
+        url: "/mock/files/bltcb4f881468b7afa1_en-gb.txt",
       },
     ],
     "res-006": [
       {
-        id: "f15",
-        name: "Sales_Ritual_Training.mp4",
-        type: "video",
-        size: "250 MB",
+        id: "res-f-webp-01",
+        name: "banner-1.webp",
+        type: "webp",
+        size: "60 KB",
         addedAt: "2w ago",
+        url: "/mock/files/banner-1.webp",
       },
       {
-        id: "f16",
-        name: "Diamond_Knowledge_Base.pdf",
-        type: "pdf",
-        size: "5.6 MB",
+        id: "res-f-img-05",
+        name: "img-001.jpg",
+        type: "jpg",
+        size: "1.4 MB",
         addedAt: "2w ago",
+        url: "/mock/files/img-001.jpg",
       },
     ],
   },

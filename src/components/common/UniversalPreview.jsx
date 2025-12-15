@@ -22,6 +22,7 @@ const UniversalPreview = ({
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+  const [dimensions, setDimensions] = useState(null);
   
   // PDF State
   const [numPages, setNumPages] = useState(null);
@@ -31,6 +32,7 @@ const UniversalPreview = ({
   const resetState = () => {
       setIsLoading(true);
       setHasError(false);
+      setDimensions(null);
       setNumPages(null);
       setPdfPageNumber(1);
       setScale(1.0);
@@ -83,7 +85,6 @@ const UniversalPreview = ({
       setScale(prev => (prev >= 1.5 ? 1.0 : prev + 0.25));
   };
 
-
   const handleDownload = () => {
     if (isDeleted) return;
     const link = document.createElement('a');
@@ -110,13 +111,13 @@ const UniversalPreview = ({
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, handleNext, handlePrev, onClose]);
-
+  
   if (!isOpen || !currentItem) return null;
 
   // -- Render Content Logic --
   const renderContent = () => {
       if (isDeleted) {
-          return (
+           return (
               <div className="flex flex-col items-center justify-center text-white text-center p-8">
                   <div className="w-20 h-20 rounded-full bg-red-500/10 flex items-center justify-center mb-6 border border-red-500/20">
                       <AlertCircle size={48} className="text-red-500" />
@@ -142,24 +143,23 @@ const UniversalPreview = ({
       }
 
       if (!isPreviewable) {
-          // Fallback UI
-          let Icon = Package;
-          if (fileType.includes('doc')) Icon = FileText;
-          if (fileType.includes('zip')) Icon = Package;
-          
-          return (
-              <div className="flex flex-col items-center justify-center text-white text-center p-8 animate-in zoom-in-95 duration-300">
-                  <div className="w-24 h-24 mb-6 text-gray-400">
-                     <Icon size={96} strokeWidth={1} />
-                  </div>
-                  <h3 className="text-2xl font-light mb-2">{file.name}</h3>
-                  <p className="text-gray-400 mb-8">Preview not available for this file type.</p>
-                  
-                  <button onClick={handleDownload} className="px-8 py-3 bg-white text-black font-medium rounded-full hover:bg-gray-100 transition-transform active:scale-95 flex items-center gap-2 shadow-lg shadow-white/10">
-                      <Download size={18} /> Download File
-                  </button>
-              </div>
-          );
+           let Icon = Package;
+           if (fileType.includes('doc')) Icon = FileText;
+           if (fileType.includes('zip')) Icon = Package;
+           
+           return (
+               <div className="flex flex-col items-center justify-center text-white text-center p-8 animate-in zoom-in-95 duration-300">
+                   <div className="w-24 h-24 mb-6 text-gray-400">
+                      <Icon size={96} strokeWidth={1} />
+                   </div>
+                   <h3 className="text-2xl font-light mb-2">{file.name}</h3>
+                   <p className="text-gray-400 mb-8">Preview not available for this file type.</p>
+                   
+                   <button onClick={handleDownload} className="px-8 py-3 bg-white text-black font-medium rounded-full hover:bg-gray-100 transition-transform active:scale-95 flex items-center gap-2 shadow-lg shadow-white/10">
+                       <Download size={18} /> Download File
+                   </button>
+               </div>
+           );
       }
 
       // -- Actual Preview Renderers --
@@ -177,7 +177,10 @@ const UniversalPreview = ({
                     src={file.url} 
                     alt={file.name}
                     className={`max-w-[90%] max-h-[90%] object-contain transition-opacity duration-300 shadow-2xl ${isLoading ? 'opacity-0' : 'opacity-100'}`}
-                    onLoad={() => setIsLoading(false)}
+                    onLoad={(e) => {
+                        setIsLoading(false);
+                        setDimensions({ width: e.target.naturalWidth, height: e.target.naturalHeight });
+                    }}
                     onError={() => { setIsLoading(false); setHasError(true); }}
                 />
             </div>
@@ -191,7 +194,10 @@ const UniversalPreview = ({
                   controls 
                   className="max-w-[80%] max-h-[90%] outline-none shadow-2xl rounded-lg bg-black"
                   src={file.url}
-                  onLoadedData={() => setIsLoading(false)}
+                  onLoadedData={(e) => {
+                      setIsLoading(false);
+                      setDimensions({ width: e.target.videoWidth, height: e.target.videoHeight });
+                  }}
                   onError={() => { setIsLoading(false); setHasError(true); }}
               >
                   Your browser does not support the video tag.
@@ -278,6 +284,15 @@ const UniversalPreview = ({
                   </h2>
                   <div className="text-xs text-gray-400 flex items-center gap-2">
                        <span>{file.size || 'Unknown Size'}</span>
+                       
+                       {/* Dimensions Display */}
+                       {dimensions && (
+                           <>
+                            <span className="w-1 h-1 rounded-full bg-gray-500"></span>
+                            <span className="font-mono">{dimensions.width}x{dimensions.height}</span>
+                           </>
+                       )}
+
                        {/* Brand info if available in item */}
                        {currentItem?.brandId && (
                            <>
