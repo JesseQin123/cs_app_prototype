@@ -1,5 +1,3 @@
-import { files } from "./fileStore";
-
 /**
  * Mock Store for Global Upload System (Temp Assets)
  *
@@ -23,13 +21,29 @@ export const uploadStore = {
   // Add a new file (Raw upload or Cropped blob)
   addTempFile: (fileBlob, metadata = {}) => {
     const id = generateId("tmp");
+
+    // Safety check: Is this a Blob/File or a Library Asset object?
+    let objectUrl;
+    if (fileBlob instanceof Blob || fileBlob instanceof File) {
+      objectUrl = URL.createObjectURL(fileBlob);
+    } else if (fileBlob && typeof fileBlob === "object" && fileBlob.url) {
+      // reuse existing URL from library asset
+      objectUrl = fileBlob.url;
+    } else {
+      console.warn(
+        "uploadStore.addTempFile received invalid file object",
+        fileBlob
+      );
+      objectUrl = "";
+    }
+
     const newAsset = {
       id,
-      url: URL.createObjectURL(fileBlob), // Create preview URL
+      url: objectUrl,
       file: fileBlob,
       name: fileBlob.name || metadata.name || "Untitled",
-      type: fileBlob.type,
-      size: fileBlob.size,
+      type: fileBlob.type || "image/jpeg",
+      size: fileBlob.size || 0,
       lastModified: new Date().toISOString(),
       isDerived: metadata.isDerived || false,
       parentFileId: metadata.parentFileId || null, // If derived from existing file
