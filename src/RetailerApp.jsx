@@ -3,6 +3,7 @@ import RetailerSidebar from './retailer/components/RetailerSidebar';
 import BrandCenter from './retailer/features/brand-center/BrandCenter';
 import Dashboard from './retailer/features/dashboard/Dashboard';
 import MyMarketing from './retailer/features/my-marketing/MyMarketing';
+import RetailerAnalytics from './retailer/features/analytics/RetailerAnalytics';
 
 import { currentRetailerUser } from './data/mockStore/retailerStore';
 
@@ -29,6 +30,10 @@ const RetailerApp = ({ campaigns, catalogs, templates, files, showEmptyState }) 
            <Dashboard user={user} onNavigate={setActivePage} />
         ) : activePage === 'my-marketing' ? (
            <MyMarketing onNavigate={setActivePage} />
+        ) : activePage === 'analytics' ? (
+           <div className="h-full overflow-y-auto">
+              <RetailerAnalytics showEmptyState={showEmptyState} />
+           </div>
         ) : (
            <div className="p-12 flex items-center justify-center h-full text-gray-400">
               {activePage.charAt(0).toUpperCase() + activePage.slice(1)} View Placeholder

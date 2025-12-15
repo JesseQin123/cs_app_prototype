@@ -55,3 +55,25 @@
 @utility animate-dialog-exit {
   animation: dialogExit 0.2s ease-out forwards;
 }
+
+/* ============================================
+   Custom Scrollbar Utilities
+   ============================================ */
+.scrollbar-hover-trigger {
+  overflow-y: auto;
+}
+
+.scrollbar-hover-trigger::-webkit-scrollbar {
+  width: 5px;
+  background-color: transparent;
+}
+
+.scrollbar-hover-trigger::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 9999px;
+  transition: background-color 0.2s;
+}
+
+.scrollbar-hover-trigger:hover::-webkit-scrollbar-thumb {
+  background-color: #d1d5db; /* gray-300 */
+}
