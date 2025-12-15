@@ -42,7 +42,7 @@ const FloatingDevTools = ({ showEmptyState, setShowEmptyState }) => {
                   onClick={() => navigate(isRetailer ? '/' : '/retailer')}
                   className="w-full text-left px-3 py-3 hover:bg-gray-800 rounded-lg transition flex items-center gap-3 text-sm font-medium whitespace-nowrap"
                 >
-                  <ArrowRightLeft size={18} className="text-indigo-400 flex-shrink-0"/> 
+                  <ArrowRightLeft size={18} className="text-indigo-400 shrink-0"/> 
                   <div className="flex flex-col overflow-hidden">
                      <span>Switch View</span>
                      <span className="text-[10px] text-gray-400 truncate">Current: {isRetailer ? 'Retailer' : 'Brand'}</span>
@@ -53,7 +53,7 @@ const FloatingDevTools = ({ showEmptyState, setShowEmptyState }) => {
                   onClick={() => setShowEmptyState(!showEmptyState)}
                   className="w-full text-left px-3 py-3 hover:bg-gray-800 rounded-lg transition flex items-center gap-3 text-sm font-medium whitespace-nowrap"
                 >
-                  {showEmptyState ? <MonitorCheck size={18} className="text-emerald-400 flex-shrink-0"/> : <MonitorOff size={18} className="text-orange-400 flex-shrink-0"/>}
+                  {showEmptyState ? <MonitorCheck size={18} className="text-emerald-400 shrink-0"/> : <MonitorOff size={18} className="text-orange-400 shrink-0"/>}
                   <div className="flex flex-col overflow-hidden">
                      <span>{showEmptyState ? 'Show Content' : 'Test Empty State'}</span>
                      <span className="text-[10px] text-gray-400 truncate">{showEmptyState ? 'Content Hidden' : 'Content Visible'}</span>

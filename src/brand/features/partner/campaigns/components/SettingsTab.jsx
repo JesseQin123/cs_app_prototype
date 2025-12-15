@@ -47,7 +47,7 @@ const SettingsTab = ({ campaign, onUpdate }) => {
         <h3 className="text-lg font-bold text-gray-900 mb-1">General Information</h3>
         <p className="text-sm text-gray-500 mb-6">Update the basic details of your campaign.</p>
         
-        <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm space-y-6">
+        <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-xs space-y-6">
            {/* Title */}
            <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Campaign Title</label>
@@ -55,7 +55,7 @@ const SettingsTab = ({ campaign, onUpdate }) => {
                 type="text" 
                 value={localCampaign.title}
                 onChange={(e) => setLocalCampaign({...localCampaign, title: e.target.value})}
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black/5 font-medium text-gray-900"
+                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-black/5 font-medium text-gray-900"
                 placeholder="e.g., Summer Sale 2024"
               />
            </div>
@@ -76,7 +76,7 @@ const SettingsTab = ({ campaign, onUpdate }) => {
                     }
                 }}
                 rows={3}
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black/5 text-gray-600 resize-none"
+                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-black/5 text-gray-600 resize-none"
                 placeholder="Briefly describe the campaign's goal..."
               />
            </div>
@@ -100,7 +100,7 @@ const SettingsTab = ({ campaign, onUpdate }) => {
         <h3 className="text-lg font-bold text-gray-900 mb-1">Audience</h3>
         <p className="text-sm text-gray-500 mb-6">Define which retailers can access this campaign.</p>
         
-        <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
+        <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-xs">
            <AudienceSelector 
               value={localCampaign.audienceData || { type: 'all', segments: [], retailers: [] }}
               onChange={(val) => {
@@ -123,7 +123,7 @@ const SettingsTab = ({ campaign, onUpdate }) => {
         <h3 className="text-lg font-bold text-gray-900 mb-1">Validity Period</h3>
         <p className="text-sm text-gray-500 mb-6">Set the timeframe for this campaign.</p>
         
-        <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm flex gap-6">
+        <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-xs flex gap-6">
            <div className="flex-1">
               <label className="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
               <div className="relative">
@@ -132,7 +132,7 @@ const SettingsTab = ({ campaign, onUpdate }) => {
                    type="date" 
                    value={localCampaign.startDate}
                    onChange={(e) => setLocalCampaign({...localCampaign, startDate: e.target.value})}
-                   className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black/5"
+                   className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-black/5"
                  />
               </div>
            </div>
@@ -145,7 +145,7 @@ const SettingsTab = ({ campaign, onUpdate }) => {
                    value={localCampaign.endDate === 'Permanent' ? '' : localCampaign.endDate}
                    disabled={localCampaign.endDate === 'Permanent'}
                    onChange={(e) => setLocalCampaign({...localCampaign, endDate: e.target.value})}
-                   className={`w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black/5 ${localCampaign.endDate === 'Permanent' ? 'bg-gray-50 text-gray-400' : ''}`}
+                   className={`w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-black/5 ${localCampaign.endDate === 'Permanent' ? 'bg-gray-50 text-gray-400' : ''}`}
                  />
               </div>
               <label className="flex items-center gap-2 mt-2 cursor-pointer">
@@ -153,7 +153,7 @@ const SettingsTab = ({ campaign, onUpdate }) => {
                    type="checkbox" 
                    checked={localCampaign.endDate === 'Permanent'}
                    onChange={(e) => setLocalCampaign({...localCampaign, endDate: e.target.checked ? 'Permanent' : ''})}
-                   className="rounded border-gray-300 text-black focus:ring-black"
+                   className="rounded-sm border-gray-300 text-black focus:ring-black"
                  />
                  <span className="text-sm text-gray-600">No Expiration Date</span>
               </label>

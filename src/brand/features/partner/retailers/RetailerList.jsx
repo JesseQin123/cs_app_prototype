@@ -171,7 +171,7 @@ const RetailerList = ({ retailers, onSelectRetailer, onEditRetailer, onInviteRet
   const pendingCount = retailers.filter(r => r.hasPendingAction).length;
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 overflow-hidden flex flex-col h-full shadow-sm">
+    <div className="bg-white rounded-lg border border-gray-200 overflow-hidden flex flex-col h-full shadow-xs">
       {/* Filter Bar */}
       <div className="p-4 border-b border-gray-100 flex flex-col gap-4">
         {/* Row 1: Search + Actions + Dropdowns */}
@@ -182,7 +182,7 @@ const RetailerList = ({ retailers, onSelectRetailer, onEditRetailer, onInviteRet
                 <input 
                     type="text" 
                     placeholder="Search by name, ID, or email..." 
-                    className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black/5 transition"
+                    className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-black/5 transition"
                 />
             </div>
 
@@ -234,7 +234,7 @@ const RetailerList = ({ retailers, onSelectRetailer, onEditRetailer, onInviteRet
 
              <button 
                 onClick={onInviteRetailers}
-                className="px-4 py-2 bg-black text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition flex items-center gap-2 shadow-sm ml-4"
+                className="px-4 py-2 bg-black text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition flex items-center gap-2 shadow-xs ml-4"
              >
                 <Plus size={16} /> Invite Retailers
              </button>
@@ -326,7 +326,7 @@ const RetailerList = ({ retailers, onSelectRetailer, onEditRetailer, onInviteRet
                     {/* Name */}
                     <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
-                            <div className={`w-10 h-10 rounded-full ${retailer.logo} flex items-center justify-center text-white font-bold text-sm flex-shrink-0`}>
+                            <div className={`w-10 h-10 rounded-full ${retailer.logo} flex items-center justify-center text-white font-bold text-sm shrink-0`}>
                                 {retailer.name.substring(0, 2).toUpperCase()}
                             </div>
                             <div className="min-w-0">

@@ -39,7 +39,7 @@ const SocialView = () => {
                                 onClick={() => setSelectedPlatform(p.id)}
                                 className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm transition ${
                                     isActive 
-                                        ? 'bg-white shadow-sm text-gray-900 font-medium border border-gray-100' 
+                                        ? 'bg-white shadow-xs text-gray-900 font-medium border border-gray-100' 
                                         : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
                                 }`}
                             >
@@ -92,7 +92,7 @@ const SocialView = () => {
                         >
                             {/* Checkbox (Mock) */}
                             <div className="pt-1">
-                                <div className={`w-4 h-4 rounded border ${selectedItemId === item.id ? 'border-brand-gold bg-brand-gold' : 'border-gray-300'}`}></div>
+                                <div className={`w-4 h-4 rounded-sm border ${selectedItemId === item.id ? 'border-brand-gold bg-brand-gold' : 'border-gray-300'}`}></div>
                             </div>
                             
                             {/* Content */}
@@ -122,7 +122,7 @@ const SocialView = () => {
             {/* 3. Right Column (Detail & Response) */}
             <div className="flex-1 flex flex-col bg-gray-50/50 p-6 overflow-hidden">
                 {currentItem ? (
-                    <div className="bg-white rounded-xl border border-gray-100 shadow-sm flex flex-col h-full overflow-hidden max-w-3xl mx-auto w-full">
+                    <div className="bg-white rounded-xl border border-gray-100 shadow-xs flex flex-col h-full overflow-hidden max-w-3xl mx-auto w-full">
                         {/* Header Post Context */}
                         <div className="p-4 border-b border-gray-100 bg-white flex items-center justify-between">
                             <div className="flex items-center gap-3">
@@ -144,7 +144,7 @@ const SocialView = () => {
                            <div className="p-6">
                                 {/* Post Image */}
                                 {currentItem.post && currentItem.post.imageUrl && (
-                                    <div className="bg-gray-100 rounded-lg overflow-hidden mb-4 shadow-sm border border-gray-100">
+                                    <div className="bg-gray-100 rounded-lg overflow-hidden mb-4 shadow-xs border border-gray-100">
                                         <img src={currentItem.post.imageUrl} alt="Post" className="w-full h-auto object-cover max-h-[500px]" />
                                     </div>
                                 )}
@@ -196,7 +196,7 @@ const SocialView = () => {
                                 <input 
                                     type="text" 
                                     placeholder="Add comment..." 
-                                    className="w-full pl-4 pr-12 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold/20 focus:border-brand-gold transition"
+                                    className="w-full pl-4 pr-12 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-brand-gold/20 focus:border-brand-gold transition"
                                 />
                                 <button className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-brand-gold font-medium text-xs uppercase tracking-wide">
                                     Post

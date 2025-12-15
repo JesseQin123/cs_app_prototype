@@ -192,7 +192,7 @@ const UniversalPreview = ({
           return (
               <video 
                   controls 
-                  className="max-w-[80%] max-h-[90%] outline-none shadow-2xl rounded-lg bg-black"
+                  className="max-w-[80%] max-h-[90%] outline-hidden shadow-2xl rounded-lg bg-black"
                   src={file.url}
                   onLoadedData={(e) => {
                       setIsLoading(false);
@@ -253,7 +253,7 @@ const UniversalPreview = ({
                             scale={scale}
                             renderAnnotationLayer={false}
                             renderTextLayer={false} // Performance opt for preview
-                            className="shadow-xl rounded-sm overflow-hidden"
+                            className="shadow-xl rounded-xs overflow-hidden"
                             height={window.innerHeight * 0.85} // Dynamic height
                         />
                     </Document>
@@ -266,16 +266,16 @@ const UniversalPreview = ({
   };
 
   return createPortal(
-    <div className="fixed inset-0 z-[9999] flex flex-col animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-9999 flex flex-col animate-in fade-in duration-200">
       
       {/* 3.1 Background Backdrop */}
       <div 
-        className="absolute inset-0 bg-black/95 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/95 backdrop-blur-xs"
         onClick={onClose} 
       />
 
       {/* 3.2 Header Toolbar */}
-      <div className="relative z-10 h-16 flex items-center justify-between px-6 border-b border-white/10 bg-gradient-to-b from-black/50 to-transparent">
+      <div className="relative z-10 h-16 flex items-center justify-between px-6 border-b border-white/10 bg-linear-to-b from-black/50 to-transparent">
           {/* Left: Info */}
           <div className="flex items-center gap-4 min-w-0 flex-1">
               <div className="flex flex-col min-w-0">
@@ -342,7 +342,7 @@ const UniversalPreview = ({
       {currentIndex > 0 && (
           <button 
               onClick={handlePrev}
-              className="fixed left-4 top-1/2 -translate-y-1/2 z-20 p-4 text-white/30 hover:text-white hover:bg-white/5 rounded-full transition-all duration-300 group outline-none"
+              className="fixed left-4 top-1/2 -translate-y-1/2 z-20 p-4 text-white/30 hover:text-white hover:bg-white/5 rounded-full transition-all duration-300 group outline-hidden"
           >
               <ChevronLeft size={40} className="group-active:-translate-x-1 transition-transform" />
           </button>
@@ -352,7 +352,7 @@ const UniversalPreview = ({
       {currentIndex < files.length - 1 && (
           <button 
               onClick={handleNext}
-              className="fixed right-4 top-1/2 -translate-y-1/2 z-20 p-4 text-white/30 hover:text-white hover:bg-white/5 rounded-full transition-all duration-300 group outline-none"
+              className="fixed right-4 top-1/2 -translate-y-1/2 z-20 p-4 text-white/30 hover:text-white hover:bg-white/5 rounded-full transition-all duration-300 group outline-hidden"
           >
               <ChevronRight size={40} className="group-active:translate-x-1 transition-transform" />
           </button>

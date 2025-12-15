@@ -12,7 +12,7 @@ const PartnerNetwork = () => {
 
    return (
       <>
-         <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100">
+         <div className="bg-white rounded-xl border border-gray-200 shadow-xs overflow-hidden flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100">
             <div className="p-5 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
                <div className="flex items-center gap-2">
                   <Users size={18} className="text-gray-500" />
@@ -60,7 +60,7 @@ const PartnerNetwork = () => {
                                    <div className="text-2xl font-bold text-gray-900 leading-none">{attentionCount}</div>
                                    <button 
                                        onClick={() => setIsDrawerOpen(true)}
-                                       className="px-2 py-1 bg-amber-50 border border-amber-200 text-amber-700 text-[10px] font-bold rounded hover:bg-amber-100 transition"
+                                       className="px-2 py-1 bg-amber-50 border border-amber-200 text-amber-700 text-[10px] font-bold rounded-sm hover:bg-amber-100 transition"
                                    >
                                        Review
                                    </button>

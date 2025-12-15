@@ -27,7 +27,7 @@ const BrandAnalytics = () => {
     return (
         <div className="h-full flex flex-col bg-gray-50">
             {/* [A] Header with Global Filters */}
-            <div className="bg-white border-b border-gray-200 px-8 pt-5 pb-0 flex flex-col gap-4 sticky top-0 z-20 shadow-sm">
+            <div className="bg-white border-b border-gray-200 px-8 pt-5 pb-0 flex flex-col gap-4 sticky top-0 z-20 shadow-xs">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4">
                     <div>
                         <h1 className="text-2xl font-bold text-gray-900 mb-1">Analytics</h1>
@@ -38,7 +38,7 @@ const BrandAnalytics = () => {
                          {/* Action Button */}
                         <button 
                             onClick={handleExport}
-                            className="bg-black text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-800 transition shadow-sm flex items-center gap-2"
+                            className="bg-black text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-800 transition shadow-xs flex items-center gap-2"
                         >
                             <Download size={16}/> Export Report
                         </button>
@@ -59,7 +59,7 @@ const BrandAnalytics = () => {
                         >
                             {tab.label}
                             {activeTab === tab.id && (
-                                <div className="absolute bottom-[-1px] left-0 w-full h-0.5 bg-black rounded-t-full"></div>
+                                <div className="absolute -bottom-px left-0 w-full h-0.5 bg-black rounded-t-full"></div>
                             )}
                         </button>
                     ))}

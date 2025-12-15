@@ -34,18 +34,18 @@ const ContentTab = ({ campaign }) => {
   // --- Card Components ---
 
   const SocialCard = ({ item }) => (
-    <div className="group relative aspect-square bg-gray-100 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition cursor-pointer">
+    <div className="group relative aspect-square bg-gray-100 rounded-xl overflow-hidden shadow-xs hover:shadow-md transition cursor-pointer">
       {/* Background Image */}
       {item.image ? (
         <img src={item.image} alt="Social Post" className="w-full h-full object-cover" />
       ) : (
-        <div className="w-full h-full bg-gradient-to-br from-gray-800 to-black flex items-center justify-center p-6">
+        <div className="w-full h-full bg-linear-to-br from-gray-800 to-black flex items-center justify-center p-6">
            <span className="text-white text-2xl font-bold opacity-20">BRAND</span>
         </div>
       )}
       
       {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90"></div>
+      <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-90"></div>
 
       {/* Content */}
       <div className="absolute inset-0 p-5 flex flex-col justify-between">
@@ -72,7 +72,7 @@ const ContentTab = ({ campaign }) => {
   );
 
   const EmailCard = ({ item }) => (
-    <div className="group relative aspect-square bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md border border-gray-200 transition cursor-pointer flex flex-col">
+    <div className="group relative aspect-square bg-white rounded-xl overflow-hidden shadow-xs hover:shadow-md border border-gray-200 transition cursor-pointer flex flex-col">
       <div className="flex-1 p-6 flex flex-col relative">
          {/* Decorative Envelope Top */}
          <div className="absolute top-0 left-0 w-full h-2 bg-blue-500 opacity-0 group-hover:opacity-100 transition"></div>
@@ -97,9 +97,9 @@ const ContentTab = ({ campaign }) => {
   );
 
   const SmsCard = ({ item }) => (
-    <div className="group relative aspect-square bg-gray-50 rounded-xl overflow-hidden shadow-sm hover:shadow-md border border-gray-200 transition cursor-pointer flex flex-col items-center justify-center p-6">
+    <div className="group relative aspect-square bg-gray-50 rounded-xl overflow-hidden shadow-xs hover:shadow-md border border-gray-200 transition cursor-pointer flex flex-col items-center justify-center p-6">
        {/* Bubble UI */}
-       <div className="bg-white p-4 rounded-2xl rounded-tl-none shadow-sm border border-gray-200 max-w-full mb-4 relative">
+       <div className="bg-white p-4 rounded-2xl rounded-tl-none shadow-xs border border-gray-200 max-w-full mb-4 relative">
           <p className="text-sm text-gray-800 line-clamp-3">{item.message}</p>
        </div>
        
@@ -125,13 +125,13 @@ const ContentTab = ({ campaign }) => {
                <button 
                  key={f}
                  onClick={() => setFilter(f)}
-                 className={`px-4 py-1.5 rounded-md text-sm font-medium capitalize transition ${filter === f ? 'bg-white text-black shadow-sm' : 'text-gray-500 hover:text-gray-900'}`}
+                 className={`px-4 py-1.5 rounded-md text-sm font-medium capitalize transition ${filter === f ? 'bg-white text-black shadow-xs' : 'text-gray-500 hover:text-gray-900'}`}
                >
                  {f === 'all' ? 'All' : f === 'ready' ? 'Publishable' : 'Assets'}
                </button>
             ))}
          </div>
-         <button className="flex items-center gap-2 px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition shadow-sm">
+         <button className="flex items-center gap-2 px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition shadow-xs">
             <Plus size={16} /> Add Content
          </button>
       </div>
@@ -208,7 +208,7 @@ const ContentTab = ({ campaign }) => {
                        </div>
                    )}
                    {(campaign.status === 'Draft' ? [] : assets).length > 0 && (
-                       <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+                       <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-xs">
                           <table className="w-full text-left">
                              <thead className="bg-gray-50 border-b border-gray-200 text-xs font-bold text-gray-500 uppercase tracking-wider">
                                 <tr>

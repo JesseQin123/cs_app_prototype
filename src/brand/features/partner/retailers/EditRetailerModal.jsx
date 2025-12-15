@@ -64,7 +64,7 @@ const EditRetailerModal = ({ isOpen, onClose, onSave, retailer }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200" onClick={onClose}></div>
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-xs animate-in fade-in duration-200" onClick={onClose}></div>
       <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col animate-in zoom-in-95 duration-200">
         
         {/* Header */}
@@ -88,7 +88,7 @@ const EditRetailerModal = ({ isOpen, onClose, onSave, retailer }) => {
                   type="text" 
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  className={`w-full px-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black/5 transition ${errors.name ? 'border-red-300 focus:border-red-500' : 'border-gray-200 focus:border-black'}`}
+                  className={`w-full px-3 py-2 border rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-black/5 transition ${errors.name ? 'border-red-300 focus:border-red-500' : 'border-gray-200 focus:border-black'}`}
                 />
                 {errors.name && <p className="text-xs text-red-500 mt-1">{errors.name}</p>}
               </div>
@@ -98,7 +98,7 @@ const EditRetailerModal = ({ isOpen, onClose, onSave, retailer }) => {
                   value={formData.internalNotes}
                   onChange={(e) => setFormData({...formData, internalNotes: e.target.value})}
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black/5 focus:border-black transition resize-none"
+                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-black/5 focus:border-black transition resize-none"
                   placeholder="Internal notes about this retailer..."
                 />
               </div>
@@ -108,7 +108,7 @@ const EditRetailerModal = ({ isOpen, onClose, onSave, retailer }) => {
                   <div className="space-y-1 text-center">
                     <Upload className="mx-auto h-12 w-12 text-gray-400 group-hover:text-gray-500" />
                     <div className="flex text-sm text-gray-600">
-                      <span className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                      <span className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-hidden focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
                         Upload a file
                       </span>
                       <p className="pl-1">or drag and drop</p>
@@ -130,7 +130,7 @@ const EditRetailerModal = ({ isOpen, onClose, onSave, retailer }) => {
                     type="text" 
                     value={formData.contactName}
                     onChange={(e) => setFormData({...formData, contactName: e.target.value})}
-                    className={`w-full px-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black/5 transition ${errors.contactName ? 'border-red-300 focus:border-red-500' : 'border-gray-200 focus:border-black'}`}
+                    className={`w-full px-3 py-2 border rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-black/5 transition ${errors.contactName ? 'border-red-300 focus:border-red-500' : 'border-gray-200 focus:border-black'}`}
                   />
                   {errors.contactName && <p className="text-xs text-red-500 mt-1">{errors.contactName}</p>}
               </div>
@@ -149,7 +149,7 @@ const EditRetailerModal = ({ isOpen, onClose, onSave, retailer }) => {
                   <select 
                     value={formData.country}
                     onChange={handleCountryChange}
-                    className={`w-full px-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black/5 transition ${errors.country ? 'border-red-300 focus:border-red-500' : 'border-gray-200 focus:border-black'}`}
+                    className={`w-full px-3 py-2 border rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-black/5 transition ${errors.country ? 'border-red-300 focus:border-red-500' : 'border-gray-200 focus:border-black'}`}
                   >
                     <option value="">Select Country</option>
                     <option value="United States">United States</option>
@@ -165,7 +165,7 @@ const EditRetailerModal = ({ isOpen, onClose, onSave, retailer }) => {
                     value={formData.zone}
                     onChange={(e) => setFormData({...formData, zone: e.target.value})}
                     disabled={formData.country === 'Canada'}
-                    className={`w-full px-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black/5 transition ${formData.country === 'Canada' ? 'bg-gray-50 text-gray-400 cursor-not-allowed' : ''} ${errors.zone ? 'border-red-300 focus:border-red-500' : 'border-gray-200 focus:border-black'}`}
+                    className={`w-full px-3 py-2 border rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-black/5 transition ${formData.country === 'Canada' ? 'bg-gray-50 text-gray-400 cursor-not-allowed' : ''} ${errors.zone ? 'border-red-300 focus:border-red-500' : 'border-gray-200 focus:border-black'}`}
                   >
                     {formData.country === 'Canada' ? (
                       <option value="None">N/A</option>
@@ -192,13 +192,13 @@ const EditRetailerModal = ({ isOpen, onClose, onSave, retailer }) => {
         <div className="px-6 py-4 bg-gray-50 border-t border-gray-100 flex justify-end gap-3 rounded-b-xl">
           <button 
             onClick={onClose}
-            className="px-4 py-2 bg-white border border-gray-200 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-100 transition shadow-sm"
+            className="px-4 py-2 bg-white border border-gray-200 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-100 transition shadow-xs"
           >
             Cancel
           </button>
           <button 
             onClick={handleSubmit}
-            className="px-4 py-2 bg-black text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition shadow-sm"
+            className="px-4 py-2 bg-black text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition shadow-xs"
           >
             Save Changes
           </button>

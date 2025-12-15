@@ -31,7 +31,7 @@ const EmailTrendAnalysis = ({ data }) => {
     const trends = data.trends || [];
     
     return (
-        <div className="bg-white rounded-xl border border-gray-100 p-6 shadow-sm mb-8">
+        <div className="bg-white rounded-xl border border-gray-100 p-6 shadow-xs mb-8">
             <div className="flex items-center justify-between mb-8">
                 <div>
                     <h3 className="text-base font-bold text-gray-900 flex items-center gap-2">
@@ -157,7 +157,7 @@ const SocialPerformanceDashboard = ({ data, activity }) => {
                         onClick={() => setSelectedPlatform(p)}
                         className={`px-3 py-1.5 text-xs font-medium rounded-md transition-all ${
                             selectedPlatform === p 
-                                ? 'bg-white text-gray-900 shadow-sm' 
+                                ? 'bg-white text-gray-900 shadow-xs' 
                                 : 'text-gray-500 hover:text-gray-900'
                         }`}
                    >
@@ -176,7 +176,7 @@ const SocialPerformanceDashboard = ({ data, activity }) => {
         const lowerP = (p || '').toLowerCase();
         if (lowerP.includes('instagram')) return <Instagram size={12} className="text-pink-600"/>;
         if (lowerP.includes('facebook')) return <div className="w-3 h-3 bg-blue-600 rounded-full flex items-center justify-center text-[8px] text-white font-bold">f</div>;
-        if (lowerP.includes('twitter') || lowerP.includes('x')) return <div className="w-3 h-3 bg-black rounded-sm flex items-center justify-center text-white font-black text-[8px]">𝕏</div>;
+        if (lowerP.includes('twitter') || lowerP.includes('x')) return <div className="w-3 h-3 bg-black rounded-xs flex items-center justify-center text-white font-black text-[8px]">𝕏</div>;
         return null; // Fallback
     };
 
@@ -195,7 +195,7 @@ const SocialPerformanceDashboard = ({ data, activity }) => {
             </div>
 
             {/* Trends Chart */}
-            <div className="bg-white rounded-xl border border-gray-100 p-6 shadow-sm mb-8">
+            <div className="bg-white rounded-xl border border-gray-100 p-6 shadow-xs mb-8">
                 <div className="flex items-center justify-between mb-8">
                     <div>
                         <h3 className="text-base font-bold text-gray-900 flex items-center gap-2">
@@ -275,7 +275,7 @@ const SocialCommentsList = ({ list, activity }) => {
             case 'instagram': return <Instagram size={12} className="text-pink-600"/>;
             case 'facebook': return <div className="w-3 h-3 bg-blue-600 rounded-full flex items-center justify-center text-[8px] text-white font-bold">f</div>;
             case 'x': 
-            case 'twitter': return <div className="w-3 h-3 bg-black rounded-sm flex items-center justify-center text-white font-black text-[8px]">𝕏</div>;
+            case 'twitter': return <div className="w-3 h-3 bg-black rounded-xs flex items-center justify-center text-white font-black text-[8px]">𝕏</div>;
             default: return <MessageSquare size={12} className="text-gray-500"/>;
         }
     };
@@ -291,8 +291,8 @@ const SocialCommentsList = ({ list, activity }) => {
     }
 
     return (
-        <div className="flex-1 flex flex-col min-h-0 bg-white rounded-xl border border-gray-100 p-6 shadow-sm overflow-hidden">
-             <div className="flex items-center justify-between mb-6 flex-shrink-0">
+        <div className="flex-1 flex flex-col min-h-0 bg-white rounded-xl border border-gray-100 p-6 shadow-xs overflow-hidden">
+             <div className="flex items-center justify-between mb-6 shrink-0">
                 <h3 className="text-base font-bold text-gray-900 flex items-center gap-2">
                      <MessageSquare size={16} className="text-gray-600"/> Activity Log
                 </h3>
@@ -327,7 +327,7 @@ const SocialCommentsList = ({ list, activity }) => {
             <div className="flex-1 overflow-y-auto pr-2 -mr-2">
             {filteredList && filteredList.map((item) => (
                 <div key={item.id} className="group flex items-start gap-4 py-4 border-b border-gray-50 hover:bg-gray-50/50 transition-colors rounded-lg px-2 -mx-2">
-                        <div className="w-10 h-10 rounded-full bg-gray-100 border border-white shadow-sm flex items-center justify-center text-xs font-bold text-gray-900 flex-shrink-0">
+                        <div className="w-10 h-10 rounded-full bg-gray-100 border border-white shadow-xs flex items-center justify-center text-xs font-bold text-gray-900 shrink-0">
                         {item?.user?.name?.substring(0,2).toUpperCase() ?? '??'}
                         </div>
                         <div className="flex-1 min-w-0">
@@ -412,10 +412,10 @@ const ActivityPerformanceDrawer = ({ isOpen, onClose, activity }) => {
                 case 'instagram': return <Instagram size={14} className="text-pink-600"/>;
                 case 'facebook': return <div className="w-3.5 h-3.5 bg-blue-600 rounded-full flex items-center justify-center text-[9px] text-white font-bold">f</div>;
                 case 'x': 
-                case 'twitter': return <div className="w-3.5 h-3.5 bg-black rounded-sm flex items-center justify-center text-white font-black text-[10px]">𝕏</div>;
+                case 'twitter': return <div className="w-3.5 h-3.5 bg-black rounded-xs flex items-center justify-center text-white font-black text-[10px]">𝕏</div>;
                 case 'google':
                 case 'gmb': 
-                case 'google business profile': return <div className="w-3.5 h-3.5 rounded-sm flex items-center justify-center text-white font-bold text-[9px]" style={{backgroundColor: '#4285F4'}}>G</div>;
+                case 'google business profile': return <div className="w-3.5 h-3.5 rounded-xs flex items-center justify-center text-white font-bold text-[9px]" style={{backgroundColor: '#4285F4'}}>G</div>;
                 default: return <MessageSquare size={14} className="text-gray-500"/>;
             }
         };
@@ -430,7 +430,7 @@ const ActivityPerformanceDrawer = ({ isOpen, onClose, activity }) => {
                 return (
                     <div className="flex items-center -space-x-1.5">
                         {platform.map((p, idx) => (
-                            <div key={idx} className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center shadow-sm border border-white z-10 relative">
+                            <div key={idx} className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center shadow-xs border border-white z-10 relative">
                                 {getPlatformIcon(p)}
                             </div>
                         ))}
@@ -440,7 +440,7 @@ const ActivityPerformanceDrawer = ({ isOpen, onClose, activity }) => {
 
              // Single Platform
              return (
-                <div className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center shadow-sm border border-white">
+                <div className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center shadow-xs border border-white">
                     {getPlatformIcon(platform || type)}
                 </div>
             );
@@ -466,8 +466,8 @@ const ActivityPerformanceDrawer = ({ isOpen, onClose, activity }) => {
         });
 
         return (
-            <div className="flex-1 flex flex-col min-h-0 bg-white rounded-xl border border-gray-100 p-6 shadow-sm overflow-hidden">
-                <div className="flex items-center justify-between mb-4 flex-shrink-0">
+            <div className="flex-1 flex flex-col min-h-0 bg-white rounded-xl border border-gray-100 p-6 shadow-xs overflow-hidden">
+                <div className="flex items-center justify-between mb-4 shrink-0">
                     <h3 className="text-base font-bold text-gray-900 flex items-center gap-2">
                          <MousePointerClick size={16} className="text-gray-600"/> Activity Log
                     </h3>
@@ -626,7 +626,7 @@ const ActivityPerformanceDrawer = ({ isOpen, onClose, activity }) => {
                         </div>
                         
                         {/* Preview Button */}
-                        <button className="flex-shrink-0 flex items-center gap-2 px-3 py-1.5 text-xs font-bold text-gray-700 hover:text-black border border-gray-200 hover:border-gray-900 rounded-lg transition-all" title="View Content Snapshot">
+                        <button className="shrink-0 flex items-center gap-2 px-3 py-1.5 text-xs font-bold text-gray-700 hover:text-black border border-gray-200 hover:border-gray-900 rounded-lg transition-all" title="View Content Snapshot">
                             <Eye size={14}/> View Content
                         </button>
                      </div>
@@ -658,12 +658,12 @@ const ActivityPerformanceDrawer = ({ isOpen, onClose, activity }) => {
 
             {/* Mini Compose Modal Overlay (Email) */}
             {emailCompose && (
-                <div className="absolute inset-0 z-[10000] bg-white/80 backdrop-blur-sm flex items-end sm:items-center justify-center p-4 sm:p-8 animate-in fade-in duration-200">
+                <div className="absolute inset-0 z-10000 bg-white/80 backdrop-blur-xs flex items-end sm:items-center justify-center p-4 sm:p-8 animate-in fade-in duration-200">
                     <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden border border-gray-100 ring-1 ring-black/5 animate-in zoom-in-95 slide-in-from-bottom-5">
                        
                         <div className="bg-gray-50/50 px-6 py-4 border-b border-gray-100 flex justify-between items-center">
                             <h3 className="font-semibold text-gray-900 flex items-center gap-2.5">
-                                <div className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center shadow-sm">
+                                <div className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center shadow-xs">
                                     <Mail size={14} className="text-gray-900"/>
                                 </div>
                                 Follow up with {emailCompose.contact.name}
@@ -673,11 +673,11 @@ const ActivityPerformanceDrawer = ({ isOpen, onClose, activity }) => {
                         <div className="p-6 space-y-5">
                             <div>
                                 <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Subject</label>
-                                <input type="text" defaultValue={`Re: ${displayActivity?.internalName}`} className="w-full px-4 py-2.5 bg-gray-50 border border-gray-100 rounded-lg text-sm font-medium text-gray-900 focus:outline-none focus:bg-white focus:ring-2 focus:ring-black/5 focus:border-gray-200 transition-all"/>
+                                <input type="text" defaultValue={`Re: ${displayActivity?.internalName}`} className="w-full px-4 py-2.5 bg-gray-50 border border-gray-100 rounded-lg text-sm font-medium text-gray-900 focus:outline-hidden focus:bg-white focus:ring-2 focus:ring-black/5 focus:border-gray-200 transition-all"/>
                             </div>
                             <div>
                                 <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Message</label>
-                                <textarea rows={6} className="w-full px-4 py-3 bg-gray-50 border border-gray-100 rounded-lg text-sm text-gray-900 leading-relaxed focus:outline-none focus:bg-white focus:ring-2 focus:ring-black/5 focus:border-gray-200 transition-all resize-none" placeholder="Write your personal follow-up..."></textarea>
+                                <textarea rows={6} className="w-full px-4 py-3 bg-gray-50 border border-gray-100 rounded-lg text-sm text-gray-900 leading-relaxed focus:outline-hidden focus:bg-white focus:ring-2 focus:ring-black/5 focus:border-gray-200 transition-all resize-none" placeholder="Write your personal follow-up..."></textarea>
                             </div>
                             <div className="flex justify-end gap-3 pt-2">
                                 <button onClick={() => setEmailCompose(null)} className="px-5 py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">Cancel</button>

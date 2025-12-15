@@ -8,7 +8,7 @@ const KpiCard = ({ kpi }) => {
     const isNeutral = kpi.trendDirection === 'neutral';
     
     return (
-        <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition">
+        <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-xs hover:shadow-md transition">
             <div className="flex justify-between items-start mb-2">
                 <span className="text-gray-500 text-sm font-medium">{kpi.label}</span>
                 {kpi.id === 'adoption' && <Activity size={18} className="text-gray-300"/>}
@@ -86,7 +86,7 @@ const OverviewTab = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Regional Heatmap */}
-                <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm col-span-1">
+                <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-xs col-span-1">
                     <div className="flex items-center justify-between mb-6">
                         <h3 className="font-bold text-gray-900">Regional Performance</h3>
                         <span className="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-full">By Adoption Rate</span>
@@ -104,7 +104,7 @@ const OverviewTab = () => {
                 </div>
 
                 {/* Activity Timeline (Chart Placeholder) */}
-                <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm col-span-1 lg:col-span-2">
+                <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-xs col-span-1 lg:col-span-2">
                     <div className="flex items-center justify-between mb-6">
                         <h3 className="font-bold text-gray-900">Activity Trends</h3>
                          <div className="flex items-center gap-4 text-xs">
@@ -124,7 +124,7 @@ const OverviewTab = () => {
                         {timeline.map((item, index) => (
                             <div key={index} className="flex flex-col items-center gap-2 flex-1 group relative">
                                 {/* Tooltip */}
-                                <div className="absolute bottom-full mb-2 opacity-0 group-hover:opacity-100 transition pointer-events-none bg-black text-white text-[10px] px-2 py-1 rounded shadow-lg whitespace-nowrap z-10">
+                                <div className="absolute bottom-full mb-2 opacity-0 group-hover:opacity-100 transition pointer-events-none bg-black text-white text-[10px] px-2 py-1 rounded-sm shadow-lg whitespace-nowrap z-10">
                                     {item.downloads} Downloads / {item.launches} Launches
                                 </div>
                                 

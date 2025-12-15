@@ -66,7 +66,7 @@ const PerformanceOverview = ({ campaigns }) => {
   };
 
   const MetricCard = ({ metric }) => (
-    <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-sm hover:shadow-md transition duration-300 group h-32 flex flex-col justify-between">
+    <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-xs hover:shadow-md transition duration-300 group h-32 flex flex-col justify-between">
        <div className="flex justify-between items-start">
           <span className="text-xs font-semibold text-gray-500  tracking-wide uppercase mb-2">{metric.label}</span>
           {metric.icon}
@@ -92,7 +92,7 @@ const PerformanceOverview = ({ campaigns }) => {
          <div className="flex items-center gap-4 py-1">
             <div className="flex items-baseline gap-3">
                <h2 className="text-lg font-bold text-gray-900">Performance Overview</h2>
-               <span className="text-xs font-medium text-gray-400 bg-gray-50 px-2 py-0.5 rounded border border-gray-200">Last 30 Days</span>
+               <span className="text-xs font-medium text-gray-400 bg-gray-50 px-2 py-0.5 rounded-sm border border-gray-200">Last 30 Days</span>
             </div>
             <button 
               onClick={() => setIsExpanded(!isExpanded)}
@@ -118,13 +118,13 @@ const PerformanceOverview = ({ campaigns }) => {
             <div className="flex bg-gray-50 p-1 rounded-lg">
                <button 
                 onClick={() => setViewMode('numbers')}
-                className={`px-3 py-1.5 text-xs font-medium rounded-md transition ${viewMode === 'numbers' ? 'bg-white shadow-sm text-gray-900' : 'text-gray-500 hover:text-gray-900'}`}
+                className={`px-3 py-1.5 text-xs font-medium rounded-md transition ${viewMode === 'numbers' ? 'bg-white shadow-xs text-gray-900' : 'text-gray-500 hover:text-gray-900'}`}
                >
                  Overview Numbers
                </button>
                <button 
                 onClick={() => setViewMode('trends')}
-                className={`px-3 py-1.5 text-xs font-medium rounded-md transition ${viewMode === 'trends' ? 'bg-white shadow-sm text-gray-900' : 'text-gray-500 hover:text-gray-900'}`}
+                className={`px-3 py-1.5 text-xs font-medium rounded-md transition ${viewMode === 'trends' ? 'bg-white shadow-xs text-gray-900' : 'text-gray-500 hover:text-gray-900'}`}
                >
                  Trend Visualization
                </button>
@@ -150,7 +150,7 @@ const PerformanceOverview = ({ campaigns }) => {
              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-64">
                 
                 {/* Chart 1: Content Impact (Combo) */}
-                <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-sm">
+                <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-xs">
                    <div className="flex justify-between items-center mb-4">
                       <h3 className="text-sm font-medium text-gray-900">Content Impact</h3>
                       <div className="flex gap-4 text-xs">
@@ -179,7 +179,7 @@ const PerformanceOverview = ({ campaigns }) => {
                 </div>
 
                 {/* Chart 2: Retailer Participation (Double Area) */}
-                <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-sm">
+                <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-xs">
                    <div className="flex justify-between items-center mb-4">
                       <h3 className="text-sm font-medium text-gray-900">Retailer Participation</h3>
                       <div className="flex gap-4 text-xs">

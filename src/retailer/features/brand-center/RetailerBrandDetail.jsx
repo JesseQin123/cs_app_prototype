@@ -14,7 +14,7 @@ const RetailerBrandDetail = ({ brand, onBack }) => {
          Back to Brands
        </button>
 
-       <div className="bg-white rounded-xl border-gray-200 p-8 shadow-sm text-center py-20">
+       <div className="bg-white rounded-xl border-gray-200 p-8 shadow-xs text-center py-20">
           <div className={`w-24 h-24 rounded-full mx-auto flex items-center justify-center text-3xl font-bold text-white mb-6 shadow-lg overflow-hidden ${brand.logo?.startsWith('bg-') ? brand.logo : 'bg-white'}`}>
               {brand.logo?.startsWith('bg-') ? (
                  brand.name.substring(0,1)

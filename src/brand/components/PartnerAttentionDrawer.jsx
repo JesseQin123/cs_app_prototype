@@ -72,7 +72,7 @@ const RiskGroupAccordion = ({ group, isExpanded, onToggle, onNudgeSingle, onNudg
                                 e.stopPropagation();
                                 onNudgeBulk(group, activeItems);
                             }}
-                            className={`text-[10px] font-bold px-3 py-1.5 rounded border transition shadow-sm flex items-center gap-1 ${styles.button}`}
+                            className={`text-[10px] font-bold px-3 py-1.5 rounded-sm border transition shadow-xs flex items-center gap-1 ${styles.button}`}
                          >
                             {group.action} <span className="opacity-60">({activeItems.length})</span>
                          </button>
@@ -130,7 +130,7 @@ const RiskGroupAccordion = ({ group, isExpanded, onToggle, onNudgeSingle, onNudg
                                 <PortalTooltip content={group.id === 'incomplete' ? 'Remind' : 'Send Nudge'}>
                                     <button 
                                         onClick={() => onNudgeSingle(retailer)}
-                                        className="p-2 rounded-full text-black bg-gray-100 hover:bg-black hover:text-white transition shadow-sm border border-gray-200 hover:border-black"
+                                        className="p-2 rounded-full text-black bg-gray-100 hover:bg-black hover:text-white transition shadow-xs border border-gray-200 hover:border-black"
                                     >
                                         <Bell size={16} />
                                     </button>
@@ -144,7 +144,7 @@ const RiskGroupAccordion = ({ group, isExpanded, onToggle, onNudgeSingle, onNudg
                 <div className="p-3 bg-gray-50 border-t border-gray-100 flex justify-center">
                     <button 
                          onClick={() => onNudgeBulk(group, activeItems)}
-                         className={`text-xs font-bold px-4 py-2 rounded-lg border transition shadow-sm w-full flex items-center justify-center gap-2 ${styles.button}`}
+                         className={`text-xs font-bold px-4 py-2 rounded-lg border transition shadow-xs w-full flex items-center justify-center gap-2 ${styles.button}`}
                          disabled={activeItems.length === 0}
                     >
                         {group.action} <span className="opacity-60">({activeItems.length})</span>
@@ -252,7 +252,7 @@ const PartnerAttentionDrawer = ({ isOpen, onClose }) => {
             <div className="px-6 py-6 pb-24">
                 {/* Intro Context */}
                 <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 mb-6 flex items-start gap-3">
-                    <div className="bg-white p-2 rounded-full border border-gray-100 shadow-sm text-gray-500">
+                    <div className="bg-white p-2 rounded-full border border-gray-100 shadow-xs text-gray-500">
                         <Clock size={16} />
                     </div>
                     <div>

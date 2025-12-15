@@ -47,7 +47,7 @@ const ContentInsightsTab = ({ notify }) => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Top Campaigns Chart */}
-                <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+                <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-xs">
                     <h3 className="font-bold text-gray-900 mb-6">Top Performing Campaigns</h3>
                     <div className="space-y-5">
                         {topCampaigns.map((camp, idx) => (
@@ -69,11 +69,11 @@ const ContentInsightsTab = ({ notify }) => {
                 </div>
 
                 {/* Asset Preferences Chart */}
-                <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+                <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-xs">
                     <h3 className="font-bold text-gray-900 mb-6">Asset Type Preferences</h3>
                     <div className="flex flex-col sm:flex-row items-center gap-8 h-full pb-6">
                          {/* Donut Chart Visualization (CSS Conic Gradient) */}
-                        <div className="relative w-40 h-40 rounded-full flex-shrink-0"
+                        <div className="relative w-40 h-40 rounded-full shrink-0"
                              style={{
                                 background: `conic-gradient(
                                     ${assetPreferences[0].color} 0% 45%, 
@@ -107,7 +107,7 @@ const ContentInsightsTab = ({ notify }) => {
             </div>
 
             {/* Content Drill Down Table */}
-            <div className="bg-white rounded-xl border border-gray-100 shadow-sm flex flex-col overflow-hidden">
+            <div className="bg-white rounded-xl border border-gray-100 shadow-xs flex flex-col overflow-hidden">
                 <div className="p-6 border-b border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <h3 className="font-bold text-gray-900">Content Performance Detail</h3>
                     <div className="relative">
@@ -117,7 +117,7 @@ const ContentInsightsTab = ({ notify }) => {
                             placeholder="Search assets..." 
                             value={search}
                             onChange={e => setSearch(e.target.value)}
-                            className="pl-9 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black/5 w-64 transition"
+                            className="pl-9 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-black/5 w-64 transition"
                         />
                     </div>
                 </div>
@@ -138,7 +138,7 @@ const ContentInsightsTab = ({ notify }) => {
                                 <tr key={file.id} className="hover:bg-gray-50 transition cursor-pointer">
                                     <td className="px-6 py-4">
                                         <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 rounded bg-gray-100 flex items-center justify-center flex-shrink-0">
+                                            <div className="w-10 h-10 rounded-sm bg-gray-100 flex items-center justify-center shrink-0">
                                                 {/* Placeholder for Thumb */}
                                                 {getIconForType(file.type)} 
                                             </div>

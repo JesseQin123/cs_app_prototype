@@ -45,7 +45,7 @@ const CreditWallet = () => {
         <>
         <Popover.Root open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
             <Popover.Trigger asChild>
-                <div className="flex items-center gap-2 px-3 py-2 bg-white rounded-full hover:bg-gray-50 cursor-pointer transition-all group outline-none focus:outline-none">
+                <div className="flex items-center gap-2 px-3 py-2 bg-white rounded-full hover:bg-gray-50 cursor-pointer transition-all group outline-hidden focus:outline-hidden">
                     <div className="relative">
                         <Wallet size={16} className="text-gray-500 group-hover:text-black transition-colors" />
                         {hasLowCredits && (
@@ -74,7 +74,7 @@ const CreditWallet = () => {
                         {credits.map((item, idx) => (
                             <div key={idx} className="group flex items-center gap-3 p-3 hover:bg-gray-50 rounded-md transition-colors">
                                 {/* Logo */}
-                                <div className="w-8 h-8 rounded-full border border-gray-100 bg-white overflow-hidden flex-shrink-0 flex items-center justify-center">
+                                <div className="w-8 h-8 rounded-full border border-gray-100 bg-white overflow-hidden shrink-0 flex items-center justify-center">
                                     {item.logo ? (
                                         <img src={item.logo} alt={item.brandName} className="w-full h-full object-cover" />
                                     ) : (
@@ -136,7 +136,7 @@ const CreditWallet = () => {
 
         {/* Request Modal */}
         {isRequestModalOpen && (
-            <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
+            <div className="fixed inset-0 z-60 flex items-center justify-center bg-black/50 backdrop-blur-xs animate-in fade-in duration-200">
                 <div className="bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200 flex flex-col">
                     {/* Header */}
                     <div className="flex items-center justify-between p-4 border-b border-gray-100 bg-gray-50">
@@ -165,7 +165,7 @@ const CreditWallet = () => {
                                 required
                                 value={requestAmount}
                                 onChange={e => setRequestAmount(e.target.value)}
-                                className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black/5 font-mono text-sm"
+                                className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-black/5 font-mono text-sm"
                                 placeholder="e.g. 5000"
                              />
                          </div>
@@ -177,7 +177,7 @@ const CreditWallet = () => {
                                 required
                                 value={requestReason}
                                 onChange={e => setRequestReason(e.target.value)}
-                                className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black/5 text-sm resize-none h-20"
+                                className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-black/5 text-sm resize-none h-20"
                                 placeholder="Why do you need more credits?"
                              />
                          </div>
@@ -188,7 +188,7 @@ const CreditWallet = () => {
                                 type="checkbox" 
                                 checked={sendEmail}
                                 onChange={e => setSendEmail(e.target.checked)}
-                                className="w-4 h-4 rounded border-gray-300 text-black focus:ring-black/5"
+                                className="w-4 h-4 rounded-sm border-gray-300 text-black focus:ring-black/5"
                              />
                              <span className="text-sm text-gray-600 group-hover:text-gray-900">Send email notification to Brand Rep</span>
                          </label>
@@ -196,7 +196,7 @@ const CreditWallet = () => {
 
                     <div className="p-4 border-t border-gray-100 bg-gray-50 flex justify-end gap-2">
                         <button type="button" onClick={() => setIsRequestModalOpen(false)} className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-black">Cancel</button>
-                        <button type="submit" className="px-4 py-2 text-sm font-bold text-white bg-black rounded-lg hover:bg-gray-800 shadow-sm">Submit Request</button>
+                        <button type="submit" className="px-4 py-2 text-sm font-bold text-white bg-black rounded-lg hover:bg-gray-800 shadow-xs">Submit Request</button>
                     </div>
                     </form>
                 </div>

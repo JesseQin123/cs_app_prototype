@@ -14,7 +14,7 @@ const ActivityEditorModal = ({ isOpen, onClose, type }) => {
   const handleBack = () => setStep(1);
 
   return (
-    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 backdrop-blur-sm animate-in fade-in duration-200">
+    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 backdrop-blur-xs animate-in fade-in duration-200">
       <div className="bg-white rounded-xl w-full max-w-5xl h-[85vh] flex flex-col shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
          
          {/* --- Top Bar --- */}
@@ -73,17 +73,17 @@ const ActivityEditorModal = ({ isOpen, onClose, type }) => {
                        {type === 'social' ? (
                          <div className="flex gap-4 mb-4">
                             {['Instagram', 'Facebook', 'X'].map(p => (
-                               <button key={p} className="flex-1 py-3 border border-gray-200 rounded-lg bg-white text-sm font-medium hover:border-black transition shadow-sm">
+                               <button key={p} className="flex-1 py-3 border border-gray-200 rounded-lg bg-white text-sm font-medium hover:border-black transition shadow-xs">
                                   {p}
                                </button>
                             ))}
                          </div>
                        ) : (
-                         <input type="text" className="w-full border-gray-200 rounded-lg shadow-sm focus:border-black focus:ring-0" placeholder={type === 'email' ? "Enter a catchy subject..." : "Enter message..."} />
+                         <input type="text" className="w-full border-gray-200 rounded-lg shadow-xs focus:border-black focus:ring-0" placeholder={type === 'email' ? "Enter a catchy subject..." : "Enter message..."} />
                        )}
                     </div>
 
-                    <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm space-y-4">
+                    <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-xs space-y-4">
                        <label className="block text-sm font-bold text-gray-900">
                           {type === 'sms' ? 'Short Link' : 'Content Builder'}
                        </label>
@@ -94,8 +94,8 @@ const ActivityEditorModal = ({ isOpen, onClose, type }) => {
                           onChange={(e) => setContent(e.target.value)}
                        ></textarea>
                        <div className="flex gap-2">
-                          <button className="p-2 border border-gray-200 rounded hover:bg-gray-50 text-gray-500"><ImageIcon size={18}/></button>
-                          <button className="p-2 border border-gray-200 rounded hover:bg-gray-50 text-gray-500"><LayoutTemplate size={18}/></button>
+                          <button className="p-2 border border-gray-200 rounded-sm hover:bg-gray-50 text-gray-500"><ImageIcon size={18}/></button>
+                          <button className="p-2 border border-gray-200 rounded-sm hover:bg-gray-50 text-gray-500"><LayoutTemplate size={18}/></button>
                        </div>
                     </div>
                  </div>
@@ -111,7 +111,7 @@ const ActivityEditorModal = ({ isOpen, onClose, type }) => {
                           <Users size={20} className="text-gray-400"/> Select Audience
                        </label>
                        <select 
-                        className="w-full border-gray-200 rounded-xl shadow-sm focus:border-black focus:ring-0 p-3 text-lg"
+                        className="w-full border-gray-200 rounded-xl shadow-xs focus:border-black focus:ring-0 p-3 text-lg"
                         onChange={(e) => setAudience(e.target.value)}
                        >
                           <option value="">Choose a segment...</option>
@@ -143,7 +143,7 @@ const ActivityEditorModal = ({ isOpen, onClose, type }) => {
                                 <div className="text-xs text-gray-500">Pick a future date and time</div>
                              </div>
                              {scheduleType === 'later' && (
-                                <div className="flex bg-gray-50 p-1 rounded border border-gray-200">
+                                <div className="flex bg-gray-50 p-1 rounded-sm border border-gray-200">
                                    <input type="datetime-local" className="border-none bg-transparent text-xs p-1 focus:ring-0" />
                                 </div>
                              )}
@@ -156,12 +156,12 @@ const ActivityEditorModal = ({ isOpen, onClose, type }) => {
 
             {/* Right Panel: Preview */}
             <div className="w-1/2 bg-gray-100 flex items-center justify-center p-8 relative">
-               <div className="absolute top-4 right-4 bg-white/50 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-gray-500">
+               <div className="absolute top-4 right-4 bg-white/50 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-gray-500">
                   Live Preview
                </div>
                
                {/* Device Mockup */}
-               <div className="w-[375px] h-[700px] bg-white rounded-[3rem] shadow-2xl border-[8px] border-gray-900 flex flex-col overflow-hidden relative">
+               <div className="w-[375px] h-[700px] bg-white rounded-[3rem] shadow-2xl border-8 border-gray-900 flex flex-col overflow-hidden relative">
                   <div className="absolute top-0 left-0 right-0 h-6 bg-black z-20 flex justify-center">
                      <div className="w-24 h-4 bg-black rounded-b-xl"></div>
                   </div>
@@ -179,9 +179,9 @@ const ActivityEditorModal = ({ isOpen, onClose, type }) => {
                            <ImageIcon size={32} />
                         </div>
                         <div className="space-y-2">
-                           <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-                           <div className="h-4 bg-gray-200 rounded w-full"></div>
-                           <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+                           <div className="h-4 bg-gray-200 rounded-sm w-3/4"></div>
+                           <div className="h-4 bg-gray-200 rounded-sm w-full"></div>
+                           <div className="h-4 bg-gray-200 rounded-sm w-5/6"></div>
                         </div>
                         <div className="text-sm text-gray-600 leading-relaxed">
                            {content || "Your content preview will appear here in real-time as you edit."}

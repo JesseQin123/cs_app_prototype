@@ -17,7 +17,7 @@ const ActionQueue = () => {
          
          <div className="flex gap-4 overflow-x-auto pb-4 snap-x">
             {actions.map((action) => (
-               <div key={action.id} className="min-w-[300px] flex-1 bg-white p-5 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition snap-start group relative overflow-hidden">
+               <div key={action.id} className="min-w-[300px] flex-1 bg-white p-5 rounded-xl border border-gray-200 shadow-xs hover:shadow-md transition snap-start group relative overflow-hidden">
                   {action.priority === 'high' && <div className="absolute top-0 left-0 w-1 h-full bg-amber-500"></div>}
                   
                   <div className="flex justify-between items-start mb-3">

@@ -35,7 +35,7 @@ const KpiCard = ({ kpi, onReview }) => {
     return (
         <div 
             onClick={kpi.isAlert ? onReview : undefined}
-            className={`p-5 rounded-xl border shadow-sm transition relative flex flex-col h-36 group ${kpi.isAlert ? 'bg-gradient-to-br from-red-50 to-white border-red-100 ring-1 ring-red-50 cursor-pointer hover:shadow-md hover:border-red-200 hover:ring-red-100' : 'bg-white border-gray-100 hover:shadow-md'}`}
+            className={`p-5 rounded-xl border shadow-xs transition relative flex flex-col h-36 group ${kpi.isAlert ? 'bg-linear-to-br from-red-50 to-white border-red-100 ring-1 ring-red-50 cursor-pointer hover:shadow-md hover:border-red-200 hover:ring-red-100' : 'bg-white border-gray-100 hover:shadow-md'}`}
         >
             
             {/* Header Section - Fixed Height for Alignment */}
@@ -119,7 +119,7 @@ const KpiCard = ({ kpi, onReview }) => {
                              })}
                         </div>
                         {/* Time Context */}
-                        <div className="text-[9px] font-medium text-red-400 bg-red-50 px-1.5 py-0.5 rounded">
+                        <div className="text-[9px] font-medium text-red-400 bg-red-50 px-1.5 py-0.5 rounded-sm">
                            30d
                         </div>
                     </div>
@@ -148,7 +148,7 @@ const AbstractMap = ({ data }) => {
                     return (
                         <div 
                             key={zoneName} 
-                            className={`aspect-square rounded-lg flex flex-col items-center justify-center p-2 transition cursor-pointer hover:scale-105 shadow-sm border border-white/50 group ${zoneData.color} ${zoneData.adoption > 50 ? 'text-white' : 'text-gray-600'}`}
+                            className={`aspect-square rounded-lg flex flex-col items-center justify-center p-2 transition cursor-pointer hover:scale-105 shadow-xs border border-white/50 group ${zoneData.color} ${zoneData.adoption > 50 ? 'text-white' : 'text-gray-600'}`}
                             style={{ gridColumn: pos.col, gridRow: pos.row }}
                             title={`${zoneName}: ${zoneData.adoption}% Adoption`}
                         >
@@ -170,7 +170,7 @@ const EngagementTimeline = ({ data }) => (
         {data.map((item, idx) => (
             <div key={idx} className="flex-1 flex flex-col items-center justify-end h-full gap-2 group relative">
                  {/* Tooltip - Fixed Position */}
-                <div className="opacity-0 group-hover:opacity-100 transition absolute -top-10 left-1/2 -translate-x-1/2 z-10 whitespace-nowrap bg-gray-900 text-white px-2 py-1 rounded shadow-lg pointer-events-none mb-2 text-xs font-medium">
+                <div className="opacity-0 group-hover:opacity-100 transition absolute -top-10 left-1/2 -translate-x-1/2 z-10 whitespace-nowrap bg-gray-900 text-white px-2 py-1 rounded-sm shadow-lg pointer-events-none mb-2 text-xs font-medium">
                     {item.downloads} Downloads
                     <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
                 </div>
@@ -182,7 +182,7 @@ const EngagementTimeline = ({ data }) => (
                 >
                     {/* Line Point Mockup (Campaigns) */}
                     <div 
-                        className="absolute w-2 h-2 bg-black rounded-full left-1/2 -translate-x-1/2 -top-1 border-2 border-white shadow-sm z-10"
+                        className="absolute w-2 h-2 bg-black rounded-full left-1/2 -translate-x-1/2 -top-1 border-2 border-white shadow-xs z-10"
                         style={{ bottom: `${(item.campaigns / 5) * 100}%` }} 
                         title={`${item.campaigns} Campaigns`}
                     ></div>
@@ -273,11 +273,11 @@ const PartnerOverview = () => {
 
             {/* Section B: Visual Insights */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div className="lg:col-span-2 bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+                <div className="lg:col-span-2 bg-white p-6 rounded-xl border border-gray-100 shadow-xs">
                     <h3 className="font-bold text-gray-900 mb-6">Zone Performance</h3>
                     <AbstractMap data={zoneMap} />
                 </div>
-                <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+                <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-xs">
                     <h3 className="font-bold text-gray-900 mb-6">Activity Trends</h3>
                     <EngagementTimeline data={engagementTimeline} />
                 </div>
@@ -286,7 +286,7 @@ const PartnerOverview = () => {
             {/* Section C: Leaderboards */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Top Performers */}
-                <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden flex flex-col h-full">
+                <div className="bg-white rounded-xl border border-gray-100 shadow-xs overflow-hidden flex flex-col h-full">
                     <div className="p-6 border-b border-gray-50 flex justify-between items-center">
                         <h3 className="font-bold text-gray-900">Most Engaged Retailers</h3>
                         <button className="text-xs font-medium text-gray-500 hover:text-black">View All</button>
@@ -321,10 +321,10 @@ const PartnerOverview = () => {
                 </div>
 
                 {/* At Risk */}
-                <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden flex flex-col h-full">
+                <div className="bg-white rounded-xl border border-gray-100 shadow-xs overflow-hidden flex flex-col h-full">
                     <div className="p-6 border-b border-gray-50 flex justify-between items-center">
                         <h3 className="font-bold text-gray-900">At Risk / Inactive</h3>
-                        <div className="flex items-center gap-2 text-xs text-red-500 font-medium bg-red-50 px-2 py-1 rounded">
+                        <div className="flex items-center gap-2 text-xs text-red-500 font-medium bg-red-50 px-2 py-1 rounded-sm">
                             <AlertCircle size={12}/> Needs Attention
                         </div>
                     </div>
@@ -350,7 +350,7 @@ const PartnerOverview = () => {
                                         <td className="px-6 py-3 text-right">
                                              <button 
                                                 onClick={() => openNudge(r)}
-                                                className="text-gray-500 font-medium hover:text-black text-xs border border-gray-200 hover:border-black px-2 py-1 rounded transition hover:bg-white bg-gray-50"
+                                                className="text-gray-500 font-medium hover:text-black text-xs border border-gray-200 hover:border-black px-2 py-1 rounded-sm transition hover:bg-white bg-gray-50"
                                              >
                                                 Nudge
                                              </button>

@@ -121,7 +121,7 @@ const ContentInsightsTab = ({ campaign, data }) => {
         
         {campaign.status === 'Draft' && (
             <div className="p-4 bg-blue-50 text-blue-800 rounded-lg text-sm max-w-lg mx-auto border border-blue-100 flex gap-3 text-left">
-            <AlertCircle size={20} className="flex-shrink-0 mt-0.5" />
+            <AlertCircle size={20} className="shrink-0 mt-0.5" />
             <div>
                 <div className="font-bold mb-1">Ready to launch?</div>
                 <div>Go to the Overview tab to complete your checklist and publish this campaign.</div>
@@ -136,7 +136,7 @@ const ContentInsightsTab = ({ campaign, data }) => {
     <div className="space-y-8 pb-20 animate-in fade-in slide-in-from-bottom-4 duration-500 w-full">
       
       {/* --- Sticky Header: Filters & Actions --- */}
-      <div className="sticky top-0 z-30 bg-gray-50/95 backdrop-blur-md border-b border-gray-200 shadow-sm py-3 mb-6">
+      <div className="sticky top-0 z-30 bg-gray-50/95 backdrop-blur-md border-b border-gray-200 shadow-xs py-3 mb-6">
         <div className="flex items-center justify-between px-6 gap-4">
           
           {/* Left: Smart Content Filter */}
@@ -170,7 +170,7 @@ const ContentInsightsTab = ({ campaign, data }) => {
           {/* Right: Status & Refresh */}
           <div className="flex items-center gap-3 shrink-0">
             {/* Last Updated - Compact with Hover */}
-            <div className="group relative flex items-center gap-2 text-[10px] text-gray-400 bg-white border border-gray-200 px-2 py-1 rounded-full shadow-sm cursor-help">
+            <div className="group relative flex items-center gap-2 text-[10px] text-gray-400 bg-white border border-gray-200 px-2 py-1 rounded-full shadow-xs cursor-help">
               <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
               <span>Updated {lastUpdated.split(',')[1]}</span>
               
@@ -205,11 +205,11 @@ const ContentInsightsTab = ({ campaign, data }) => {
               Social Post
             </h2>
             <div className="flex gap-4">
-               <div className="bg-white px-4 py-2 rounded-lg border border-gray-200 shadow-sm">
+               <div className="bg-white px-4 py-2 rounded-lg border border-gray-200 shadow-xs">
                   <div className="text-xs text-gray-500 uppercase font-bold">Total Shares</div>
                   <div className="text-lg font-bold text-gray-900">445</div>
                </div>
-               <div className="bg-white px-4 py-2 rounded-lg border border-gray-200 shadow-sm">
+               <div className="bg-white px-4 py-2 rounded-lg border border-gray-200 shadow-xs">
                   <div className="text-xs text-gray-500 uppercase font-bold">Top Platform</div>
                   <div className="text-lg font-bold text-gray-900 flex items-center gap-1">
                     <Instagram size={14} /> Instagram
@@ -218,7 +218,7 @@ const ContentInsightsTab = ({ campaign, data }) => {
             </div>
           </div>
 
-          <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+          <div className="bg-white border border-gray-200 rounded-xl shadow-xs overflow-hidden">
             {/* Table Header */}
             <div className="grid grid-cols-12 gap-4 px-6 py-3 bg-gray-50 border-b border-gray-200 text-xs font-bold text-gray-500 uppercase tracking-wider">
               <div className="col-span-5">Content Name</div>
@@ -238,7 +238,7 @@ const ContentInsightsTab = ({ campaign, data }) => {
                     onClick={() => toggleRow(post.id)}
                   >
                     <div className="col-span-5 flex items-center gap-4">
-                      <img src={post.thumbnail} alt="" className="w-12 h-12 rounded-lg object-cover shadow-sm border border-gray-100" />
+                      <img src={post.thumbnail} alt="" className="w-12 h-12 rounded-lg object-cover shadow-xs border border-gray-100" />
                       <div>
                         <div className="font-bold text-gray-900 text-sm mb-1">{post.title}</div>
                         <div className="flex gap-1">
@@ -300,18 +300,18 @@ const ContentInsightsTab = ({ campaign, data }) => {
               Email
             </h2>
             <div className="flex gap-4">
-               <div className="bg-white px-4 py-2 rounded-lg border border-gray-200 shadow-sm">
+               <div className="bg-white px-4 py-2 rounded-lg border border-gray-200 shadow-xs">
                   <div className="text-xs text-gray-500 uppercase font-bold">Total Usage</div>
                   <div className="text-lg font-bold text-gray-900">47</div>
                </div>
-               <div className="bg-white px-4 py-2 rounded-lg border border-gray-200 shadow-sm">
+               <div className="bg-white px-4 py-2 rounded-lg border border-gray-200 shadow-xs">
                   <div className="text-xs text-gray-500 uppercase font-bold">Active Retailers</div>
                   <div className="text-lg font-bold text-gray-900">38</div>
                </div>
             </div>
           </div>
 
-          <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+          <div className="bg-white border border-gray-200 rounded-xl shadow-xs overflow-hidden">
             {/* Table Header */}
             <div className="grid grid-cols-12 gap-4 px-6 py-3 bg-gray-50 border-b border-gray-200 text-xs font-bold text-gray-500 uppercase tracking-wider">
               <div className="col-span-5">Subject Line</div>
@@ -360,18 +360,18 @@ const ContentInsightsTab = ({ campaign, data }) => {
               SMS
             </h2>
             <div className="flex gap-4">
-               <div className="bg-white px-4 py-2 rounded-lg border border-gray-200 shadow-sm">
+               <div className="bg-white px-4 py-2 rounded-lg border border-gray-200 shadow-xs">
                   <div className="text-xs text-gray-500 uppercase font-bold">Total Usage</div>
                   <div className="text-lg font-bold text-gray-900">77</div>
                </div>
-               <div className="bg-white px-4 py-2 rounded-lg border border-gray-200 shadow-sm">
+               <div className="bg-white px-4 py-2 rounded-lg border border-gray-200 shadow-xs">
                   <div className="text-xs text-gray-500 uppercase font-bold">Active Retailers</div>
                   <div className="text-lg font-bold text-gray-900">52</div>
                </div>
             </div>
           </div>
 
-          <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+          <div className="bg-white border border-gray-200 rounded-xl shadow-xs overflow-hidden">
             {/* Table Header */}
             <div className="grid grid-cols-12 gap-4 px-6 py-3 bg-gray-50 border-b border-gray-200 text-xs font-bold text-gray-500 uppercase tracking-wider">
               <div className="col-span-5">Message Preview</div>
@@ -419,14 +419,14 @@ const ContentInsightsTab = ({ campaign, data }) => {
               Downloadable Assets
             </h2>
             <div className="flex gap-4">
-               <div className="bg-white px-4 py-2 rounded-lg border border-gray-200 shadow-sm">
+               <div className="bg-white px-4 py-2 rounded-lg border border-gray-200 shadow-xs">
                   <div className="text-xs text-gray-500 uppercase font-bold">Total Downloads</div>
                   <div className="text-lg font-bold text-gray-900">548</div>
                </div>
             </div>
           </div>
 
-          <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+          <div className="bg-white border border-gray-200 rounded-xl shadow-xs overflow-hidden">
             <table className="w-full text-left">
               <thead className="bg-gray-50 border-b border-gray-200">
                 <tr>

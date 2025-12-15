@@ -99,7 +99,7 @@ const RetailerPicker = ({ isOpen, onClose, selectedIds = [], onConfirm }) => {
            <div className="flex gap-3">
               <button 
                   onClick={onClose}
-                  className="flex-1 py-2.5 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition shadow-sm"
+                  className="flex-1 py-2.5 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition shadow-xs"
               >
                   Cancel
               </button>
@@ -123,7 +123,7 @@ const RetailerPicker = ({ isOpen, onClose, selectedIds = [], onConfirm }) => {
                         placeholder="Search by name, location..." 
                         value={searchQuery}
                         onChange={e => setSearchQuery(e.target.value)}
-                        className="w-full pl-9 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-black/5 transition"
+                        className="w-full pl-9 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-black/5 transition"
                     />
                 </div>
                 
@@ -254,7 +254,7 @@ const RetailerPicker = ({ isOpen, onClose, selectedIds = [], onConfirm }) => {
                                 type="checkbox"
                                 checked={isSelected}
                                 onChange={() => toggleSelection(retailer.id)}
-                                className="w-5 h-5 rounded border-gray-300 text-black focus:ring-black transition cursor-pointer"
+                                className="w-5 h-5 rounded-sm border-gray-300 text-black focus:ring-black transition cursor-pointer"
                             />
                          </div>
 

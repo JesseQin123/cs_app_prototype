@@ -115,7 +115,7 @@ const Overview = ({ campaigns, brands, templates, files }) => {
       {/* 3. Notifications & Activity Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Notifications */}
-        <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+        <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-xs">
           <div className="flex items-center gap-2 mb-6">
             <Bell size={20} className="text-gray-400" />
             <h3 className="font-bold text-gray-900">Unread Notifications</h3>
@@ -123,7 +123,7 @@ const Overview = ({ campaigns, brands, templates, files }) => {
           <div className="space-y-4">
             {notifications.map(n => (
               <div key={n.id} className="flex items-start gap-3 pb-4 border-b border-gray-100 last:border-0 last:pb-0">
-                <div className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${n.type === 'alert' ? 'bg-red-500' : n.type === 'new' ? 'bg-blue-500' : 'bg-gray-300'}`}></div>
+                <div className={`w-2 h-2 rounded-full mt-2 shrink-0 ${n.type === 'alert' ? 'bg-red-500' : n.type === 'new' ? 'bg-blue-500' : 'bg-gray-300'}`}></div>
                 <div>
                   <p className="text-sm text-gray-900 font-medium">{n.message}</p>
                   <p className="text-xs text-gray-400 mt-1">{n.time}</p>
@@ -134,7 +134,7 @@ const Overview = ({ campaigns, brands, templates, files }) => {
         </section>
 
         {/* Recent Activity */}
-        <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+        <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-xs">
           <div className="flex items-center gap-2 mb-6">
             <Activity size={20} className="text-gray-400" />
             <h3 className="font-bold text-gray-900">Recent Activity</h3>

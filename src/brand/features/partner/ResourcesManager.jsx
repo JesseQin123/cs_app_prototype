@@ -48,7 +48,7 @@ const CreateFolderModal = ({ isOpen, onClose, onCreate }) => {
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* Overlay */}
       <div 
-        className="absolute inset-0 bg-black/40 backdrop-blur-sm animate-in fade-in duration-200" 
+        className="absolute inset-0 bg-black/40 backdrop-blur-xs animate-in fade-in duration-200" 
         onClick={onClose}
       />
       
@@ -65,7 +65,7 @@ const CreateFolderModal = ({ isOpen, onClose, onCreate }) => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. Visual Merchandising 2025"
-              className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black/5 focus:border-black transition"
+              className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-black/5 focus:border-black transition"
               autoFocus
               required
             />
@@ -85,7 +85,7 @@ const CreateFolderModal = ({ isOpen, onClose, onCreate }) => {
 
           <div className="flex justify-end gap-3 pt-2">
             <button type="button" onClick={onClose} className="px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100 rounded-lg transition">Cancel</button>
-            <button type="submit" className="px-5 py-2 text-sm font-medium bg-black text-white rounded-lg hover:bg-gray-800 transition shadow-sm">Create Folder</button>
+            <button type="submit" className="px-5 py-2 text-sm font-medium bg-black text-white rounded-lg hover:bg-gray-800 transition shadow-xs">Create Folder</button>
           </div>
         </form>
       </div>
@@ -164,7 +164,7 @@ const ResourcesManager = () => {
                 <input 
                     type="text" 
                     placeholder="Search folders..." 
-                    className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black/5 focus:border-black transition"
+                    className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-black/5 focus:border-black transition"
                     value={searchQuery}
                     onChange={e => setSearchQuery(e.target.value)}
                 />
@@ -182,7 +182,7 @@ const ResourcesManager = () => {
                 <div 
                     key={folder.id}
                     onClick={() => setCurrentFolderId(folder.id)}
-                    className="bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm hover:shadow-md hover:border-gray-300 transition-all duration-300 group cursor-pointer flex flex-col h-[280px]"
+                    className="bg-white border border-gray-100 rounded-xl overflow-hidden shadow-xs hover:shadow-md hover:border-gray-300 transition-all duration-300 group cursor-pointer flex flex-col h-[280px]"
                 >
                     {/* Visual Area (Top) */}
                     <div className={cn("h-[65%] relative overflow-hidden", folder.coverColor)}>
@@ -197,9 +197,9 @@ const ResourcesManager = () => {
                         {/* Status Badge */}
                         <div className="absolute top-3 right-3 flex flex-col items-end gap-2">
                             {folder.status === 'Visible' ? (
-                                <span className="bg-emerald-500/90 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider shadow-sm">Visible</span>
+                                <span className="bg-emerald-500/90 backdrop-blur-xs text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider shadow-xs">Visible</span>
                             ) : (
-                                <span className="bg-gray-500/90 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider shadow-sm">Hidden</span>
+                                <span className="bg-gray-500/90 backdrop-blur-xs text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider shadow-xs">Hidden</span>
                             )}
                         </div>
 
@@ -223,7 +223,7 @@ const ResourcesManager = () => {
                         </div>
 
                         {folder.audience !== 'All Retailers' && (
-                             <div className="mt-3 inline-flex items-center gap-1.5 px-2 py-1 bg-slate-100 text-slate-700 rounded text-[10px] font-bold uppercase tracking-wide w-fit">
+                             <div className="mt-3 inline-flex items-center gap-1.5 px-2 py-1 bg-slate-100 text-slate-700 rounded-sm text-[10px] font-bold uppercase tracking-wide w-fit">
                                 <Layers size={10} /> {folder.audience}
                              </div>
                         )}
@@ -283,7 +283,7 @@ const ResourcesManager = () => {
                         </button>
                         <button 
                             onClick={handleAddFilesMock}
-                            className="flex items-center gap-2 px-4 py-2 bg-black text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition shadow-sm"
+                            className="flex items-center gap-2 px-4 py-2 bg-black text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition shadow-xs"
                         >
                             <Plus size={16} /> Add Files
                         </button>
@@ -292,7 +292,7 @@ const ResourcesManager = () => {
             </div>
 
             {/* File List */}
-            <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm flex-1 flex flex-col">
+            <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-xs flex-1 flex flex-col">
                 <div className="grid grid-cols-[2fr_1fr_1fr_1fr_40px] gap-4 px-6 py-3 bg-gray-50 border-b border-gray-200 text-xs font-semibold text-gray-500 uppercase tracking-wider">
                     <div>Name</div>
                     <div>Type</div>
@@ -315,7 +315,7 @@ const ResourcesManager = () => {
                             <div key={file.id} className="grid grid-cols-[2fr_1fr_1fr_1fr_40px] gap-4 px-6 py-4 border-b border-gray-100 items-center hover:bg-gray-50 transition group">
                                 <div className="flex items-center gap-3">
                                     <Grip size={14} className="text-gray-300 cursor-move opacity-0 group-hover:opacity-100 transition" />
-                                    <div className="p-2 bg-gray-100 rounded text-gray-500">
+                                    <div className="p-2 bg-gray-100 rounded-sm text-gray-500">
                                         <FileText size={18} />
                                     </div>
                                     <span className="font-medium text-gray-900">{file.name}</span>
@@ -352,7 +352,7 @@ const ResourcesManager = () => {
             </div>
             <button 
                 onClick={() => setIsCreateModalOpen(true)}
-                className="flex items-center gap-2 px-5 py-2.5 bg-black text-white text-sm font-bold rounded-lg hover:bg-gray-800 transition shadow-sm"
+                className="flex items-center gap-2 px-5 py-2.5 bg-black text-white text-sm font-bold rounded-lg hover:bg-gray-800 transition shadow-xs"
             >
                 <Plus size={18} /> New Folder
             </button>

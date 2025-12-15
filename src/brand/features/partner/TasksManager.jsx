@@ -70,7 +70,7 @@ const TasksManager = ({ notify }) => {
         </div>
         <button 
             onClick={() => setIsCreateModalOpen(true)}
-            className="flex items-center gap-2 px-5 py-2.5 bg-black text-white text-sm font-bold rounded-lg hover:bg-gray-800 transition shadow-sm"
+            className="flex items-center gap-2 px-5 py-2.5 bg-black text-white text-sm font-bold rounded-lg hover:bg-gray-800 transition shadow-xs"
         >
             <Plus size={18} /> Create Task
         </button>
@@ -87,7 +87,7 @@ const TasksManager = ({ notify }) => {
                     placeholder="Search tasks..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10 pr-4 py-2 bg-white border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-black/5 focus:border-black w-72 transition outline-none shadow-sm"
+                    className="pl-10 pr-4 py-2 bg-white border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-black/5 focus:border-black w-72 transition outline-hidden shadow-xs"
                   />
               </div>
 

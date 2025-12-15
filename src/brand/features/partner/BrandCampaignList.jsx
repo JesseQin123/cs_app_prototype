@@ -89,7 +89,7 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
       };
       
       return (
-          <span className={`inline-flex items-center gap-1.5 px-2 py-1 rounded text-xs font-bold uppercase tracking-wider whitespace-nowrap ${styles[campaign.status] || styles['Draft']}`}>
+          <span className={`inline-flex items-center gap-1.5 px-2 py-1 rounded-sm text-xs font-bold uppercase tracking-wider whitespace-nowrap ${styles[campaign.status] || styles['Draft']}`}>
               {campaign.status === 'Active' && <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>}
               {campaign.status === 'Scheduled' && <Calendar size={10} />}
               {campaign.status}
@@ -142,10 +142,10 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
               case 'instagram': return <Instagram size={14} className="text-pink-600"/>;
               case 'facebook': return <div className="w-3.5 h-3.5 bg-blue-600 rounded-full flex items-center justify-center text-[9px] text-white font-bold">f</div>;
               case 'x': 
-              case 'twitter': return <div className="w-3.5 h-3.5 bg-black rounded-sm flex items-center justify-center text-white font-black text-[10px]">𝕏</div>;
+              case 'twitter': return <div className="w-3.5 h-3.5 bg-black rounded-xs flex items-center justify-center text-white font-black text-[10px]">𝕏</div>;
               case 'google':
               case 'gmb': 
-              case 'google business profile': return <div className="w-3.5 h-3.5 rounded-sm flex items-center justify-center text-white font-bold text-[9px]" style={{backgroundColor: '#4285F4'}}>G</div>;
+              case 'google business profile': return <div className="w-3.5 h-3.5 rounded-xs flex items-center justify-center text-white font-bold text-[9px]" style={{backgroundColor: '#4285F4'}}>G</div>;
               default: return null;
           }
       };
@@ -158,7 +158,7 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
                       return (
                           <div key={index} className="flex items-center -space-x-1.5">
                               {type.map(p => (
-                                  <div key={p} className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center shadow-sm z-10 relative border border-white">
+                                  <div key={p} className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center shadow-xs z-10 relative border border-white">
                                       {getPlatformIcon(p)}
                                   </div>
                               ))}
@@ -271,7 +271,7 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
       </div>
 
       {/* [C] Filter & Control Bar (Sticky) */}
-      <div className="sticky top-0 z-40 bg-gray-50 pt-2 pb-4 mb-4 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-200 px-8 shadow-sm">
+      <div className="sticky top-0 z-40 bg-gray-50 pt-2 pb-4 mb-4 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-200 px-8 shadow-xs">
          {/* Left: Status Tabs */}
          <div className="flex items-center gap-2 flex-wrap">
             {statusTabs.map(tab => {
@@ -282,7 +282,7 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
                         key={tab.id}
                         onClick={() => setFilterStatus(tab.id)}
                         className={`px-4 py-1.5 rounded-full text-sm font-medium transition whitespace-nowrap ${
-                            isActive ? 'bg-black text-white shadow-sm' : 'bg-white text-gray-600 hover:bg-gray-100 border border-transparent'
+                            isActive ? 'bg-black text-white shadow-xs' : 'bg-white text-gray-600 hover:bg-gray-100 border border-transparent'
                         }`}
                     >
                         {tab.label} <span className={`text-xs ml-1 ${isActive ? 'text-white/70' : 'text-gray-400'}`}>({count})</span>
@@ -301,7 +301,7 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
                  placeholder="Search campaigns..."
                  value={searchQuery}
                  onChange={(e) => setSearchQuery(e.target.value)}
-                 className="pl-9 pr-4 py-2 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black/5 focus:border-black w-48 transition shadow-sm"
+                 className="pl-9 pr-4 py-2 bg-white border border-gray-200 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-black/5 focus:border-black w-48 transition shadow-xs"
                />
             </div>
 
@@ -309,7 +309,7 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
             <div className="relative">
                <button 
                   onClick={() => setIsSortDropdownOpen(!isSortDropdownOpen)}
-                  className="flex items-center gap-2 bg-white border border-gray-200 px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition min-w-[160px] justify-between shadow-sm"
+                  className="flex items-center gap-2 bg-white border border-gray-200 px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition min-w-[160px] justify-between shadow-xs"
                >
                   <span>{sortOptions.find(o => o.id === sortBy)?.label}</span>
                   <ChevronDown size={14} className="text-gray-500"/>
@@ -335,8 +335,8 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
 
             {/* View Switcher */}
             <div className="flex bg-gray-200 p-1 rounded-lg">
-               <button onClick={() => setViewMode('grid')} className={`p-1.5 rounded ${viewMode === 'grid' ? 'bg-white shadow-sm text-black' : 'text-gray-500 hover:text-black'}`}><Grid size={16}/></button>
-               <button onClick={() => setViewMode('list')} className={`p-1.5 rounded ${viewMode === 'list' ? 'bg-white shadow-sm text-black' : 'text-gray-500 hover:text-black'}`}><ListIcon size={16}/></button>
+               <button onClick={() => setViewMode('grid')} className={`p-1.5 rounded-sm ${viewMode === 'grid' ? 'bg-white shadow-xs text-black' : 'text-gray-500 hover:text-black'}`}><Grid size={16}/></button>
+               <button onClick={() => setViewMode('list')} className={`p-1.5 rounded-sm ${viewMode === 'list' ? 'bg-white shadow-xs text-black' : 'text-gray-500 hover:text-black'}`}><ListIcon size={16}/></button>
             </div>
          </div>
       </div>
@@ -373,9 +373,9 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
                           <div className="absolute top-3 left-3 z-10 flex items-center gap-2">
                               {renderStatusBadge(campaign)}
                               {campaign.updatePending && campaign.status === 'Active' && (
-                                  <div className="bg-amber-100 text-amber-700 p-1 rounded shadow-sm border border-amber-200 group/edit" title="Update Pending">
+                                  <div className="bg-amber-100 text-amber-700 p-1 rounded-sm shadow-xs border border-amber-200 group/edit" title="Update Pending">
                                       <Pencil size={12} />
-                                      <div className="absolute left-full ml-2 top-0 bg-gray-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover/edit:opacity-100 whitespace-nowrap pointer-events-none transition">Update Pending</div>
+                                      <div className="absolute left-full ml-2 top-0 bg-gray-900 text-white text-xs px-2 py-1 rounded-sm opacity-0 group-hover/edit:opacity-100 whitespace-nowrap pointer-events-none transition">Update Pending</div>
                                   </div>
                               )}
                           </div>
@@ -400,7 +400,7 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
                                   <Tooltip content={campaign.title}>
                                     <h3 className="font-bold text-lg text-gray-900 leading-tight line-clamp-2 group-hover:text-brand-gold transition">{campaign.title}</h3>
                                   </Tooltip>
-                                  {campaign.isPinned && <Pin size={14} className="fill-black flex-shrink-0 mt-1"/>}
+                                  {campaign.isPinned && <Pin size={14} className="fill-black shrink-0 mt-1"/>}
                               </div>
                           
                           <div className="mb-4">
@@ -442,7 +442,7 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
           </div>
       ) : (
           /* [D2] List View */
-          <div className="bg-white border border-gray-200 rounded-xl shadow-sm">
+          <div className="bg-white border border-gray-200 rounded-xl shadow-xs">
               <table className="w-full text-left table-fixed">
                   <thead className="bg-gray-50 border-b border-gray-200 text-xs font-bold text-gray-500 uppercase tracking-wider">
                       <tr>
@@ -467,7 +467,7 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
                           >
                               <td className="px-6 py-4">
                                   <div className="flex items-start gap-4">
-                                      <div className="w-16 h-9 rounded bg-gray-100 flex-shrink-0 shadow-sm mt-1 overflow-hidden relative">
+                                      <div className="w-16 h-9 rounded-sm bg-gray-100 shrink-0 shadow-xs mt-1 overflow-hidden relative">
                                           {campaign.coverImage ? (
                                               <img 
                                                 src={campaign.coverImage} 
@@ -488,7 +488,7 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
                                                     {campaign.title}
                                                 </div>
                                               </Tooltip>
-                                              {campaign.isPinned && <Pin size={12} className="fill-black flex-shrink-0 mt-1"/>}
+                                              {campaign.isPinned && <Pin size={12} className="fill-black shrink-0 mt-1"/>}
                                           </div>
                                           <div className="text-xs text-gray-500 line-clamp-2 mt-0.5 max-w-[200px]">{campaign.description || 'No description provided for this campaign.'}</div>
                                       </div>
@@ -541,7 +541,7 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
                               <td className="px-6 py-4 text-right relative" onClick={e => e.stopPropagation()}>
                                   <button 
                                       onClick={(e) => {e.stopPropagation(); setOpenMenuId(openMenuId === campaign.id ? null : campaign.id)}}
-                                      className="p-2 hover:bg-gray-200 rounded text-gray-400 hover:text-black transition"
+                                      className="p-2 hover:bg-gray-200 rounded-sm text-gray-400 hover:text-black transition"
                                   >
                                       <MoreHorizontal size={16}/>
                                   </button>
@@ -559,7 +559,7 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
           {visibleCount < filteredCampaigns.length ? (
               <button 
                   onClick={() => setVisibleCount(prev => prev + 12)}
-                  className="px-6 py-2 bg-white border border-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-50 hover:border-gray-300 transition shadow-sm"
+                  className="px-6 py-2 bg-white border border-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-50 hover:border-gray-300 transition shadow-xs"
               >
                   Load More
               </button>

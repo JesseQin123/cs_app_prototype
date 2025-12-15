@@ -261,7 +261,7 @@ const GlobalFilePicker = ({
                         placeholder="Search by name" 
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full pl-9 pr-4 py-2 bg-white border border-gray-200 rounded text-sm focus:ring-1 focus:ring-black focus:border-black placeholder:text-gray-400 transition-all font-medium"
+                        className="w-full pl-9 pr-4 py-2 bg-white border border-gray-200 rounded-sm text-sm focus:ring-1 focus:ring-black focus:border-black placeholder:text-gray-400 transition-all font-medium"
                     />
                 </div>
             </div>
@@ -287,7 +287,7 @@ const GlobalFilePicker = ({
                                 key={f.id}
                                 className={`
                                     relative group cursor-pointer aspect-square rounded-xl overflow-hidden transition-all duration-300 border
-                                    ${isSelected ? 'ring-2 ring-[#b5984d] border-transparent shadow-lg scale-[0.98]' : 'border-gray-100 hover:shadow-md hover:scale-[1.01] hover:border-gray-200'}
+                                    ${isSelected ? 'ring-2 ring-brand-gold border-transparent shadow-lg scale-[0.98]' : 'border-gray-100 hover:shadow-md hover:scale-[1.01] hover:border-gray-200'}
                                 `}
                                 onClick={() => setSelectedLibraryFile(f)}
                             >
@@ -315,13 +315,13 @@ const GlobalFilePicker = ({
                                         </button>
                                         
                                         {/* Selection Check */}
-                                        <div className={`w-8 h-8 rounded-full flex items-center justify-center shadow-sm transition-all ${isSelected ? 'bg-[#b5984d] text-white scale-100' : 'bg-white/20 hover:bg-white hover:text-black text-transparent scale-90'}`}>
+                                        <div className={`w-8 h-8 rounded-full flex items-center justify-center shadow-xs transition-all ${isSelected ? 'bg-brand-gold text-white scale-100' : 'bg-white/20 hover:bg-white hover:text-black text-transparent scale-90'}`}>
                                             <Check size={14} strokeWidth={3} />
                                         </div>
                                     </div>
 
                                     {/* Bottom: Info */}
-                                    <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/90 to-transparent pt-8 text-white">
+                                    <div className="absolute bottom-0 left-0 right-0 p-3 bg-linear-to-t from-black/90 to-transparent pt-8 text-white">
                                         <p className="text-[10px] font-medium truncate">{f.name}</p>
                                         <p className="text-[9px] opacity-70">{f.size}</p>
                                     </div>
@@ -353,7 +353,7 @@ const GlobalFilePicker = ({
                   accept={accept}
                   onChange={handleDeviceUpload}
               />
-              <div className="w-16 h-16 bg-white shadow-sm border border-gray-100 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+              <div className="w-16 h-16 bg-white shadow-xs border border-gray-100 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                   <Upload size={28} className="text-gray-400 group-hover:text-black transition-colors" />
               </div>
               <h3 className="text-xl font-medium text-gray-900 mb-2">Upload Image</h3>
@@ -394,7 +394,7 @@ const GlobalFilePicker = ({
                 </div>
             
                 {activeTab === 'library' && (
-                   <div className="flex-shrink-0 p-6 border-t border-gray-100 flex justify-end gap-3 bg-gray-50/50">
+                   <div className="shrink-0 p-6 border-t border-gray-100 flex justify-end gap-3 bg-gray-50/50">
                        <button onClick={onClose} className="px-6 py-2.5 rounded-lg border border-gray-300 text-sm font-semibold text-gray-700 hover:bg-white hover:border-gray-400 transition-all">
                            Cancel
                        </button>

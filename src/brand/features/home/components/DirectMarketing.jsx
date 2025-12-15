@@ -12,7 +12,7 @@ const DirectMarketing = () => {
    const currentChartData = metrics.directMarketing.trendData[activeTrendTab];
 
    return (
-      <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
+      <div className="bg-white rounded-xl border border-gray-200 shadow-xs overflow-hidden flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
          <div className="p-5 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
             <div className="flex items-center gap-2">
                {/* Updated icon to match sidebar */}
@@ -22,13 +22,13 @@ const DirectMarketing = () => {
                  <div className="text-[10px] text-gray-400 font-bold uppercase tracking-wide mt-1">Owned social post, email & sms</div>
                </div>
             </div>
-            <div className="flex bg-white rounded border border-gray-200 p-0.5">
+            <div className="flex bg-white rounded-sm border border-gray-200 p-0.5">
                {['all', 'email', 'social'].map(tab => (
                   <button 
                      key={tab}
                      onClick={() => setActiveTrendTab(tab)}
                      className={`px-3 py-1 text-[10px] uppercase font-bold rounded transition ${
-                        activeTrendTab === tab ? 'bg-black text-white shadow-sm' : 'text-gray-400 hover:text-gray-600'
+                        activeTrendTab === tab ? 'bg-black text-white shadow-xs' : 'text-gray-400 hover:text-gray-600'
                      }`}
                   >
                      {tab}

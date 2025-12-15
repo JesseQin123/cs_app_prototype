@@ -77,13 +77,13 @@ const FileUploadTrigger = ({
   const renderCardMode = () => {
     if (currentFile) {
         return (
-            <div className="relative group rounded bg-gray-50 border border-gray-200 overflow-hidden">
+            <div className="relative group rounded-sm bg-gray-50 border border-gray-200 overflow-hidden">
                 <div className="aspect-video w-full relative">
                     <img src={currentFile.url} alt="Preview" className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center backdrop-blur-[1px]">
                         <button 
                             onClick={handleClick}
-                            className="bg-white text-black text-xs font-bold px-5 py-2.5 rounded hover:bg-brand-gold hover:text-white transition-colors uppercase tracking-wider flex items-center gap-2"
+                            className="bg-white text-black text-xs font-bold px-5 py-2.5 rounded-sm hover:bg-brand-gold hover:text-white transition-colors uppercase tracking-wider flex items-center gap-2"
                         >
                             <RefreshCw size={12} /> Replace
                         </button>
@@ -97,9 +97,9 @@ const FileUploadTrigger = ({
     return (
         <div 
             onClick={handleClick}
-            className="border border-dashed border-gray-300 rounded bg-gray-50/30 hover:bg-gray-50 hover:border-brand-gold hover:shadow-[0_0_15px_rgba(212,175,55,0.1)] transition-all cursor-pointer h-48 flex flex-col items-center justify-center group gap-3"
+            className="border border-dashed border-gray-300 rounded-sm bg-gray-50/30 hover:bg-gray-50 hover:border-brand-gold hover:shadow-[0_0_15px_rgba(212,175,55,0.1)] transition-all cursor-pointer h-48 flex flex-col items-center justify-center group gap-3"
         >
-            <div className="w-10 h-10 rounded-full bg-white border border-gray-100 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform group-hover:border-brand-gold/30">
+            <div className="w-10 h-10 rounded-full bg-white border border-gray-100 flex items-center justify-center shadow-xs group-hover:scale-110 transition-transform group-hover:border-brand-gold/30">
                 <Upload size={18} className="text-gray-400 group-hover:text-brand-gold transition-colors" />
             </div>
             <div className="text-center">
@@ -138,7 +138,7 @@ const FileUploadTrigger = ({
                     className={`
                         px-5 py-2.5 rounded text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2
                         ${currentFile 
-                            ? 'bg-white border border-gray-200 text-gray-700 hover:border-brand-gold hover:text-brand-gold shadow-sm' 
+                            ? 'bg-white border border-gray-200 text-gray-700 hover:border-brand-gold hover:text-brand-gold shadow-xs' 
                             : 'bg-black text-white hover:bg-gray-800 shadow-md'}
                     `}
                  >
@@ -157,7 +157,7 @@ const FileUploadTrigger = ({
             {/* Right: Preview Area */}
             {/* Fixed Aspect Ratio Container depending on req ratio, else 16:9 default */}
             <div className={`
-                flex-shrink-0 relative overflow-hidden rounded bg-gray-200 border border-gray-300 shadow-inner
+                shrink-0 relative overflow-hidden rounded bg-gray-200 border border-gray-300 shadow-inner
                 ${currentFile ? 'bg-white' : ''}
             `}
                 style={{ 

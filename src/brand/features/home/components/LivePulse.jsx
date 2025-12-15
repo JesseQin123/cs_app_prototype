@@ -17,7 +17,7 @@ const LivePulse = () => {
    };
 
    return (
-      <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden h-fit sticky top-6">
+      <div className="bg-white rounded-xl border border-gray-200 shadow-xs overflow-hidden h-fit sticky top-6">
          <div className="p-4 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
             <h3 className="font-bold text-gray-900 flex items-center gap-2">
                <Activity size={18} className="text-indigo-500" /> Live Pulse

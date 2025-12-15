@@ -48,14 +48,14 @@ const PortalTooltip = ({ content, children }) => {
             {children}
             {isVisible && createPortal(
                 <div 
-                    className="fixed z-[9999] pointer-events-none animate-in fade-in zoom-in-95 duration-150"
+                    className="fixed z-9999 pointer-events-none animate-in fade-in zoom-in-95 duration-150"
                     style={{ 
                         top: position.top, 
                         left: position.left,
                         transform: 'translate(-50%, -100%)' 
                     }}
                 >
-                    <div className="bg-gray-900 text-white text-[10px] font-bold px-2 py-1 rounded shadow-lg whitespace-nowrap relative">
+                    <div className="bg-gray-900 text-white text-[10px] font-bold px-2 py-1 rounded-sm shadow-lg whitespace-nowrap relative">
                         {content}
                         {/* Little Arrow */}
                         <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>

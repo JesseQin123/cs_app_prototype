@@ -98,7 +98,7 @@ const CampaignManager = ({ campaigns: initialCampaigns, setCampaigns: setParentC
         </div>
         <button 
             onClick={handleCreate}
-            className="flex items-center gap-2 px-5 py-2.5 bg-black text-white text-sm font-bold rounded-lg hover:bg-gray-800 transition shadow-sm"
+            className="flex items-center gap-2 px-5 py-2.5 bg-black text-white text-sm font-bold rounded-lg hover:bg-gray-800 transition shadow-xs"
         >
             <Plus size={18} /> New Campaign
         </button>

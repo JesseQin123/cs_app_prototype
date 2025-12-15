@@ -63,7 +63,7 @@ const AudienceSelector = ({
           className={`border rounded-xl p-4 cursor-pointer transition relative overflow-hidden group ${value.type === 'all' ? 'border-black bg-gray-50 ring-1 ring-black' : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'}`}
        >
           <div className="flex items-start gap-4">
-             <div className={`mt-0.5 w-4 h-4 rounded-full border flex items-center justify-center flex-shrink-0 transition ${value.type === 'all' ? 'border-black' : 'border-gray-300'}`}>
+             <div className={`mt-0.5 w-4 h-4 rounded-full border flex items-center justify-center shrink-0 transition ${value.type === 'all' ? 'border-black' : 'border-gray-300'}`}>
                 {value.type === 'all' && <div className="w-2 h-2 bg-black rounded-full" />}
              </div>
              <div>
@@ -82,7 +82,7 @@ const AudienceSelector = ({
           className={`border rounded-xl p-4 cursor-pointer transition relative ${value.type === 'segment' ? 'border-black bg-gray-50 ring-1 ring-black' : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'}`}
        >
           <div className="flex items-start gap-4">
-             <div className={`mt-0.5 w-4 h-4 rounded-full border flex items-center justify-center flex-shrink-0 transition ${value.type === 'segment' ? 'border-black' : 'border-gray-300'}`}>
+             <div className={`mt-0.5 w-4 h-4 rounded-full border flex items-center justify-center shrink-0 transition ${value.type === 'segment' ? 'border-black' : 'border-gray-300'}`}>
                 {value.type === 'segment' && <div className="w-2 h-2 bg-black rounded-full" />}
              </div>
              <div className="flex-1">
@@ -108,7 +108,7 @@ const AudienceSelector = ({
           className={`border rounded-xl p-4 cursor-pointer transition relative ${value.type === 'specific' ? 'border-black bg-gray-50 ring-1 ring-black' : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'}`}
        >
           <div className="flex items-start gap-4">
-             <div className={`mt-0.5 w-4 h-4 rounded-full border flex items-center justify-center flex-shrink-0 transition ${value.type === 'specific' ? 'border-black' : 'border-gray-300'}`}>
+             <div className={`mt-0.5 w-4 h-4 rounded-full border flex items-center justify-center shrink-0 transition ${value.type === 'specific' ? 'border-black' : 'border-gray-300'}`}>
                 {value.type === 'specific' && <div className="w-2 h-2 bg-black rounded-full" />}
              </div>
              <div className="flex-1">

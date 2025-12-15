@@ -134,7 +134,7 @@ const SegmentationManager = () => {
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
-            <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setIsTierModalOpen(false)}></div>
+            <div className="absolute inset-0 bg-black/50 backdrop-blur-xs" onClick={() => setIsTierModalOpen(false)}></div>
             <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-md p-6 animate-in zoom-in-95">
                 <div className="flex justify-between items-center mb-6">
                     <h3 className="text-lg font-bold text-gray-900">{editingTier ? 'Edit Tier' : 'Add New Tier'}</h3>
@@ -148,7 +148,7 @@ const SegmentationManager = () => {
                             type="text" 
                             value={formData.name}
                             onChange={e => setFormData({...formData, name: e.target.value})}
-                            className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black/5"
+                            className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-black/5"
                             placeholder="e.g. Platinum Plus"
                         />
                     </div>
@@ -175,7 +175,7 @@ const SegmentationManager = () => {
                                     type="number" 
                                     value={formData.emailQuota}
                                     onChange={e => setFormData({...formData, emailQuota: parseInt(e.target.value) || 0})}
-                                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black/5"
+                                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-black/5"
                                 />
                                 <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-500">emails / period</span>
                             </div>
@@ -204,7 +204,7 @@ const SegmentationManager = () => {
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
-            <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setIsGroupModalOpen(false)}></div>
+            <div className="absolute inset-0 bg-black/50 backdrop-blur-xs" onClick={() => setIsGroupModalOpen(false)}></div>
             <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-sm p-6 animate-in zoom-in-95">
                 <div className="flex justify-between items-center mb-6">
                     <h3 className="text-lg font-bold text-gray-900">{editingGroup ? 'Edit Group' : 'Add New Group'}</h3>
@@ -218,7 +218,7 @@ const SegmentationManager = () => {
                             type="text" 
                             value={formData.name}
                             onChange={e => setFormData({...formData, name: e.target.value})}
-                            className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black/5"
+                            className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-black/5"
                             placeholder="e.g. Q1 Launch Test"
                         />
                     </div>
@@ -243,7 +243,7 @@ const SegmentationManager = () => {
     <div className="space-y-8 pb-12">
       
       {/* Module 1: Retailer Tier Management */}
-      <section className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+      <section className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-xs">
         <div className="px-6 py-5 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
             <div>
                 <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
@@ -254,7 +254,7 @@ const SegmentationManager = () => {
             </div>
             <button 
                 onClick={() => openTierModal()}
-                className="px-3 py-1.5 bg-white border border-gray-200 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 shadow-sm flex items-center gap-2"
+                className="px-3 py-1.5 bg-white border border-gray-200 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 shadow-xs flex items-center gap-2"
             >
                 <Plus size={16} /> Add New Tier
             </button>
@@ -284,7 +284,7 @@ const SegmentationManager = () => {
                         <div>
                             <div className="text-sm font-bold text-gray-900 flex items-center gap-2">
                                 {tier.name}
-                                {tier.isDefault && <span className="px-1.5 py-0.5 bg-gray-100 text-gray-500 text-[10px] rounded uppercase tracking-wider font-medium">Default</span>}
+                                {tier.isDefault && <span className="px-1.5 py-0.5 bg-gray-100 text-gray-500 text-[10px] rounded-sm uppercase tracking-wider font-medium">Default</span>}
                             </div>
                             <div className="text-xs text-gray-500 mt-0.5">
                                 {tier.emailQuota.toLocaleString()} emails quota • {tier.retailersCount} retailers
@@ -315,7 +315,7 @@ const SegmentationManager = () => {
       </section>
 
       {/* Module 2: Custom Group Management */}
-      <section className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+      <section className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-xs">
         <div className="px-6 py-5 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
             <div>
                 <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
@@ -326,7 +326,7 @@ const SegmentationManager = () => {
             </div>
             <button 
                 onClick={() => openGroupModal()}
-                className="px-3 py-1.5 bg-white border border-gray-200 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 shadow-sm flex items-center gap-2"
+                className="px-3 py-1.5 bg-white border border-gray-200 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 shadow-xs flex items-center gap-2"
             >
                 <Plus size={16} /> Add New Group
             </button>

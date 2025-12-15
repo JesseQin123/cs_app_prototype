@@ -5,7 +5,7 @@ import ActivityList from './components/ActivityList';
 import ActivityCalendar from './components/ActivityCalendar';
 import CreditWallet from './components/CreditWallet';
 import { retailerActivityData } from '@/data/mockStore/retailerActivityStore';
-import * as Dialog from '@radix-ui/react-dialog';
+import Dialog from '@/components/common/Dialog';
 
 const MyMarketing = ({ onNavigate }) => {
     const [viewMode, setViewMode] = useState('list'); // 'list' | 'calendar'
@@ -63,14 +63,14 @@ const MyMarketing = ({ onNavigate }) => {
                     <div className="bg-gray-100 p-1 rounded-lg flex items-center">
                         <button 
                             onClick={() => setViewMode('list')}
-                            className={`p-1.5 rounded-md transition-all ${viewMode === 'list' ? 'bg-white shadow-sm text-gray-900' : 'text-gray-500 hover:text-gray-700'}`}
+                            className={`p-1.5 rounded-md transition-all ${viewMode === 'list' ? 'bg-white shadow-xs text-gray-900' : 'text-gray-500 hover:text-gray-700'}`}
                             title="List View"
                         >
                             <List size={18} />
                         </button>
                         <button 
                             onClick={() => setViewMode('calendar')}
-                            className={`p-1.5 rounded-md transition-all ${viewMode === 'calendar' ? 'bg-white shadow-sm text-gray-900' : 'text-gray-500 hover:text-gray-700'}`}
+                            className={`p-1.5 rounded-md transition-all ${viewMode === 'calendar' ? 'bg-white shadow-xs text-gray-900' : 'text-gray-500 hover:text-gray-700'}`}
                             title="Calendar View"
                         >
                             <Calendar size={18} />
@@ -80,7 +80,7 @@ const MyMarketing = ({ onNavigate }) => {
                     {/* Primary Action */}
                     <button 
                         onClick={handleNewActivity}
-                        className="bg-black text-white text-sm font-bold px-4 py-2.5 rounded-lg hover:bg-gray-800 transition-colors flex items-center gap-2 shadow-sm"
+                        className="bg-black text-white text-sm font-bold px-4 py-2.5 rounded-lg hover:bg-gray-800 transition-colors flex items-center gap-2 shadow-xs"
                     >
                         <Plus size={16} /> <span>New Activity</span>
                     </button>
@@ -122,37 +122,37 @@ const MyMarketing = ({ onNavigate }) => {
             </div>
 
             {/* New Activity Modal (MVP) */}
-            <Dialog.Root open={showNewActivityModal} onOpenChange={setShowNewActivityModal}>
-                <Dialog.Portal>
-                    <Dialog.Overlay className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 transition-opacity animate-in fade-in" />
-                    <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md bg-white rounded-xl shadow-2xl z-50 p-0 overflow-hidden animate-in zoom-in-95 duration-200">
-                        <div className="p-6 text-center">
-                            <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <Plus size={24} className="text-gray-900" />
-                            </div>
-                            <h3 className="text-lg font-bold text-gray-900 mb-2">Select a Campaign</h3>
-                            <p className="text-sm text-gray-500 mb-6 px-4">
-                                To create a new activity, please select a campaign from your Brand partners. You'll be redirected to the Brand Center to pick a source.
-                            </p>
-                            
-                            <div className="flex items-center gap-3">
-                                <button 
-                                    onClick={() => setShowNewActivityModal(false)}
-                                    className="flex-1 py-2.5 px-4 bg-gray-100 text-gray-700 font-bold rounded-lg hover:bg-gray-200 transition-colors text-xs uppercase tracking-wider"
-                                >
-                                    Cancel
-                                </button>
-                                <button 
-                                    onClick={goToBrandCenter}
-                                    className="flex-1 py-2.5 px-4 bg-black text-white font-bold rounded-lg hover:bg-gray-800 transition-colors shadow-sm text-xs uppercase tracking-wider whitespace-nowrap"
-                                >
-                                    Browse Brand Center
-                                </button>
-                            </div>
-                        </div>
-                    </Dialog.Content>
-                </Dialog.Portal>
-            </Dialog.Root>
+            <Dialog 
+                isOpen={showNewActivityModal} 
+                onOpenChange={setShowNewActivityModal}
+                showCloseButton={false}
+                maxWidth="max-w-md"
+            >
+                <div className="p-6 text-center">
+                    <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <Plus size={24} className="text-gray-900" />
+                    </div>
+                    <h3 className="text-lg font-bold text-gray-900 mb-2">Select a Campaign</h3>
+                    <p className="text-sm text-gray-500 mb-6 px-4">
+                        To create a new activity, please select a campaign from your Brand partners. You'll be redirected to the Brand Center to pick a source.
+                    </p>
+                    
+                    <div className="flex items-center gap-3">
+                        <button 
+                            onClick={() => setShowNewActivityModal(false)}
+                            className="flex-1 py-2.5 px-4 bg-gray-100 text-gray-700 font-bold rounded-lg hover:bg-gray-200 transition-colors text-xs uppercase tracking-wider"
+                        >
+                            Cancel
+                        </button>
+                        <button 
+                            onClick={goToBrandCenter}
+                            className="flex-1 py-2.5 px-4 bg-black text-white font-bold rounded-lg hover:bg-gray-800 transition-colors shadow-xs text-xs uppercase tracking-wider whitespace-nowrap"
+                        >
+                            Browse Brand Center
+                        </button>
+                    </div>
+                </div>
+            </Dialog>
 
         </div>
     );

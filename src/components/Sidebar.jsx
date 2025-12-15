@@ -99,7 +99,7 @@ const Sidebar = ({
                                         
                                         {/* Submenu Right Indicator */}
                                         {isSubActive(id) && (
-                                            <div className="w-1.5 h-1.5 rounded-full bg-[#C5A065] shadow-sm"></div>
+                                            <div className="w-1.5 h-1.5 rounded-full bg-[#C5A065] shadow-xs"></div>
                                         )}
                                     </button>
                                 ))}
@@ -114,7 +114,7 @@ const Sidebar = ({
   };
 
   return (
-    <aside className="w-20 md:w-60 bg-white border-r border-gray-200 flex flex-col flex-shrink-0 transition-all duration-300 z-20 h-screen font-sans">
+    <aside className="w-20 md:w-60 bg-white border-r border-gray-200 flex flex-col shrink-0 transition-all duration-300 z-20 h-screen font-sans">
       {/* 1. Logo Area */}
       <div className="h-20 flex items-center justify-center md:justify-start md:px-8">
         {logo}
@@ -138,10 +138,10 @@ const Sidebar = ({
         {/* User Info Section */}
         <div className="p-4 relative" ref={userMenuRef}>
              <div 
-                className={`flex items-center gap-3 cursor-pointer p-2.5 rounded-xl transition border ${isUserMenuOpen ? 'bg-white border-gray-200 shadow-sm' : 'border-transparent hover:bg-white hover:border-gray-200 hover:shadow-sm'}`}
+                className={`flex items-center gap-3 cursor-pointer p-2.5 rounded-xl transition border ${isUserMenuOpen ? 'bg-white border-gray-200 shadow-xs' : 'border-transparent hover:bg-white hover:border-gray-200 hover:shadow-xs'}`}
                 onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
              >
-                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-gray-900 to-black flex items-center justify-center text-white font-bold shadow-sm ring-2 ring-white text-xs">
+                <div className="w-9 h-9 rounded-full bg-linear-to-br from-gray-900 to-black flex items-center justify-center text-white font-bold shadow-xs ring-2 ring-white text-xs">
                    {user.avatarType === 'image' && user.avatarUrl ? (
                         <img src={user.avatarUrl} alt={user.name} className="w-full h-full object-cover rounded-full" />
                     ) : (
@@ -159,7 +159,7 @@ const Sidebar = ({
              {isUserMenuOpen && (
                 <div className="absolute left-4 bottom-20 w-max min-w-[240px] max-w-sm bg-white rounded-xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] border border-gray-100 animate-in slide-in-from-bottom-2 fade-in duration-200 overflow-hidden z-50">
                     <div className="p-3 border-b border-gray-50 bg-gray-50/50 flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full flex-shrink-0 bg-gray-200 overflow-hidden ring-1 ring-gray-100 flex items-center justify-center font-bold text-gray-600 text-xs">
+                        <div className="w-8 h-8 rounded-full shrink-0 bg-gray-200 overflow-hidden ring-1 ring-gray-100 flex items-center justify-center font-bold text-gray-600 text-xs">
                              {user.initials || user.name.charAt(0)}
                         </div>
                         <div className="flex-1 min-w-0">

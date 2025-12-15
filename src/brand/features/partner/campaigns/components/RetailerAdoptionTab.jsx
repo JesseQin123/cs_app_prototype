@@ -56,7 +56,7 @@ const UsageIcons = ({ usage }) => {
              return (
                  <div key={idx} className="flex items-center -space-x-1.5">
                     {item.map((sub, sIdx) => (
-                        <div key={sIdx} className="w-6 h-6 rounded-full bg-white border border-gray-100 flex items-center justify-center text-pink-600 shadow-sm z-10 relative">
+                        <div key={sIdx} className="w-6 h-6 rounded-full bg-white border border-gray-100 flex items-center justify-center text-pink-600 shadow-xs z-10 relative">
                             {getIcon(sub)}
                         </div>
                     ))}
@@ -143,14 +143,14 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
           <button
             onClick={() => onPageChange(Math.max(1, currentPage - 1))}
             disabled={currentPage === 1}
-            className="p-1 text-gray-500 rounded hover:bg-gray-100 disabled:opacity-50"
+            className="p-1 text-gray-500 rounded-sm hover:bg-gray-100 disabled:opacity-50"
           >
             <ChevronLeft size={20} />
           </button>
           <button
             onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}
             disabled={currentPage === totalPages}
-            className="p-1 text-gray-500 rounded hover:bg-gray-100 disabled:opacity-50"
+            className="p-1 text-gray-500 rounded-sm hover:bg-gray-100 disabled:opacity-50"
           >
             <ChevronRight size={20} />
           </button>
@@ -354,7 +354,7 @@ const RetailerAdoptionTab = ({ campaign }) => {
            <h2 className="text-lg font-bold text-gray-900">Adoption Overview</h2>
         </div>
         <div className="flex items-center gap-3">
-          <div className="group relative flex items-center gap-2 text-[10px] text-gray-400 bg-white border border-gray-200 px-2 py-1 rounded-full shadow-sm cursor-help">
+          <div className="group relative flex items-center gap-2 text-[10px] text-gray-400 bg-white border border-gray-200 px-2 py-1 rounded-full shadow-xs cursor-help">
             <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
             <span>Updated {lastUpdated}</span>
             <div className="absolute right-0 top-full mt-2 w-48 p-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition pointer-events-none z-50">
@@ -375,7 +375,7 @@ const RetailerAdoptionTab = ({ campaign }) => {
       {/* --- 2. Adoption Summary (KPI Cards) --- */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Adoption Rate */}
-        <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+        <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-xs">
           <div className="text-xs text-gray-500 font-medium mb-1 tracking-wide uppercase">Adoption Rate</div>
           <div className="flex items-end gap-2">
             <div className="text-3xl font-bold text-gray-900">{adoptionRate}%</div>
@@ -386,7 +386,7 @@ const RetailerAdoptionTab = ({ campaign }) => {
         </div>
 
         {/* Active Retailers */}
-        <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+        <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-xs">
           <div className="text-xs text-gray-500 font-medium mb-1 tracking-wide uppercase">Active Retailers</div>
           <div className="flex items-end gap-2">
             <div className="text-3xl font-bold text-gray-900">{participatedCount}</div>
@@ -395,7 +395,7 @@ const RetailerAdoptionTab = ({ campaign }) => {
         </div>
 
         {/* Zero-Action (Negative) */}
-        <div className="bg-white p-5 rounded-xl border border-amber-100 shadow-sm relative overflow-hidden">
+        <div className="bg-white p-5 rounded-xl border border-amber-100 shadow-xs relative overflow-hidden">
           <div className="absolute top-0 right-0 p-4 opacity-10">
             <AlertCircle size={48} className="text-amber-500" />
           </div>
@@ -407,7 +407,7 @@ const RetailerAdoptionTab = ({ campaign }) => {
         </div>
 
         {/* Est. Reach */}
-        <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+        <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-xs">
           <div className="text-xs text-gray-500 font-medium mb-1 tracking-wide uppercase">Est. Reach</div>
           <div className="flex items-end gap-2">
             <div className="text-3xl font-bold text-gray-900">{(totalEstReach / 1000).toFixed(1)}k</div>
@@ -418,8 +418,8 @@ const RetailerAdoptionTab = ({ campaign }) => {
       {/* --- 3. Engagement Status (Red/Black Lists) --- */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Left: Needs Attention */}
-        <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden flex flex-col h-full">
-          <div className="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-amber-50/50 to-white flex justify-between items-center">
+        <div className="bg-white rounded-xl border border-gray-200 shadow-xs overflow-hidden flex flex-col h-full">
+          <div className="px-6 py-4 border-b border-gray-100 bg-linear-to-r from-amber-50/50 to-white flex justify-between items-center">
             <h3 className="font-bold text-gray-900 flex items-center gap-2">
               <AlertCircle size={18} className="text-amber-500" />
               Needs Attention
@@ -428,7 +428,7 @@ const RetailerAdoptionTab = ({ campaign }) => {
             {needsAttentionList.length > 0 && (
               <button 
                 onClick={handleNudgeAll}
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 text-amber-700 text-xs font-bold rounded-lg border border-amber-200 hover:bg-amber-100 hover:border-amber-300 transition shadow-sm"
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 text-amber-700 text-xs font-bold rounded-lg border border-amber-200 hover:bg-amber-100 hover:border-amber-300 transition shadow-xs"
               >
                 <Bell size={12} className="fill-amber-700" />
                 Nudge All ({needsAttentionList.length})
@@ -481,8 +481,8 @@ const RetailerAdoptionTab = ({ campaign }) => {
         </div>
 
         {/* Right: Top Advocates */}
-        <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden flex flex-col h-full">
-          <div className="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-emerald-50/50 to-white flex justify-between items-center">
+        <div className="bg-white rounded-xl border border-gray-200 shadow-xs overflow-hidden flex flex-col h-full">
+          <div className="px-6 py-4 border-b border-gray-100 bg-linear-to-r from-emerald-50/50 to-white flex justify-between items-center">
             <h3 className="font-bold text-gray-900 flex items-center gap-2">
               <Award size={18} className="text-emerald-500" />
               Top Advocates
@@ -524,7 +524,7 @@ const RetailerAdoptionTab = ({ campaign }) => {
         {/* Section Title moved OUT of the table card [Request 1] */}
         <h3 className="text-lg font-bold text-gray-900 mb-4">All Retailer Activity</h3>
 
-        <div className="bg-white rounded-xl border border-gray-200 shadow-sm">
+        <div className="bg-white rounded-xl border border-gray-200 shadow-xs">
             {/* Toolbar */}
             <div className="p-4 border-b border-gray-100 flex flex-col xl:flex-row gap-4 justify-between items-center z-20 relative">
               <div className="flex items-center gap-2 w-full xl:w-auto overflow-visible flex-wrap">
@@ -533,7 +533,7 @@ const RetailerAdoptionTab = ({ campaign }) => {
                  <div className="relative">
                      <button 
                         onClick={() => { setIsTierOpen(!isTierOpen); setIsStatusOpen(false); setIsZoneOpen(false); }}
-                        className={`flex items-center gap-2 px-3 py-2 bg-white border ${tierFilter !== 'all' ? 'border-black text-black' : 'border-gray-200 text-gray-700'} rounded-lg hover:bg-gray-50 transition shadow-sm text-sm font-medium`}
+                        className={`flex items-center gap-2 px-3 py-2 bg-white border ${tierFilter !== 'all' ? 'border-black text-black' : 'border-gray-200 text-gray-700'} rounded-lg hover:bg-gray-50 transition shadow-xs text-sm font-medium`}
                      >
                         <Filter size={14} className={tierFilter !== 'all' ? "text-black" : "text-gray-400"}/>
                         <span>{tierFilter === 'all' ? 'All Tiers' : tierFilter}</span>
@@ -562,7 +562,7 @@ const RetailerAdoptionTab = ({ campaign }) => {
                  <div className="relative">
                      <button 
                         onClick={() => { setIsZoneOpen(!isZoneOpen); setIsTierOpen(false); setIsStatusOpen(false); }}
-                        className={`flex items-center gap-2 px-3 py-2 bg-white border ${filterZone !== 'All' ? 'border-black text-black' : 'border-gray-200 text-gray-700'} rounded-lg hover:bg-gray-50 transition shadow-sm text-sm font-medium`}
+                        className={`flex items-center gap-2 px-3 py-2 bg-white border ${filterZone !== 'All' ? 'border-black text-black' : 'border-gray-200 text-gray-700'} rounded-lg hover:bg-gray-50 transition shadow-xs text-sm font-medium`}
                      >
                         <span>{filterZone === 'All' ? 'Sales Zones' : filterZone}</span>
                         <ChevronDown size={14} className="text-gray-400" />
@@ -592,7 +592,7 @@ const RetailerAdoptionTab = ({ campaign }) => {
                        <button 
                           key={s}
                           onClick={() => setStatusFilter(s.toLowerCase())}
-                          className={`px-3 py-1.5 rounded-md text-xs font-medium transition ${statusFilter === s.toLowerCase() ? 'bg-white shadow text-black' : 'text-gray-500 hover:text-black'}`}
+                          className={`px-3 py-1.5 rounded-md text-xs font-medium transition ${statusFilter === s.toLowerCase() ? 'bg-white shadow-sm text-black' : 'text-gray-500 hover:text-black'}`}
                        >
                           {s}
                        </button>
@@ -617,7 +617,7 @@ const RetailerAdoptionTab = ({ campaign }) => {
                   placeholder="Search retailer..."
                   value={searchQuery}
                   onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black/5"
+                  className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-black/5"
                 />
               </div>
             </div>
@@ -720,7 +720,7 @@ const RetailerAdoptionTab = ({ campaign }) => {
         title={
           selectedRetailer ? (
             <div className="flex items-center gap-4">
-              <div className={`w-12 h-12 rounded-full ${selectedRetailer.logo || 'bg-gray-200'} flex items-center justify-center text-lg font-bold text-white shadow-sm`}>
+              <div className={`w-12 h-12 rounded-full ${selectedRetailer.logo || 'bg-gray-200'} flex items-center justify-center text-lg font-bold text-white shadow-xs`}>
                 {selectedRetailer.name?.substring(0, 2).toUpperCase() || 'NA'}
               </div>
               <div>
@@ -837,13 +837,13 @@ const RetailerAdoptionTab = ({ campaign }) => {
                           <div className="flex items-center gap-2 text-gray-700">
                             <FileText size={14} className="text-red-500" /> Lookbook.pdf
                           </div>
-                          <span className="text-xs bg-white border border-gray-200 px-2 py-0.5 rounded">2x</span>
+                          <span className="text-xs bg-white border border-gray-200 px-2 py-0.5 rounded-sm">2x</span>
                         </div>
                         <div className="flex items-center justify-between text-sm">
                           <div className="flex items-center gap-2 text-gray-700">
                             <Video size={14} className="text-purple-500" /> Teaser.mp4
                           </div>
-                          <span className="text-xs bg-white border border-gray-200 px-2 py-0.5 rounded">1x</span>
+                          <span className="text-xs bg-white border border-gray-200 px-2 py-0.5 rounded-sm">1x</span>
                         </div>
                       </div>
                     ) : (

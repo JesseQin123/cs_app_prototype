@@ -18,7 +18,7 @@ const TierBadge = ({ tier, size = 'sm' }) => {
   };
 
   return (
-    <span className={`inline-flex items-center gap-1.5 rounded-full font-medium border border-gray-100 bg-white text-gray-700 shadow-sm whitespace-nowrap ${sizeClasses[size]}`}>
+    <span className={`inline-flex items-center gap-1.5 rounded-full font-medium border border-gray-100 bg-white text-gray-700 shadow-xs whitespace-nowrap ${sizeClasses[size]}`}>
       <span className={`w-2 h-2 rounded-full ${colorClass}`}></span>
       {tier}
     </span>

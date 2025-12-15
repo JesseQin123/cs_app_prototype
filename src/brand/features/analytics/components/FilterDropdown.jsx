@@ -8,7 +8,7 @@ const FilterDropdown = ({ label, value, options, onChange, icon: Icon }) => {
             <button 
                 onClick={() => setIsOpen(!isOpen)}
                 className={`flex items-center gap-2 px-3 py-1.5 border rounded-lg text-sm font-medium transition whitespace-nowrap ${
-                    isOpen ? 'bg-gray-100 border-gray-300 text-black' : 'bg-white border-gray-200 text-gray-700 hover:shadow-sm'
+                    isOpen ? 'bg-gray-100 border-gray-300 text-black' : 'bg-white border-gray-200 text-gray-700 hover:shadow-xs'
                 }`}
             >
                 {Icon && <Icon size={14} className="text-gray-400"/>} 

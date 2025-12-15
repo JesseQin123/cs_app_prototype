@@ -61,17 +61,17 @@ const DropdownSelect = ({
         className={`
             w-full flex items-center justify-between px-3 py-2 
             bg-white border rounded-lg cursor-pointer transition-all duration-200
-            ${isOpen ? 'border-[#C5A065] ring-2 ring-[#C5A065]/10 shadow-sm' : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'}
+            ${isOpen ? 'border-[#C5A065] ring-2 ring-[#C5A065]/10 shadow-xs' : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'}
         `}
       >
         <div className="flex items-center gap-2 truncate pr-2">
-            {Icon && <Icon size={14} className="text-gray-400 flex-shrink-0" />}
+            {Icon && <Icon size={14} className="text-gray-400 shrink-0" />}
             <span className={`text-sm font-medium truncate ${isModified ? 'text-gray-900' : 'text-gray-600'}`}>
                 {(label ? label + ': ' : '') + getLabel(value) || placeholder}
             </span>
         </div>
 
-        <div className="flex items-center gap-1 flex-shrink-0">
+        <div className="flex items-center gap-1 shrink-0">
             {isModified && (
                 <div 
                     role="button" 
@@ -105,7 +105,7 @@ const DropdownSelect = ({
                             `}
                         >
                             <span className="truncate">{optLabel}</span>
-                            {active && <Check size={14} className="flex-shrink-0 ml-2" />}
+                            {active && <Check size={14} className="shrink-0 ml-2" />}
                         </div>
                      );
                 })}

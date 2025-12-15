@@ -25,7 +25,7 @@ const RetailerDrawer = ({ retailer, onClose }) => {
       width="w-[600px] max-w-full"
       title={
         <div className="flex items-center gap-4">
-            <div className={`w-12 h-12 rounded-full ${displayRetailer.logo} flex items-center justify-center text-white font-bold text-lg shadow-sm`}>
+            <div className={`w-12 h-12 rounded-full ${displayRetailer.logo} flex items-center justify-center text-white font-bold text-lg shadow-xs`}>
                 {displayRetailer.name.substring(0, 2).toUpperCase()}
             </div>
             <div>
@@ -120,7 +120,7 @@ const RetailerDrawer = ({ retailer, onClose }) => {
                                 <span className="text-xs font-medium bg-gray-100 text-gray-600 px-2 py-1 rounded-full">2 / 5 Seats Used</span>
                             </div>
                             
-                            <div className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm">
+                            <div className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-xs">
                                 <div className="grid grid-cols-[1fr_100px_120px] gap-4 px-4 py-2 border-b border-gray-100 text-xs font-medium text-gray-400 bg-gray-50">
                                     <div>User</div>
                                     <div>Role</div>
@@ -132,7 +132,7 @@ const RetailerDrawer = ({ retailer, onClose }) => {
                                             <div className="text-sm font-medium text-gray-900">{retailer.contact.name}</div>
                                             <div className="text-xs text-gray-500">{retailer.contact.email}</div>
                                         </div>
-                                        <div className="text-xs font-medium text-gray-600 bg-gray-50 border border-gray-200 px-2 py-1 rounded inline-block text-center">Admin</div>
+                                        <div className="text-xs font-medium text-gray-600 bg-gray-50 border border-gray-200 px-2 py-1 rounded-sm inline-block text-center">Admin</div>
                                         <div className="text-xs text-gray-500 text-right">2 hours ago</div>
                                     </div>
                                     <div className="grid grid-cols-[1fr_100px_120px] gap-4 px-4 py-3 items-center">
@@ -140,7 +140,7 @@ const RetailerDrawer = ({ retailer, onClose }) => {
                                             <div className="text-sm font-medium text-gray-900">Marketing Team</div>
                                             <div className="text-xs text-gray-500">marketing@{retailer.contact.email.split('@')[1]}</div>
                                         </div>
-                                        <div className="text-xs font-medium text-gray-600 bg-gray-50 border border-gray-200 px-2 py-1 rounded inline-block text-center">Editor</div>
+                                        <div className="text-xs font-medium text-gray-600 bg-gray-50 border border-gray-200 px-2 py-1 rounded-sm inline-block text-center">Editor</div>
                                         <div className="text-xs text-gray-500 text-right">Yesterday</div>
                                     </div>
                                 </div>
@@ -161,7 +161,7 @@ const RetailerDrawer = ({ retailer, onClose }) => {
                         {/* Map Placeholder */}
                         <div className="w-full h-48 bg-gray-100 rounded-xl border border-gray-200 flex items-center justify-center relative overflow-hidden group">
                             <div className="absolute inset-0 bg-[url('https://api.mapbox.com/styles/v1/mapbox/light-v10/static/-74.006,40.7128,12,0/600x300?access_token=pk.mock')] bg-cover bg-center opacity-50 grayscale group-hover:grayscale-0 transition duration-500"></div>
-                            <div className="z-10 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-lg shadow-sm border border-gray-200 flex items-center gap-2">
+                            <div className="z-10 bg-white/80 backdrop-blur-xs px-4 py-2 rounded-lg shadow-xs border border-gray-200 flex items-center gap-2">
                                 <MapPin size={16} className="text-red-500" />
                                 <span className="text-xs font-medium text-gray-700">Map View Placeholder</span>
                             </div>
@@ -179,12 +179,12 @@ const RetailerDrawer = ({ retailer, onClose }) => {
                                             <div className="text-sm font-bold text-gray-900">{retailer.name} - Location {i}</div>
                                             <div className="text-xs text-gray-500 mt-0.5">123 Fashion Ave, New York, NY 10001</div>
                                             <div className="flex items-center gap-2 mt-2">
-                                                <span className="text-[10px] bg-green-50 text-green-700 px-1.5 py-0.5 rounded border border-green-100">Open</span>
+                                                <span className="text-[10px] bg-green-50 text-green-700 px-1.5 py-0.5 rounded-sm border border-green-100">Open</span>
                                                 <span className="text-[10px] text-gray-400">10:00 AM - 9:00 PM</span>
                                             </div>
                                         </div>
                                     </div>
-                                    <button className="p-1.5 hover:bg-gray-50 rounded text-gray-400 hover:text-gray-600">
+                                    <button className="p-1.5 hover:bg-gray-50 rounded-sm text-gray-400 hover:text-gray-600">
                                         <Edit size={14} />
                                     </button>
                                 </div>
@@ -196,7 +196,7 @@ const RetailerDrawer = ({ retailer, onClose }) => {
                 {activeTab === 'group' && (
                     <div className="space-y-6">
                         <div className="bg-blue-50 border border-blue-100 rounded-lg p-4 flex gap-3">
-                            <Users className="text-blue-600 flex-shrink-0" size={20} />
+                            <Users className="text-blue-600 shrink-0" size={20} />
                             <div>
                                 <h4 className="text-sm font-bold text-blue-900">Group Management</h4>
                                 <p className="text-xs text-blue-700 mt-1">Assign this retailer to groups to control their access to campaigns and resources.</p>
@@ -236,7 +236,7 @@ const RetailerDrawer = ({ retailer, onClose }) => {
                         </div>
 
                         {/* Email Quota */}
-                        <section className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm">
+                        <section className="bg-white border border-gray-200 rounded-xl p-5 shadow-xs">
                             <div className="flex items-center justify-between mb-4">
                                 <div className="flex items-center gap-2">
                                     <Mail className="text-gray-400" size={20} />
@@ -267,13 +267,13 @@ const RetailerDrawer = ({ retailer, onClose }) => {
                             {/* Pending Request Mock */}
                             {retailer.id === 'r5' && (
                                 <div className="mt-4 bg-amber-50 border border-amber-100 rounded-lg p-3 flex items-start gap-3">
-                                    <AlertCircle className="text-amber-600 flex-shrink-0 mt-0.5" size={16} />
+                                    <AlertCircle className="text-amber-600 shrink-0 mt-0.5" size={16} />
                                     <div className="flex-1">
                                         <div className="text-sm font-medium text-amber-900">Requesting +5,000 Credits</div>
                                         <div className="text-xs text-amber-700 mt-0.5">Reason: Holiday Promo Campaign needs more reach.</div>
                                         <div className="flex gap-2 mt-2">
-                                            <button className="px-3 py-1 bg-amber-600 text-white text-xs font-medium rounded hover:bg-amber-700">Approve</button>
-                                            <button className="px-3 py-1 bg-white border border-amber-200 text-amber-700 text-xs font-medium rounded hover:bg-amber-50">Reject</button>
+                                            <button className="px-3 py-1 bg-amber-600 text-white text-xs font-medium rounded-sm hover:bg-amber-700">Approve</button>
+                                            <button className="px-3 py-1 bg-white border border-amber-200 text-amber-700 text-xs font-medium rounded-sm hover:bg-amber-50">Reject</button>
                                         </div>
                                     </div>
                                 </div>
@@ -281,7 +281,7 @@ const RetailerDrawer = ({ retailer, onClose }) => {
                         </section>
 
                         {/* Social Profiles */}
-                        <section className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm">
+                        <section className="bg-white border border-gray-200 rounded-xl p-5 shadow-xs">
                             <div className="flex items-center justify-between mb-4">
                                 <div className="flex items-center gap-2">
                                     <Globe className="text-gray-400" size={20} />
@@ -295,11 +295,11 @@ const RetailerDrawer = ({ retailer, onClose }) => {
                             <div className="space-y-3">
                                 <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-100">
                                     <div className="flex items-center gap-3">
-                                        <div className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center text-white"><Facebook size={16}/></div>
+                                        <div className="w-8 h-8 bg-blue-600 rounded-sm flex items-center justify-center text-white"><Facebook size={16}/></div>
                                         <span className="text-sm font-medium text-gray-900">Facebook</span>
                                     </div>
                                     {retailer.quota.social.platforms.facebook ? (
-                                        <span className="flex items-center gap-1.5 text-xs font-medium text-green-600 bg-green-50 px-2 py-1 rounded border border-green-100">
+                                        <span className="flex items-center gap-1.5 text-xs font-medium text-green-600 bg-green-50 px-2 py-1 rounded-sm border border-green-100">
                                             <CheckCircle2 size={12}/> Connected
                                         </span>
                                     ) : (
@@ -308,11 +308,11 @@ const RetailerDrawer = ({ retailer, onClose }) => {
                                 </div>
                                 <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-100">
                                     <div className="flex items-center gap-3">
-                                        <div className="w-8 h-8 bg-pink-600 rounded flex items-center justify-center text-white"><Instagram size={16}/></div>
+                                        <div className="w-8 h-8 bg-pink-600 rounded-sm flex items-center justify-center text-white"><Instagram size={16}/></div>
                                         <span className="text-sm font-medium text-gray-900">Instagram</span>
                                     </div>
                                     {retailer.quota.social.platforms.instagram ? (
-                                        <span className="flex items-center gap-1.5 text-xs font-medium text-green-600 bg-green-50 px-2 py-1 rounded border border-green-100">
+                                        <span className="flex items-center gap-1.5 text-xs font-medium text-green-600 bg-green-50 px-2 py-1 rounded-sm border border-green-100">
                                             <CheckCircle2 size={12}/> Connected
                                         </span>
                                     ) : (
@@ -321,11 +321,11 @@ const RetailerDrawer = ({ retailer, onClose }) => {
                                 </div>
                                 <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-100">
                                     <div className="flex items-center gap-3">
-                                        <div className="w-8 h-8 bg-black rounded flex items-center justify-center text-white"><span className="font-bold text-xs">X</span></div>
+                                        <div className="w-8 h-8 bg-black rounded-sm flex items-center justify-center text-white"><span className="font-bold text-xs">X</span></div>
                                         <span className="text-sm font-medium text-gray-900">X (Twitter)</span>
                                     </div>
                                     {retailer.quota.social.platforms.x ? (
-                                        <span className="flex items-center gap-1.5 text-xs font-medium text-green-600 bg-green-50 px-2 py-1 rounded border border-green-100">
+                                        <span className="flex items-center gap-1.5 text-xs font-medium text-green-600 bg-green-50 px-2 py-1 rounded-sm border border-green-100">
                                             <CheckCircle2 size={12}/> Connected
                                         </span>
                                     ) : (
@@ -334,11 +334,11 @@ const RetailerDrawer = ({ retailer, onClose }) => {
                                 </div>
                                 <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-100">
                                     <div className="flex items-center gap-3">
-                                        <div className="w-8 h-8 bg-blue-500 rounded flex items-center justify-center text-white"><span className="font-bold text-xs">G</span></div>
+                                        <div className="w-8 h-8 bg-blue-500 rounded-sm flex items-center justify-center text-white"><span className="font-bold text-xs">G</span></div>
                                         <span className="text-sm font-medium text-gray-900">Google Business Profile</span>
                                     </div>
                                     {retailer.quota.social.platforms.gbp ? (
-                                        <span className="flex items-center gap-1.5 text-xs font-medium text-green-600 bg-green-50 px-2 py-1 rounded border border-green-100">
+                                        <span className="flex items-center gap-1.5 text-xs font-medium text-green-600 bg-green-50 px-2 py-1 rounded-sm border border-green-100">
                                             <CheckCircle2 size={12}/> Connected
                                         </span>
                                     ) : (
@@ -383,7 +383,7 @@ const RetailerDrawer = ({ retailer, onClose }) => {
                                     type="number" 
                                     value={newQuota}
                                     onChange={(e) => setNewQuota(parseInt(e.target.value))}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black/5 focus:border-black transition"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-black/5 focus:border-black transition"
                                 />
                                 <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">emails</span>
                             </div>
@@ -400,7 +400,7 @@ const RetailerDrawer = ({ retailer, onClose }) => {
                             </button>
                             <button 
                                 onClick={() => setShowQuotaModal(false)}
-                                className="px-4 py-2 text-sm font-medium text-white bg-black hover:bg-gray-800 rounded-lg shadow-sm"
+                                className="px-4 py-2 text-sm font-medium text-white bg-black hover:bg-gray-800 rounded-lg shadow-xs"
                             >
                                 Save Changes
                             </button>

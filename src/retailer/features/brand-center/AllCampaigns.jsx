@@ -163,9 +163,9 @@ const AllCampaigns = ({ campaigns, brands, templates, files, initialBrandId = 'a
           case 'instagram': return <Instagram size={14} className="text-pink-600"/>;
           case 'facebook': return <div className="w-3.5 h-3.5 bg-blue-600 rounded-full flex items-center justify-center text-[9px] text-white font-bold">f</div>;
           case 'x': 
-          case 'twitter': return <div className="w-3.5 h-3.5 bg-black rounded-sm flex items-center justify-center text-white font-black text-[10px]">𝕏</div>;
+          case 'twitter': return <div className="w-3.5 h-3.5 bg-black rounded-xs flex items-center justify-center text-white font-black text-[10px]">𝕏</div>;
           case 'google': 
-          case 'gmb': return <div className="w-3.5 h-3.5 rounded-sm flex items-center justify-center text-white font-bold text-[9px]" style={{backgroundColor: '#4285F4'}}>G</div>;
+          case 'gmb': return <div className="w-3.5 h-3.5 rounded-xs flex items-center justify-center text-white font-bold text-[9px]" style={{backgroundColor: '#4285F4'}}>G</div>;
           default: return <Smartphone size={14} className="text-gray-400"/>;
       }
   };
@@ -173,22 +173,22 @@ const AllCampaigns = ({ campaigns, brands, templates, files, initialBrandId = 'a
   return (
     <div className="flex flex-col h-full bg-gray-50">
        {/* 1. Global Filter Bar (Sticky) */}
-       <div className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200 shadow-sm transition-all">
+       <div className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200 shadow-xs transition-all">
           <div className="px-6 py-3 flex items-center justify-between gap-4 h-[72px]">
              
              {/* LEFT GROUP: Tabs + Search + Filter */}
              <div className="flex items-center gap-3 flex-1">
                  {/* Tabs (Available | Past) */}
-                 <div className="flex items-center bg-gray-100 rounded-md p-1 flex-shrink-0">
+                 <div className="flex items-center bg-gray-100 rounded-md p-1 shrink-0">
                     <button 
                        onClick={() => { setFilterStatus('active'); setSortBy('newest'); }}
-                       className={`px-4 py-2 text-sm font-bold rounded-sm transition flex items-center gap-2 ${filterStatus === 'active' ? 'bg-white shadow-sm text-black' : 'text-gray-500 hover:text-black'}`}
+                       className={`px-4 py-2 text-sm font-bold rounded-xs transition flex items-center gap-2 ${filterStatus === 'active' ? 'bg-white shadow-xs text-black' : 'text-gray-500 hover:text-black'}`}
                     >
                        Available <span className={`text-xs ${filterStatus === 'active' ? 'text-gray-900' : 'text-gray-400'}`}>({availableCount})</span>
                     </button>
                     <button 
                        onClick={() => { setFilterStatus('past'); setSortBy('expired_recent'); }}
-                       className={`px-4 py-2 text-sm font-bold rounded-sm transition flex items-center gap-2 ${filterStatus === 'past' ? 'bg-white shadow-sm text-black' : 'text-gray-500 hover:text-black'}`}
+                       className={`px-4 py-2 text-sm font-bold rounded-xs transition flex items-center gap-2 ${filterStatus === 'past' ? 'bg-white shadow-xs text-black' : 'text-gray-500 hover:text-black'}`}
                     >
                        Past <span className={`text-xs ${filterStatus === 'past' ? 'text-gray-900' : 'text-gray-400'}`}>({pastCount})</span>
                     </button>
@@ -202,7 +202,7 @@ const AllCampaigns = ({ campaigns, brands, templates, files, initialBrandId = 'a
                       placeholder="Search..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full pl-10 pr-8 py-2.5 bg-white border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-black/5 focus:border-black transition shadow-sm"
+                      className="w-full pl-10 pr-8 py-2.5 bg-white border border-gray-200 rounded-md text-sm focus:outline-hidden focus:ring-2 focus:ring-black/5 focus:border-black transition shadow-xs"
                     />
                     {searchQuery && (
                         <button 
@@ -287,7 +287,7 @@ const AllCampaigns = ({ campaigns, brands, templates, files, initialBrandId = 'a
                                          <button 
                                             key={opt.id}
                                             onClick={() => setPendingFilterUsage(opt.id)}
-                                            className={`flex-1 px-3 py-1.5 text-xs font-medium rounded-sm transition ${pendingFilterUsage === opt.id ? 'bg-white shadow-sm text-black' : 'text-gray-500 hover:text-black'}`}
+                                            className={`flex-1 px-3 py-1.5 text-xs font-medium rounded-xs transition ${pendingFilterUsage === opt.id ? 'bg-white shadow-xs text-black' : 'text-gray-500 hover:text-black'}`}
                                          >
                                             {opt.label}
                                          </button>
@@ -331,7 +331,7 @@ const AllCampaigns = ({ campaigns, brands, templates, files, initialBrandId = 'a
                                </button>
                                <button 
                                    onClick={applyFilters}
-                                   className="flex-1 px-4 py-2 text-sm font-bold text-white bg-black hover:bg-gray-800 rounded-md transition shadow-sm"
+                                   className="flex-1 px-4 py-2 text-sm font-bold text-white bg-black hover:bg-gray-800 rounded-md transition shadow-xs"
                                >
                                    Confirm
                                </button>
@@ -348,7 +348,7 @@ const AllCampaigns = ({ campaigns, brands, templates, files, initialBrandId = 'a
              </div>
 
              {/* RIGHT GROUP: Sort + View Toggle */}
-             <div className="flex items-center gap-4 flex-shrink-0">
+             <div className="flex items-center gap-4 shrink-0">
                 {/* Sort Dropdown */}
                 <div className="relative">
                    <button 
@@ -397,8 +397,8 @@ const AllCampaigns = ({ campaigns, brands, templates, files, initialBrandId = 'a
                 <div className="h-4 w-px bg-gray-300"></div>
 
                 <div className="flex bg-gray-100 rounded-md p-0.5">
-                   <button onClick={() => setViewMode('grid')} className={`p-1.5 rounded-sm ${viewMode === 'grid' ? 'bg-white shadow-sm text-black' : 'text-gray-400 hover:text-black'}`}><LayoutGrid size={14}/></button>
-                   <button onClick={() => setViewMode('list')} className={`p-1.5 rounded-sm ${viewMode === 'list' ? 'bg-white shadow-sm text-black' : 'text-gray-400 hover:text-black'}`}><List size={14}/></button>
+                   <button onClick={() => setViewMode('grid')} className={`p-1.5 rounded-xs ${viewMode === 'grid' ? 'bg-white shadow-xs text-black' : 'text-gray-400 hover:text-black'}`}><LayoutGrid size={14}/></button>
+                   <button onClick={() => setViewMode('list')} className={`p-1.5 rounded-xs ${viewMode === 'list' ? 'bg-white shadow-xs text-black' : 'text-gray-400 hover:text-black'}`}><List size={14}/></button>
                 </div>
              </div>
           </div>
@@ -530,20 +530,20 @@ const AllCampaigns = ({ campaigns, brands, templates, files, initialBrandId = 'a
                                 {/* Campaign Info */}
                                 <div className="flex items-start gap-4 min-w-72 pr-4">
                                    <div 
-                                      className={`w-16 h-9 rounded flex-shrink-0 bg-cover bg-center shadow-sm mt-1 bg-gray-100 ${campaign.coverImage && typeof campaign.coverImage === 'string' && campaign.coverImage.startsWith('http') ? '' : campaign.cover}`}
+                                      className={`w-16 h-9 rounded-sm shrink-0 bg-cover bg-center shadow-xs mt-1 bg-gray-100 ${campaign.coverImage && typeof campaign.coverImage === 'string' && campaign.coverImage.startsWith('http') ? '' : campaign.cover}`}
                                       style={campaign.coverImage ? { backgroundImage: `url(${campaign.coverImage})` } : {}}
                                    ></div>
                                     <div className="min-w-0 flex-1">
                                        <Tooltip content={campaign.title}>
                                             <h3 className="font-bold text-gray-900 leading-tight line-clamp-2 text-ellipsis group-hover:text-[#C5A065] transition">
                                                 {isNew && (
-                                                   <span className="inline-flex items-center justify-center align-middle mr-1.5 relative overflow-hidden bg-gradient-to-r from-amber-200 to-yellow-400 text-yellow-900 text-[9px] font-bold px-1.5 py-0.5 rounded shadow-sm uppercase tracking-wider border border-yellow-300">
+                                                   <span className="inline-flex items-center justify-center align-middle mr-1.5 relative overflow-hidden bg-linear-to-r from-amber-200 to-yellow-400 text-yellow-900 text-[9px] font-bold px-1.5 py-0.5 rounded-sm shadow-xs uppercase tracking-wider border border-yellow-300">
                                                        <span className="relative z-10">New</span>
                                                        <div className="absolute inset-0 bg-white/40 skew-x-12 animate-[shimmer_2s_infinite] -translate-x-full"></div>
                                                    </span>
                                                 )}
                                                 {isUpdated && (
-                                                   <span className="inline-flex items-center justify-center align-middle mr-1.5 relative overflow-hidden bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow-sm uppercase tracking-wider border border-blue-400">
+                                                   <span className="inline-flex items-center justify-center align-middle mr-1.5 relative overflow-hidden bg-linear-to-r from-blue-500 to-indigo-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-sm shadow-xs uppercase tracking-wider border border-blue-400">
                                                        <span className="relative z-10">Updated</span>
                                                        <div className="absolute inset-0 bg-white/20 skew-x-12 animate-[shimmer_2s_infinite] -translate-x-full"></div>
                                                    </span>
@@ -554,7 +554,7 @@ const AllCampaigns = ({ campaigns, brands, templates, files, initialBrandId = 'a
                                       <p className="text-xs text-gray-500 line-clamp-2 mt-0.5">{campaign.description}</p>
                                    </div>
                                     {campaign.isPinned && (
-                                       <Pin size={14} className="fill-black flex-shrink-0 mt-1" />
+                                       <Pin size={14} className="fill-black shrink-0 mt-1" />
                                     )}
                                 </div>
 
@@ -564,15 +564,15 @@ const AllCampaigns = ({ campaigns, brands, templates, files, initialBrandId = 'a
                                 {/* Status Column */}
                                 <div className="hidden md:block">
                                    {expiration.isExpired ? (
-                                       <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-gray-100 text-gray-500">
+                                       <span className="inline-flex items-center px-2 py-0.5 rounded-sm text-[10px] font-bold bg-gray-100 text-gray-500">
                                            Expired
                                        </span>
                                    ) : expiration.isExpiring ? (
-                                       <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-700">
+                                       <span className="inline-flex items-center px-2 py-0.5 rounded-sm text-[10px] font-bold bg-amber-100 text-amber-700">
                                            Expiring Soon
                                        </span>
                                    ) : (
-                                       <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-green-100 text-green-700">
+                                       <span className="inline-flex items-center px-2 py-0.5 rounded-sm text-[10px] font-bold bg-green-100 text-green-700">
                                            Active
                                        </span>
                                    )}
@@ -581,7 +581,7 @@ const AllCampaigns = ({ campaigns, brands, templates, files, initialBrandId = 'a
 
                                 {/* Brand (Logo + Name with Tooltip) */}
                                 <div className="hidden lg:flex items-center gap-2 group/brand relative cursor-help min-w-0 self-center">
-                                   <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[9px] font-bold flex-shrink-0 overflow-hidden ${brand?.logo?.startsWith('bg-') ? `${brand.logo} text-white` : 'bg-white'}`}>
+                                   <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[9px] font-bold shrink-0 overflow-hidden ${brand?.logo?.startsWith('bg-') ? `${brand.logo} text-white` : 'bg-white'}`}>
                                       {brand?.logo?.startsWith('bg-') ? (
                                          brand?.name?.substring(0,1)
                                       ) : (
@@ -590,7 +590,7 @@ const AllCampaigns = ({ campaigns, brands, templates, files, initialBrandId = 'a
                                    </div>
                                    <span className="text-xs font-medium text-gray-900 truncate">{brand?.name}</span>
                                    {/* Tooltip */}
-                                   <div className="absolute bottom-full left-0 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded opacity-0 group-hover/brand:opacity-100 transition pointer-events-none whitespace-nowrap z-50 shadow-lg">
+                                   <div className="absolute bottom-full left-0 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-sm opacity-0 group-hover/brand:opacity-100 transition pointer-events-none whitespace-nowrap z-50 shadow-lg">
                                       {brand?.name}
                                    </div>
                                 </div>
@@ -612,7 +612,7 @@ const AllCampaigns = ({ campaigns, brands, templates, files, initialBrandId = 'a
                                                    </div>
                                                )}
                                                {/* Tooltip */}
-                                               <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded opacity-0 group-hover/icon:opacity-100 transition pointer-events-none whitespace-nowrap z-30 shadow-lg">
+                                               <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-sm opacity-0 group-hover/icon:opacity-100 transition pointer-events-none whitespace-nowrap z-30 shadow-lg">
                                                    <div>{count} posts available.</div>
                                                    {isUsed && <div className="text-green-300 font-medium">Used 1 time.</div>}
                                                </div>
@@ -631,7 +631,7 @@ const AllCampaigns = ({ campaigns, brands, templates, files, initialBrandId = 'a
                                                    <Check size={8} className="text-white" strokeWidth={4} />
                                                </div>
                                            )}
-                                           <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded opacity-0 group-hover/icon:opacity-100 transition pointer-events-none whitespace-nowrap z-30 shadow-lg">
+                                           <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-sm opacity-0 group-hover/icon:opacity-100 transition pointer-events-none whitespace-nowrap z-30 shadow-lg">
                                                <div>{linkedTemplates.filter(t => t.type === 'email').length} emails available.</div>
                                                {usage.email && <div className="text-green-300 font-medium">Used 1 time.</div>}
                                            </div>
@@ -649,7 +649,7 @@ const AllCampaigns = ({ campaigns, brands, templates, files, initialBrandId = 'a
                                                    <Check size={8} className="text-white" strokeWidth={4} />
                                                </div>
                                            )}
-                                           <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded opacity-0 group-hover/icon:opacity-100 transition pointer-events-none whitespace-nowrap z-30 shadow-lg">
+                                           <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-sm opacity-0 group-hover/icon:opacity-100 transition pointer-events-none whitespace-nowrap z-30 shadow-lg">
                                                <div>{linkedTemplates.filter(t => t.type === 'sms').length} messages available.</div>
                                                {usage.sms && <div className="text-green-300 font-medium">Used 1 time.</div>}
                                            </div>
@@ -667,7 +667,7 @@ const AllCampaigns = ({ campaigns, brands, templates, files, initialBrandId = 'a
                                                    <Check size={8} className="text-white" strokeWidth={4} />
                                                </div>
                                            )}
-                                           <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded opacity-0 group-hover/icon:opacity-100 transition pointer-events-none whitespace-nowrap z-30 shadow-lg">
+                                           <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-sm opacity-0 group-hover/icon:opacity-100 transition pointer-events-none whitespace-nowrap z-30 shadow-lg">
                                                <div>{linkedAssets.length} files available.</div>
                                                {usage.download && <div className="text-green-300 font-medium">Used 1 time.</div>}
                                            </div>
@@ -701,7 +701,7 @@ const AllCampaigns = ({ campaigns, brands, templates, files, initialBrandId = 'a
                    {filteredCampaigns.length > currentPage * ITEMS_PER_PAGE ? (
                        <button 
                            onClick={() => setCurrentPage(prev => prev + 1)}
-                           className="px-6 py-2 bg-white border border-gray-200 rounded-full text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-black transition shadow-sm"
+                           className="px-6 py-2 bg-white border border-gray-200 rounded-full text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-black transition shadow-xs"
                        >
                            Load More
                        </button>

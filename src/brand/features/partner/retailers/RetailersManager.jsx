@@ -317,7 +317,7 @@ const RetailersManager = ({ notify }) => {
         </div>
         <div className="flex items-center gap-4">
             {/* Unified Quota Display */}
-            <div className="hidden md:flex items-center bg-white rounded-xl border border-gray-200 shadow-sm py-2 px-5 gap-6">
+            <div className="hidden md:flex items-center bg-white rounded-xl border border-gray-200 shadow-xs py-2 px-5 gap-6">
                 {/* Email Pool */}
                 <div className="flex flex-col gap-1.5 min-w-[140px]">
                     <div className="flex items-center justify-between">

@@ -37,14 +37,14 @@ const ActivityCalendar = ({ activities }) => {
     };
 
     return (
-        <div className="flex flex-col h-full bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+        <div className="flex flex-col h-full bg-white border border-gray-200 rounded-xl shadow-xs overflow-hidden">
             {/* Calendar Header */}
             <div className="flex items-center justify-between p-4 border-b border-gray-100">
                 <div className="flex items-center gap-4">
                     <h2 className="text-lg font-bold text-gray-900">{CURRENT_MONTH}</h2>
                     <div className="flex items-center bg-gray-50 rounded-md border border-gray-200 p-0.5">
-                        <button className="p-1 hover:bg-white hover:shadow-sm rounded transition-all text-gray-500"><ChevronLeft size={16} /></button>
-                        <button className="p-1 hover:bg-white hover:shadow-sm rounded transition-all text-gray-500"><ChevronRight size={16} /></button>
+                        <button className="p-1 hover:bg-white hover:shadow-xs rounded-sm transition-all text-gray-500"><ChevronLeft size={16} /></button>
+                        <button className="p-1 hover:bg-white hover:shadow-xs rounded-sm transition-all text-gray-500"><ChevronRight size={16} /></button>
                     </div>
                 </div>
                 <div className="flex items-center gap-4 text-xs font-medium text-gray-500">
@@ -75,7 +75,7 @@ const ActivityCalendar = ({ activities }) => {
                                             {dayActivities.map(act => (
                                                 <div 
                                                     key={act.id} 
-                                                    className={`px-2 py-1.5 rounded border text-[10px] font-medium truncate cursor-pointer hover:opacity-80 transition-opacity ${STATUS_COLORS[act.status] || STATUS_COLORS['Draft']}`}
+                                                    className={`px-2 py-1.5 rounded-sm border text-[10px] font-medium truncate cursor-pointer hover:opacity-80 transition-opacity ${STATUS_COLORS[act.status] || STATUS_COLORS['Draft']}`}
                                                 >
                                                    {/* Flex Icon + Text */}
                                                    <div className="flex items-center gap-1.5">

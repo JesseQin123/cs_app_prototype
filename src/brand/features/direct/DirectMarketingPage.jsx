@@ -61,7 +61,7 @@ const DirectMarketingPage = () => {
       <ActivityEditorModal isOpen={!!editorType} onClose={() => setEditorType(null)} type={editorType} />
 
       {/* --- 1. Sticky Header --- */}
-      <div className="bg-white border-b border-gray-200 px-8 py-5 flex justify-between items-center sticky top-0 z-30 shadow-sm">
+      <div className="bg-white border-b border-gray-200 px-8 py-5 flex justify-between items-center sticky top-0 z-30 shadow-xs">
          <h1 className="text-2xl font-bold text-gray-900">Direct Marketing</h1>
          
          <div className="relative">
@@ -116,7 +116,7 @@ const DirectMarketingPage = () => {
              {isOverviewExpanded && (
                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 animate-in slide-in-from-top-2 duration-300">
                   {kpis.map((kpi, i) => (
-                    <div key={i} className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex flex-col justify-between h-32 hover:border-gray-300 transition group">
+                    <div key={i} className="bg-white p-5 rounded-xl border border-gray-200 shadow-xs flex flex-col justify-between h-32 hover:border-gray-300 transition group">
                        <div className="flex justify-between items-start">
                           <span className="text-xs font-bold text-gray-400 uppercase tracking-wide">{kpi.label}</span>
                           <span className="text-gray-300 group-hover:text-gray-500 transition">{kpi.icon}</span>
@@ -142,7 +142,7 @@ const DirectMarketingPage = () => {
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`px-4 py-1.5 text-sm font-medium rounded-md transition ${activeTab === tab ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
+                  className={`px-4 py-1.5 text-sm font-medium rounded-md transition ${activeTab === tab ? 'bg-white text-gray-900 shadow-xs' : 'text-gray-500 hover:text-gray-700'}`}
                 >
                   {tab}
                 </button>
@@ -150,7 +150,7 @@ const DirectMarketingPage = () => {
            </div>
 
            {/* Grid List */}
-           <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden min-h-[400px]">
+           <div className="bg-white border border-gray-200 rounded-xl shadow-xs overflow-hidden min-h-[400px]">
               {/* Header */}
               <div className="grid grid-cols-12 gap-4 px-6 py-3 bg-gray-50 border-b border-gray-200 text-xs font-bold text-gray-500 uppercase tracking-wide">
                  <div className="col-span-4">Activity Name</div>
@@ -196,7 +196,7 @@ const DirectMarketingPage = () => {
                          <div className="col-span-2">
                              {activity.status === 'Draft' && <span className="text-gray-300 font-mono">—</span>}
                              {activity.status === 'Scheduled' && (
-                               <div className="flex items-center gap-1.5 text-blue-600 bg-blue-50 px-2 py-1 rounded text-xs font-bold w-fit">
+                               <div className="flex items-center gap-1.5 text-blue-600 bg-blue-50 px-2 py-1 rounded-sm text-xs font-bold w-fit">
                                   <Clock size={12} /> {activity.schedule}
                                </div>
                              )}

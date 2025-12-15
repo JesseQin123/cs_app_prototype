@@ -52,7 +52,7 @@ const Toast = ({ id, message, type = 'info', duration = 3000, onClose }) => {
     >
       <div className="p-4">
         <div className="flex items-start">
-          <div className="flex-shrink-0">
+          <div className="shrink-0">
             {icons[type] || icons.info}
           </div>
           <div className="ml-3 w-0 flex-1 pt-0.5">
@@ -60,10 +60,10 @@ const Toast = ({ id, message, type = 'info', duration = 3000, onClose }) => {
               {message}
             </p>
           </div>
-          <div className="ml-4 flex flex-shrink-0">
+          <div className="ml-4 flex shrink-0">
             <button
               type="button"
-              className="inline-flex rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+              className="inline-flex rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-hidden focus:ring-2 focus:ring-black focus:ring-offset-2"
               onClick={handleClose}
             >
               <span className="sr-only">Close</span>

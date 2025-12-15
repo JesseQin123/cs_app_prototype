@@ -30,7 +30,7 @@ const SmsView = () => {
                         <input 
                             type="text" 
                             placeholder="Search conversation..." 
-                            className="w-full pl-9 pr-4 py-2 bg-gray-50 border border-gray-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold/20 focus:border-brand-gold transition"
+                            className="w-full pl-9 pr-4 py-2 bg-gray-50 border border-gray-100 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-brand-gold/20 focus:border-brand-gold transition"
                         />
                      </div>
                 </div>
@@ -103,13 +103,13 @@ const SmsView = () => {
                                         <div className={`flex flex-col gap-1 max-w-[70%] ${msg.sender === 'me' ? 'items-end' : 'items-start'}`}>
                                             {/* Image Attachment */}
                                             {msg.image && (
-                                                <div className="rounded-xl overflow-hidden mb-1 border border-gray-100 shadow-sm">
+                                                <div className="rounded-xl overflow-hidden mb-1 border border-gray-100 shadow-xs">
                                                     <img src={msg.image} alt="Attachment" className="max-w-xs object-cover" />
                                                 </div>
                                             )}
                                             {/* Text Bubble */}
                                             {msg.text && (
-                                                <div className={`p-4 rounded-2xl text-sm leading-relaxed whitespace-pre-line shadow-sm ${
+                                                <div className={`p-4 rounded-2xl text-sm leading-relaxed whitespace-pre-line shadow-xs ${
                                                     msg.sender === 'me' 
                                                         ? 'bg-gray-900 text-white rounded-br-none' 
                                                         : 'bg-white text-gray-700 border border-gray-100 rounded-bl-none'
@@ -132,7 +132,7 @@ const SmsView = () => {
 
                     {/* Input Area */}
                     <div className="p-4 bg-white border-t border-gray-100">
-                        <form onSubmit={handleSend} className="max-w-4xl mx-auto relative flex items-end gap-2 p-2 border border-gray-200 rounded-xl bg-white shadow-sm focus-within:ring-2 focus-within:ring-brand-gold/10 focus-within:border-brand-gold/50 transition">
+                        <form onSubmit={handleSend} className="max-w-4xl mx-auto relative flex items-end gap-2 p-2 border border-gray-200 rounded-xl bg-white shadow-xs focus-within:ring-2 focus-within:ring-brand-gold/10 focus-within:border-brand-gold/50 transition">
                             <button type="button" className="p-2 text-gray-400 hover:text-gray-600 transition">
                                 <Paperclip size={20} />
                             </button>

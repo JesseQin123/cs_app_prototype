@@ -5,7 +5,7 @@ const TaskList = ({ tasks, onSelect }) => {
   if (tasks.length === 0) {
       return (
           <div className="flex flex-col items-center justify-center py-20 bg-gray-50 rounded-lg border border-dashed border-gray-300">
-              <div className="p-4 bg-white rounded-full shadow-sm mb-4">
+              <div className="p-4 bg-white rounded-full shadow-xs mb-4">
                   <CheckCircle2 size={32} className="text-gray-300" />
               </div>
               <h3 className="text-lg font-medium text-gray-900">No tasks found</h3>
@@ -27,13 +27,13 @@ const TaskList = ({ tasks, onSelect }) => {
           >
             <div className="flex items-start gap-4">
                 {/* Status Indicator */}
-                <div className={`mt-1.5 w-2 flex-shrink-0 h-2 rounded-full ${task.priority === 'High' ? 'bg-red-500' : 'bg-emerald-500'}`}></div>
+                <div className={`mt-1.5 w-2 shrink-0 h-2 rounded-full ${task.priority === 'High' ? 'bg-red-500' : 'bg-emerald-500'}`}></div>
 
                 <div>
                     <div className="flex items-center gap-2 mb-1">
                         <h3 className="font-bold text-lg text-gray-900 group-hover:text-brand-gold transition">{task.title}</h3>
                         {task.priority === 'High' && (
-                            <span className="px-1.5 py-0.5 bg-red-50 text-red-600 text-[10px] font-bold uppercase rounded border border-red-100">Urgent</span>
+                            <span className="px-1.5 py-0.5 bg-red-50 text-red-600 text-[10px] font-bold uppercase rounded-sm border border-red-100">Urgent</span>
                         )}
                     </div>
                     <p className="text-sm text-gray-500 line-clamp-1 mb-3 max-w-xl">{task.description}</p>

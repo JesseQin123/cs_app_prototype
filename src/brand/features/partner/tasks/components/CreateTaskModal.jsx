@@ -46,7 +46,7 @@ const CreateTaskModal = ({ isOpen, onClose, onCreate }) => {
   );
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-xs p-4">
       <div className="bg-white rounded-xl w-full max-w-2xl overflow-hidden shadow-2xl animate-in zoom-in-95 duration-200">
         
         {/* Header */}
@@ -67,7 +67,7 @@ const CreateTaskModal = ({ isOpen, onClose, onCreate }) => {
                             <label className="block text-sm font-medium text-gray-700 mb-1">Task Title</label>
                             <input 
                                 type="text" 
-                                className="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-black focus:border-black outline-none transition"
+                                className="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-black focus:border-black outline-hidden transition"
                                 placeholder="e.g. Holiday Window Display"
                                 value={formData.title}
                                 onChange={e => setFormData({...formData, title: e.target.value})}
@@ -78,7 +78,7 @@ const CreateTaskModal = ({ isOpen, onClose, onCreate }) => {
                                 <label className="block text-sm font-medium text-gray-700 mb-1">Deadline</label>
                                 <input 
                                     type="date" 
-                                    className="w-full border border-gray-300 rounded-lg p-2.5 outline-none"
+                                    className="w-full border border-gray-300 rounded-lg p-2.5 outline-hidden"
                                     value={formData.deadline}
                                     onChange={e => setFormData({...formData, deadline: e.target.value})}
                                 />
@@ -86,7 +86,7 @@ const CreateTaskModal = ({ isOpen, onClose, onCreate }) => {
                             <div className="flex-1">
                                 <label className="block text-sm font-medium text-gray-700 mb-1">Priority</label>
                                 <select 
-                                    className="w-full border border-gray-300 rounded-lg p-2.5 outline-none"
+                                    className="w-full border border-gray-300 rounded-lg p-2.5 outline-hidden"
                                     value={formData.priority}
                                     onChange={e => setFormData({...formData, priority: e.target.value})}
                                 >
@@ -98,7 +98,7 @@ const CreateTaskModal = ({ isOpen, onClose, onCreate }) => {
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">Description & Instructions</label>
                             <textarea 
-                                className="w-full border border-gray-300 rounded-lg p-2.5 outline-none resize-none h-32"
+                                className="w-full border border-gray-300 rounded-lg p-2.5 outline-hidden resize-none h-32"
                                 placeholder="Detailed instructions for the retailer..."
                                 value={formData.description}
                                 onChange={e => setFormData({...formData, description: e.target.value})}

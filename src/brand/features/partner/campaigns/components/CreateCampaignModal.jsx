@@ -63,7 +63,7 @@ const CreateCampaignModal = ({ isOpen, onClose, onSave }) => {
 
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-xs animate-in fade-in duration-200">
       <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl overflow-hidden animate-in zoom-in-95 duration-200 flex flex-col max-h-[90vh]">
         
         {/* Header */}
@@ -87,7 +87,7 @@ const CreateCampaignModal = ({ isOpen, onClose, onSave }) => {
                       type="text"
                       value={formData.title}
                       onChange={e => setFormData({...formData, title: e.target.value})}
-                      className={`w-full px-4 py-2.5 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black/5 transition ${errors.title ? 'border-red-300 focus:border-red-500' : 'border-gray-200 focus:border-black'}`}
+                      className={`w-full px-4 py-2.5 border rounded-lg focus:outline-hidden focus:ring-2 focus:ring-black/5 transition ${errors.title ? 'border-red-300 focus:border-red-500' : 'border-gray-200 focus:border-black'}`}
                       placeholder="e.g. Summer Collection Launch 2025"
                     />
                     {errors.title && <p className="text-xs text-red-500 mt-1">{errors.title}</p>}
@@ -107,7 +107,7 @@ const CreateCampaignModal = ({ isOpen, onClose, onSave }) => {
                                setFormData({...formData, description: e.target.value});
                            }
                        }}
-                       className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black/5 focus:border-black transition h-24 resize-none"
+                       className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-black/5 focus:border-black transition h-24 resize-none"
                        placeholder="Describe the goal and contents of this campaign..."
                      />
                   </div>
@@ -177,7 +177,7 @@ const CreateCampaignModal = ({ isOpen, onClose, onSave }) => {
                             type="date"
                             value={formData.startDate}
                             onChange={e => setFormData({...formData, startDate: e.target.value})}
-                            className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black/5"
+                            className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-black/5"
                           />
                        </div>
                        <div>
@@ -186,7 +186,7 @@ const CreateCampaignModal = ({ isOpen, onClose, onSave }) => {
                             type="date"
                             value={formData.endDate}
                             onChange={e => setFormData({...formData, endDate: e.target.value})}
-                            className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black/5 ${errors.endDate ? 'border-red-300' : 'border-gray-200'}`}
+                            className={`w-full px-3 py-2 border rounded-lg focus:outline-hidden focus:ring-2 focus:ring-black/5 ${errors.endDate ? 'border-red-300' : 'border-gray-200'}`}
                           />
                           {errors.endDate && <p className="text-xs text-red-500 mt-1">{errors.endDate}</p>}
                        </div>

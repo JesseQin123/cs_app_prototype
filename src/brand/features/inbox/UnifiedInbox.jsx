@@ -16,7 +16,7 @@ const UnifiedInbox = () => {
                         onClick={() => setActiveChannel('email')}
                         className={`flex items-center gap-2 px-4 py-1.5 rounded-md text-sm font-medium transition-all ${
                             activeChannel === 'email' 
-                                ? 'bg-white text-gray-900 shadow-sm ring-1 ring-black/5' 
+                                ? 'bg-white text-gray-900 shadow-xs ring-1 ring-black/5' 
                                 : 'text-gray-500 hover:text-gray-900'
                         }`}
                     >
@@ -26,7 +26,7 @@ const UnifiedInbox = () => {
                         onClick={() => setActiveChannel('sms')}
                         className={`flex items-center gap-2 px-4 py-1.5 rounded-md text-sm font-medium transition-all ${
                             activeChannel === 'sms' 
-                                ? 'bg-white text-gray-900 shadow-sm ring-1 ring-black/5' 
+                                ? 'bg-white text-gray-900 shadow-xs ring-1 ring-black/5' 
                                 : 'text-gray-500 hover:text-gray-900'
                         }`}
                     >
@@ -36,7 +36,7 @@ const UnifiedInbox = () => {
                         onClick={() => setActiveChannel('social')}
                         className={`flex items-center gap-2 px-4 py-1.5 rounded-md text-sm font-medium transition-all ${
                             activeChannel === 'social' 
-                                ? 'bg-white text-gray-900 shadow-sm ring-1 ring-black/5' 
+                                ? 'bg-white text-gray-900 shadow-xs ring-1 ring-black/5' 
                                 : 'text-gray-500 hover:text-gray-900'
                         }`}
                     >

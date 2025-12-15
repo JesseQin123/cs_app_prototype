@@ -5,11 +5,11 @@ import TierBadge from '../../partner/retailers/TierBadge';
 import FilterDropdown from './FilterDropdown';
 
 const SegmentationCard = ({ data }) => (
-    <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm h-full flex flex-col">
+    <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-xs h-full flex flex-col">
          <h3 className="font-bold text-gray-900 mb-6">Partner Segmentation</h3>
          <div className="flex flex-col items-center gap-6 flex-1 justify-center">
             {/* Donut Chart Visualization (CSS Conic Gradient) */}
-            <div className="relative w-40 h-40 rounded-full flex-shrink-0"
+            <div className="relative w-40 h-40 rounded-full shrink-0"
                  style={{
                     background: `conic-gradient(
                         ${data[0].color} 0% 25%, 
@@ -79,7 +79,7 @@ const PartnerPerformanceTab = () => {
                 </div>
 
                 {/* Leaderboard */}
-                <div className="lg:col-span-2 bg-white rounded-xl border border-gray-100 shadow-sm flex flex-col overflow-hidden h-[600px]">
+                <div className="lg:col-span-2 bg-white rounded-xl border border-gray-100 shadow-xs flex flex-col overflow-hidden h-[600px]">
                 <div className="p-6 border-b border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <h3 className="font-bold text-gray-900">Partner Leaderboard</h3>
                     <div className="relative">
@@ -89,14 +89,14 @@ const PartnerPerformanceTab = () => {
                             placeholder="Search partners..." 
                             value={search}
                             onChange={e => setSearch(e.target.value)}
-                            className="pl-9 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black/5 w-64 transition"
+                            className="pl-9 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-black/5 w-64 transition"
                         />
                     </div>
                 </div>
                 
                 <div className="flex-1 overflow-auto">
                     <table className="w-full text-left border-collapse">
-                        <thead className="bg-white sticky top-0 z-10 shadow-sm">
+                        <thead className="bg-white sticky top-0 z-10 shadow-xs">
                             <tr className="text-xs font-semibold text-gray-500 uppercase tracking-wider border-b border-gray-100">
                                 <th className="px-6 py-3 font-medium">Retailer</th>
                                 <th className="px-6 py-3 font-medium">Zone</th>

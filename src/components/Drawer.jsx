@@ -10,7 +10,7 @@ const Drawer = ({
   footer, 
   width = "w-full max-w-md", // Allow custom width classes
   height = "h-auto max-h-[90vh]", // For bottom placement
-  zIndex = "z-[9999]",
+  zIndex = "z-9999",
   placement = "right" // 'right' | 'bottom'
 }) => {
   const [isMounted, setIsMounted] = useState(isOpen);
@@ -53,7 +53,7 @@ const Drawer = ({
     <div className={`fixed inset-0 ${zIndex} ${containerClasses}`}>
       {/* Backdrop */}
       <div 
-        className={`fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300 ease-out ${
+        className={`fixed inset-0 bg-black/40 backdrop-blur-xs transition-opacity duration-300 ease-out ${
           isAnimating ? 'opacity-100' : 'opacity-0'
         }`}
         onClick={onClose}
@@ -63,7 +63,7 @@ const Drawer = ({
       <div className={`${panelBaseClasses} ${panelPlacementClasses}`}>
         {/* Header */}
         {(title || onClose) && (
-          <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-white flex-shrink-0 rounded-t-2xl">
+          <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-white shrink-0 rounded-t-2xl">
             <div className="flex-1">
               {typeof title === 'string' ? (
                 <h3 className="text-xl font-semibold text-gray-900">{title}</h3>
@@ -89,7 +89,7 @@ const Drawer = ({
 
         {/* Footer */}
         {footer && (
-          <div className="p-6 border-t border-gray-100 bg-gray-50 flex-shrink-0">
+          <div className="p-6 border-t border-gray-100 bg-gray-50 shrink-0">
             {footer}
           </div>
         )}

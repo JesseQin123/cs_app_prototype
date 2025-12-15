@@ -57,17 +57,17 @@ const RichTextEditor = ({ value, onChange, className }) => {
         <div className={`border border-gray-200 rounded-lg overflow-hidden bg-white focus-within:ring-2 focus-within:ring-black/5 transition ${className}`}>
             {/* Toolbar */}
             <div className="flex items-center gap-1 p-2 border-b border-gray-100 bg-gray-50/50">
-                <button onClick={() => execCmd('bold')} className="p-1.5 hover:bg-white hover:shadow-sm rounded text-gray-600 transition" title="Bold"><Bold size={14}/></button>
-                <button onClick={() => execCmd('italic')} className="p-1.5 hover:bg-white hover:shadow-sm rounded text-gray-600 transition" title="Italic"><Italic size={14}/></button>
-                <button onClick={() => execCmd('underline')} className="p-1.5 hover:bg-white hover:shadow-sm rounded text-gray-600 transition" title="Underline"><Underline size={14}/></button>
+                <button onClick={() => execCmd('bold')} className="p-1.5 hover:bg-white hover:shadow-xs rounded-sm text-gray-600 transition" title="Bold"><Bold size={14}/></button>
+                <button onClick={() => execCmd('italic')} className="p-1.5 hover:bg-white hover:shadow-xs rounded-sm text-gray-600 transition" title="Italic"><Italic size={14}/></button>
+                <button onClick={() => execCmd('underline')} className="p-1.5 hover:bg-white hover:shadow-xs rounded-sm text-gray-600 transition" title="Underline"><Underline size={14}/></button>
                 <div className="w-px h-4 bg-gray-300 mx-1"></div>
-                <button onClick={() => execCmd('justifyLeft')} className="p-1.5 hover:bg-white hover:shadow-sm rounded text-gray-600 transition" title="Align Left"><AlignLeft size={14}/></button>
-                <button onClick={() => execCmd('justifyCenter')} className="p-1.5 hover:bg-white hover:shadow-sm rounded text-gray-600 transition" title="Align Center"><AlignCenter size={14}/></button>
+                <button onClick={() => execCmd('justifyLeft')} className="p-1.5 hover:bg-white hover:shadow-xs rounded-sm text-gray-600 transition" title="Align Left"><AlignLeft size={14}/></button>
+                <button onClick={() => execCmd('justifyCenter')} className="p-1.5 hover:bg-white hover:shadow-xs rounded-sm text-gray-600 transition" title="Align Center"><AlignCenter size={14}/></button>
             </div>
             {/* Editor Area */}
             <div 
                 ref={editorRef}
-                className="p-4 min-h-[160px] text-sm text-gray-800 focus:outline-none overflow-y-auto leading-relaxed"
+                className="p-4 min-h-[160px] text-sm text-gray-800 focus:outline-hidden overflow-y-auto leading-relaxed"
                 contentEditable
                 suppressContentEditableWarning
                 onInput={handleInput}
@@ -141,7 +141,7 @@ const NudgeModal = ({ isOpen, onClose, mode = 'single', retailer, retailers = []
     const effectiveRetailerName = mode === 'single' ? retailer?.name : "{Retailer Name}";
 
     return createPortal(
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-9999 flex items-center justify-center p-4">
             {/* Full Screen Mask */}
             <div className="absolute inset-0 bg-black/40 backdrop-blur-md transition-opacity" onClick={onClose}></div>
             
@@ -168,7 +168,7 @@ const NudgeModal = ({ isOpen, onClose, mode = 'single', retailer, retailers = []
 
                 <div className="flex flex-1 overflow-hidden">
                     {/* Left Panel: Inputs */}
-                    <div className="w-[500px] flex-shrink-0 flex flex-col overflow-y-auto border-r border-gray-100">
+                    <div className="w-[500px] shrink-0 flex flex-col overflow-y-auto border-r border-gray-100">
                         <div className="p-6 space-y-6">
                             
                             {/* TO Field */}
@@ -182,16 +182,16 @@ const NudgeModal = ({ isOpen, onClose, mode = 'single', retailer, retailers = []
                                             {retailer?.name?.charAt(0)}
                                         </div>
                                         {retailer?.name}
-                                        {retailer?.tier && <span className="ml-auto text-[10px] bg-white border border-gray-200 px-2 py-0.5 rounded text-gray-500 uppercase font-bold">{retailer.tier}</span>}
+                                        {retailer?.tier && <span className="ml-auto text-[10px] bg-white border border-gray-200 px-2 py-0.5 rounded-sm text-gray-500 uppercase font-bold">{retailer.tier}</span>}
                                     </div>
                                 ) : (
                                     <div className="relative">
                                         <button 
                                             onClick={() => setIsRecipientDropdownOpen(!isRecipientDropdownOpen)}
-                                            className="w-full p-3 bg-white border border-gray-200 hover:border-black rounded-lg text-left text-sm font-medium flex justify-between items-center transition shadow-sm group"
+                                            className="w-full p-3 bg-white border border-gray-200 hover:border-black rounded-lg text-left text-sm font-medium flex justify-between items-center transition shadow-xs group"
                                         >
                                             <span className="flex items-center gap-2 text-gray-900">
-                                                <div className="bg-black text-white px-2 py-0.5 rounded text-xs font-bold">{selectedRetailerIds.length}</div>
+                                                <div className="bg-black text-white px-2 py-0.5 rounded-sm text-xs font-bold">{selectedRetailerIds.length}</div>
                                                 Selected Retailers
                                             </span>
                                             <div className="flex items-center gap-2 text-xs text-black font-bold group-hover:underline">
@@ -208,13 +208,13 @@ const NudgeModal = ({ isOpen, onClose, mode = 'single', retailer, retailers = []
                                                         onClick={() => toggleRetailerSelection(r.id)}
                                                         className="flex items-center px-3 py-2.5 hover:bg-gray-50 rounded-lg cursor-pointer transition select-none"
                                                     >
-                                                        <div className={`w-4 h-4 rounded border flex items-center justify-center mr-3 transition ${selectedRetailerIds.includes(r.id) ? 'bg-black border-black text-white' : 'border-gray-300 bg-white'}`}>
+                                                        <div className={`w-4 h-4 rounded-sm border flex items-center justify-center mr-3 transition ${selectedRetailerIds.includes(r.id) ? 'bg-black border-black text-white' : 'border-gray-300 bg-white'}`}>
                                                             {selectedRetailerIds.includes(r.id) && <Check size={10} strokeWidth={4} />}
                                                         </div>
                                                         <div className="flex-1">
                                                             <div className="text-sm font-medium text-gray-900">{r.name}</div>
                                                         </div>
-                                                        <div className="text-[10px] text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded">{r.tier || 'Standard'}</div>
+                                                        <div className="text-[10px] text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded-sm">{r.tier || 'Standard'}</div>
                                                     </div>
                                                 ))}
                                             </div>
@@ -232,7 +232,7 @@ const NudgeModal = ({ isOpen, onClose, mode = 'single', retailer, retailers = []
                                     type="text" 
                                     value={subject}
                                     onChange={(e) => setSubject(e.target.value)}
-                                    className="w-full p-3 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-black/5 focus:border-black transition placeholder-gray-400"
+                                    className="w-full p-3 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-900 focus:outline-hidden focus:ring-2 focus:ring-black/5 focus:border-black transition placeholder-gray-400"
                                     placeholder="Enter subject line..."
                                 />
                             </div>
@@ -243,7 +243,7 @@ const NudgeModal = ({ isOpen, onClose, mode = 'single', retailer, retailers = []
                                      <label className="text-xs font-bold text-gray-900 uppercase tracking-wider">Email Message</label>
                                      <button 
                                           onClick={() => setShowPreview(!showPreview)}
-                                          className={`text-[10px] font-bold px-2 py-1 rounded transition flex items-center gap-1.5 ${showPreview ? 'bg-black text-white' : 'text-gray-500 hover:text-black hover:bg-gray-100'}`}
+                                          className={`text-[10px] font-bold px-2 py-1 rounded-sm transition flex items-center gap-1.5 ${showPreview ? 'bg-black text-white' : 'text-gray-500 hover:text-black hover:bg-gray-100'}`}
                                      >
                                           {showPreview ? <Minimize2 size={12}/> : <Eye size={12}/>}
                                           {showPreview ? 'Hide Preview' : 'Preview Email'}
@@ -256,9 +256,9 @@ const NudgeModal = ({ isOpen, onClose, mode = 'single', retailer, retailers = []
                                 />
                                 {mode !== 'single' && (
                                     <div className="mt-2 flex items-start gap-2 bg-blue-50 p-2 rounded-lg border border-blue-100">
-                                        <Info size={14} className="text-blue-500 mt-0.5 flex-shrink-0" />
+                                        <Info size={14} className="text-blue-500 mt-0.5 shrink-0" />
                                         <p className="text-xs text-blue-600 leading-snug">
-                                            Variables like <span className="font-mono bg-white border border-blue-200 px-1 rounded text-blue-700 font-bold">{`{Retailer Name}`}</span> will be dynamically replaced for each recipient.
+                                            Variables like <span className="font-mono bg-white border border-blue-200 px-1 rounded-sm text-blue-700 font-bold">{`{Retailer Name}`}</span> will be dynamically replaced for each recipient.
                                         </p>
                                     </div>
                                 )}
@@ -298,7 +298,7 @@ const NudgeModal = ({ isOpen, onClose, mode = 'single', retailer, retailers = []
                              </div>
                              <div className="p-6 overflow-y-auto flex-1">
                                  {/* Email Mockup */}
-                                 <div className="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden max-w-2xl mx-auto h-full flex flex-col">
+                                 <div className="bg-white rounded-lg border border-gray-200 shadow-xs overflow-hidden max-w-2xl mx-auto h-full flex flex-col">
                                      <div className="bg-gray-50 p-6 border-b border-gray-100 shrink-0">
                                          <div className="flex items-center gap-4 mb-4">
                                              <div className="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center font-bold text-lg">

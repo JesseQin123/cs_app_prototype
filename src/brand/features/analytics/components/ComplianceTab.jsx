@@ -33,7 +33,7 @@ const ComplianceTab = () => {
                 {kpi.map((item, idx) => {
                     const isUp = item.trendDirection === 'up';
                      return (
-                        <div key={idx} className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm col-span-1 md:col-span-2">
+                        <div key={idx} className="bg-white p-6 rounded-xl border border-gray-100 shadow-xs col-span-1 md:col-span-2">
                              <div className="flex justify-between items-start mb-2">
                                 <span className="text-gray-500 text-sm font-medium">{item.label}</span>
                                 {idx === 0 ? <CheckCircle2 size={18} className="text-gray-300"/> : <AlertCircle size={18} className="text-gray-300"/>}
@@ -56,7 +56,7 @@ const ComplianceTab = () => {
             </div>
 
             {/* Compliance Table */}
-            <div className="bg-white rounded-xl border border-gray-100 shadow-sm flex flex-col overflow-hidden">
+            <div className="bg-white rounded-xl border border-gray-100 shadow-xs flex flex-col overflow-hidden">
                 <div className="p-6 border-b border-gray-100">
                     <h3 className="font-bold text-gray-900">Task Completion Breakdown</h3>
                 </div>

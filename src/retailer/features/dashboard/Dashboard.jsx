@@ -40,7 +40,7 @@ const scrollbarStyles = `
 
 const OnboardingGuide = ({ tasks, progress }) => {
   return (
-    <div className="col-span-full bg-gray-900 text-white rounded-xl p-6 shadow-sm mb-8">
+    <div className="col-span-full bg-gray-900 text-white rounded-xl p-6 shadow-xs mb-8">
       <div className="flex justify-between items-center mb-6">
         <div>
           <h2 className="text-xl font-medium mb-1">Welcome to CrownSync! Let's activate your store.</h2>
@@ -64,7 +64,7 @@ const OnboardingGuide = ({ tasks, progress }) => {
             <h3 className="font-semibold text-sm mb-1">{task.title}</h3>
             <p className="text-xs text-gray-400 mb-4 line-clamp-2 leading-relaxed">{task.desc}</p>
             {task.status !== 'completed' && (
-              <button className="w-full py-2 text-xs font-semibold bg-white text-gray-900 rounded hover:bg-gray-200 transition-colors">
+              <button className="w-full py-2 text-xs font-semibold bg-white text-gray-900 rounded-sm hover:bg-gray-200 transition-colors">
                 {task.action}
               </button>
             )}
@@ -141,7 +141,7 @@ const StatsBar = ({ stats, onNavigate }) => {
             <>
               <div className="text-3xl font-bold text-gray-900 tracking-tight mb-2">{stats.reach.value.toLocaleString()}</div>
               <div className="flex items-center gap-2">
-                <span className="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-bold bg-emerald-50 text-emerald-600">
+                <span className="inline-flex items-center px-1.5 py-0.5 rounded-sm text-xs font-bold bg-emerald-50 text-emerald-600">
                    <ArrowUpRight size={10} className="mr-1" /> {stats.reach.trend}%
                 </span>
                 <span className="text-xs text-gray-400 font-medium">vs last 30d</span>
@@ -316,7 +316,7 @@ const RecommendedCampaignsWidget = ({ campaigns }) => {
       </div>
       
       {featured ? (
-        <div className="flex-1 flex overflow-hidden rounded-xl bg-gray-50 border border-gray-100 shadow-sm transition-all hover:shadow-md group">
+        <div className="flex-1 flex overflow-hidden rounded-xl bg-gray-50 border border-gray-100 shadow-xs transition-all hover:shadow-md group">
            {/* Left: Image (Fixed 16:9 Ratio based on container height) */}
            <div className="relative h-full aspect-video shrink-0 bg-gray-200">
               <img 
@@ -328,7 +328,7 @@ const RecommendedCampaignsWidget = ({ campaigns }) => {
               
               {/* New Tag */}
               {featured.isNew && (
-                <div className="absolute top-3 left-3 bg-[#FCD34D] text-gray-900 px-2 py-0.5 rounded-sm text-[10px] font-bold uppercase tracking-wider shadow-sm z-10">
+                <div className="absolute top-3 left-3 bg-[#FCD34D] text-gray-900 px-2 py-0.5 rounded-xs text-[10px] font-bold uppercase tracking-wider shadow-xs z-10">
                    New
                 </div>
               )}
@@ -339,7 +339,7 @@ const RecommendedCampaignsWidget = ({ campaigns }) => {
              
              {/* Brand */}
              <div className="flex items-center gap-2 mb-3">
-               <div className="w-6 h-6 rounded-full bg-white flex items-center justify-center border border-gray-100 overflow-hidden shrink-0 shadow-sm p-0.5">
+               <div className="w-6 h-6 rounded-full bg-white flex items-center justify-center border border-gray-100 overflow-hidden shrink-0 shadow-xs p-0.5">
                   {brand?.logo ? (
                     <img src={brand.logo} alt={brand.name} className="w-full h-full object-cover rounded-full" />
                   ) : (

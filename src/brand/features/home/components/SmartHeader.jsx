@@ -48,7 +48,7 @@ const SmartHeader = () => {
             </div>
             <button 
                onClick={handleAlertAction}
-               className="px-4 py-2 bg-white border border-amber-200 shadow-sm text-sm font-bold text-amber-700 rounded-lg hover:bg-amber-100 transition"
+               className="px-4 py-2 bg-white border border-amber-200 shadow-xs text-sm font-bold text-amber-700 rounded-lg hover:bg-amber-100 transition"
             >
                {primaryAlert.action}
             </button>

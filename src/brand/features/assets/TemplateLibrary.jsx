@@ -28,7 +28,7 @@ const TemplateLibrary = ({ templates, setTemplates, notify, isEmpty }) => {
             Manage reusable designs for Retailers.
           </p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-black text-white rounded hover:bg-gray-800 transition" onClick={() => notify('Opens Template Builder', 'success')}>
+        <button className="flex items-center gap-2 px-4 py-2 bg-black text-white rounded-sm hover:bg-gray-800 transition" onClick={() => notify('Opens Template Builder', 'success')}>
           <Plus size={16} /> Create Template
         </button>
       </div>
@@ -69,10 +69,10 @@ const TemplateLibrary = ({ templates, setTemplates, notify, isEmpty }) => {
                />
             </div>
             
-            <div className="h-40 bg-gray-100 rounded mb-4 flex items-center justify-center text-gray-400 relative overflow-hidden group-hover:bg-gray-200 transition">
+            <div className="h-40 bg-gray-100 rounded-sm mb-4 flex items-center justify-center text-gray-400 relative overflow-hidden group-hover:bg-gray-200 transition">
                {t.thumb} Preview
                <button className="absolute inset-0 w-full h-full flex items-center justify-center bg-black/5 opacity-0 group-hover:opacity-100 transition" onClick={() => notify('Preview Template', 'success')}>
-                  <span className="bg-white px-3 py-1.5 rounded-full shadow text-sm font-medium text-black">Preview</span>
+                  <span className="bg-white px-3 py-1.5 rounded-full shadow-sm text-sm font-medium text-black">Preview</span>
                </button>
             </div>
             

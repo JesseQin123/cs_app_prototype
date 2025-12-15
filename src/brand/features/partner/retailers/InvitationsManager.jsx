@@ -199,30 +199,30 @@ const InvitationsManager = ({ onInviteRetailer }) => {
                     <div className="flex gap-3">
                         {invitation.status === 'Pending' && (
                             <>
-                                <button onClick={() => handleResend(invitation.id)} className="flex-1 px-4 py-2 bg-white border border-gray-200 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 shadow-sm">
+                                <button onClick={() => handleResend(invitation.id)} className="flex-1 px-4 py-2 bg-white border border-gray-200 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 shadow-xs">
                                     Resend
                                 </button>
-                                <button onClick={() => handleRevoke(invitation.id)} className="flex-1 px-4 py-2 bg-red-50 border border-red-100 text-red-600 rounded-lg text-sm font-medium hover:bg-red-100 shadow-sm">
+                                <button onClick={() => handleRevoke(invitation.id)} className="flex-1 px-4 py-2 bg-red-50 border border-red-100 text-red-600 rounded-lg text-sm font-medium hover:bg-red-100 shadow-xs">
                                     Revoke
                                 </button>
                             </>
                         )}
                         {invitation.status === 'Expired' && (
                             <>
-                                <button onClick={() => handleResend(invitation.id)} className="flex-1 px-4 py-2 bg-white border border-gray-200 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 shadow-sm">
+                                <button onClick={() => handleResend(invitation.id)} className="flex-1 px-4 py-2 bg-white border border-gray-200 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 shadow-xs">
                                     Resend
                                 </button>
-                                <button onClick={() => handleDelete(invitation.id)} className="flex-1 px-4 py-2 bg-red-50 border border-red-100 text-red-600 rounded-lg text-sm font-medium hover:bg-red-100 shadow-sm">
+                                <button onClick={() => handleDelete(invitation.id)} className="flex-1 px-4 py-2 bg-red-50 border border-red-100 text-red-600 rounded-lg text-sm font-medium hover:bg-red-100 shadow-xs">
                                     Delete
                                 </button>
                             </>
                         )}
                         {invitation.status === 'Revoked' && (
                             <>
-                                <button onClick={() => handleReinvite(invitation.id)} className="flex-1 px-4 py-2 bg-black text-white rounded-lg text-sm font-medium hover:bg-gray-800 shadow-sm">
+                                <button onClick={() => handleReinvite(invitation.id)} className="flex-1 px-4 py-2 bg-black text-white rounded-lg text-sm font-medium hover:bg-gray-800 shadow-xs">
                                     Re-invite
                                 </button>
-                                <button onClick={() => handleDelete(invitation.id)} className="flex-1 px-4 py-2 bg-white border border-gray-200 text-red-600 rounded-lg text-sm font-medium hover:bg-red-50 shadow-sm">
+                                <button onClick={() => handleDelete(invitation.id)} className="flex-1 px-4 py-2 bg-white border border-gray-200 text-red-600 rounded-lg text-sm font-medium hover:bg-red-50 shadow-xs">
                                     Delete
                                 </button>
                             </>
@@ -247,7 +247,7 @@ const InvitationsManager = ({ onInviteRetailer }) => {
         </p>
         <button 
           onClick={onInviteRetailer}
-          className="px-6 py-2.5 bg-black text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition shadow-sm flex items-center gap-2"
+          className="px-6 py-2.5 bg-black text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition shadow-xs flex items-center gap-2"
         >
           <Plus size={18} /> Invite Retailers
         </button>
@@ -259,7 +259,7 @@ const InvitationsManager = ({ onInviteRetailer }) => {
   }
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 overflow-hidden flex flex-col h-full shadow-sm relative">
+    <div className="bg-white rounded-lg border border-gray-200 overflow-hidden flex flex-col h-full shadow-xs relative">
       {/* Header / Search */}
       <div className="p-4 border-b border-gray-100 flex items-center justify-between gap-4">
         <div className="relative flex-1 max-w-md">
@@ -269,12 +269,12 @@ const InvitationsManager = ({ onInviteRetailer }) => {
             placeholder="Search by email or name..." 
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black/5 transition"
+            className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-black/5 transition"
           />
         </div>
         <button 
             onClick={onInviteRetailer}
-            className="px-4 py-2 bg-black text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition flex items-center gap-2 shadow-sm"
+            className="px-4 py-2 bg-black text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition flex items-center gap-2 shadow-xs"
         >
             <Plus size={16} /> Invite Retailers
         </button>

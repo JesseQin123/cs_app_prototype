@@ -20,7 +20,7 @@ const ReadinessChecklist = ({ campaign, onGoToContent, showHeader = true }) => {
   const progress = Math.round((completedCount / totalCount) * 100);
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+    <div className="bg-white rounded-xl border border-gray-200 shadow-xs overflow-hidden">
       {showHeader && (
         <div className="p-6 border-b border-gray-100 bg-gray-50/50">
           <div className="flex items-center justify-between mb-2">
@@ -44,9 +44,9 @@ const ReadinessChecklist = ({ campaign, onGoToContent, showHeader = true }) => {
           <div key={i} className="flex items-center justify-between group">
             <div className="flex items-center gap-3">
               {item.done ? (
-                <CheckCircle2 size={20} className="text-emerald-500 flex-shrink-0" />
+                <CheckCircle2 size={20} className="text-emerald-500 shrink-0" />
               ) : (
-                <Circle size={20} className="text-gray-300 flex-shrink-0 group-hover:text-gray-400 transition" />
+                <Circle size={20} className="text-gray-300 shrink-0 group-hover:text-gray-400 transition" />
               )}
               <span className={`text-sm ${item.done ? 'text-gray-700 font-medium' : 'text-gray-500'}`}>
                 {item.label}
@@ -66,7 +66,7 @@ const ReadinessChecklist = ({ campaign, onGoToContent, showHeader = true }) => {
       
       {!showHeader && progress < 100 && (
           <div className="p-4 bg-amber-50 border-t border-amber-100 flex gap-3">
-              <AlertCircle size={20} className="text-amber-600 flex-shrink-0" />
+              <AlertCircle size={20} className="text-amber-600 shrink-0" />
               <p className="text-sm text-amber-800">
                   Please complete all required items before publishing this campaign.
               </p>

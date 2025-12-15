@@ -256,10 +256,10 @@ const ImageProcessModal = ({
   const showSidebar = requiredAspectRatios.length > 1;
 
   return createPortal(
-    <div className="fixed inset-0 z-[20000] flex bg-black w-screen h-screen">
+    <div className="fixed inset-0 z-20000 flex bg-black w-screen h-screen">
             {/* Sidebar (Full Height, Left) */}
             {showSidebar && (
-                <div className="w-24 flex-shrink-0 bg-[#080808] border-r border-white/5 flex flex-col items-center py-8 gap-6 z-30 relative">
+                <div className="w-24 shrink-0 bg-[#080808] border-r border-white/5 flex flex-col items-center py-8 gap-6 z-30 relative">
                     <h4 className="text-[10px] items-start w-full px-4 font-bold text-gray-500 uppercase tracking-widest mb-1 text-center">Ratio</h4>
                     <div className="flex flex-col gap-4 w-full px-2 overflow-y-auto custom-scrollbar">
                     {requiredAspectRatios.map(([w, h], idx) => {
@@ -307,7 +307,7 @@ const ImageProcessModal = ({
             <div className="flex-1 flex flex-col min-w-0 relative bg-black">
                 
                 {/* Header */}
-                <div className="h-20 px-8 flex items-center justify-between bg-black border-b border-white/5 flex-shrink-0 z-30 relative">
+                <div className="h-20 px-8 flex items-center justify-between bg-black border-b border-white/5 shrink-0 z-30 relative">
                     <div>
                         <h3 className="text-white font-bold text-sm tracking-widest uppercase mb-1">Image Editor</h3>
                         {imageSrc && (
@@ -387,16 +387,16 @@ const ImageProcessModal = ({
                 </div>
 
                 {/* Footer */}
-                <div className="h-20 px-8 bg-black border-t border-white/5 flex items-center justify-end gap-6 flex-shrink-0 z-30 relative">
+                <div className="h-20 px-8 bg-black border-t border-white/5 flex items-center justify-end gap-6 shrink-0 z-30 relative">
                     <button 
                         onClick={onClose} 
-                        className="px-6 py-3 rounded text-xs font-bold text-gray-500 hover:text-white transition-colors uppercase tracking-wider"
+                        className="px-6 py-3 rounded-sm text-xs font-bold text-gray-500 hover:text-white transition-colors uppercase tracking-wider"
                     >
                         Cancel
                     </button>
                     <button 
                         onClick={handleProcessAndSave} 
-                        className="px-8 py-3 rounded bg-white text-black hover:bg-gra-200 text-xs font-bold transition-all shadow-lg flex items-center gap-2 uppercase tracking-wider hover:opacity-90"
+                        className="px-8 py-3 rounded-sm bg-white text-black hover:bg-gra-200 text-xs font-bold transition-all shadow-lg flex items-center gap-2 uppercase tracking-wider hover:opacity-90"
                     >
                         <Check size={14} strokeWidth={4} />
                         Save changes
@@ -405,7 +405,7 @@ const ImageProcessModal = ({
 
                 {/* Processing Overlay */}
                 {isProcessing && (
-                    <div className="absolute inset-0 z-[60] flex items-center justify-center bg-black/80 backdrop-blur-sm animate-in fade-in duration-300">
+                    <div className="absolute inset-0 z-60 flex items-center justify-center bg-black/80 backdrop-blur-xs animate-in fade-in duration-300">
                         <div className="flex flex-col items-center">
                             <div className="w-10 h-10 border-2 border-white border-t-transparent rounded-full animate-spin mb-4"></div>
                             <h3 className="text-sm font-bold text-white tracking-widest uppercase">Processing High-Res</h3>

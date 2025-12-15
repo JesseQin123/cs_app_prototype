@@ -14,7 +14,7 @@ const Launchpad = () => {
          return <span className="font-bold text-gray-900 tracking-wide">{task.subtitle}</span>;
       }
       if (task.id === 2) { // Domain
-         return <span className="font-mono text-xs text-gray-600 bg-gray-50 px-1 py-0.5 rounded">{task.subtitle}</span>;
+         return <span className="font-mono text-xs text-gray-600 bg-gray-50 px-1 py-0.5 rounded-sm">{task.subtitle}</span>;
       }
       if (task.id === 3) { // Network
          return <span><strong className="text-gray-900">120</strong> Retailers joined</span>;
@@ -23,7 +23,7 @@ const Launchpad = () => {
    };
 
    return (
-      <div className="border border-gray-100 rounded-xl bg-white shadow-sm overflow-hidden animate-in fade-in slide-in-from-bottom-3 duration-500 transition-all">
+      <div className="border border-gray-100 rounded-xl bg-white shadow-xs overflow-hidden animate-in fade-in slide-in-from-bottom-3 duration-500 transition-all">
          {/* Minimalist Header */}
          <div className={`px-8 py-6 flex flex-col md:flex-row md:items-center justify-between gap-6 transition-all ${isExpanded ? 'border-b border-gray-100' : ''}`}>
             <div className="flex items-start justify-between w-full md:w-auto gap-4">
@@ -108,7 +108,7 @@ const Launchpad = () => {
                                  {task.actionLabel}
                               </button>
                            ) : (
-                              <button className="w-full py-2 bg-black text-white text-xs font-bold rounded shadow-sm hover:bg-gray-800 transition flex items-center justify-center gap-2">
+                              <button className="w-full py-2 bg-black text-white text-xs font-bold rounded-sm shadow-xs hover:bg-gray-800 transition flex items-center justify-center gap-2">
                                  {task.actionLabel} <ArrowRight size={12} />
                               </button>
                            )}

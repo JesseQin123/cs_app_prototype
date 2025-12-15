@@ -26,7 +26,7 @@ const Tooltip = ({ content, children, className = '' }) => {
       {children}
       {isVisible && createPortal(
         <div 
-            className="fixed px-2 py-1 bg-gray-900 text-white text-xs rounded shadow-lg whitespace-nowrap z-[9999] animate-in fade-in zoom-in-95 pointer-events-none"
+            className="fixed px-2 py-1 bg-gray-900 text-white text-xs rounded-sm shadow-lg whitespace-nowrap z-9999 animate-in fade-in zoom-in-95 pointer-events-none"
             style={{ 
                 top: coords.top, 
                 left: coords.left,

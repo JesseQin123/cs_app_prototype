@@ -48,9 +48,9 @@ const CampaignCard = ({ campaign, brand, templates = [], files = [], hideExpirin
           case 'instagram': return <Instagram size={14} className="text-pink-600"/>;
           case 'facebook': return <div className="w-3.5 h-3.5 bg-blue-600 rounded-full flex items-center justify-center text-[9px] text-white font-bold">f</div>;
           case 'x': 
-          case 'twitter': return <div className="w-3.5 h-3.5 bg-black rounded-sm flex items-center justify-center text-white font-black text-[10px]">𝕏</div>;
+          case 'twitter': return <div className="w-3.5 h-3.5 bg-black rounded-xs flex items-center justify-center text-white font-black text-[10px]">𝕏</div>;
           case 'google': 
-          case 'gmb': return <div className="w-3.5 h-3.5 rounded-sm flex items-center justify-center text-white font-bold text-[9px]" style={{backgroundColor: '#4285F4'}}>G</div>;
+          case 'gmb': return <div className="w-3.5 h-3.5 rounded-xs flex items-center justify-center text-white font-bold text-[9px]" style={{backgroundColor: '#4285F4'}}>G</div>;
           default: return <Smartphone size={14} className="text-gray-400"/>;
       }
   };
@@ -58,9 +58,9 @@ const CampaignCard = ({ campaign, brand, templates = [], files = [], hideExpirin
   const isExpired = expiration.type === 'expired';
 
   return (
-    <div className={`group relative bg-white rounded-xl shadow-sm transition-all duration-300 flex flex-col h-full border border-gray-100 ${isExpired ? 'cursor-default' : 'hover:shadow-xl hover:border-gray-200 cursor-pointer'}`}>
+    <div className={`group relative bg-white rounded-xl shadow-xs transition-all duration-300 flex flex-col h-full border border-gray-100 ${isExpired ? 'cursor-default' : 'hover:shadow-xl hover:border-gray-200 cursor-pointer'}`}>
       {/* Visual Area (Fixed Aspect Ratio 16:9) */}
-      <div className="relative aspect-video w-full overflow-hidden bg-gray-100 rounded-t-xl flex-shrink-0">
+      <div className="relative aspect-video w-full overflow-hidden bg-gray-100 rounded-t-xl shrink-0">
         {/* Cover Image */}
         <div 
            className={`absolute inset-0 bg-cover bg-center transition-transform duration-700 ${!isExpired && 'group-hover:scale-105'} ${campaign.coverImage && typeof campaign.coverImage === 'string' && campaign.coverImage.startsWith('http') ? '' : campaign.cover}`}
@@ -73,31 +73,31 @@ const CampaignCard = ({ campaign, brand, templates = [], files = [], hideExpirin
         {/* Status Badge (Top Left) - Priority: New/Expiring/Expired */}
         <div className="absolute top-3 left-3 z-30 flex flex-col items-start gap-2">
            {isNew && expiration.type !== 'urgent' && !isExpired && (
-              <div className="relative overflow-hidden bg-gradient-to-r from-amber-200 to-yellow-400 text-yellow-900 text-[10px] font-bold px-2 py-1 rounded shadow-sm uppercase tracking-wider border border-yellow-300">
+              <div className="relative overflow-hidden bg-linear-to-r from-amber-200 to-yellow-400 text-yellow-900 text-[10px] font-bold px-2 py-1 rounded-sm shadow-xs uppercase tracking-wider border border-yellow-300">
                  <span className="relative z-10">New</span>
                  <div className="absolute inset-0 bg-white/40 skew-x-12 animate-[shimmer_2s_infinite] -translate-x-full"></div>
               </div>
            )}
             {isUpdated && expiration.type !== 'urgent' && !isExpired && (
                <div className="relative group/updated cursor-help">
-                   <div className="relative overflow-hidden bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-[10px] font-bold px-2 py-1 rounded shadow-sm uppercase tracking-wider border border-blue-400">
+                   <div className="relative overflow-hidden bg-linear-to-r from-blue-500 to-indigo-600 text-white text-[10px] font-bold px-2 py-1 rounded-sm shadow-xs uppercase tracking-wider border border-blue-400">
                       <span className="relative z-10">Updated</span>
                       <div className="absolute inset-0 bg-white/20 skew-x-12 animate-[shimmer_2s_infinite] -translate-x-full"></div>
                    </div>
                    {/* Tooltip */}
-                   <div className="absolute top-full left-0 mt-2 px-3 py-2 bg-gray-900 text-white text-xs rounded opacity-0 group-hover/updated:opacity-100 transition pointer-events-none whitespace-nowrap z-50 shadow-lg font-sans font-normal min-w-[200px]">
+                   <div className="absolute top-full left-0 mt-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-sm opacity-0 group-hover/updated:opacity-100 transition pointer-events-none whitespace-nowrap z-50 shadow-lg font-sans font-normal min-w-[200px]">
                        <div className="font-bold mb-0.5">Updated</div>
                        <div className="text-gray-300 text-[10px] whitespace-normal leading-tight">This campaign has been updated within the last 48 hours.</div>
                    </div>
                </div>
             )}
            {expiration.type === 'urgent' && !hideExpiringStatus && (
-              <div className="bg-red-600 text-white text-[10px] font-bold px-2 py-1 rounded shadow-sm uppercase tracking-wider flex items-center gap-1 animate-pulse border border-red-700">
+              <div className="bg-red-600 text-white text-[10px] font-bold px-2 py-1 rounded-sm shadow-xs uppercase tracking-wider flex items-center gap-1 animate-pulse border border-red-700">
                  <Flame size={10} className="fill-white"/> Ends Today
               </div>
            )}
            {isExpired && !hideExpiringStatus && (
-              <div className="bg-gray-900 text-white text-[10px] font-bold px-2 py-1 rounded shadow-sm uppercase tracking-wider border border-black flex items-center gap-1">
+              <div className="bg-gray-900 text-white text-[10px] font-bold px-2 py-1 rounded-sm shadow-xs uppercase tracking-wider border border-black flex items-center gap-1">
                  <Lock size={10} /> EXPIRED
               </div>
            )}
@@ -106,7 +106,7 @@ const CampaignCard = ({ campaign, brand, templates = [], files = [], hideExpirin
         {/* Right Side Badges (Used) */}
         {isUsed && (
             <div className="absolute top-3 right-3 z-30">
-               <div className="bg-green-100 text-green-700 text-[10px] font-bold px-2 py-1 rounded-md shadow-sm uppercase tracking-wider flex items-center gap-1 border border-green-200">
+               <div className="bg-green-100 text-green-700 text-[10px] font-bold px-2 py-1 rounded-md shadow-xs uppercase tracking-wider flex items-center gap-1 border border-green-200">
                   <Check size={10} strokeWidth={3} /> Used
                </div>
             </div>
@@ -137,7 +137,7 @@ const CampaignCard = ({ campaign, brand, templates = [], files = [], hideExpirin
               </Tooltip>
             </div>
             {campaign.isPinned && (
-               <Pin size={14} className="fill-black flex-shrink-0 mt-1.5"/>
+               <Pin size={14} className="fill-black shrink-0 mt-1.5"/>
             )}
          </div>
 
@@ -155,12 +155,12 @@ const CampaignCard = ({ campaign, brand, templates = [], files = [], hideExpirin
              {platforms.length > 0 && (
                 <div className="flex items-center -space-x-1.5 group/social relative cursor-help">
                    {platforms.map(p => (
-                      <div key={p} className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center shadow-sm z-10 relative border border-white">
+                      <div key={p} className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center shadow-xs z-10 relative border border-white">
                          {getPlatformIcon(p)}
                       </div>
                    ))}
                    {/* Tooltip */}
-                   <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-[10px] rounded opacity-0 group-hover/social:opacity-100 transition pointer-events-none whitespace-nowrap z-30">
+                   <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-[10px] rounded-sm opacity-0 group-hover/social:opacity-100 transition pointer-events-none whitespace-nowrap z-30">
                       {socialCount} Posts
                    </div>
                 </div>
@@ -172,7 +172,7 @@ const CampaignCard = ({ campaign, brand, templates = [], files = [], hideExpirin
                    <div className="w-6 h-6 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
                       <Mail size={12}/>
                    </div>
-                   <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-[10px] rounded opacity-0 group-hover/email:opacity-100 transition pointer-events-none whitespace-nowrap z-30">
+                   <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-[10px] rounded-sm opacity-0 group-hover/email:opacity-100 transition pointer-events-none whitespace-nowrap z-30">
                       {emailCount} Emails
                    </div>
                 </div>
@@ -184,7 +184,7 @@ const CampaignCard = ({ campaign, brand, templates = [], files = [], hideExpirin
                    <div className="w-6 h-6 rounded-full bg-purple-50 flex items-center justify-center text-purple-600">
                       <MessageSquare size={12}/>
                    </div>
-                   <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-[10px] rounded opacity-0 group-hover/sms:opacity-100 transition pointer-events-none whitespace-nowrap z-30">
+                   <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-[10px] rounded-sm opacity-0 group-hover/sms:opacity-100 transition pointer-events-none whitespace-nowrap z-30">
                       {smsCount} SMS
                    </div>
                 </div>
@@ -196,7 +196,7 @@ const CampaignCard = ({ campaign, brand, templates = [], files = [], hideExpirin
                    <div className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center text-gray-600">
                       <Download size={12}/>
                    </div>
-                   <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-[10px] rounded opacity-0 group-hover/files:opacity-100 transition pointer-events-none whitespace-nowrap z-30">
+                   <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-[10px] rounded-sm opacity-0 group-hover/files:opacity-100 transition pointer-events-none whitespace-nowrap z-30">
                       {fileCount} Files
                    </div>
                 </div>

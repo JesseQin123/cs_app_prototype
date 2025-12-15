@@ -22,7 +22,7 @@ const FileDetailModal = ({ file, isOpen, onClose, campaigns, onDelete }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div className="absolute inset-0 bg-black/90 backdrop-blur-sm animate-fade-in" onClick={onClose}></div>
+      <div className="absolute inset-0 bg-black/90 backdrop-blur-xs animate-fade-in" onClick={onClose}></div>
       <div className="relative w-full h-full bg-white sm:rounded-none overflow-hidden shadow-2xl animate-slide-up flex flex-col sm:flex-row z-10">
          
          {/* Close Button (Mobile/Desktop) */}
@@ -53,7 +53,7 @@ const FileDetailModal = ({ file, isOpen, onClose, campaigns, onDelete }) => {
          {/* Details Section */}
          <div className="w-full sm:w-1/4 bg-white flex flex-col h-full overflow-hidden">
             <div className="p-8 border-b border-gray-100">
-               <h2 className="text-2xl font-bold text-gray-900 break-words leading-tight">{file.name}</h2>
+               <h2 className="text-2xl font-bold text-gray-900 wrap-break-word leading-tight">{file.name}</h2>
                <div className="flex items-center gap-2 mt-3 text-sm text-gray-500">
                   <Clock size={14}/>
                   <span>Added on {file.date}</span>
@@ -117,8 +117,8 @@ const FileDetailModal = ({ file, isOpen, onClose, campaigns, onDelete }) => {
                   ) : (
                      <div className="space-y-3">
                         {usedIn.map(c => (
-                           <div key={c.id} className="flex items-center gap-4 p-3 rounded-xl border border-gray-100 hover:border-indigo-200 hover:bg-indigo-50 transition group cursor-pointer bg-white shadow-sm">
-                              <div className={`w-10 h-10 rounded-lg ${c.cover} flex-shrink-0 shadow-sm`}></div>
+                           <div key={c.id} className="flex items-center gap-4 p-3 rounded-xl border border-gray-100 hover:border-indigo-200 hover:bg-indigo-50 transition group cursor-pointer bg-white shadow-xs">
+                              <div className={`w-10 h-10 rounded-lg ${c.cover} shrink-0 shadow-xs`}></div>
                               <div className="flex-1 min-w-0">
                                  <div className="text-sm font-bold text-gray-900 truncate">{c.title}</div>
                                  <div className="text-xs text-gray-500 flex items-center gap-1 mt-0.5">
@@ -141,7 +141,7 @@ const FileDetailModal = ({ file, isOpen, onClose, campaigns, onDelete }) => {
                   <Download size={18}/> Download
                </button>
                {!file.isSystem && (
-               <button onClick={() => onDelete(file.id)} className="px-5 py-3 bg-white border border-gray-200 text-red-600 rounded-xl font-medium hover:bg-red-50 hover:border-red-100 transition flex items-center justify-center gap-2 shadow-sm">
+               <button onClick={() => onDelete(file.id)} className="px-5 py-3 bg-white border border-gray-200 text-red-600 rounded-xl font-medium hover:bg-red-50 hover:border-red-100 transition flex items-center justify-center gap-2 shadow-xs">
                   <Trash2 size={18}/>
                </button>
                )}
@@ -161,13 +161,13 @@ const FolderTreeItem = ({ folder, files, currentFolderId, onSelect, level = 0 })
     return (
         <div>
             <div 
-                className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm cursor-pointer transition select-none ${isSelected ? 'bg-white shadow-sm text-black font-medium' : 'text-gray-600 hover:bg-gray-100'}`}
+                className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm cursor-pointer transition select-none ${isSelected ? 'bg-white shadow-xs text-black font-medium' : 'text-gray-600 hover:bg-gray-100'}`}
                 style={{ paddingLeft: `${level * 12 + 12}px` }}
                 onClick={() => onSelect(folder.id)}
             >
                 <button 
                     onClick={(e) => { e.stopPropagation(); setIsExpanded(!isExpanded); }}
-                    className={`p-0.5 rounded hover:bg-gray-200 text-gray-400 ${hasChildren ? 'opacity-100' : 'opacity-0'}`}
+                    className={`p-0.5 rounded-sm hover:bg-gray-200 text-gray-400 ${hasChildren ? 'opacity-100' : 'opacity-0'}`}
                 >
                     {isExpanded ? <ChevronDown size={12}/> : <ChevronRight size={12}/>}
                 </button>
@@ -204,7 +204,7 @@ const NewFolderDialog = ({ isOpen, onClose, onCreate }) => {
   const [name, setName] = useState('');
   if (!isOpen) return null;
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-xs animate-in fade-in duration-200">
        <div className="bg-white rounded-xl shadow-2xl p-6 w-full max-w-sm animate-in zoom-in-95">
           <h3 className="text-lg font-bold mb-4">Create New Folder</h3>
           <input 
@@ -212,7 +212,7 @@ const NewFolderDialog = ({ isOpen, onClose, onCreate }) => {
              value={name}
              onChange={e => setName(e.target.value)}
              placeholder="Folder Name"
-             className="w-full border border-gray-200 rounded-lg px-3 py-2 mb-4 focus:ring-2 focus:ring-black focus:outline-none"
+             className="w-full border border-gray-200 rounded-lg px-3 py-2 mb-4 focus:ring-2 focus:ring-black focus:outline-hidden"
              onKeyDown={e => e.key === 'Enter' && name && onCreate(name)}
           />
           <div className="flex justify-end gap-2">
@@ -426,7 +426,7 @@ const AssetLibrary = ({ files, setFiles, campaigns, notify, isEmpty }) => {
          </div>
          
          {/* Compact Storage Status */}
-         <div className="hidden md:flex items-center bg-white rounded-xl border border-gray-200 shadow-sm py-2 px-5 gap-6">
+         <div className="hidden md:flex items-center bg-white rounded-xl border border-gray-200 shadow-xs py-2 px-5 gap-6">
              {/* Storage Pool */}
              <div className="flex flex-col gap-1.5 min-w-[200px]">
                  <div className="flex items-center justify-between">
@@ -457,7 +457,7 @@ const AssetLibrary = ({ files, setFiles, campaigns, notify, isEmpty }) => {
                   {/* Root Item */}
                   <button 
                       onClick={() => setCurrentFolderId(null)}
-                      className={`w-full text-left px-3 py-2 rounded-md text-sm flex items-center gap-2 transition ${currentFolderId === null ? 'bg-white shadow-sm text-black font-medium' : 'text-gray-600 hover:bg-gray-100'}`}
+                      className={`w-full text-left px-3 py-2 rounded-md text-sm flex items-center gap-2 transition ${currentFolderId === null ? 'bg-white shadow-xs text-black font-medium' : 'text-gray-600 hover:bg-gray-100'}`}
                   >
                       <Folder size={14} className="text-gray-400"/> All Assets
                   </button>
@@ -490,7 +490,7 @@ const AssetLibrary = ({ files, setFiles, campaigns, notify, isEmpty }) => {
                         >
                            <FolderTree size={18} className={isFolderPanelOpen ? "" : ""}/>
                         </button>
-                        <div className="absolute top-full left-0 mt-2 px-2 py-1 bg-black text-white text-xs rounded opacity-0 group-hover:opacity-100 transition pointer-events-none whitespace-nowrap z-20">
+                        <div className="absolute top-full left-0 mt-2 px-2 py-1 bg-black text-white text-xs rounded-sm opacity-0 group-hover:opacity-100 transition pointer-events-none whitespace-nowrap z-20">
                            {isFolderPanelOpen ? 'Hide Folder Tree' : 'Show Folder Tree'}
                         </div>
                     </div>
@@ -546,7 +546,7 @@ const AssetLibrary = ({ files, setFiles, campaigns, notify, isEmpty }) => {
                         {/* Sync Dropdown */}
                         <div className="relative">
                             <button 
-                               className={`flex items-center gap-2 px-3 py-1.5 bg-white border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 transition shadow-sm text-sm font-medium ${isSyncOpen ? 'bg-gray-50 ring-2 ring-black/5' : ''}`}
+                               className={`flex items-center gap-2 px-3 py-1.5 bg-white border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 transition shadow-xs text-sm font-medium ${isSyncOpen ? 'bg-gray-50 ring-2 ring-black/5' : ''}`}
                                onClick={() => setIsSyncOpen(!isSyncOpen)}
                                title="Sync from external sources"
                             >
@@ -562,13 +562,13 @@ const AssetLibrary = ({ files, setFiles, campaigns, notify, isEmpty }) => {
                         </div>
 
                         <button 
-                           className="flex items-center gap-2 px-3 py-1.5 bg-white border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 transition shadow-sm text-sm font-medium"
+                           className="flex items-center gap-2 px-3 py-1.5 bg-white border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 transition shadow-xs text-sm font-medium"
                            onClick={() => setNewFolderDialogOpen(true)}
                         >
                            <Plus size={16} /> New Folder
                         </button>
                         <button 
-                           className="flex items-center gap-2 px-3 py-1.5 bg-black text-white rounded-lg hover:bg-gray-800 transition shadow-sm text-sm font-medium" 
+                           className="flex items-center gap-2 px-3 py-1.5 bg-black text-white rounded-lg hover:bg-gray-800 transition shadow-xs text-sm font-medium" 
                            onClick={() => notify('Upload Dialog', 'success')}
                         >
                            <Plus size={16} /> Upload
@@ -608,7 +608,7 @@ const AssetLibrary = ({ files, setFiles, campaigns, notify, isEmpty }) => {
                                <input 
                                   value={search}
                                   onChange={(e) => setSearch(e.target.value)}
-                                  className="pl-9 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-black w-64 text-sm transition focus:bg-white"
+                                  className="pl-9 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-hidden focus:ring-1 focus:ring-black w-64 text-sm transition focus:bg-white"
                                   placeholder="Search files..."
                                />
                             </div>
@@ -619,7 +619,7 @@ const AssetLibrary = ({ files, setFiles, campaigns, notify, isEmpty }) => {
                             <div className="relative">
                                <button 
                                   onClick={() => setIsFilterDropdownOpen(!isFilterDropdownOpen)}
-                                  className="flex items-center gap-2 px-3 py-2 bg-white border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 transition shadow-sm text-sm font-medium capitalize min-w-[120px] justify-between"
+                                  className="flex items-center gap-2 px-3 py-2 bg-white border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 transition shadow-xs text-sm font-medium capitalize min-w-[120px] justify-between"
                                >
                                   <span>{filterType === 'all' ? 'All Types' : filterType + 's'}</span>
                                   <ChevronDown size={14} className="text-gray-400"/>
@@ -661,8 +661,8 @@ const AssetLibrary = ({ files, setFiles, campaigns, notify, isEmpty }) => {
 
                             {/* View Switcher */}
                             <div className="flex items-center gap-1 bg-gray-100 p-1 rounded-lg">
-                               <button onClick={() => setView('grid')} className={`p-1.5 rounded ${view === 'grid' ? 'bg-white shadow-sm text-black' : 'text-gray-400 hover:text-black'}`}><Grid size={16}/></button>
-                               <button onClick={() => setView('list')} className={`p-1.5 rounded ${view === 'list' ? 'bg-white shadow-sm text-black' : 'text-gray-400 hover:text-black'}`}><ListIcon size={16}/></button>
+                               <button onClick={() => setView('grid')} className={`p-1.5 rounded-sm ${view === 'grid' ? 'bg-white shadow-xs text-black' : 'text-gray-400 hover:text-black'}`}><Grid size={16}/></button>
+                               <button onClick={() => setView('list')} className={`p-1.5 rounded-sm ${view === 'list' ? 'bg-white shadow-xs text-black' : 'text-gray-400 hover:text-black'}`}><ListIcon size={16}/></button>
                             </div>
                          </div>
                      </>
@@ -714,7 +714,7 @@ const AssetLibrary = ({ files, setFiles, campaigns, notify, isEmpty }) => {
                         className={`absolute top-3 left-3 z-10 transition-opacity duration-200 ${isSelected ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}
                         onClick={(e) => { e.stopPropagation(); toggleSelection(file.id); }}
                      >
-                         <div className={`w-5 h-5 rounded border flex items-center justify-center transition ${isSelected ? 'bg-indigo-600 border-indigo-600 text-white' : 'bg-white border-gray-300 hover:border-gray-400 shadow-sm'}`}>
+                         <div className={`w-5 h-5 rounded-sm border flex items-center justify-center transition ${isSelected ? 'bg-indigo-600 border-indigo-600 text-white' : 'bg-white border-gray-300 hover:border-gray-400 shadow-xs'}`}>
                             {isSelected && <CheckCircle2 size={12}/>}
                          </div>
                      </div>
@@ -724,7 +724,7 @@ const AssetLibrary = ({ files, setFiles, campaigns, notify, isEmpty }) => {
                      <div className={`absolute top-3 right-3 z-20 transition-opacity duration-200 ${activeActionFileId === file.id ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
                         <div className="relative">
                            <button 
-                              className={`p-1 rounded border shadow-sm text-gray-600 transition ${activeActionFileId === file.id ? 'bg-gray-100 border-gray-300 text-black' : 'bg-white border-gray-200 hover:bg-gray-50'}`} 
+                              className={`p-1 rounded-sm border shadow-xs text-gray-600 transition ${activeActionFileId === file.id ? 'bg-gray-100 border-gray-300 text-black' : 'bg-white border-gray-200 hover:bg-gray-50'}`} 
                               onClick={(e) => { e.stopPropagation(); setActiveActionFileId(activeActionFileId === file.id ? null : file.id); }}
                            >
                               <MoreHorizontal size={16}/>
@@ -776,7 +776,7 @@ const AssetLibrary = ({ files, setFiles, campaigns, notify, isEmpty }) => {
                         
                         {/* Type Tag (Bottom Right of Preview - using negative top to overlap preview) */}
                         {!isFolder && (
-                           <div className="absolute top-[-28px] right-2 bg-black/70 backdrop-blur-sm text-white text-[10px] px-2 py-1 rounded-md flex items-center gap-1">
+                           <div className="absolute top-[-28px] right-2 bg-black/70 backdrop-blur-xs text-white text-[10px] px-2 py-1 rounded-md flex items-center gap-1">
                               {file.type === 'image' ? <ImageIcon size={10}/> :
                                file.type === 'video' ? <Video size={10}/> :
                                file.type === 'pdf' ? <FileText size={10}/> : <FileText size={10}/>}
@@ -823,8 +823,8 @@ const AssetLibrary = ({ files, setFiles, campaigns, notify, isEmpty }) => {
                   <thead className="bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sticky top-0 z-10">
                      <tr>
                         <th className="p-4 w-12">
-                           <div className="w-4 h-4 border border-gray-300 rounded bg-white flex items-center justify-center cursor-pointer" onClick={handleSelectAll}>
-                              {selectedFiles.length > 0 && <div className="w-2 h-2 bg-black rounded-sm"></div>}
+                           <div className="w-4 h-4 border border-gray-300 rounded-sm bg-white flex items-center justify-center cursor-pointer" onClick={handleSelectAll}>
+                              {selectedFiles.length > 0 && <div className="w-2 h-2 bg-black rounded-xs"></div>}
                            </div>
                         </th>
                         <th className="py-3 px-4">Name</th>
@@ -847,13 +847,13 @@ const AssetLibrary = ({ files, setFiles, campaigns, notify, isEmpty }) => {
                         return (
                            <tr key={file.id} className={`hover:bg-gray-50 group cursor-pointer ${selectedFiles.includes(file.id) ? 'bg-indigo-50/50' : ''}`} onClick={() => handleItemClick(file)}>
                               <td className="p-4" onClick={(e) => e.stopPropagation()}>
-                                 <button onClick={() => toggleSelection(file.id)} className={`w-4 h-4 border rounded flex items-center justify-center transition ${selectedFiles.includes(file.id) ? 'bg-black border-black text-white' : 'border-gray-300 bg-white hover:border-gray-400'}`}>
+                                 <button onClick={() => toggleSelection(file.id)} className={`w-4 h-4 border rounded-sm flex items-center justify-center transition ${selectedFiles.includes(file.id) ? 'bg-black border-black text-white' : 'border-gray-300 bg-white hover:border-gray-400'}`}>
                                     {selectedFiles.includes(file.id) && <CheckCircle2 size={10} className="fill-current"/>}
                                  </button>
                               </td>
                               <td className="py-3 px-4">
                                  <div className="flex items-center gap-3">
-                                    <div className="w-8 h-8 bg-gray-100 rounded flex items-center justify-center text-gray-500">
+                                    <div className="w-8 h-8 bg-gray-100 rounded-sm flex items-center justify-center text-gray-500">
                                        {isFolder ? <Folder size={16} className="text-yellow-500 fill-yellow-500"/> : 
                                         file.type === 'image' ? <ImageIcon size={16}/> :
                                         file.type === 'video' ? <Video size={16}/> :
@@ -890,7 +890,7 @@ const AssetLibrary = ({ files, setFiles, campaigns, notify, isEmpty }) => {
                               <td className="p-4 text-right relative">
                                  <div className="relative">
                                     <button 
-                                       className={`p-1.5 rounded text-gray-400 hover:text-gray-900 transition ${activeActionFileId === file.id ? 'opacity-100 bg-gray-100 text-gray-900' : 'opacity-0 group-hover:opacity-100 hover:bg-gray-200'}`}
+                                       className={`p-1.5 rounded-sm text-gray-400 hover:text-gray-900 transition ${activeActionFileId === file.id ? 'opacity-100 bg-gray-100 text-gray-900' : 'opacity-0 group-hover:opacity-100 hover:bg-gray-200'}`}
                                        onClick={(e) => { e.stopPropagation(); setActiveActionFileId(activeActionFileId === file.id ? null : file.id); }}
                                     >
                                        <MoreHorizontal size={16} />

@@ -17,9 +17,9 @@ const CompactCampaignCard = ({ campaign, brand }) => {
   }
 
   return (
-    <div className="flex items-center gap-4 bg-white border border-red-100 rounded-lg p-3 shadow-sm hover:shadow-md transition-all cursor-pointer group min-w-[280px] h-24">
+    <div className="flex items-center gap-4 bg-white border border-red-100 rounded-lg p-3 shadow-xs hover:shadow-md transition-all cursor-pointer group min-w-[280px] h-24">
        {/* Cover Image */}
-       <div className={`w-16 h-16 rounded-md ${campaign.cover} flex-shrink-0 relative overflow-hidden`}>
+       <div className={`w-16 h-16 rounded-md ${campaign.cover} shrink-0 relative overflow-hidden`}>
           {/* Brand Logo Overlay */}
           <div className={`absolute bottom-0 right-0 w-6 h-6 rounded-tl-lg ${brand?.logo || 'bg-black'} flex items-center justify-center text-white text-[8px] font-bold`}>
              {brand?.name?.substring(0, 1)}

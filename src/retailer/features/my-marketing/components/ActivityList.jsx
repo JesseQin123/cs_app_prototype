@@ -68,7 +68,7 @@ const ActivityList = ({ activities, onDuplicate }) => {
         <>
         <div className="flex flex-col h-full">
             {/* Unified Card Container */}
-            <div className="flex flex-col h-full bg-white border border-gray-200 shadow-sm rounded-xl overflow-hidden">
+            <div className="flex flex-col h-full bg-white border border-gray-200 shadow-xs rounded-xl overflow-hidden">
                 
                 {/* 1. Integrated Filter Header (Workbench Style) */}
                 <div className="flex-none px-6 py-5 border-b border-gray-100 flex flex-wrap items-center gap-4 bg-white">
@@ -80,7 +80,7 @@ const ActivityList = ({ activities, onDuplicate }) => {
                             placeholder="Search activity name..." 
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border-transparent rounded-lg text-sm focus:outline-none focus:bg-white focus:ring-2 focus:ring-black/5 focus:border-gray-200 transition-all font-medium placeholder:text-gray-400"
+                            className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border-transparent rounded-lg text-sm focus:outline-hidden focus:bg-white focus:ring-2 focus:ring-black/5 focus:border-gray-200 transition-all font-medium placeholder:text-gray-400"
                         />
                     </div>
 
@@ -163,7 +163,7 @@ const ActivityList = ({ activities, onDuplicate }) => {
                                             <td className="py-4 px-6 align-middle">
                                                 <div className="flex items-center gap-2">
                                                     {/* Mock Logo */}
-                                                    <div className="w-6 h-6 rounded-full bg-white border border-gray-100 flex items-center justify-center text-[8px] font-bold text-gray-500 overflow-hidden shadow-sm">
+                                                    <div className="w-6 h-6 rounded-full bg-white border border-gray-100 flex items-center justify-center text-[8px] font-bold text-gray-500 overflow-hidden shadow-xs">
                                                         {['Verragio', 'Rolex', 'Cartier'].includes(brandName) ? (
                                                              brandName.substring(0,1).toUpperCase()
                                                         ) : brandName.substring(0,2).toUpperCase()}
@@ -181,7 +181,7 @@ const ActivityList = ({ activities, onDuplicate }) => {
 
                                             {/* Date */}
                                             <td className="py-4 px-6 align-middle">
-                                                <span className="text-xs font-medium text-gray-600 whitespace-nowrap bg-gray-50 px-2 py-1 rounded">
+                                                <span className="text-xs font-medium text-gray-600 whitespace-nowrap bg-gray-50 px-2 py-1 rounded-sm">
                                                     {act.scheduledDate || act.updatedAt ? new Date(act.scheduledDate || act.updatedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '--'}
                                                 </span>
                                             </td>
@@ -227,7 +227,7 @@ const ActivityList = ({ activities, onDuplicate }) => {
                                                     
                                                     <Popover.Root>
                                                         <Popover.Trigger asChild>
-                                                            <button className="p-1.5 text-gray-400 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors outline-none focus:outline-none">
+                                                            <button className="p-1.5 text-gray-400 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors outline-hidden focus:outline-hidden">
                                                                 <MoreHorizontal size={16} />
                                                             </button>
                                                         </Popover.Trigger>
@@ -305,10 +305,10 @@ const ChannelIcon = ({ type, platform }) => {
             case 'instagram': return <Instagram size={14} className="text-pink-600"/>;
             case 'facebook': return <div className="w-3.5 h-3.5 bg-blue-600 rounded-full flex items-center justify-center text-[9px] text-white font-bold">f</div>;
             case 'x': 
-            case 'twitter': return <div className="w-3.5 h-3.5 bg-black rounded-sm flex items-center justify-center text-white font-black text-[10px]">𝕏</div>;
+            case 'twitter': return <div className="w-3.5 h-3.5 bg-black rounded-xs flex items-center justify-center text-white font-black text-[10px]">𝕏</div>;
             case 'google':
             case 'gmb': 
-            case 'google business profile': return <div className="w-3.5 h-3.5 rounded-sm flex items-center justify-center text-white font-bold text-[9px]" style={{backgroundColor: '#4285F4'}}>G</div>;
+            case 'google business profile': return <div className="w-3.5 h-3.5 rounded-xs flex items-center justify-center text-white font-bold text-[9px]" style={{backgroundColor: '#4285F4'}}>G</div>;
             default: return null;
         }
     };
@@ -318,7 +318,7 @@ const ChannelIcon = ({ type, platform }) => {
          return (
              <div className="flex items-center -space-x-1.5">
                  {platform.map((p, idx) => (
-                      <div key={idx} className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center shadow-sm z-10 relative border border-white">
+                      <div key={idx} className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center shadow-xs z-10 relative border border-white">
                           {getPlatformIcon(p)}
                       </div>
                  ))}
@@ -328,7 +328,7 @@ const ChannelIcon = ({ type, platform }) => {
 
     // Default single
     return (
-        <div className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center shadow-sm border border-white">
+        <div className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center shadow-xs border border-white">
             {getPlatformIcon(platform) || getPlatformIcon(type)}
         </div>
     );

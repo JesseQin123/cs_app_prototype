@@ -241,7 +241,7 @@ const InviteRetailerModal = ({ isOpen, onClose, onSend, availableSlots = 40, tot
                                 placeholder="Name"
                                 value={row.name}
                                 onChange={(e) => handleRowChange(row.id, 'name', e.target.value)}
-                                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black/5"
+                                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-black/5"
                             />
                         </div>
                         <div className="flex-1 space-y-1">
@@ -251,7 +251,7 @@ const InviteRetailerModal = ({ isOpen, onClose, onSend, availableSlots = 40, tot
                                 placeholder="Email"
                                 value={row.email}
                                 onChange={(e) => handleRowChange(row.id, 'email', e.target.value)}
-                                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black/5"
+                                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-black/5"
                             />
                         </div>
                         <div className="w-32 space-y-1">
@@ -259,7 +259,7 @@ const InviteRetailerModal = ({ isOpen, onClose, onSend, availableSlots = 40, tot
                             <select 
                                 value={row.country}
                                 onChange={(e) => handleRowChange(row.id, 'country', e.target.value)}
-                                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black/5 bg-white"
+                                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-black/5 bg-white"
                             >
                                 <option value="">Select</option>
                                 <option value="US">US</option>
@@ -272,7 +272,7 @@ const InviteRetailerModal = ({ isOpen, onClose, onSend, availableSlots = 40, tot
                                 value={row.zone}
                                 onChange={(e) => handleRowChange(row.id, 'zone', e.target.value)}
                                 disabled={row.country === 'CA'}
-                                className={`w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black/5 bg-white ${row.country === 'CA' ? 'bg-gray-50 text-gray-400' : ''}`}
+                                className={`w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-black/5 bg-white ${row.country === 'CA' ? 'bg-gray-50 text-gray-400' : ''}`}
                             >
                                 <option value="">Select</option>
                                 <option value="Northeast">Northeast</option>
@@ -286,7 +286,7 @@ const InviteRetailerModal = ({ isOpen, onClose, onSend, availableSlots = 40, tot
                             <select 
                                 value={row.tier}
                                 onChange={(e) => handleRowChange(row.id, 'tier', e.target.value)}
-                                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black/5 bg-white"
+                                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-black/5 bg-white"
                             >
                                 <option value="Default Tier">Default Tier</option>
                                 <option value="Platinum">Platinum</option>
@@ -322,7 +322,7 @@ const InviteRetailerModal = ({ isOpen, onClose, onSend, availableSlots = 40, tot
                     id="defaultQuota"
                     checked={settings.useDefaultQuota}
                     onChange={(e) => setSettings({...settings, useDefaultQuota: e.target.checked})}
-                    className="rounded border-gray-300 text-black focus:ring-black"
+                    className="rounded-sm border-gray-300 text-black focus:ring-black"
                 />
                 <label htmlFor="defaultQuota" className="text-sm text-gray-600">Apply Default Quota (10,000 emails)</label>
             </div>
@@ -332,7 +332,7 @@ const InviteRetailerModal = ({ isOpen, onClose, onSend, availableSlots = 40, tot
                         type="number" 
                         value={settings.quota}
                         onChange={(e) => setSettings({...settings, quota: parseInt(e.target.value) || 0})}
-                        className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black/5"
+                        className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-black/5"
                         placeholder="Enter quota amount"
                     />
                 </div>
@@ -388,7 +388,7 @@ const InviteRetailerModal = ({ isOpen, onClose, onSend, availableSlots = 40, tot
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200" onClick={onClose}></div>
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-xs animate-in fade-in duration-200" onClick={onClose}></div>
       <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-3xl max-h-[90vh] flex flex-col animate-in zoom-in-95 duration-200">
         
         {/* Header */}
@@ -431,7 +431,7 @@ const InviteRetailerModal = ({ isOpen, onClose, onSend, availableSlots = 40, tot
           <div className="flex gap-3">
             <button 
                 onClick={onClose}
-                className="px-4 py-2 bg-white border border-gray-200 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-100 transition shadow-sm"
+                className="px-4 py-2 bg-white border border-gray-200 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-100 transition shadow-xs"
             >
                 Cancel
             </button>
@@ -439,14 +439,14 @@ const InviteRetailerModal = ({ isOpen, onClose, onSend, availableSlots = 40, tot
                 <button 
                     onClick={handleNext}
                     disabled={mode === 'bulk' && !file}
-                    className={`px-6 py-2 bg-black text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition shadow-sm flex items-center gap-2 ${mode === 'bulk' && !file ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    className={`px-6 py-2 bg-black text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition shadow-xs flex items-center gap-2 ${mode === 'bulk' && !file ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
                     {step === 1 && mode === 'bulk' ? 'Upload & Continue' : 'Continue'} <ChevronRight size={16} />
                 </button>
             ) : (
                 <button 
                     onClick={handleSend}
-                    className="px-6 py-2 bg-black text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition shadow-sm flex items-center gap-2"
+                    className="px-6 py-2 bg-black text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition shadow-xs flex items-center gap-2"
                 >
                     <Mail size={16} /> Send {(mode === 'manual' ? manualRows.length : csvPreview.length)} Invitations
                 </button>

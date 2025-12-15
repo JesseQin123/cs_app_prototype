@@ -27,7 +27,7 @@ const EmailView = () => {
         <div className="flex h-full bg-white">
             {/* 1. Left Sidebar (Folders) */}
             <div className="w-60 border-r border-gray-100 flex flex-col bg-gray-50/30 p-4">
-                <button className="w-full bg-black text-white py-3 rounded-lg font-medium text-sm flex items-center justify-center gap-2 hover:bg-gray-800 transition mb-6 shadow-sm">
+                <button className="w-full bg-black text-white py-3 rounded-lg font-medium text-sm flex items-center justify-center gap-2 hover:bg-gray-800 transition mb-6 shadow-xs">
                     <Edit3 size={16} /> New Mail
                 </button>
 
@@ -65,7 +65,7 @@ const EmailView = () => {
                 {/* Header */}
                 <div className="h-16 border-b border-gray-100 flex items-center justify-between px-4">
                     <div className="flex items-center gap-2 text-gray-400">
-                        <input type="checkbox" className="rounded border-gray-300" />
+                        <input type="checkbox" className="rounded-sm border-gray-300" />
                         <RotateCw size={16} className="hover:text-gray-600 cursor-pointer" />
                         <MoreVertical size={16} className="hover:text-gray-600 cursor-pointer" />
                     </div>
@@ -83,7 +83,7 @@ const EmailView = () => {
                             }`}
                         >
                             <div className="flex items-start gap-3">
-                                <img src={email.sender.avatar} alt="" className="w-8 h-8 rounded-full object-cover flex-shrink-0" />
+                                <img src={email.sender.avatar} alt="" className="w-8 h-8 rounded-full object-cover shrink-0" />
                                 <div className="flex-1 min-w-0">
                                     <div className="flex items-center justify-between mb-0.5">
                                         <h4 className={`text-sm truncate pr-2 ${!email.isRead ? 'font-bold text-gray-900' : 'font-medium text-gray-700'}`}>

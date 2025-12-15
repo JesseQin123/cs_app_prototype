@@ -46,7 +46,7 @@ const PartnerBrands = ({ brands, onSelectBrand }) => {
   return (
     <div className="flex flex-col h-full bg-gray-50">
       {/* Sticky Header: Search & Sort */}
-      <div className="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-gray-200 shadow-sm transition-all">
+      <div className="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-gray-200 shadow-xs transition-all">
          <div className="px-6 py-4 flex items-center justify-between gap-4">
             {/* Left: Search */}
             <div className="relative flex-1 max-w-md">
@@ -56,7 +56,7 @@ const PartnerBrands = ({ brands, onSelectBrand }) => {
                  placeholder="Search Brand Name..."
                  value={searchQuery}
                  onChange={(e) => setSearchQuery(e.target.value)}
-                 className="w-full pl-10 pr-4 py-2 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black/5 focus:border-black transition"
+                 className="w-full pl-10 pr-4 py-2 bg-white border border-gray-200 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-black/5 focus:border-black transition"
                />
             </div>
 

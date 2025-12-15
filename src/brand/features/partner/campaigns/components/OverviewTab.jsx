@@ -28,7 +28,7 @@ const OverviewTab = ({ campaign, data, setActiveTab }) => {
       <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 max-w-3xl mx-auto">
         {/* Helper Tip */}
         <div className="flex items-start gap-4 p-4 bg-indigo-50 border border-indigo-100 rounded-xl">
-           <div className="p-2 bg-white rounded-lg text-indigo-600 shadow-sm">
+           <div className="p-2 bg-white rounded-lg text-indigo-600 shadow-xs">
               <PenLine size={20} />
            </div>
            <div>
@@ -50,7 +50,7 @@ const OverviewTab = ({ campaign, data, setActiveTab }) => {
         <div className="flex justify-center">
             <button 
               onClick={() => setActiveTab('content')}
-              className="group flex items-center gap-2 px-6 py-3 bg-white border border-gray-200 hover:border-black text-gray-600 hover:text-black font-medium rounded-full transition shadow-sm hover:shadow-md"
+              className="group flex items-center gap-2 px-6 py-3 bg-white border border-gray-200 hover:border-black text-gray-600 hover:text-black font-medium rounded-full transition shadow-xs hover:shadow-md"
             >
               <PenLine size={18} />
               <span>Manage Campaign Content</span>
@@ -66,7 +66,7 @@ const OverviewTab = ({ campaign, data, setActiveTab }) => {
     return (
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 max-w-4xl mx-auto py-10">
             {/* Status Card */}
-            <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden text-center p-12">
+            <div className="bg-white rounded-2xl border border-gray-200 shadow-xs overflow-hidden text-center p-12">
                 <div className="w-20 h-20 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-6">
                     <Timer size={32} className="text-emerald-600" />
                 </div>
@@ -120,22 +120,22 @@ const OverviewTab = ({ campaign, data, setActiveTab }) => {
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       {/* Metrics Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+        <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-xs">
           <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">Adoption Rate</div>
           <div className="text-3xl font-bold text-gray-900">{adoptionRate}%</div>
           <div className="text-xs text-emerald-600 mt-1 font-medium">+5% from last week</div>
         </div>
-        <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+        <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-xs">
           <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">Total Views</div>
           <div className="text-3xl font-bold text-gray-900">{totalViews.toLocaleString()}</div>
           <div className="text-xs text-gray-400 mt-1 font-medium">Retailer impressions</div>
         </div>
-        <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+        <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-xs">
           <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">Downloads</div>
           <div className="text-3xl font-bold text-gray-900">{downloads.toLocaleString()}</div>
           <div className="text-xs text-gray-400 mt-1 font-medium">Asset downloads</div>
         </div>
-        <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+        <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-xs">
           <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">Time Left</div>
           <div className="text-3xl font-bold text-gray-900">
             {timeLeft}
@@ -146,7 +146,7 @@ const OverviewTab = ({ campaign, data, setActiveTab }) => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Engagement Feed */}
-        <div className="lg:col-span-2 bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+        <div className="lg:col-span-2 bg-white rounded-xl border border-gray-200 shadow-xs overflow-hidden">
           <div className="p-6 border-b border-gray-100 flex justify-between items-center">
             <h3 className="font-bold text-gray-900">Live Engagement Feed</h3>
             <span className="flex items-center gap-1.5 text-xs font-medium text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full">
@@ -157,7 +157,7 @@ const OverviewTab = ({ campaign, data, setActiveTab }) => {
             {data?.activityFeed && data.activityFeed.length > 0 ? (
               data.activityFeed.map((item) => (
                 <div key={item.id} className="p-4 border-b border-gray-50 hover:bg-gray-50 transition flex gap-4 items-start">
-                  <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-600 flex-shrink-0">
+                  <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-600 shrink-0">
                     {item.initials}
                   </div>
                   <div>
@@ -180,7 +180,7 @@ const OverviewTab = ({ campaign, data, setActiveTab }) => {
 
         <div className="space-y-6">
            {/* Needs Attention - Refactored */}
-           <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 relative">
+           <div className="bg-white rounded-xl border border-gray-200 shadow-xs p-6 relative">
               <div className="flex items-center justify-between mb-4">
                  <div className="flex items-center gap-2">
                      <h3 className="font-bold text-gray-900 text-sm">Needs Attention</h3>
@@ -221,12 +221,12 @@ const OverviewTab = ({ campaign, data, setActiveTab }) => {
            </div>
 
            {/* Top Content - Refactored */}
-           <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
+           <div className="bg-white rounded-xl border border-gray-200 shadow-xs p-6">
               <h3 className="font-bold text-gray-900 text-sm mb-4">Top Performing Content</h3>
               <div className="space-y-4">
                  {topContentList.length > 0 ? topContentList.map((item, idx) => (
                      <div key={idx} className="flex gap-3 items-center group cursor-pointer hover:bg-gray-50 p-2 -mx-2 rounded-lg transition">
-                        <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400 overflow-hidden relative border border-gray-200 flex-shrink-0">
+                        <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400 overflow-hidden relative border border-gray-200 shrink-0">
                            {item.thumbnail ? (
                                <img src={item.thumbnail} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
                            ) : (
@@ -249,8 +249,8 @@ const OverviewTab = ({ campaign, data, setActiveTab }) => {
 
       {/* --- Nudge Modal --- */}
       {showNudgeModal && createPortal(
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm animate-in fade-in" onClick={() => setShowNudgeModal(false)}></div>
+        <div className="fixed inset-0 z-9999 flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-xs animate-in fade-in" onClick={() => setShowNudgeModal(false)}></div>
           <div className="relative bg-white rounded-xl shadow-2xl max-w-2xl w-full p-6 animate-in zoom-in-95 duration-200">
             <div className="flex justify-between items-start mb-4">
               <div className="flex items-center gap-3">
@@ -275,7 +275,7 @@ const OverviewTab = ({ campaign, data, setActiveTab }) => {
                 value={nudgeMessage}
                 onChange={(e) => setNudgeMessage(e.target.value)}
                 rows={6}
-                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 resize-none"
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 resize-none"
                 placeholder="Write a friendly reminder..."
               />
             </div>
@@ -289,7 +289,7 @@ const OverviewTab = ({ campaign, data, setActiveTab }) => {
               </button>
               <button
                 onClick={confirmSendNudge}
-                className="px-6 py-2 text-sm font-bold text-white bg-black hover:bg-gray-800 rounded-lg shadow-sm transition"
+                className="px-6 py-2 text-sm font-bold text-white bg-black hover:bg-gray-800 rounded-lg shadow-xs transition"
               >
                 Send Reminder
               </button>

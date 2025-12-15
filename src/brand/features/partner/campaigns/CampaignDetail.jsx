@@ -64,7 +64,7 @@ const CampaignDetail = ({ campaign, onBack, onUpdate, notify, allFiles, retailer
     };
 
     return (
-      <span className={`px-2.5 py-0.5 rounded text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 ${styles[status] || styles['Draft']}`}>
+      <span className={`px-2.5 py-0.5 rounded-sm text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 ${styles[status] || styles['Draft']}`}>
         {status === 'Active' && <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>}
         {status}
       </span>
@@ -91,20 +91,20 @@ const CampaignDetail = ({ campaign, onBack, onUpdate, notify, allFiles, retailer
       {/* 1. Context Bar (Sticky Header) */}
       <div className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-gray-200 transition-all">
         {/* Background Gradient Hint */}
-        <div className="absolute inset-0 bg-gradient-to-r from-gray-50 to-white opacity-50 pointer-events-none"></div>
+        <div className="absolute inset-0 bg-linear-to-r from-gray-50 to-white opacity-50 pointer-events-none"></div>
         
         <div className="relative px-6 py-4 flex items-center justify-between gap-6">
           {/* Left: Identity */}
           <div className="flex items-center gap-6 flex-1 min-w-0">
             <button 
               onClick={onBack}
-              className="p-2 -ml-2 text-gray-400 hover:text-black hover:bg-gray-100 rounded-full transition flex-shrink-0"
+              className="p-2 -ml-2 text-gray-400 hover:text-black hover:bg-gray-100 rounded-full transition shrink-0"
             >
               <ArrowLeft size={20} />
             </button>
 
             {/* Thumbnail */}
-            <div className="w-32 aspect-video rounded-lg overflow-hidden shadow-sm border border-gray-200 flex-shrink-0 relative group cursor-pointer bg-gray-100">
+            <div className="w-32 aspect-video rounded-lg overflow-hidden shadow-xs border border-gray-200 shrink-0 relative group cursor-pointer bg-gray-100">
               <img 
                 src={campaign.coverImage} 
                 alt={campaign.title} 
@@ -179,7 +179,7 @@ const CampaignDetail = ({ campaign, onBack, onUpdate, notify, allFiles, retailer
           </div>
 
           {/* Right: Actions */}
-          <div className="flex items-center gap-3 flex-shrink-0">
+          <div className="flex items-center gap-3 shrink-0">
             {/* Menu Button (Moved to Left) */}
             <button className="p-2 text-gray-400 hover:text-black hover:bg-gray-100 rounded-lg transition mr-1">
               <MoreHorizontal size={20} />
@@ -194,7 +194,7 @@ const CampaignDetail = ({ campaign, onBack, onUpdate, notify, allFiles, retailer
                 </button>
                 <button 
                   onClick={handlePublishClick}
-                  className="px-4 py-2 text-sm font-bold text-white bg-black hover:bg-gray-800 rounded-lg shadow-sm transition"
+                  className="px-4 py-2 text-sm font-bold text-white bg-black hover:bg-gray-800 rounded-lg shadow-xs transition"
                 >
                   Publish Campaign
                 </button>
@@ -234,7 +234,7 @@ const CampaignDetail = ({ campaign, onBack, onUpdate, notify, allFiles, retailer
                         closeConfirmation();
                     }
                   })}
-                  className={`px-4 py-2 text-sm font-bold text-white rounded-lg shadow-sm transition flex items-center gap-2 ${
+                  className={`px-4 py-2 text-sm font-bold text-white rounded-lg shadow-xs transition flex items-center gap-2 ${
                     campaign.updatePending ? 'bg-black hover:bg-gray-800' : 'bg-gray-300 cursor-not-allowed'
                   }`}
                 >
@@ -249,7 +249,7 @@ const CampaignDetail = ({ campaign, onBack, onUpdate, notify, allFiles, retailer
                   onUpdate({...campaign, status: 'Active'});
                   notify('Campaign Re-activated', 'success');
                 }}
-                className="px-4 py-2 text-sm font-bold text-white bg-black hover:bg-gray-800 rounded-lg shadow-sm transition"
+                className="px-4 py-2 text-sm font-bold text-white bg-black hover:bg-gray-800 rounded-lg shadow-xs transition"
               >
                 Re-activate
               </button>
@@ -282,7 +282,7 @@ const CampaignDetail = ({ campaign, onBack, onUpdate, notify, allFiles, retailer
       {/* Description Modal */}
       {isDescriptionOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            <div className="absolute inset-0 bg-black/40 backdrop-blur-sm animate-in fade-in" onClick={() => setIsDescriptionOpen(false)}></div>
+            <div className="absolute inset-0 bg-black/40 backdrop-blur-xs animate-in fade-in" onClick={() => setIsDescriptionOpen(false)}></div>
             <div className="relative bg-white rounded-xl shadow-2xl max-w-2xl w-full p-6 animate-in zoom-in-95 duration-200">
                 <div className="flex justify-between items-start mb-4">
                     <h3 className="text-xl font-bold text-gray-900">About this Campaign</h3>
@@ -342,10 +342,10 @@ const CampaignDetail = ({ campaign, onBack, onUpdate, notify, allFiles, retailer
       {/* Confirmation Modal */}
       {confirmation.isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            <div className="absolute inset-0 bg-black/40 backdrop-blur-sm animate-in fade-in" onClick={closeConfirmation}></div>
+            <div className="absolute inset-0 bg-black/40 backdrop-blur-xs animate-in fade-in" onClick={closeConfirmation}></div>
             <div className="relative bg-white rounded-xl shadow-2xl max-w-md w-full p-6 animate-in zoom-in-95 duration-200">
                 <div className="flex items-start gap-4 mb-4">
-                    <div className={`p-3 rounded-full flex-shrink-0 ${confirmation.isDestructive ? 'bg-red-100 text-red-600' : 'bg-gray-100 text-gray-900'}`}>
+                    <div className={`p-3 rounded-full shrink-0 ${confirmation.isDestructive ? 'bg-red-100 text-red-600' : 'bg-gray-100 text-gray-900'}`}>
                         <AlertCircle size={24} />
                     </div>
                     <div>
@@ -362,7 +362,7 @@ const CampaignDetail = ({ campaign, onBack, onUpdate, notify, allFiles, retailer
                     </button>
                     <button 
                         onClick={confirmation.onConfirm}
-                        className={`px-4 py-2 text-sm font-bold text-white rounded-lg shadow-sm transition ${confirmation.isDestructive ? 'bg-red-600 hover:bg-red-700' : 'bg-black hover:bg-gray-800'}`}
+                        className={`px-4 py-2 text-sm font-bold text-white rounded-lg shadow-xs transition ${confirmation.isDestructive ? 'bg-red-600 hover:bg-red-700' : 'bg-black hover:bg-gray-800'}`}
                     >
                         {confirmation.confirmLabel}
                     </button>
@@ -374,7 +374,7 @@ const CampaignDetail = ({ campaign, onBack, onUpdate, notify, allFiles, retailer
       {/* Readiness Modal */}
       {showReadinessModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            <div className="absolute inset-0 bg-black/40 backdrop-blur-sm animate-in fade-in" onClick={() => setShowReadinessModal(false)}></div>
+            <div className="absolute inset-0 bg-black/40 backdrop-blur-xs animate-in fade-in" onClick={() => setShowReadinessModal(false)}></div>
             <div className="relative bg-white rounded-xl shadow-2xl max-w-lg w-full p-6 animate-in zoom-in-95 duration-200">
                 <div className="flex justify-between items-start mb-4">
                     <h3 className="text-xl font-bold text-gray-900">Campaign Not Ready</h3>

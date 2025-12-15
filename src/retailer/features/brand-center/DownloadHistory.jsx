@@ -179,13 +179,13 @@ const DownloadHistory = ({ brands = mockBrands, onNavigate }) => {
   return (
     <div className="px-8 pb-8 h-full flex flex-col min-h-0">
       {/* 1. Filters & Toolbar */}
-      <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm mb-6 flex flex-wrap items-center justify-between gap-4 flex-shrink-0">
+      <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-xs mb-6 flex flex-wrap items-center justify-between gap-4 shrink-0">
         <div className="relative flex-1 min-w-[240px] max-w-sm">
           <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
           <input 
             type="text" 
             placeholder="Search by file name..." 
-            className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-[#C5A065]/20 focus:border-[#C5A065] transition-all outline-none"
+            className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-[#C5A065]/20 focus:border-[#C5A065] transition-all outline-hidden"
             value={searchTerm}
             onChange={(e) => {
                 setSearchTerm(e.target.value);
@@ -242,12 +242,12 @@ const DownloadHistory = ({ brands = mockBrands, onNavigate }) => {
       </div>
 
       {/* 2. Table and Pagination Container */}
-      <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden flex flex-col flex-1 min-h-0">
+      <div className="bg-white border border-gray-200 rounded-xl shadow-xs overflow-hidden flex flex-col flex-1 min-h-0">
         
         {/* Scrollable Table Area */}
         <div className="flex-1 overflow-auto">
           <table className="w-full text-left relative border-collapse">
-            <thead className="bg-gray-50 border-b border-gray-100 sticky top-0 z-10 shadow-sm">
+            <thead className="bg-gray-50 border-b border-gray-100 sticky top-0 z-10 shadow-xs">
               <tr>
                 <th className="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-wider font-sans w-[25%]">File</th>
                 <th className="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-wider font-sans w-[15%]">Brand</th>
@@ -301,7 +301,7 @@ const DownloadHistory = ({ brands = mockBrands, onNavigate }) => {
                          className={`flex items-center gap-3 group/file ${isDeleted ? 'cursor-default' : 'cursor-pointer'}`}
                          onClick={() => !isDeleted && handlePreview(item)}
                        >
-                          <div className={`w-10 h-10 rounded-lg flex-shrink-0 flex items-center justify-center overflow-hidden transition-transform duration-200 ${isDeleted ? 'bg-gray-100 text-gray-400' : 'bg-gray-100 text-gray-600 group-hover/file:scale-105'}`}>
+                          <div className={`w-10 h-10 rounded-lg shrink-0 flex items-center justify-center overflow-hidden transition-transform duration-200 ${isDeleted ? 'bg-gray-100 text-gray-400' : 'bg-gray-100 text-gray-600 group-hover/file:scale-105'}`}>
                              {getFileIcon(item.file, isDeleted)}
                           </div>
                           <div className="min-w-0">
@@ -410,7 +410,7 @@ const DownloadHistory = ({ brands = mockBrands, onNavigate }) => {
                                             return (
                                                 <div key={idx} className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition-colors">
                                                     {/* Avatar */}
-                                                    <div className="w-8 h-8 rounded-full bg-gray-100 text-gray-600 flex items-center justify-center text-xs font-bold flex-shrink-0">
+                                                    <div className="w-8 h-8 rounded-full bg-gray-100 text-gray-600 flex items-center justify-center text-xs font-bold shrink-0">
                                                         {initials}
                                                     </div>
                                                     
@@ -418,7 +418,7 @@ const DownloadHistory = ({ brands = mockBrands, onNavigate }) => {
                                                     <div className="flex-1 min-w-0">
                                                         <div className="flex items-center justify-between gap-2 mb-0.5">
                                                             <span className="text-sm font-medium text-gray-900 truncate">{log.userName}</span>
-                                                            <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded border ${isLatest ? 'bg-green-50 text-green-700 border-green-100' : 'bg-gray-50 text-gray-500 border-gray-100'}`}>
+                                                            <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-sm border ${isLatest ? 'bg-green-50 text-green-700 border-green-100' : 'bg-gray-50 text-gray-500 border-gray-100'}`}>
                                                                 {log.status}
                                                             </span>
                                                         </div>
@@ -496,7 +496,7 @@ const DownloadHistory = ({ brands = mockBrands, onNavigate }) => {
 
         {/* Pagination Footer - Sticky at bottom of card */}
         {totalPages > 1 && (
-            <div className="flex-shrink-0 flex items-center justify-between px-6 py-4 border-t border-gray-100 bg-gray-50">
+            <div className="shrink-0 flex items-center justify-between px-6 py-4 border-t border-gray-100 bg-gray-50">
                  <div className="text-xs text-gray-500">
                      Showing {((currentPage - 1) * ITEMS_per_PAGE) + 1} to {Math.min(currentPage * ITEMS_per_PAGE, filteredHistory.length)} of {filteredHistory.length} entries
                  </div>
@@ -504,7 +504,7 @@ const DownloadHistory = ({ brands = mockBrands, onNavigate }) => {
                      <button 
                         disabled={currentPage === 1}
                         onClick={() => setCurrentPage(p => p - 1)}
-                        className={`p-1.5 rounded-lg border border-gray-200 text-gray-600 transition ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-white hover:shadow-sm'}`}
+                        className={`p-1.5 rounded-lg border border-gray-200 text-gray-600 transition ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-white hover:shadow-xs'}`}
                      >
                          <ChevronLeft size={16} />
                      </button>
@@ -514,7 +514,7 @@ const DownloadHistory = ({ brands = mockBrands, onNavigate }) => {
                      <button 
                         disabled={currentPage === totalPages}
                         onClick={() => setCurrentPage(p => p + 1)}
-                        className={`p-1.5 rounded-lg border border-gray-200 text-gray-600 transition ${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : 'hover:bg-white hover:shadow-sm'}`}
+                        className={`p-1.5 rounded-lg border border-gray-200 text-gray-600 transition ${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : 'hover:bg-white hover:shadow-xs'}`}
                      >
                          <ChevronRight size={16} />
                      </button>
