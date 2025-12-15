@@ -25,7 +25,11 @@ const ActivityList = ({ activities, onDuplicate }) => {
         const matchesSearch = act.internalName.toLowerCase().includes(searchQuery.toLowerCase());
         const matchesBrand = brandFilter === 'All' || act.brandId === brandFilter; // Simplified Brand ID check
         const matchesChannel = channelFilter === 'All' || act.type.toLowerCase() === channelFilter.toLowerCase();
-        const matchesStatus = statusFilter === 'All' || act.status === statusFilter;
+        const matchesStatus = statusFilter === 'All' 
+            ? true 
+            : statusFilter === 'Published' 
+                ? ['Sent', 'Posted'].includes(act.status)
+                : act.status === statusFilter;
         return matchesSearch && matchesBrand && matchesChannel && matchesStatus;
     });
 
@@ -83,7 +87,7 @@ const ActivityList = ({ activities, onDuplicate }) => {
                         />
                         <DropdownSelect 
                             label="Status"
-                            options={['All', 'Draft', 'Scheduled', 'Sent', 'Posted', 'Failed']}
+                            options={['All', 'Draft', 'Scheduled', 'Published', 'Failed']}
                             value={statusFilter}
                             onChange={setStatusFilter}
                         />

@@ -12,7 +12,7 @@ const BrandHome = () => {
   const showLaunchpad = setupProgress.percentage < 100;
 
   return (
-    <div className="flex h-full bg-gray-50/30 overflow-y-auto">
+    <div className="flex h-full bg-gray-50/30 overflow-y-auto animate-in fade-in duration-700">
       {/* --- Single Column Layout --- */}
       <div className="w-full p-8 md:p-10">
          <div className="max-w-6xl mx-auto space-y-10 pb-10">

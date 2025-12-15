@@ -74,28 +74,37 @@ const Sidebar = ({
                    )}
                </button>
 
-                {/* Submenu Render */}
-                {item.hasSubmenu && openMenu === item.id && (
-                    <div className="mt-2 ml-4 pl-4 border-l border-gray-100/80 space-y-1 animate-in slide-in-from-left-1 duration-300 ease-out">
-                        {item.subItems.map((sub) => (
-                            <button
-                                key={sub.id}
-                                onClick={() => setActivePage(sub.id)}
-                                className={cn(
-                                    "w-full flex items-center justify-between px-3 py-2 text-sm transition-all relative rounded-lg group/sub",
-                                    isSubActive(sub.id) 
-                                        ? "text-gray-900 font-medium" 
-                                        : "text-gray-500 hover:text-gray-700 hover:bg-gray-50/50"
-                                )}
-                            >
-                            <span className={cn("tracking-normal ml-1", isSubActive(sub.id) ? "" : "")}>{sub.label}</span>
-                                
-                                {/* Submenu Right Indicator */}
-                                {isSubActive(sub.id) && (
-                                    <div className="w-1.5 h-1.5 rounded-full bg-[#C5A065] shadow-sm"></div>
-                                )}
-                            </button>
-                        ))}
+                {/* Submenu Render (Smooth Transition) */}
+                {item.hasSubmenu && (
+                    <div 
+                        className={cn(
+                            "grid transition-all duration-300 ease-in-out pl-4 ml-4 border-l border-gray-100",
+                            openMenu === item.id ? "grid-rows-[1fr] opacity-100 mt-2" : "grid-rows-[0fr] opacity-0 mt-0"
+                        )}
+                    >
+                        <div className="overflow-hidden">
+                            <div className="space-y-1 py-1">
+                                {item.subItems.map((sub) => (
+                                    <button
+                                        key={sub.id}
+                                        onClick={() => setActivePage(sub.id)}
+                                        className={cn(
+                                            "w-full flex items-center justify-between px-3 py-2 text-sm transition-all relative rounded-lg group/sub",
+                                            isSubActive(sub.id) 
+                                                ? "text-gray-900 font-medium" 
+                                                : "text-gray-500 hover:text-gray-700 hover:bg-gray-50/50"
+                                        )}
+                                    >
+                                    <span className={cn("tracking-normal ml-1", isSubActive(sub.id) ? "" : "")}>{sub.label}</span>
+                                        
+                                        {/* Submenu Right Indicator */}
+                                        {isSubActive(sub.id) && (
+                                            <div className="w-1.5 h-1.5 rounded-full bg-[#C5A065] shadow-sm"></div>
+                                        )}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 )}
              </>
