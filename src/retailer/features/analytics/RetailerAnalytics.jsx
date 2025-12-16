@@ -296,11 +296,7 @@ const ChannelPerformance = ({ data }) => {
                         <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mb-3">
                             <Mail size={24} className="text-gray-300" />
                         </div>
-                        <h4 className="font-bold text-gray-900 text-sm mb-1">No emails sent</h4>
-                        <p className="text-xs text-gray-500 mb-5">No email campaigns in this period.</p>
-                        <button className="px-4 py-2 bg-white border border-gray-200 rounded-lg text-xs font-bold text-gray-900 shadow-xs hover:bg-gray-50 transition-all">
-                            Send an Email
-                        </button>
+                        <h4 className="font-bold text-gray-900 text-sm mb-1">No emails sent in this period</h4>
                     </div>
                 )}
             </div>
@@ -351,11 +347,7 @@ const ChannelPerformance = ({ data }) => {
                          <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mb-3">
                             <Share2 size={24} className="text-gray-300" />
                         </div>
-                        <h4 className="font-bold text-gray-900 text-sm mb-1">No social activity</h4>
-                        <p className="text-xs text-gray-500 mb-5">Engage your audience on social.</p>
-                        <button className="px-4 py-2 bg-brand-gold text-white rounded-lg text-xs font-bold shadow-md shadow-brand-gold/20 hover:bg-brand-gold-dark transition-all">
-                            Create Social Post
-                        </button>
+                        <h4 className="font-bold text-gray-900 text-sm mb-1">No social activity in this period</h4>
                     </div>
                 )}
             </div>
