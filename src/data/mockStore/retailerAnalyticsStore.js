@@ -12,6 +12,15 @@ import {
 
 // --- Mock Data Source ---
 
+// --- DEBUG CONFIGURATION ---
+// Toggle this value to simulate different states in the Analytics Dashboard.
+// Options:
+// - 'default': Full Data
+// - 'empty': Global Zero State
+// - 'no_email': Email section empty
+// - 'no_social': Social section empty
+export const ACTIVE_DEBUG_SCENARIO = "default";
+
 export const analyticsData = {
   // Global Filter Options
   dateRanges: [
@@ -51,50 +60,34 @@ export const analyticsData = {
   // 2. Channel Performance
   channelPerformance: {
     email: {
-      funnel: [
-        { label: "Sent", value: 2450, percentage: 100, color: "#E5E7EB" },
-        { label: "Opened", value: 857, percentage: 35, color: "#9CA3AF" },
-        { label: "Clicked", value: 122, percentage: 5, color: "#111827" }, // The "Money" metric
-      ],
-      metrics: [
-        {
-          label: "Avg. Open Rate",
-          value: "25.4%",
-          benchmark: "Top 20%",
-          status: "good",
-        },
-        {
-          label: "Avg. Click Rate",
-          value: "4.2%",
-          benchmark: "Avg",
-          status: "neutral",
-        },
-      ],
-      topLink: {
-        url: "https://myshop.com/summer-collection",
-        clicks: 45,
+      openRate: 25, // Percentage
+      ctr: 3.2, // Percentage
+      industryBenchmarks: {
+        // Constants
+        openRate: 20,
+        ctr: 2.5,
       },
+      insight: "Higher", // Pre-calculated logic for MVP
     },
     social: {
+      totalInteractions: 850,
       platforms: [
         {
           name: "Instagram",
-          engagement: 80,
-          color: "#E1306C",
+          engagementCount: 650, // High for "3x" logic
           icon: "Instagram",
         },
         {
           name: "Facebook",
-          engagement: 30,
-          color: "#1877F2",
+          engagementCount: 200, // Low
           icon: "Facebook",
         },
       ],
-      metrics: [
-        { label: "Top Platform", value: "Instagram", icon: "Instagram" },
-        { label: "Total Comments", value: 12 }, // Removed action
-        { label: "Total Likes", value: 150 },
-      ],
+      insight: {
+        winner: "Instagram",
+        loser: "Facebook",
+        multiplier: 3, // 600 / 200 = 3x (approx)
+      },
     },
   },
 
@@ -202,27 +195,6 @@ export const analyticsData = {
     },
   ],
 
-  // 4. Top Assets
-  topAssets: {
-    email: {
-      id: "a1",
-      type: "Top Performing Email", // Renamed from Subject Line
-      brand: "Rolex", // Added Source
-      content: "Exclusive: Your VIP Invitation inside...",
-      metricLabel: "Open Rate",
-      metricValue: "45%",
-    },
-    social: {
-      id: "a2",
-      type: "Post",
-      brand: "Verragio", // Added Source
-      thumbnail:
-        "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&q=80&w=2070",
-      metricLabel: "Engagement",
-      metricValue: "52 Likes · 8 Comments",
-    },
-  },
-
   // 5. Performance Trends (Chart Data)
   performanceTrends: [
     {
@@ -327,66 +299,45 @@ export const analyticsData = {
 };
 
 // Helper for Empty State simulation
-export const getAnalyticsData = (isEmpty = false) => {
-  if (isEmpty) {
-    return {
-      dateRanges: analyticsData.dateRanges,
-      northStar: {
-        reach: {
-          ...analyticsData.northStar.reach,
-          value: 0,
-          trend: 0,
-          chartData: [],
-        },
-        engagement: {
-          ...analyticsData.northStar.engagement,
-          value: 0,
-          trend: 0,
-          chartData: [],
-        },
-        activities: {
-          ...analyticsData.northStar.activities,
-          value: 0,
-          trend: 0,
-          chartData: [],
-        },
-      },
-      channelPerformance: {
-        email: {
-          funnel: [
-            { label: "Sent", value: 0, percentage: 0, color: "#E5E7EB" },
-            { label: "Opened", value: 0, percentage: 0, color: "#9CA3AF" },
-            { label: "Clicked", value: 0, percentage: 0, color: "#111827" },
-          ],
-          metrics: [
-            {
-              label: "Avg. Open Rate",
-              value: "0%",
-              benchmark: "-",
-              status: "neutral",
-            },
-            {
-              label: "Avg. Click Rate",
-              value: "0%",
-              benchmark: "-",
-              status: "neutral",
-            },
-          ],
-          topLink: null,
-        },
-        social: {
-          platforms: [],
-          metrics: [
-            { label: "Top Platform", value: "-", icon: null },
-            { label: "Total Comments", value: 0, action: null },
-            { label: "Total Likes", value: 0 },
-          ],
-        },
-      },
-      campaignAttribution: [],
-      performanceTrends: [],
-      topAssets: { email: null, social: null },
+export const getAnalyticsData = (scenario = ACTIVE_DEBUG_SCENARIO) => {
+  // Base Data Clone
+  const data = JSON.parse(JSON.stringify(analyticsData));
+
+  // Scenario Logic
+  if (scenario === "empty") {
+    // Zero out everything
+    Object.keys(data.northStar).forEach((k) => {
+      data.northStar[k].value = 0;
+      data.northStar[k].trend = 0;
+      data.northStar[k].chartData = [];
+    });
+    data.channelPerformance.email.openRate = 0;
+    data.channelPerformance.email.ctr = 0;
+    data.channelPerformance.social.totalInteractions = 0;
+    data.channelPerformance.social.platforms = [];
+    data.campaignAttribution = [];
+    data.performanceTrends = [];
+    return data;
+  }
+
+  if (scenario === "no_email") {
+    // Keep Social, Kill Email
+    data.channelPerformance.email.openRate = 0;
+    data.channelPerformance.email.ctr = 0;
+    data.channelPerformance.email.insight = "No Data";
+    // Filter out email campaigns if necessary, for now mock simply
+  }
+
+  if (scenario === "no_social") {
+    // Keep Email, Kill Social
+    data.channelPerformance.social.totalInteractions = 0;
+    data.channelPerformance.social.platforms = [];
+    data.channelPerformance.social.insight = {
+      winner: "-",
+      loser: "-",
+      multiplier: 0,
     };
   }
-  return analyticsData;
+
+  return data;
 };

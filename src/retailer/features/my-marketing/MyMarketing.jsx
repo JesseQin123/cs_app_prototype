@@ -7,7 +7,7 @@ import CreditWallet from './components/CreditWallet';
 import { retailerActivityData } from '@/data/mockStore/retailerActivityStore';
 import Dialog from '@/components/common/Dialog';
 
-const MyMarketing = ({ onNavigate }) => {
+const MyMarketing = ({ onNavigate, initialParams }) => {
     const [viewMode, setViewMode] = useState('list'); // 'list' | 'calendar'
     const [activities, setActivities] = useState(retailerActivityData.activities);
     const [showNewActivityModal, setShowNewActivityModal] = useState(false);
@@ -114,7 +114,11 @@ const MyMarketing = ({ onNavigate }) => {
                 ) : (
                     // Active View
                     viewMode === 'list' ? (
-                        <ActivityList activities={activities} onDuplicate={handleDuplicate} />
+                        <ActivityList 
+                            activities={activities} 
+                            onDuplicate={handleDuplicate} 
+                            initialCampaignFilter={initialParams?.campaign}
+                        />
                     ) : (
                         <ActivityCalendar activities={activities} />
                     )

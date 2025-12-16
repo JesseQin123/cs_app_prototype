@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ChevronDown, X, Check } from 'lucide-react';
+import { ChevronDown, X, Check, Search } from 'lucide-react';
 
 const DropdownSelect = ({ 
   label, 
@@ -8,9 +8,12 @@ const DropdownSelect = ({
   options, 
   placeholder = "Select...", 
   icon: Icon,
-  className = ""
+  className = "",
+  searchable = false, // Added prop
+  triggerLabel = null // Optional override for trigger text (e.g. for "Add Filter" style)
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
   const dropdownRef = useRef(null);
 
   // Close on click outside
@@ -18,6 +21,7 @@ const DropdownSelect = ({
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsOpen(false);
+        setSearchTerm(''); // Reset search on close
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -27,13 +31,11 @@ const DropdownSelect = ({
   const handleSelect = (optionValue) => {
     onChange(optionValue);
     setIsOpen(false);
+    setSearchTerm('');
   };
 
   const clearSelection = (e) => {
     e.stopPropagation();
-    // Assuming the first option is the "All" or default option if we want to support clearing to default.
-    // Or we rely on the parent to handle "clearing" by passing the default value. 
-    // If we want an explicit clear button that resets to options[0], we can do this:
     if (options.length > 0) {
         onChange(options[0].value || options[0]); 
     }
@@ -53,8 +55,15 @@ const DropdownSelect = ({
   // Check if current value is NOT the first option (default), to show clear button or highlight
   const isModified = value !== (options[0]?.value || options[0]);
 
+  // Filter options based on search
+  const filteredOptions = options.filter(option => {
+      if (!searchTerm) return true;
+      const label = (option.label || option.value || option).toString().toLowerCase();
+      return label.includes(searchTerm.toLowerCase());
+  });
+
   return (
-    <div className={`relative min-w-[180px] ${className}`} ref={dropdownRef}>
+    <div className={`relative min-w-[120px] ${className}`} ref={dropdownRef}>
       {/* Trigger Button */}
       <div 
         onClick={() => setIsOpen(!isOpen)}
@@ -67,12 +76,21 @@ const DropdownSelect = ({
         <div className="flex items-center gap-2 truncate pr-2">
             {Icon && <Icon size={14} className="text-gray-400 shrink-0" />}
             <span className={`text-sm font-medium truncate ${isModified ? 'text-gray-900' : 'text-gray-600'}`}>
-                {(label ? label + ': ' : '') + getLabel(value) || placeholder}
+                {/* Support generic label mode for "Pill" UX */}
+                {triggerLabel ? (
+                    <div className="flex items-center gap-1.5">
+                       {triggerLabel}
+                       {isModified && <div className="w-1.5 h-1.5 rounded-full bg-[#C5A065]" />}
+                    </div>
+                ) : (
+                    (label ? label + ': ' : '') + getLabel(value) || placeholder
+                )}
             </span>
         </div>
 
         <div className="flex items-center gap-1 shrink-0">
-            {isModified && (
+            {/* Only show Clear 'X' if NOT using triggerLabel (Pill mode handles clearing externally) */}
+            {isModified && !triggerLabel && (
                 <div 
                     role="button" 
                     onClick={clearSelection}
@@ -87,28 +105,48 @@ const DropdownSelect = ({
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute z-50 w-full mt-1 bg-white border border-gray-100 rounded-lg shadow-xl animate-in fade-in slide-in-from-top-1 duration-100 max-h-60 overflow-y-auto">
-            <div className="py-1">
-                {options.map((option, idx) => {
-                     const optValue = option.value || option;
-                     const optLabel = option.label || option.value || option;
-                     const active = isSelected(optValue);
-                     
-                     return (
-                        <div 
-                            key={idx}
-                            onClick={() => handleSelect(optValue)}
-                            className={`
-                                px-3 py-2 text-sm cursor-pointer flex items-center justify-between
-                                transition-colors duration-150
-                                ${active ? 'bg-[#C5A065]/5 text-[#C5A065] font-medium' : 'text-gray-700 hover:bg-gray-50'}
-                            `}
-                        >
-                            <span className="truncate">{optLabel}</span>
-                            {active && <Check size={14} className="shrink-0 ml-2" />}
-                        </div>
-                     );
-                })}
+        <div className="absolute z-50 w-full min-w-[200px] mt-1 bg-white border border-gray-100 rounded-lg shadow-xl animate-in fade-in slide-in-from-top-1 duration-100 max-h-60 overflow-hidden flex flex-col">
+            {/* Search Input */}
+            {searchable && (
+                <div className="p-2 border-b border-gray-50 flex items-center gap-2 sticky top-0 bg-white z-10">
+                    <Search size={14} className="text-gray-400" />
+                    <input 
+                        type="text"
+                        placeholder="Search..."
+                        className="w-full text-xs outline-hidden placeholder:text-gray-300 text-gray-700 font-medium"
+                        onClick={(e) => e.stopPropagation()}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        value={searchTerm}
+                        autoFocus
+                    />
+                </div>
+            )}
+            
+            <div className="py-1 overflow-y-auto">
+                {filteredOptions.length > 0 ? (
+                    filteredOptions.map((option, idx) => {
+                        const optValue = option.value || option;
+                        const optLabel = option.label || option.value || option;
+                        const active = isSelected(optValue);
+                        
+                        return (
+                            <div 
+                                key={idx}
+                                onClick={() => handleSelect(optValue)}
+                                className={`
+                                    px-3 py-2 text-sm cursor-pointer flex items-center justify-between
+                                    transition-colors duration-150
+                                    ${active ? 'bg-[#C5A065]/5 text-[#C5A065] font-medium' : 'text-gray-700 hover:bg-gray-50'}
+                                `}
+                            >
+                                <span className="truncate">{optLabel}</span>
+                                {active && <Check size={14} className="shrink-0 ml-2" />}
+                            </div>
+                        );
+                    })
+                ) : (
+                    <div className="px-3 py-2 text-xs text-gray-400 italic text-center">No matches found</div>
+                )}
             </div>
         </div>
       )}

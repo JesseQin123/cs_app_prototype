@@ -9,12 +9,18 @@ import { currentRetailerUser } from './data/mockStore/retailerStore';
 
 const RetailerApp = ({ campaigns, catalogs, templates, files, showEmptyState }) => {
   const [activePage, setActivePage] = useState('dashboard');
+  const [navigationParams, setNavigationParams] = useState({});
   
   const user = currentRetailerUser;
 
+  const handleNavigate = (page, params = {}) => {
+      setActivePage(page);
+      setNavigationParams(params);
+  };
+
   return (
     <div className="flex h-screen w-full bg-gray-50 font-sans text-gray-900 relative">
-      <RetailerSidebar activePage={activePage} setActivePage={setActivePage} user={user} />
+      <RetailerSidebar activePage={activePage} setActivePage={handleNavigate} user={user} />
 
       <main className="flex-1 overflow-hidden flex flex-col bg-gray-50">
         {activePage.startsWith('brand-center') ? (
@@ -24,15 +30,15 @@ const RetailerApp = ({ campaigns, catalogs, templates, files, showEmptyState }) 
               catalogs={catalogs} 
               templates={templates} 
               files={files} 
-              onNavigate={(pageId) => setActivePage(pageId)}
+              onNavigate={(pageId) => handleNavigate(pageId)}
            />
         ) : activePage === 'dashboard' ? (
-           <Dashboard user={user} onNavigate={setActivePage} />
+           <Dashboard user={user} onNavigate={handleNavigate} />
         ) : activePage === 'my-marketing' ? (
-           <MyMarketing onNavigate={setActivePage} />
+           <MyMarketing onNavigate={handleNavigate} initialParams={navigationParams} />
         ) : activePage === 'analytics' ? (
            <div className="h-full overflow-y-auto">
-              <RetailerAnalytics showEmptyState={showEmptyState} />
+              <RetailerAnalytics showEmptyState={showEmptyState} onNavigate={handleNavigate} />
            </div>
         ) : (
            <div className="p-12 flex items-center justify-center h-full text-gray-400">

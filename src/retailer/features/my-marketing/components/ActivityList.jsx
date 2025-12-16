@@ -15,45 +15,28 @@ const STATUS_CONFIG = {
 
 import ActivityPerformanceDrawer from './ActivityPerformanceDrawer';
 
-const ActivityList = ({ activities, onDuplicate }) => {
+const ActivityList = ({ activities, onDuplicate, initialCampaignFilter }) => {
     // Local Filters State
     const [searchQuery, setSearchQuery] = useState('');
     const [brandFilter, setBrandFilter] = useState('All');
     const [channelFilter, setChannelFilter] = useState('All');
     const [statusFilter, setStatusFilter] = useState('All');
+    const [campaignFilter, setCampaignFilter] = useState('All');
 
     // Drawer State
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [selectedActivity, setSelectedActivity] = useState(null);
 
+    // Initialize/Update campaign filter from props
+    React.useEffect(() => {
+        if (initialCampaignFilter) {
+            setCampaignFilter(initialCampaignFilter);
+        }
+    }, [initialCampaignFilter]);
+
     const handleViewPerformance = (activity) => {
         setSelectedActivity(activity);
         setIsDrawerOpen(true);
-    };
-
-    // Filter Logic
-    const filteredActivities = activities.filter(act => {
-        // TEMPORARY: Hide SMS as per requirement
-        if (act.type === 'sms') return false;
-
-        const matchesSearch = act.internalName.toLowerCase().includes(searchQuery.toLowerCase());
-        const matchesBrand = brandFilter === 'All' || act.brandId === brandFilter; // Simplified Brand ID check
-        const matchesChannel = channelFilter === 'All' || act.type.toLowerCase() === channelFilter.toLowerCase();
-        const matchesStatus = statusFilter === 'All' 
-            ? true 
-            : statusFilter === 'Published' 
-                ? ['Sent', 'Posted'].includes(act.status)
-                : act.status === statusFilter;
-        return matchesSearch && matchesBrand && matchesChannel && matchesStatus;
-    });
-
-    const hasFilters = brandFilter !== 'All' || channelFilter !== 'All' || statusFilter !== 'All' || searchQuery;
-
-    const clearFilters = () => {
-        setSearchQuery('');
-        setBrandFilter('All');
-        setChannelFilter('All');
-        setStatusFilter('All');
     };
 
     const getBrandName = (brandId) => {
@@ -64,74 +47,141 @@ const ActivityList = ({ activities, onDuplicate }) => {
         return 'Brand';
     };
 
+    // Filter Logic
+    const filteredActivities = activities.filter(act => {
+        // TEMPORARY: Hide SMS as per requirement
+        if (act.type === 'sms') return false;
+
+        const campaign = getCampaignById(act.campaignId);
+        const campaignName = campaign ? campaign.title : '';
+
+        const matchesSearch = act.internalName.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesBrand = brandFilter === 'All' || act.brandId === brandFilter; 
+        const matchesChannel = channelFilter === 'All' || act.type.toLowerCase() === channelFilter.toLowerCase();
+        const matchesStatus = statusFilter === 'All' 
+            ? true 
+            : statusFilter === 'Published' 
+                ? ['Sent', 'Posted'].includes(act.status)
+                : act.status === statusFilter;
+        
+        const matchesCampaign = campaignFilter === 'All' || campaignName === campaignFilter;
+
+        return matchesSearch && matchesBrand && matchesChannel && matchesStatus && matchesCampaign;
+    });
+
+
+
+    const clearFilters = () => {
+        setSearchQuery('');
+        setBrandFilter('All');
+        setChannelFilter('All');
+        setStatusFilter('All');
+        setCampaignFilter('All');
+    };
+    
+    // Calculate Active Filters
+    const activeFilters = [];
+    if (brandFilter !== 'All') activeFilters.push({ id: 'brand', label: `Brand: ${getBrandName(brandFilter)}`, clear: () => setBrandFilter('All') });
+    if (channelFilter !== 'All') activeFilters.push({ id: 'channel', label: `Channel: ${channelFilter}`, clear: () => setChannelFilter('All') });
+    if (statusFilter !== 'All') activeFilters.push({ id: 'status', label: `Status: ${statusFilter}`, clear: () => setStatusFilter('All') });
+    if (campaignFilter !== 'All') activeFilters.push({ id: 'campaign', label: `Campaign: ${campaignFilter}`, clear: () => setCampaignFilter('All') });
+    
+    // We don't make search a pill to avoid clutter, search box shows query clearly.
+    
+
+
     return (
         <>
-        <div className="flex flex-col h-full">
-            {/* Unified Card Container */}
-            <div className="flex flex-col h-full bg-white border border-gray-200 shadow-xs rounded-xl overflow-hidden">
-                
-                {/* 1. Integrated Filter Header (Workbench Style) */}
-                <div className="flex-none px-6 py-5 border-b border-gray-100 flex flex-wrap items-center gap-4 bg-white">
-                    {/* Search */}
-                    <div className="relative flex-1 min-w-[240px] max-w-sm">
-                        <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
-                        <input 
-                            type="text" 
-                            placeholder="Search activity name..." 
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border-transparent rounded-lg text-sm focus:outline-hidden focus:bg-white focus:ring-2 focus:ring-black/5 focus:border-gray-200 transition-all font-medium placeholder:text-gray-400"
-                        />
+            <div className="h-full flex flex-col bg-white">
+                {/* Toolbar Area */}
+                <div className="flex-none px-6 py-5 border-b border-gray-100 flex flex-col gap-4 bg-white z-20">
+                    <div className="flex items-center justify-between">
+                        {/* Search */}
+                        <div className="w-1/3 min-w-[240px]">
+                            <div className="relative">
+                                <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
+                                <input 
+                                    type="text" 
+                                    placeholder="Search activity name..." 
+                                    className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-transparent rounded-lg text-sm text-gray-900 placeholder:text-gray-400 focus:outline-hidden focus:bg-white focus:ring-2 focus:ring-brand-gold/20 focus:border-brand-gold/50 transition-all font-medium"
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                />
+                            </div>
+                        </div>
+
+                        {/* Filters */}
+                        <div className="flex items-center gap-3">
+                            <span className="text-xs font-bold text-gray-400 uppercase tracking-wider mr-1">Filter by:</span>
+                            <DropdownSelect 
+                                triggerLabel="Campaign"
+                                options={['All', ...new Set(activities.map(a => {
+                                    const c = getCampaignById(a.campaignId);
+                                    return c ? c.title : null;
+                                }).filter(Boolean))]} 
+                                value={campaignFilter}
+                                onChange={setCampaignFilter}
+                                searchable={true}
+                            />
+                            <DropdownSelect 
+                                triggerLabel="Brand"
+                                options={['All', 'Verragio', 'Rolex', 'Cartier']} 
+                                value={brandFilter === 'All' ? 'All' : getBrandName(brandFilter)}
+                                onChange={(val) => setBrandFilter(val === 'Verragio' ? 'b-verragio' : val === 'Rolex' ? 'b-rolex' : val === 'Cartier' ? 'b-cartier' : 'All')}
+                            />
+                            <DropdownSelect 
+                                triggerLabel="Channel"
+                                options={['All', 'Email', 'Social']}
+                                value={channelFilter}
+                                onChange={setChannelFilter}
+                            />
+                            <DropdownSelect 
+                                triggerLabel="Status"
+                                options={['All', 'Draft', 'Scheduled', 'Published', 'Failed']}
+                                value={statusFilter}
+                                onChange={setStatusFilter}
+                            />
+                        </div>
                     </div>
 
-                    <div className="h-6 w-px bg-gray-200 mx-1 hidden sm:block"></div>
-
-                    {/* Filters */}
-                    <div className="flex items-center gap-2">
-                        <DropdownSelect 
-                            label="Brand"
-                            options={['All', 'Verragio', 'Rolex', 'Cartier']} 
-                            value={brandFilter === 'All' ? 'All' : getBrandName(brandFilter)}
-                            onChange={(val) => setBrandFilter(val === 'Verragio' ? 'b-verragio' : val === 'Rolex' ? 'b-rolex' : val === 'Cartier' ? 'b-cartier' : 'All')}
-                        />
-                        <DropdownSelect 
-                            label="Channel"
-                            options={['All', 'Email', 'Social']}
-                            value={channelFilter}
-                            onChange={setChannelFilter}
-                        />
-                        <DropdownSelect 
-                            label="Status"
-                            options={['All', 'Draft', 'Scheduled', 'Published', 'Failed']}
-                            value={statusFilter}
-                            onChange={setStatusFilter}
-                        />
-                    </div>
-
-                    {/* Clear Filter */}
-                    {hasFilters && (
-                        <button 
-                            onClick={clearFilters}
-                            className="ml-auto flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-red-500 px-3 py-1.5 rounded-md hover:bg-red-50 transition-colors"
-                        >
-                            <XCircle size={14} /> Clear
-                        </button>
+                    {/* Active Filters Pills */}
+                    {activeFilters.length > 0 && (
+                        <div className="flex items-center gap-2 flex-wrap pt-1 animate-in fade-in slide-in-from-top-1">
+                            {activeFilters.map(filter => (
+                                <div key={filter.id} className="inline-flex items-center gap-1.5 pl-3 pr-2 py-1.5 rounded-full bg-gray-50 border border-gray-200 text-gray-900 text-[11px] font-bold tracking-wide shadow-xs group transition-all hover:bg-white hover:border-gray-300 hover:shadow-sm">
+                                    <span className="text-gray-400 font-medium uppercase text-[10px] tracking-widest">{filter.id}:</span> {filter.label.split(': ')[1]}
+                                    <button 
+                                        onClick={filter.clear}
+                                        className="p-0.5 hover:bg-gray-200 rounded-full transition-colors ml-1 cursor-pointer"
+                                        title="Remove filter"
+                                    >
+                                        <XCircle size={14} className="text-gray-400 group-hover:text-red-500 transition-colors" />
+                                    </button>
+                                </div>
+                            ))}
+                            <button 
+                                onClick={clearFilters}
+                                className="ml-2 text-xs font-bold text-gray-400 hover:text-red-500 transition-colors flex items-center gap-1 px-2 py-1 rounded-md hover:bg-red-50"
+                            >
+                                Clear All
+                            </button>
+                        </div>
                     )}
                 </div>
 
-                {/* 2. Table Area */}
-                <div className="flex-1 overflow-auto bg-white">
+                {/* Table Area */}
+                <div className="flex-1 overflow-auto bg-white relative scrollbar-hide">
                     <table className="w-full text-left border-collapse table-fixed">
-                        <thead className="bg-white border-b border-gray-100 sticky top-0 z-10">
+                        <thead className="bg-white border-b border-gray-100 sticky top-0 z-10 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
                             <tr>
-                                <th className="py-3 px-6 text-[10px] font-bold text-gray-500 uppercase tracking-widest w-[20%]">Activity Name</th>
-                                <th className="py-3 px-6 text-[10px] font-bold text-gray-500 uppercase tracking-widest w-[12%]">Brand</th>
-                                <th className="py-3 px-6 text-[10px] font-bold text-gray-500 uppercase tracking-widest w-[16%]">Source Campaign</th>
-                                <th className="py-3 px-6 text-[10px] font-bold text-gray-500 uppercase tracking-widest w-[10%]">Date</th>
-                                <th className="py-3 px-6 text-[10px] font-bold text-gray-500 uppercase tracking-widest w-[10%]">Channel</th>
-                                <th className="py-3 px-6 text-[10px] font-bold text-gray-500 uppercase tracking-widest w-[10%]">Status</th>
-                                <th className="py-3 px-6 text-[10px] font-bold text-gray-500 uppercase tracking-widest w-[10%]">Performance</th>
-                                <th className="py-3 px-6 text-[10px] font-bold text-gray-500 uppercase tracking-widest text-right w-[12%]">Actions</th>
+                                <th className="py-4 px-6 text-[10px] font-bold text-gray-500 uppercase tracking-widest w-[22%]">Activity Name</th>
+                                <th className="py-4 px-6 text-[10px] font-bold text-gray-500 uppercase tracking-widest w-[12%]">Brand</th>
+                                <th className="py-4 px-6 text-[10px] font-bold text-gray-500 uppercase tracking-widest w-[16%]">Source Campaign</th>
+                                <th className="py-4 px-6 text-[10px] font-bold text-gray-500 uppercase tracking-widest w-[10%]">Date</th>
+                                <th className="py-4 px-6 text-[10px] font-bold text-gray-500 uppercase tracking-widest w-[10%]">Channel</th>
+                                <th className="py-4 px-6 text-[10px] font-bold text-gray-500 uppercase tracking-widest w-[10%]">Status</th>
+                                <th className="py-4 px-6 text-[10px] font-bold text-gray-500 uppercase tracking-widest w-[10%]">Performance</th>
+                                <th className="py-4 px-6 text-[10px] font-bold text-gray-500 uppercase tracking-widest text-right w-[10%]">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-50">
@@ -147,12 +197,12 @@ const ActivityList = ({ activities, onDuplicate }) => {
                                             {/* Name */}
                                             <td className="py-4 px-6 align-middle">
                                                 <div className="flex flex-col">
-                                                    <span className="text-sm font-semibold text-gray-900 group-hover:text-black transition-colors cursor-pointer">{act.internalName}</span>
-                                                    <div className="flex items-center gap-1.5 mt-1">
+                                                    <span className="text-sm font-bold text-gray-900 group-hover:text-black transition-colors cursor-pointer leading-tight">{act.internalName}</span>
+                                                    <div className="flex items-center gap-1.5 mt-1.5">
                                                         {act.author?.avatar ? (
-                                                            <img src={act.author.avatar} alt={act.author.name} className="w-4 h-4 rounded-full object-cover border border-gray-100" />
+                                                            <img src={act.author.avatar} alt={act.author.name} className="w-4 h-4 rounded-full object-cover border border-gray-200" />
                                                         ) : (
-                                                            <div className="w-4 h-4 rounded-full bg-gray-200" />
+                                                            <div className="w-4 h-4 rounded-full bg-gray-100 border border-gray-200" />
                                                         )}
                                                         <span className="text-[10px] text-gray-400 font-medium">{act.author?.name}</span>
                                                     </div>
@@ -163,32 +213,32 @@ const ActivityList = ({ activities, onDuplicate }) => {
                                             <td className="py-4 px-6 align-middle">
                                                 <div className="flex items-center gap-2">
                                                     {/* Mock Logo */}
-                                                    <div className="w-6 h-6 rounded-full bg-white border border-gray-100 flex items-center justify-center text-[8px] font-bold text-gray-500 overflow-hidden shadow-xs">
+                                                    <div className="w-6 h-6 rounded-full bg-white border border-gray-100 flex items-center justify-center text-[8px] font-bold text-gray-500 overflow-hidden shadow-xs shrink-0">
                                                         {['Verragio', 'Rolex', 'Cartier'].includes(brandName) ? (
                                                              brandName.substring(0,1).toUpperCase()
                                                         ) : brandName.substring(0,2).toUpperCase()}
                                                     </div>
-                                                    <span className="text-sm font-medium text-gray-600">{brandName}</span>
+                                                    <span className="text-xs font-semibold text-gray-600">{brandName}</span>
                                                 </div>
                                             </td>
 
                                             {/* Source */}
                                             <td className="py-4 px-6 align-middle">
                                                 <div className="flex items-center gap-1 group/link cursor-pointer">
-                                                    <span className="text-xs text-gray-500 truncate max-w-[140px] group-hover/link:text-gray-900 group-hover/link:underline transition-colors">{sourceCampaign?.title || 'Unknown Source'}</span>
+                                                    <span className="text-xs text-gray-500 truncate max-w-[140px] font-medium group-hover/link:text-brand-gold transition-colors">{sourceCampaign?.title || 'Unknown Source'}</span>
                                                 </div>
                                             </td>
 
                                             {/* Date */}
                                             <td className="py-4 px-6 align-middle">
-                                                <span className="text-xs font-medium text-gray-600 whitespace-nowrap bg-gray-50 px-2 py-1 rounded-sm">
+                                                <span className="text-xs font-medium text-gray-600 whitespace-nowrap bg-gray-50 px-2 py-1 rounded-md border border-gray-100">
                                                     {act.scheduledDate || act.updatedAt ? new Date(act.scheduledDate || act.updatedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '--'}
                                                 </span>
                                             </td>
 
                                             {/* Channel */}
                                             <td className="py-4 px-6 align-middle">
-                                                <div className="flex items-center">
+                                                <div className="flex items-center pl-1">
                                                     <ChannelIcon type={act.type} platform={act.platform} />
                                                 </div>
                                             </td>
@@ -208,7 +258,7 @@ const ActivityList = ({ activities, onDuplicate }) => {
                                                         <span className="text-[9px] text-gray-400 uppercase tracking-widest font-semibold">{act.performance.metric}</span>
                                                     </div>
                                                 ) : (
-                                                    <span className="text-gray-300 text-xs">-</span>
+                                                    <span className="text-gray-300 text-xs font-medium pl-2">-</span>
                                                 )}
                                             </td>
 
@@ -277,7 +327,6 @@ const ActivityList = ({ activities, onDuplicate }) => {
                     </table>
                 </div>
             </div>
-        </div>
 
         {/* Performance Drawer */}
         <ActivityPerformanceDrawer 

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { 
   ArrowUpRight, ArrowDownRight, Mail, Share2, Instagram, Facebook, 
-  ExternalLink, Info, MousePointerClick, Eye, Zap 
+  ExternalLink, Info, MousePointerClick, Eye, Zap, BarChart2
 } from 'lucide-react';
 import { 
   ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, 
   Legend, ResponsiveContainer 
 } from 'recharts';
-import { getAnalyticsData } from '@/data/mockStore/retailerAnalyticsStore';
+import { getAnalyticsData, ACTIVE_DEBUG_SCENARIO } from '@/data/mockStore/retailerAnalyticsStore';
 import DateRangeFilter from '@/components/common/DateRangeFilter';
 import Tooltip from '@/components/Tooltip';
 
@@ -39,32 +39,31 @@ const MetricCard = ({ value, trend, trendDirection, label, desc, subStats, icon:
         {Icon && <Icon size={18} className="text-gray-400 group-hover:text-brand-gold transition-colors" />}
       </div>
       
-      {/* Value */}
-      <div>
-        <div className="text-3xl font-bold text-gray-900 tracking-tight mb-2">
-          {typeof value === 'number' ? value.toLocaleString() : value}
-        </div>
+      <div className={`text-3xl font-bold tracking-tight mb-2 ${value === 0 || value === '-' ? 'text-gray-300' : 'text-gray-900'}`}>
+        {typeof value === 'number' && value > 0 ? value.toLocaleString() : value === 0 ? '--' : value}
+      </div>
 
-        {/* Footer / Sub-stats */}
-        <div className="flex items-center justify-between">
-            {subStats ? (
-                <div className="flex items-center gap-3 text-xs font-medium text-gray-500">
-                    {subStats.map((stat, idx) => (
-                        <div key={idx} className="flex items-center gap-1.5">
-                            {stat.icon && <stat.icon size={12} className="text-gray-400" />}
-                            {stat.label && <span className={stat.bold ? "font-bold text-gray-700" : ""}>{stat.label}</span>}
-                            {stat.value}
-                            {idx < subStats.length - 1 && <span className="text-gray-300 ml-1.5 opacity-50">•</span>}
-                        </div>
-                    ))}
-                </div>
-            ) : trend !== undefined ? (
-                <div className="flex items-center gap-2">
-                    <TrendIndicator value={trend} direction={trendDirection} />
-                    <span className="text-xs text-gray-400 font-medium">vs prev period</span>
-                </div>
-            ) : null}
-        </div>
+      {/* Footer / Sub-stats */}
+      <div className="flex items-center justify-between">
+          {subStats ? (
+              <div className="flex items-center gap-3 text-xs font-medium text-gray-500">
+                  {subStats.map((stat, idx) => (
+                      <div key={idx} className="flex items-center gap-1.5">
+                          {stat.icon && <stat.icon size={12} className="text-gray-400" />}
+                          {stat.label && <span className={stat.bold ? "font-bold text-gray-700" : ""}>{stat.label}</span>}
+                          <span className={stat.value === '0' || stat.value === 0 ? 'text-gray-300' : 'text-gray-900'}>{stat.value}</span>
+                          {idx < subStats.length - 1 && <span className="text-gray-300 ml-1.5 opacity-50">•</span>}
+                      </div>
+                  ))}
+              </div>
+          ) : trend !== undefined && value > 0 ? (
+              <div className="flex items-center gap-2">
+                  <TrendIndicator value={trend} direction={trendDirection} />
+                  <span className="text-xs text-gray-400 font-medium">vs prev period</span>
+              </div>
+          ) : (
+             <span className="text-[10px] uppercase font-bold text-gray-300 tracking-wide bg-gray-50 px-2 py-0.5 rounded-sm">--</span>
+          )}
       </div>
     </div>
   );
@@ -145,177 +144,227 @@ const PerformanceTrendsChart = ({ data }) => {
         </div>
       </div>
 
-      <div className="h-[300px] w-full">
-         <ResponsiveContainer width="100%" height="100%">
-            <ComposedChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f3f4f6" />
-               <XAxis 
-                  dataKey="date" 
-                  axisLine={false} 
-                  tickLine={false} 
-                  tick={{ fontSize: 10, fill: '#9CA3AF' }} 
-                  dy={10}
-               />
-               <YAxis 
-                  yAxisId="left" 
-                  orientation="left" 
-                  axisLine={false} 
-                  tickLine={false} 
-                  tick={{ fontSize: 10, fill: '#9CA3AF' }}
-                  label={{ value: 'Reach', angle: -90, position: 'insideLeft', style: { textAnchor: 'middle', fill: '#9CA3AF', fontSize: 10 } }} 
-               />
-               <YAxis 
-                  yAxisId="right" 
-                  orientation="right" 
-                  axisLine={false} 
-                  tickLine={false} 
-                  tick={{ fontSize: 10, fill: '#111827', fontWeight: 500 }}
-                  label={{ value: 'Engagement', angle: 90, position: 'insideRight', style: { textAnchor: 'middle', fill: '#111827', fontSize: 10 } }}
-               />
-               <RechartsTooltip content={<CustomTooltip />} cursor={{ fill: '#f9fafb' }} />
-               <Legend 
-                  verticalAlign="top" 
-                  height={36} 
-                  iconType="circle"
-                  iconSize={8}
-                  wrapperStyle={{ fontSize: '11px', fontWeight: 500, color: '#6B7280' }}
-               />
-               <Bar 
-                  yAxisId="left" 
-                  dataKey="reach" 
-                  name="Total Reach" 
-                  fill="#E5E7EB" 
-                  radius={[4, 4, 0, 0]} 
-                  barSize={14}
-                  animationDuration={1500}
-               />
-               <Line 
-                  yAxisId="right" 
-                  type="monotone" 
-                  dataKey="engagement" 
-                  name="Total Engagement" 
-                  stroke="#b5984d" 
-                  strokeWidth={2} 
-                  dot={{ r: 3, fill: '#b5984d', strokeWidth: 0 }} 
-                  activeDot={{ r: 5, strokeWidth: 0 }}
-                  animationDuration={1500}
-               />
-            </ComposedChart>
-         </ResponsiveContainer>
+      <div className="h-[300px] w-full relative">
+         {chartData.length === 0 ? (
+             <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-50/50 rounded-lg border border-dashed border-gray-200">
+                 <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mb-3">
+                     <BarChart2 size={20} className="text-gray-400" />
+                 </div>
+                 <p className="text-sm font-bold text-gray-500">No performance data</p>
+                 <p className="text-xs text-gray-400 mt-1">Activity in this period will show up here.</p>
+             </div>
+         ) : (
+             <ResponsiveContainer width="100%" height="100%">
+                <ComposedChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f3f4f6" />
+                   <XAxis 
+                      dataKey="date" 
+                      axisLine={false} 
+                      tickLine={false} 
+                      tick={{ fontSize: 10, fill: '#9CA3AF' }} 
+                      dy={10}
+                   />
+                   <YAxis 
+                      yAxisId="left" 
+                      orientation="left" 
+                      axisLine={false} 
+                      tickLine={false} 
+                      tick={{ fontSize: 10, fill: '#9CA3AF' }}
+                      label={{ value: 'Reach', angle: -90, position: 'insideLeft', style: { textAnchor: 'middle', fill: '#9CA3AF', fontSize: 10 } }} 
+                   />
+                   <YAxis 
+                      yAxisId="right" 
+                      orientation="right" 
+                      axisLine={false} 
+                      tickLine={false} 
+                      tick={{ fontSize: 10, fill: '#111827', fontWeight: 500 }}
+                      label={{ value: 'Engagement', angle: 90, position: 'insideRight', style: { textAnchor: 'middle', fill: '#111827', fontSize: 10 } }}
+                   />
+                   <RechartsTooltip content={<CustomTooltip />} cursor={{ fill: '#f9fafb' }} />
+                   <Legend 
+                      verticalAlign="top" 
+                      height={36} 
+                      iconType="circle"
+                      iconSize={8}
+                      wrapperStyle={{ fontSize: '11px', fontWeight: 500, color: '#6B7280' }}
+                   />
+                   <Bar 
+                      yAxisId="left" 
+                      dataKey="reach" 
+                      name="Total Reach" 
+                      fill="#E5E7EB" 
+                      radius={[4, 4, 0, 0]} 
+                      barSize={14}
+                      animationDuration={1500}
+                   />
+                   <Line 
+                      yAxisId="right" 
+                      type="monotone" 
+                      dataKey="engagement" 
+                      name="Total Engagement" 
+                      stroke="#b5984d" 
+                      strokeWidth={2} 
+                      dot={{ r: 3, fill: '#b5984d', strokeWidth: 0 }} 
+                      activeDot={{ r: 5, strokeWidth: 0 }}
+                      animationDuration={1500}
+                   />
+                </ComposedChart>
+             </ResponsiveContainer>
+         )}
       </div>
     </div>
   );
 };
 
 const ChannelPerformance = ({ data }) => {
+  const isEmailEmpty = data.email.openRate === 0;
+  const isSocialEmpty = data.social.totalInteractions === 0;
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-       {/* Email Performance */}
-       <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)]">
-          <div className="flex justify-between items-center mb-6">
-             <div className="flex items-center gap-2">
-                <div className="p-2 bg-gray-50 rounded-lg">
-                   <Mail size={16} className="text-gray-900" />
-                </div>
-                <h3 className="font-bold text-gray-900">Email Performance</h3>
-             </div>
-          </div>
+    <div className="bg-white rounded-xl shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] border border-gray-100 p-8">
+        <div className="mb-8">
+            <h3 className="text-lg font-bold text-gray-900">Channel Performance</h3>
+            <p className="text-xs text-gray-500 mt-1">Compare the efficiency of email marketing versus social media.</p>
+        </div>
 
-          <div className="space-y-6">
-              {/* Funnel - Optimized Colors */}
-              <div className="space-y-3">
-                  {/* Sent */}
-                  <div>
-                      <div className="flex justify-between text-xs mb-1.5">
-                          <span className="text-gray-500 font-medium">{data.email.funnel[0].label}</span>
-                          <span className="font-bold text-gray-900">{data.email.funnel[0].value.toLocaleString()}</span>
-                      </div>
-                      <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
-                          <div className="h-full bg-gray-300 rounded-full w-full"></div>
-                      </div>
-                  </div>
-                  
-                  {/* Opened */}
-                  <div>
-                      <div className="flex justify-between text-xs mb-1.5">
-                          <span className="text-gray-500 font-medium">{data.email.funnel[1].label}</span>
-                          <span className="font-bold text-gray-900">{data.email.funnel[1].value.toLocaleString()}</span>
-                      </div>
-                      <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
-                          <div className="h-full bg-brand-gold rounded-full" style={{ width: `${data.email.funnel[1].percentage}%` }}></div>
-                      </div>
-                  </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 divide-y md:divide-y-0 md:divide-x divide-gray-100">
+            {/* Left: Email Performance */}
+            <div className={`pr-0 md:pr-12 pt-8 md:pt-0 first:pt-0 flex flex-col justify-between ${isEmailEmpty ? 'justify-center py-8 opacity-90' : ''}`}>
+                {!isEmailEmpty ? (
+                    <>
+                        <div>
+                            <div className="flex items-center gap-3 mb-6">
+                                <div className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-gray-900">
+                                    <Mail size={16} />
+                                </div>
+                                <h4 className="font-bold text-gray-900 text-sm">Email Performance</h4>
+                            </div>
+                            
+                            <div className="flex justify-between items-start mb-8">
+                                {/* Open Rate - Radial Visual */}
+                                <div className="flex flex-col items-start gap-2">
+                                     <div className="relative w-24 h-24 flex items-center justify-center">
+                                         <svg className="w-full h-full transform -rotate-90">
+                                            <circle cx="48" cy="48" r="40" stroke="#f3f4f6" strokeWidth="8" fill="none" />
+                                            <circle 
+                                                cx="48" 
+                                                cy="48" 
+                                                r="40" 
+                                                stroke="#C5A572" 
+                                                strokeWidth="8" 
+                                                fill="none" 
+                                                strokeDasharray="251.2" 
+                                                strokeDashoffset={251.2 * (1 - data.email.openRate / 100)} 
+                                                strokeLinecap="round"
+                                                className="drop-shadow-sm"
+                                            />
+                                         </svg>
+                                         <div className="absolute flex flex-col items-center">
+                                            <span className="text-xl font-bold text-gray-900">{data.email.openRate}%</span>
+                                            <span className="text-[10px] text-gray-400 font-medium uppercase tracking-wide">Open Rate</span>
+                                         </div>
+                                     </div>
+                                </div>
 
-                  {/* Clicked */}
-                  <div>
-                      <div className="flex justify-between text-xs mb-1.5">
-                          <span className="text-gray-900 font-bold">{data.email.funnel[2].label}</span>
-                          <span className="font-bold text-emerald-600">{data.email.funnel[2].value.toLocaleString()}</span>
-                      </div>
-                      <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
-                          <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${data.email.funnel[2].percentage}%` }}></div>
-                      </div>
-                  </div>
-              </div>
+                                {/* CTR */}
+                                <div className="text-right pt-2">
+                                     <div className="text-xs text-gray-500 font-medium mb-2">Click-Through Rate (CTR)</div>
+                                     <div className="text-2xl font-bold text-gray-900">{data.email.ctr}%</div>
+                                     <div className="text-[10px] text-gray-400 mt-1 text-right">Avg. Engagement</div>
+                                </div>
+                            </div>
+                        </div>
 
-              {/* Key Metrics Grid */}
-              <div className="grid grid-cols-2 gap-4 pt-4 border-t border-gray-50">
-                  {data.email.metrics.map((m, i) => (
-                      <div key={i}>
-                          <p className="text-xs text-gray-400 mb-1">{m.label}</p>
-                          <div className="flex items-baseline gap-2">
-                              <span className="text-lg font-bold text-gray-900">{m.value}</span>
-                              {m.status && <span className={`text-[10px] px-1.5 py-0.5 rounded font-medium ${m.status === 'good' ? 'bg-emerald-50 text-emerald-600' : 'bg-gray-50 text-gray-500'}`}>{m.benchmark}</span>}
-                          </div>
-                      </div>
-                  ))}
-              </div>
-          </div>
-       </div>
+                        {/* Insight Box - Aligned with Right Side */}
+                        <div className="bg-gray-50 p-4 rounded-lg border border-gray-100 h-[74px] flex items-center justify-between">
+                             <p className="text-sm text-gray-600 leading-snug font-medium">
+                                 Your email open rate is <strong className={`${data.email.openRate >= data.email.industryBenchmarks.openRate ? 'text-emerald-600' : 'text-amber-600'}`}>
+                                     {data.email.openRate >= data.email.industryBenchmarks.openRate ? 'Higher' : 'Lower'}
+                                 </strong> than the industry average.
+                             </p>
+                             
+                             <Tooltip content={`Based on 2024 Retail Industry Standards: Open Rate ${data.email.industryBenchmarks.openRate}%, CTR ${data.email.industryBenchmarks.ctr}%.`} maxWidth="max-w-[220px]">
+                                <div className="p-1.5 hover:bg-gray-200 rounded-full transition-colors cursor-help">
+                                    <Info size={14} className="text-gray-400" />
+                                </div>
+                             </Tooltip>
+                        </div>
+                    </>
+                ) : (
+                    // Empty State: Email
+                    <div className="text-center flex flex-col items-center py-4">
+                        <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mb-3">
+                            <Mail size={24} className="text-gray-300" />
+                        </div>
+                        <h4 className="font-bold text-gray-900 text-sm mb-1">No emails sent</h4>
+                        <p className="text-xs text-gray-500 mb-5">No email campaigns in this period.</p>
+                        <button className="px-4 py-2 bg-white border border-gray-200 rounded-lg text-xs font-bold text-gray-900 shadow-xs hover:bg-gray-50 transition-all">
+                            Send an Email
+                        </button>
+                    </div>
+                )}
+            </div>
 
-       {/* Social Performance */}
-       <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)]">
-          <div className="flex justify-between items-center mb-6">
-             <div className="flex items-center gap-2">
-                <div className="p-2 bg-gray-50 rounded-lg">
-                   <Share2 size={16} className="text-gray-900" />
-                </div>
-                <h3 className="font-bold text-gray-900">Social Engagement</h3>
-             </div>
-          </div>
+            {/* Right: Social Media Overview */}
+            <div className={`pl-0 md:pl-12 pt-8 md:pt-0 flex flex-col justify-between ${isSocialEmpty ? 'justify-center py-8 opacity-90' : ''}`}>
+                {!isSocialEmpty ? (
+                    <>
+                        <div>
+                            <div className="flex items-center gap-3 mb-6">
+                                <div className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-gray-900">
+                                    <Share2 size={16} />
+                                </div>
+                                <h4 className="font-bold text-gray-900 text-sm">Social Media Overview</h4>
+                            </div>
 
-          <div className="grid grid-cols-2 gap-4 mb-6">
-              {data.social.platforms.map(p => (
-                  <div key={p.name} className="p-4 bg-gray-50 rounded-xl border border-gray-100">
-                      <div className="flex items-center gap-2 mb-2 text-gray-500">
-                          {p.icon === 'Instagram' ? <Instagram size={14} /> : <Facebook size={14} />}
-                          <span className="text-xs font-semibold">{p.name}</span>
-                      </div>
-                      <div className="text-xl font-bold text-gray-900">{p.engagement}%</div>
-                      <div className="text-[10px] text-gray-400 mt-1">Engagement Share</div>
-                  </div>
-              ))}
-          </div>
+                            <div className="flex justify-between items-start mb-8 h-24">
+                                 <div className="pt-2">
+                                    <div className="text-xs text-gray-500 font-medium mb-2">Top Platform</div>
+                                    <div className="flex items-center gap-2">
+                                         <Instagram size={24} className="text-[#E1306C]" />
+                                         <span className="text-2xl font-bold text-gray-900 tracking-tight">{data.social.insight.winner}</span>
+                                    </div>
+                                 </div>
+                                 <div className="text-right pt-2">
+                                    <div className="text-xs text-gray-500 font-medium mb-2">Total Interactions</div>
+                                    <div className="text-2xl font-bold text-gray-900">{data.social.totalInteractions}</div>
+                                    <div className="text-[10px] text-gray-400 mt-1">Likes & Comments</div>
+                                 </div>
+                            </div>
+                        </div>
 
-           <div className="space-y-4">
-              {data.social.metrics.map((m, i) => (
-                  <div key={i} className="flex justify-between items-center py-2 border-b border-gray-50 last:border-0">
-                      <div className="flex items-center gap-2">
-                          {m.icon === 'Instagram' && <div className="w-1.5 h-1.5 rounded-full bg-[#E1306C]"></div>}
-                          <span className="text-sm text-gray-600">{m.label}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                          <span className="font-bold text-gray-900">{m.value}</span>
-                      </div>
-                  </div>
-              ))}
-          </div>
-       </div>
+                        {/* Dynamic Insight */}
+                        <div className="bg-brand-gold/10 p-4 rounded-lg border border-brand-gold/20 h-[74px] flex items-center">
+                             <div className="flex gap-3 items-center">
+                                <div className="min-w-6 h-6 rounded-full bg-brand-gold text-white flex items-center justify-center text-xs font-bold shrink-0">
+                                    <Zap size={12} fill="currentColor" />
+                                </div>
+                                <p className="text-sm text-gray-800 leading-snug font-medium">
+                                    <span className="font-bold text-gray-900">{data.social.insight.winner}</span> generates <strong className="text-brand-gold">{data.social.insight.multiplier}x more</strong> engagement than {data.social.insight.loser}.
+                                </p>
+                             </div>
+                        </div>
+                    </>
+                ) : (
+                    // Empty State: Social
+                    <div className="text-center flex flex-col items-center py-4">
+                         <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mb-3">
+                            <Share2 size={24} className="text-gray-300" />
+                        </div>
+                        <h4 className="font-bold text-gray-900 text-sm mb-1">No social activity</h4>
+                        <p className="text-xs text-gray-500 mb-5">Engage your audience on social.</p>
+                        <button className="px-4 py-2 bg-brand-gold text-white rounded-lg text-xs font-bold shadow-md shadow-brand-gold/20 hover:bg-brand-gold-dark transition-all">
+                            Create Social Post
+                        </button>
+                    </div>
+                )}
+            </div>
+        </div>
     </div>
   );
 };
 
-const CampaignAttribution = ({ campaigns }) => {
+const CampaignAttribution = ({ campaigns, onNavigate }) => {
   // Helper to render channel icons
   const getChannelIcon = (channel) => {
       switch(channel.toLowerCase()) {
@@ -330,22 +379,22 @@ const CampaignAttribution = ({ campaigns }) => {
     <div className="bg-white rounded-xl shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] border border-gray-100 overflow-hidden">
         <div className="px-8 py-7 border-b border-gray-50 flex justify-between items-end bg-white">
             <div>
-                <h3 className="font-bold text-gray-900 text-lg tracking-tight">Campaign Effectiveness</h3>
-                <p className="text-xs text-gray-400 mt-1 tracking-wider font-medium">Channel Performance Breakdown</p>
+                <h3 className="font-bold text-gray-900 text-lg">Campaign Effectiveness</h3>
+                <p className="text-xs text-gray-500 mt-1 tracking-wider">Channel Performance Breakdown</p>
             </div>
-            <button className="text-xs font-bold text-gray-700 bg-gray-50 border border-gray-100 px-4 py-2 rounded-lg hover:bg-gray-100 transition-all hover:shadow-sm">
+            <button className="text-xs font-bold text-gray-900 border border-gray-200 px-3 py-1.5 rounded-lg hover:bg-gray-50 transition-colors">
                 Export Report
             </button>
         </div>
 
-        <div className="overflow-x-auto max-h-[420px] scrollbar-hover-trigger">
+        <div className="overflow-x-auto max-h-[400px] overflow-y-auto scrollbar-hover-trigger">
             <table className="w-full text-sm text-left relative">
-                <thead className="bg-white text-[11px] text-gray-400 uppercase font-bold tracking-widest border-b border-gray-50 sticky top-0 z-10 shadow-[0_1px_2px_rgba(0,0,0,0.02)]">
+                <thead className="bg-white text-xs text-gray-500 uppercase font-bold tracking-wider border-b border-gray-100 sticky top-0 z-10 shadow-[0_1px_2px_rgba(0,0,0,0.02)]">
                     <tr>
-                        <th className="px-6 py-4 pl-6">Campaign</th>
-                        <th className="px-6 py-4">Brand</th>
-                        <th className="px-6 py-4">Channels</th>
-                        <th className="px-6 py-4 text-left">
+                        <th className="px-6 py-4 pl-8 w-[30%]">Campaign</th>
+                        <th className="px-6 py-4 w-[20%]">Brand</th>
+                        <th className="px-6 py-4 w-[15%]">Channels</th>
+                        <th className="px-6 py-4 text-left w-[10%]">
                            <div className="flex items-center gap-1">
                                Reach
                                <Tooltip content="Total visibility of your content." maxWidth="max-w-[200px]">
@@ -353,7 +402,7 @@ const CampaignAttribution = ({ campaigns }) => {
                                </Tooltip>
                            </div>
                         </th>
-                        <th className="px-6 py-4 text-left">
+                        <th className="px-6 py-4 text-left w-[10%]">
                            <div className="flex items-center gap-1">
                                Engagement
                                <Tooltip content="Customer interactions on social platforms." maxWidth="max-w-[200px]">
@@ -361,7 +410,7 @@ const CampaignAttribution = ({ campaigns }) => {
                                </Tooltip>
                            </div>
                         </th>
-                        <th className="px-6 py-4 text-left pr-6">
+                        <th className="px-6 py-4 text-left pr-8 w-[15%]">
                            <div className="flex items-center gap-1">
                                Traffic
                                <Tooltip content="Total clicks to your website from Emails and Link Posts. (Does not include in-store foot traffic)." maxWidth="max-w-[240px]">
@@ -374,15 +423,37 @@ const CampaignAttribution = ({ campaigns }) => {
                 <tbody className="divide-y divide-gray-50">
                     {campaigns.length === 0 ? (
                         <tr>
-                            <td colSpan="6" className="px-6 py-12 text-center text-gray-400">
-                                No campaign data available.
+                            <td colSpan="6" className="px-6 py-16 text-center">
+                                <div className="flex flex-col items-center justify-center max-w-sm mx-auto">
+                                    <div className="w-16 h-16 bg-brand-gold/10 rounded-full flex items-center justify-center mb-4">
+                                        <Zap size={24} className="text-brand-gold" fill="currentColor" />
+                                    </div>
+                                    <h3 className="text-gray-900 font-bold text-base mb-2">No campaign data yet</h3>
+                                    <p className="text-gray-500 text-xs leading-relaxed mb-6">
+                                        Tracking starts automatically when you launch your first campaign. 
+                                        Get insights on reach, engagement, and traffic here.
+                                    </p>
+                                    <button 
+                                        onClick={() => onNavigate && onNavigate('campaigns')}
+                                        className="px-5 py-2.5 bg-brand-gold text-white text-xs font-bold rounded-lg shadow-lg shadow-brand-gold/20 hover:bg-brand-gold-dark hover:shadow-xl transition-all"
+                                    >
+                                        Go to Campaigns
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                     ) : (
                         campaigns.map((camp) => (
                             <tr key={camp.id} className="hover:bg-gray-50/80 transition-colors group">
-                                <td className="px-6 py-5">
-                                    <div className="font-medium text-gray-900">{camp.name}</div>
+                                <td className="px-6 py-4 pl-8">
+                                    <button
+                                        onClick={() => onNavigate && onNavigate('my-marketing', { campaign: camp.name })}
+                                        className="text-sm font-bold text-gray-900 group-hover:text-brand-gold transition-colors text-left flex items-center gap-2"
+                                        title="View activities for this campaign"
+                                    >
+                                        {camp.name}
+                                        <ArrowUpRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity text-brand-gold" />
+                                    </button>
                                 </td>
                                 <td className="px-6 py-5">
                                     <div className="flex items-center gap-1.5">
@@ -428,9 +499,39 @@ const CampaignAttribution = ({ campaigns }) => {
 
 // --- Main Page ---
 
-const RetailerAnalytics = ({ showEmptyState = false }) => {
-  const [data] = useState(getAnalyticsData(showEmptyState));
+// --- Main Page ---
+
+const RetailerAnalytics = ({ initialScenario = ACTIVE_DEBUG_SCENARIO, onNavigate }) => {
+  // Scenario controlled via store constant 'ACTIVE_DEBUG_SCENARIO' or prop
+  const [scenario] = useState(initialScenario); 
+  
+  const data = getAnalyticsData(scenario);
   const [dateRange, setDateRange] = useState('30d');
+
+  // Detect Global Empty State
+  const isGlobalEmpty = scenario === 'empty';
+
+  if (isGlobalEmpty) {
+      return (
+          <div className="p-8 w-full bg-gray-50/30 min-h-screen font-sans flex items-center justify-center animate-in fade-in duration-500">
+             <div className="max-w-md w-full text-center">
+                 <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                     <BarChart2 size={32} className="text-gray-300" />
+                 </div>
+                 <h1 className="text-2xl font-bold text-gray-900 mb-2">Unlock Your Marketing Insights</h1>
+                 <p className="text-gray-500 mb-8 leading-relaxed">
+                     Your analytics dashboard is waiting. Launch your first campaign to start tracking reach, engagement, and traffic.
+                 </p>
+                 <button 
+                  onClick={() => onNavigate && onNavigate('campaigns')}
+                  className="bg-brand-gold text-white px-6 py-3 rounded-lg font-bold text-sm shadow-lg shadow-brand-gold/20 hover:bg-brand-gold-dark hover:shadow-xl transition-all"
+                 >
+                     Go to Campaigns
+                 </button>
+             </div>
+          </div>
+      );
+  }
 
   return (
     <div className="p-8 w-full bg-gray-50/30 min-h-screen font-sans animate-in fade-in duration-500 pb-20">
@@ -442,7 +543,9 @@ const RetailerAnalytics = ({ showEmptyState = false }) => {
             <h1 className="text-3xl font-bold text-gray-900 tracking-tight mb-2">Analytics</h1>
             <p className="text-gray-500">Overview of your brand reach and customer engagement.</p>
           </div>
-          <DateRangeFilter value={dateRange} onChange={setDateRange} options={data.dateRanges} />
+          <div className="flex items-center gap-4">
+               <DateRangeFilter value={dateRange} onChange={setDateRange} options={data.dateRanges} />
+          </div>
         </div>
 
         {/* 1. Performance Trends  */}
@@ -457,26 +560,25 @@ const RetailerAnalytics = ({ showEmptyState = false }) => {
            <MetricCard 
                 {...data.northStar.engagement} 
                 icon={MousePointerClick}
-                label="Customer Engagement" // Ensure exact label match if store differs slightly
+                label="Customer Engagement" 
+                trend={undefined} // Hide trend if strictly zero
            />
            <MetricCard 
                 {...data.northStar.activities} 
-                icon={Share2} // 'Activities' implies social+email sharing
-                trend={undefined} // Table says "-" for trend
+                icon={Share2} 
+                trend={undefined} 
                 subStats={[
-                  { label: 'Email', value: '4' }, 
-                  { label: 'Social', value: '8' }
-                ]} // Adding breakdown as it adds value and matches "Activities" count logic
+                  { label: 'Email', value: scenario === 'no_email' || scenario === 'empty' ? '0' : '4' }, 
+                  { label: 'Social', value: scenario === 'no_social' || scenario === 'empty' ? '0' : '8' }
+                ]} 
            />
         </div>
 
         {/* 3. Campaign Attribution */}
-        <CampaignAttribution campaigns={data.campaignAttribution} />
+        <CampaignAttribution campaigns={data.campaignAttribution} onNavigate={onNavigate} />
 
         {/* 4. Channel Performance */}
         <ChannelPerformance data={data.channelPerformance} />
-
-
 
       </div>
     </div>
