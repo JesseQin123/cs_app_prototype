@@ -632,9 +632,11 @@ const RetailerAnalytics = ({ initialScenario = ACTIVE_DEBUG_SCENARIO, onNavigate
                 {...data.northStar.activities} 
                 icon={Share2} 
                 trend={undefined} 
+                desc="Content published from all participating campaigns."
                 subStats={[
-                  { label: 'Email', value: scenario === 'no_email' || scenario === 'empty' ? '0' : '4' }, 
-                  { label: 'Social', value: scenario === 'no_social' || scenario === 'empty' ? '0' : '8' }
+                  { label: `${data.northStar.activities.brandCount} Brand`, bold: true },
+                  { icon: Mail, value: data.northStar.activities.breakdown.email }, 
+                  { icon: Share2, value: data.northStar.activities.breakdown.social }
                 ]} 
            />
         </div>

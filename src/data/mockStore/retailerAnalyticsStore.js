@@ -54,6 +54,12 @@ export const analyticsData = {
       label: "Activities Published",
       desc: "Total campaigns and posts launched.",
       chartData: [1, 2, 1, 3, 2, 4, 3, 2, 5, 4, 6, 12],
+      // New Data for KPI Card
+      brandCount: 5,
+      breakdown: {
+        email: 8,
+        social: 4,
+      },
     },
   },
 

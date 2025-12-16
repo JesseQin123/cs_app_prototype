@@ -4,7 +4,7 @@ import {
   Users, TrendingUp, Zap, Target,
   Instagram, Facebook, Twitter, MapPin, 
   ChevronLeft, ChevronRight, Layers, FileText, MessageSquare, AlertCircle, ArrowUpRight,
-  Eye, UserCheck // Added Icons
+  Eye, UserCheck, Share2 // Added Icons
 } from 'lucide-react';
 import { 
   retailerStatus, onboardingTasks, dashboardStats, actionQueue, 
@@ -112,7 +112,7 @@ const StatsBar = ({ stats, onNavigate }) => {
                 <span className="w-1 h-1 rounded-full bg-gray-300"></span>
                 <span className="flex items-center gap-1"><Mail size={12} /> {stats.activities.channels.email}</span>
                 <span className="w-1 h-1 rounded-full bg-gray-300"></span>
-                <span className="flex items-center gap-1"><Instagram size={12} /> {stats.activities.channels.social}</span>
+                <span className="flex items-center gap-1"><Share2 size={12} /> {stats.activities.channels.social}</span>
               </div>
             </>
           )}
