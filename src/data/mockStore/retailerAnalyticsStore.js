@@ -102,6 +102,7 @@ export const analyticsData = {
       reach: 5200,
       socialEngagement: 120,
       traffic: 45,
+      status: "active",
     },
     {
       id: "c2",
@@ -112,6 +113,7 @@ export const analyticsData = {
       reach: 2100,
       socialEngagement: null,
       traffic: 85,
+      status: "expired",
     },
     {
       id: "c3",
@@ -122,6 +124,7 @@ export const analyticsData = {
       reach: 800,
       socialEngagement: 56,
       traffic: null,
+      status: "active",
     },
     {
       id: "c4",
@@ -132,6 +135,7 @@ export const analyticsData = {
       reach: 3400,
       socialEngagement: 45,
       traffic: 28,
+      status: "active",
     },
     {
       id: "c5",
@@ -142,6 +146,7 @@ export const analyticsData = {
       reach: 1200,
       socialEngagement: 88,
       traffic: 12,
+      status: "expired",
     },
     {
       id: "c6",
@@ -152,6 +157,7 @@ export const analyticsData = {
       reach: 150,
       socialEngagement: null,
       traffic: 42,
+      status: "expired",
     },
     {
       id: "c7",
@@ -162,6 +168,7 @@ export const analyticsData = {
       reach: 1800,
       socialEngagement: 34,
       traffic: 15,
+      status: "active",
     },
     {
       id: "c8",
@@ -172,6 +179,7 @@ export const analyticsData = {
       reach: 4500,
       socialEngagement: 210,
       traffic: null,
+      status: "active",
     },
     {
       id: "c9",
@@ -182,6 +190,7 @@ export const analyticsData = {
       reach: 2800,
       socialEngagement: 95,
       traffic: 38,
+      status: "expired",
     },
     {
       id: "c10",
@@ -192,6 +201,7 @@ export const analyticsData = {
       reach: 1950,
       socialEngagement: 25,
       traffic: 22,
+      status: "active",
     },
   ],
 

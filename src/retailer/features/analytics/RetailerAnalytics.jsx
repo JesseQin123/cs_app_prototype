@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
   ArrowUpRight, ArrowDownRight, Mail, Share2, Instagram, Facebook, 
-  ExternalLink, Info, MousePointerClick, Eye, Zap, BarChart2
+  ExternalLink, Info, MousePointerClick, Eye, Zap, BarChart2, ArrowUp, ArrowDown
 } from 'lucide-react';
 import { 
   ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, 
@@ -357,6 +357,9 @@ const ChannelPerformance = ({ data }) => {
 };
 
 const CampaignAttribution = ({ campaigns, onNavigate }) => {
+  // Sorting State
+  const [sortConfig, setSortConfig] = useState({ key: 'reach', direction: 'desc' });
+
   // Helper to render channel icons
   const getChannelIcon = (channel) => {
       switch(channel.toLowerCase()) {
@@ -367,12 +370,39 @@ const CampaignAttribution = ({ campaigns, onNavigate }) => {
       }
   };
 
+  // Sort Handler
+  const handleSort = (key) => {
+      let direction = 'desc';
+      if (sortConfig.key === key && sortConfig.direction === 'desc') {
+          direction = 'asc';
+      }
+      setSortConfig({ key, direction });
+  };
+
+  // Sorted Data
+  const sortedCampaigns = [...campaigns].sort((a, b) => {
+      const aValue = a[sortConfig.key] || 0;
+      const bValue = b[sortConfig.key] || 0;
+      
+      if (aValue < bValue) return sortConfig.direction === 'asc' ? -1 : 1;
+      if (aValue > bValue) return sortConfig.direction === 'asc' ? 1 : -1;
+      return 0;
+  });
+
+  // Render Sort Icon
+  const renderSortIcon = (columnKey) => {
+      if (sortConfig.key !== columnKey) return <ArrowDown size={12} className="text-gray-300 opacity-0 group-hover/th:opacity-50 transition-all" />;
+      return sortConfig.direction === 'asc' 
+          ? <ArrowUp size={12} className="text-brand-gold" />
+          : <ArrowDown size={12} className="text-brand-gold" />;
+  };
+
   return (
     <div className="bg-white rounded-xl shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] border border-gray-100 overflow-hidden">
         <div className="px-8 py-7 border-b border-gray-50 flex justify-between items-end bg-white">
             <div>
                 <h3 className="font-bold text-gray-900 text-lg">Campaign Effectiveness</h3>
-                <p className="text-xs text-gray-500 mt-1 tracking-wider">Channel Performance Breakdown</p>
+                <p className="text-xs text-gray-500 mt-1">Channel Performance Breakdown</p>
             </div>
             <button className="text-xs font-bold text-gray-900 border border-gray-200 px-3 py-1.5 rounded-lg hover:bg-gray-50 transition-colors">
                 Export Report
@@ -386,34 +416,40 @@ const CampaignAttribution = ({ campaigns, onNavigate }) => {
                         <th className="px-6 py-4 pl-8 w-[30%]">Campaign</th>
                         <th className="px-6 py-4 w-[20%]">Brand</th>
                         <th className="px-6 py-4 w-[15%]">Channels</th>
-                        <th className="px-6 py-4 text-left w-[10%]">
+                        {/* Sortable Header: Reach */}
+                        <th 
+                            className="px-6 py-4 text-left w-[10%] cursor-pointer group/th hover:bg-gray-50 transition-colors select-none"
+                            onClick={() => handleSort('reach')}
+                        >
                            <div className="flex items-center gap-1">
                                Reach
-                               <Tooltip content="Total visibility of your content." maxWidth="max-w-[200px]">
-                                  <Info size={12} className="text-gray-300 hover:text-gray-500 cursor-help" />
-                               </Tooltip>
+                               {renderSortIcon('reach')}
                            </div>
                         </th>
-                        <th className="px-6 py-4 text-left w-[10%]">
+                         {/* Sortable Header: Engagement */}
+                        <th 
+                            className="px-6 py-4 text-left w-[10%] cursor-pointer group/th hover:bg-gray-50 transition-colors select-none"
+                            onClick={() => handleSort('socialEngagement')}
+                        >
                            <div className="flex items-center gap-1">
                                Engagement
-                               <Tooltip content="Customer interactions on social platforms." maxWidth="max-w-[200px]">
-                                  <Info size={12} className="text-gray-300 hover:text-gray-500 cursor-help" />
-                               </Tooltip>
+                               {renderSortIcon('socialEngagement')}
                            </div>
                         </th>
-                        <th className="px-6 py-4 text-left pr-8 w-[15%]">
+                         {/* Sortable Header: Traffic */}
+                        <th 
+                            className="px-6 py-4 text-left pr-8 w-[15%] cursor-pointer group/th hover:bg-gray-50 transition-colors select-none"
+                            onClick={() => handleSort('traffic')}
+                        >
                            <div className="flex items-center gap-1">
                                Traffic
-                               <Tooltip content="Total clicks to your website from Emails and Link Posts. (Does not include in-store foot traffic)." maxWidth="max-w-[240px]">
-                                  <Info size={12} className="text-gray-300 hover:text-gray-500 cursor-help" />
-                               </Tooltip>
+                               {renderSortIcon('traffic')}
                            </div>
                         </th>
                     </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-50">
-                    {campaigns.length === 0 ? (
+                    {sortedCampaigns.length === 0 ? (
                         <tr>
                             <td colSpan="6" className="px-6 py-16 text-center">
                                 <div className="flex flex-col items-center justify-center max-w-sm mx-auto">
@@ -435,17 +471,37 @@ const CampaignAttribution = ({ campaigns, onNavigate }) => {
                             </td>
                         </tr>
                     ) : (
-                        campaigns.map((camp) => (
+                        sortedCampaigns.map((camp) => (
                             <tr key={camp.id} className="hover:bg-gray-50/80 transition-colors group">
                                 <td className="px-6 py-4 pl-8">
-                                    <button
-                                        onClick={() => onNavigate && onNavigate('my-marketing', { campaign: camp.name })}
-                                        className="text-sm font-bold text-gray-900 group-hover:text-brand-gold transition-colors text-left flex items-center gap-2"
-                                        title="View activities for this campaign"
-                                    >
-                                        {camp.name}
-                                        <ArrowUpRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity text-brand-gold" />
-                                    </button>
+                                    <div className="flex items-center gap-2">
+                                        {/* Status Indicator */}
+                                        {camp.status === 'active' ? (
+                                            <div className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" title="Active"></div>
+                                        ) : (
+                                            <div className="w-2 h-2 rounded-full bg-transparent shrink-0"></div>
+                                        )}
+                                        
+                                        <div className="flex items-center gap-2">
+                                            <button
+                                                onClick={() => onNavigate && onNavigate('my-marketing', { campaign: camp.name })}
+                                                className="text-sm font-semibold text-gray-900 group-hover:text-brand-gold transition-colors text-left flex items-center gap-2"
+                                                title="View activities for this campaign"
+                                            >
+                                                {camp.name}
+                                                <ArrowUpRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity text-brand-gold" />
+                                            </button>
+                                            
+                                            {/* Expired Status Label */}
+                                            {camp.status === 'expired' && (
+                                                <Tooltip content="No longer available for publishing, but still tracking historical traffic.">
+                                                    <span className="px-1.5 py-0.5 rounded text-[9px] uppercase font-bold bg-gray-100 text-gray-400 cursor-help border border-gray-200">
+                                                        Expired
+                                                    </span>
+                                                </Tooltip>
+                                            )}
+                                        </div>
+                                    </div>
                                 </td>
                                 <td className="px-6 py-5">
                                     <div className="flex items-center gap-1.5">
@@ -465,13 +521,13 @@ const CampaignAttribution = ({ campaigns, onNavigate }) => {
                                     {camp.reach.toLocaleString()}
                                 </td>
                                 <td className="px-6 py-5 text-left font-medium text-gray-600">
-                                    {camp.socialEngagement ?? (
+                                    {camp.socialEngagement !== null && camp.socialEngagement !== undefined ? camp.socialEngagement : (
                                         <span className="text-gray-300">--</span>
                                     )}
                                 </td>
                                 <td className="px-6 py-5 text-left pr-6">
                                     {camp.traffic === null ? (
-                                        <span className="text-xs text-gray-400 font-medium bg-gray-50 px-2 py-0.5 rounded">N/A</span>
+                                        <span className="text-xs text-gray-400 font-medium bg-gray-50 px-2 py-0.5 rounded">--</span>
                                     ) : (
                                         <div className="font-bold text-gray-900">{camp.traffic}</div>
                                     )}
