@@ -7,7 +7,7 @@
 - **React 19** - UI framework
 - **Vite 7** - Build tool & dev server
 - **React Router 7** - Client-side routing
-- **Tailwind CSS 3** - Styling
+- **Tailwind CSS 4** - Styling
 - **Lucide React** - Icon library
 
 ## 📋 Prerequisites
