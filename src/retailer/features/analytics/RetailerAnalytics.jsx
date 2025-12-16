@@ -227,7 +227,7 @@ const ChannelPerformance = ({ data }) => {
             <p className="text-xs text-gray-500 mt-1">Compare the efficiency of email marketing versus social media.</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 divide-y md:divide-y-0 md:divide-x divide-gray-100">
+        <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-gray-100">
             {/* Left: Email Performance */}
             <div className={`pr-0 md:pr-12 pt-8 md:pt-0 first:pt-0 flex flex-col justify-between ${isEmailEmpty ? 'justify-center py-8 opacity-90' : ''}`}>
                 {!isEmailEmpty ? (
