@@ -95,7 +95,7 @@ export const analyticsData = {
   campaignAttribution: [
     {
       id: "c1",
-      name: "Summer Sale 2025",
+      name: "Summer Sale 2025: Exclusive Diamond & Timepiece Collection Launch Event",
       brand: "Rolex",
       logo: null,
       channels: ["email", "instagram", "facebook"],

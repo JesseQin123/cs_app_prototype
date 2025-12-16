@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
   ArrowUpRight, ArrowDownRight, Mail, Share2, Instagram, Facebook, 
-  ExternalLink, Info, MousePointerClick, Eye, Zap, BarChart2, ArrowUp, ArrowDown
+  ExternalLink, Info, MousePointerClick, Eye, Zap, BarChart2, ArrowUp, ArrowDown, Clock
 } from 'lucide-react';
 import { 
   ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, 
@@ -417,33 +417,54 @@ const CampaignAttribution = ({ campaigns, onNavigate }) => {
                         <th className="px-6 py-4 w-[20%]">Brand</th>
                         <th className="px-6 py-4 w-[15%]">Channels</th>
                         {/* Sortable Header: Reach */}
-                        <th 
-                            className="px-6 py-4 text-left w-[10%] cursor-pointer group/th hover:bg-gray-50 transition-colors select-none"
-                            onClick={() => handleSort('reach')}
-                        >
-                           <div className="flex items-center gap-1">
-                               Reach
-                               {renderSortIcon('reach')}
+                        <th className="px-6 py-4 text-left w-[15%]">
+                           <div className="flex items-center gap-1.5">
+                               <div 
+                                    className="flex items-center gap-1 cursor-pointer group/th hover:text-brand-gold transition-colors select-none"
+                                    onClick={() => handleSort('reach')}
+                                    role="button"
+                                    tabIndex={0}
+                               >
+                                   Reach
+                                   {renderSortIcon('reach')}
+                               </div>
+                               <Tooltip content="Total visibility of your content." maxWidth="max-w-[200px]">
+                                  <Info size={12} className="text-gray-300 hover:text-gray-500 cursor-help" />
+                               </Tooltip>
                            </div>
                         </th>
                          {/* Sortable Header: Engagement */}
-                        <th 
-                            className="px-6 py-4 text-left w-[10%] cursor-pointer group/th hover:bg-gray-50 transition-colors select-none"
-                            onClick={() => handleSort('socialEngagement')}
-                        >
-                           <div className="flex items-center gap-1">
-                               Engagement
-                               {renderSortIcon('socialEngagement')}
+                        <th className="px-6 py-4 text-left w-[15%]">
+                           <div className="flex items-center gap-1.5">
+                               <div 
+                                    className="flex items-center gap-1 cursor-pointer group/th hover:text-brand-gold transition-colors select-none"
+                                    onClick={() => handleSort('socialEngagement')}
+                                    role="button"
+                                    tabIndex={0}
+                               >
+                                   Engagement
+                                   {renderSortIcon('socialEngagement')}
+                               </div>
+                               <Tooltip content="Customer interactions on social platforms." maxWidth="max-w-[200px]">
+                                  <Info size={12} className="text-gray-300 hover:text-gray-500 cursor-help" />
+                               </Tooltip>
                            </div>
                         </th>
                          {/* Sortable Header: Traffic */}
-                        <th 
-                            className="px-6 py-4 text-left pr-8 w-[15%] cursor-pointer group/th hover:bg-gray-50 transition-colors select-none"
-                            onClick={() => handleSort('traffic')}
-                        >
-                           <div className="flex items-center gap-1">
-                               Traffic
-                               {renderSortIcon('traffic')}
+                        <th className="px-6 py-4 text-left pr-8 w-[15%]">
+                           <div className="flex items-center gap-1.5">
+                               <div 
+                                    className="flex items-center gap-1 cursor-pointer group/th hover:text-brand-gold transition-colors select-none"
+                                    onClick={() => handleSort('traffic')}
+                                    role="button"
+                                    tabIndex={0}
+                               >
+                                   Traffic
+                                   {renderSortIcon('traffic')}
+                               </div>
+                               <Tooltip content="Total clicks to your website from Emails and Link Posts (excludes in-store traffic)." maxWidth="max-w-[240px]">
+                                  <Info size={12} className="text-gray-300 hover:text-gray-500 cursor-help" />
+                               </Tooltip>
                            </div>
                         </th>
                     </tr>
@@ -473,34 +494,30 @@ const CampaignAttribution = ({ campaigns, onNavigate }) => {
                     ) : (
                         sortedCampaigns.map((camp) => (
                             <tr key={camp.id} className="hover:bg-gray-50/80 transition-colors group">
-                                <td className="px-6 py-4 pl-8">
-                                    <div className="flex items-center gap-2">
-                                        {/* Status Indicator */}
+                                <td className="px-6 py-4 pl-8 max-w-[300px]">
+                                    <div className="flex items-center gap-3">
+                                        {/* Status Indicator: Refined Jewel & Icon */}
                                         {camp.status === 'active' ? (
-                                            <div className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" title="Active"></div>
+                                            <div className="relative flex items-center justify-center shrink-0">
+                                                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.6)]"></div>
+                                            </div>
                                         ) : (
-                                            <div className="w-2 h-2 rounded-full bg-transparent shrink-0"></div>
+                                            // Expired: Subtle Clock Icon
+                                            <Tooltip content="Expired: No longer available for publishing, but still tracking historical traffic.">
+                                                 <Clock size={14} className="text-gray-300 shrink-0 cursor-help" />
+                                            </Tooltip>
                                         )}
                                         
-                                        <div className="flex items-center gap-2">
-                                            <button
-                                                onClick={() => onNavigate && onNavigate('my-marketing', { campaign: camp.name })}
-                                                className="text-sm font-semibold text-gray-900 group-hover:text-brand-gold transition-colors text-left flex items-center gap-2"
-                                                title="View activities for this campaign"
-                                            >
+                                        <button
+                                            onClick={() => onNavigate && onNavigate('my-marketing', { campaign: camp.name })}
+                                            className="group flex items-center gap-2 min-w-0 text-left"
+                                            title={camp.name}
+                                        >
+                                            <span className={`text-sm font-semibold truncate transition-colors ${camp.status === 'active' ? 'text-gray-900 group-hover:text-brand-gold' : 'text-gray-400 group-hover:text-gray-600'}`}>
                                                 {camp.name}
-                                                <ArrowUpRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity text-brand-gold" />
-                                            </button>
-                                            
-                                            {/* Expired Status Label */}
-                                            {camp.status === 'expired' && (
-                                                <Tooltip content="No longer available for publishing, but still tracking historical traffic.">
-                                                    <span className="px-1.5 py-0.5 rounded text-[9px] uppercase font-bold bg-gray-100 text-gray-400 cursor-help border border-gray-200">
-                                                        Expired
-                                                    </span>
-                                                </Tooltip>
-                                            )}
-                                        </div>
+                                            </span>
+                                            <ArrowUpRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity text-brand-gold shrink-0" />
+                                        </button>
                                     </div>
                                 </td>
                                 <td className="px-6 py-5">
