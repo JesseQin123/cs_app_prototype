@@ -46,7 +46,7 @@ const SettingsTab = ({ campaign, onUpdate }) => {
 
 
   return (
-    <div className="max-w-3xl mx-auto space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-24">
+    <div className="max-w-3xl mx-auto space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-8">
       
       {/* Section 0: General Information */}
       <section>
@@ -101,7 +101,20 @@ const SettingsTab = ({ campaign, onUpdate }) => {
         </div>
       </section>
 
-      {/* Section 1: Audience */}
+      {/* Section 1: Availability */}
+      <section>
+        <h3 className="text-lg font-bold text-gray-900 mb-1">Availability</h3>
+        <p className="text-sm text-gray-500 mb-6">Define the active timeframe for this campaign.</p>
+        
+        <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-xs">
+           <AvailabilitySettings 
+               endDate={localCampaign.endDate}
+               onUpdate={(key, value) => setLocalCampaign(prev => ({ ...prev, [key]: value }))}
+           />
+        </div>
+      </section>
+
+      {/* Section 2: Audience */}
       <section>
         <h3 className="text-lg font-bold text-gray-900 mb-1">Audience</h3>
         <p className="text-sm text-gray-500 mb-6">Define which retailers can access this campaign.</p>
@@ -124,17 +137,7 @@ const SettingsTab = ({ campaign, onUpdate }) => {
         </div>
       </section>
 
-      {/* Section 2: Availability */}
-      <section>
-        <h3 className="text-lg font-bold text-gray-900 mb-1">Availability</h3>
-        <p className="text-sm text-gray-500 mb-6">Define the active timeframe for this campaign.</p>
-        
-        <AvailabilitySettings 
-            endDate={localCampaign.endDate}
-            onUpdate={(key, value) => setLocalCampaign(prev => ({ ...prev, [key]: value }))}
-        />
-      </section>
-
+      
       {/* Sticky Action Bar */}
       <div className={`fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 shadow-[0_-4px_20px_rgba(0,0,0,0.05)] transition-transform duration-300 z-50 ${isDirty ? 'translate-y-0' : 'translate-y-full'}`}>
         <div className="max-w-7xl mx-auto flex items-center justify-between px-6">

@@ -33,52 +33,61 @@ const AvailabilitySettings = ({ endDate, onUpdate }) => {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="flex flex-col gap-3">
         
-        {/* Availability Type Selector */}
-        <div className="grid grid-cols-2 gap-4">
-            <div 
-                onClick={() => handleTypeChange('expiration')}
-                className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all ${availabilityType === 'expiration' ? 'bg-gray-50 border-black ring-1 ring-black' : 'bg-white border-gray-200 hover:bg-gray-50 hover:border-gray-300'} group`}
-            >
-                 <div className={`w-4 h-4 rounded-full border flex items-center justify-center transition-colors ${availabilityType === 'expiration' ? 'border-black' : 'border-gray-300 group-hover:border-gray-400'}`}>
+        {/* Option 1: Set Expiration Date */}
+        <div 
+            onClick={() => handleTypeChange('expiration')}
+            className={`p-5 rounded-xl border transition-all cursor-pointer ${availabilityType === 'expiration' ? 'bg-gray-50 border-black ring-1 ring-black' : 'bg-white border-gray-200 hover:border-gray-300 hover:bg-gray-50'} group`}
+        >
+            <div className="flex items-start gap-4">
+                 <div className={`mt-0.5 w-4 h-4 rounded-full border flex items-center justify-center shrink-0 transition-colors ${availabilityType === 'expiration' ? 'border-black' : 'border-gray-300 group-hover:border-gray-400'}`}>
                      {availabilityType === 'expiration' && <div className="w-2 h-2 bg-black rounded-full"></div>}
                 </div>
-                <span className={`font-medium text-sm ${availabilityType === 'expiration' ? 'text-gray-900' : 'text-gray-900'}`}>Set expiration date</span>
-            </div>
+                <div className="flex-1">
+                    <div className="flex flex-col">
+                        <span className={`font-medium text-sm text-gray-900`}>Set Expiration</span>
+                        <span className="text-xs text-gray-500 mt-1">Campaign automatically ends on the selected date.</span>
+                    </div>
 
-            <div 
-                onClick={() => handleTypeChange('permanent')}
-                className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all ${availabilityType === 'permanent' ? 'bg-gray-50 border-black ring-1 ring-black' : 'bg-white border-gray-200 hover:bg-gray-50 hover:border-gray-300'} group`}
-            >
-                <div className={`w-4 h-4 rounded-full border flex items-center justify-center transition-colors ${availabilityType === 'permanent' ? 'border-black' : 'border-gray-300 group-hover:border-gray-400'}`}>
-                     {availabilityType === 'permanent' && <div className="w-2 h-2 bg-black rounded-full"></div>}
+                    {/* Embedded Date Picker */}
+                    {availabilityType === 'expiration' && (
+                        <div className="mt-4 animate-in fade-in slide-in-from-top-1 duration-200" onClick={(e) => e.stopPropagation()}>
+                            <div className="max-w-xs relative bg-white rounded-lg">
+                                <CustomDatePicker 
+                                    value={endDate === 'Permanent' ? '' : endDate}
+                                    onChange={(date) => onUpdate('endDate', date)}
+                                    minDate={new Date().toISOString()} 
+                                    placeholder="Select expiration date"
+                                />
+                            </div>
+                            <div className="flex gap-2 items-start text-gray-500 mt-2.5">
+                                <Clock size={13} className="mt-0.5 shrink-0" />
+                                <p className="text-[11px] leading-relaxed">
+                                    Ends strictly at <strong className="text-gray-900">11:59 PM (EST)</strong>. Retailer access will cease immediately.
+                                </p>
+                            </div>
+                        </div>
+                    )}
                 </div>
-                <span className={`font-medium text-sm ${availabilityType === 'permanent' ? 'text-gray-900' : 'text-gray-900'}`}>Always available</span>
             </div>
         </div>
 
-        {/* Date Picker (Conditional) */}
-        {availabilityType === 'expiration' && (
-            <div className="animate-in fade-in slide-in-from-top-2 duration-300">
-                <div className="w-full mb-2">
-                     <CustomDatePicker 
-                        value={endDate === 'Permanent' ? '' : endDate}
-                        onChange={(date) => onUpdate('endDate', date)}
-                        minDate={new Date().toISOString()} 
-                        placeholder="Select expiration date"
-                     />
+        {/* Option 2: Always Available */}
+        <div 
+            onClick={() => handleTypeChange('permanent')}
+            className={`p-5 rounded-xl border transition-all cursor-pointer ${availabilityType === 'permanent' ? 'bg-gray-50 border-black ring-1 ring-black' : 'bg-white border-gray-200 hover:border-gray-300 hover:bg-gray-50'} group`}
+        >
+            <div className="flex items-start gap-4">
+                <div className={`mt-0.5 w-4 h-4 rounded-full border flex items-center justify-center shrink-0 transition-colors ${availabilityType === 'permanent' ? 'border-black' : 'border-gray-300 group-hover:border-gray-400'}`}>
+                     {availabilityType === 'permanent' && <div className="w-2 h-2 bg-black rounded-full"></div>}
                 </div>
-                
-                {/* Helper Text */}
-                <div className="flex gap-2.5 items-start text-gray-500 mt-2">
-                    <Clock size={14} className="mt-0.5 shrink-0" />
-                    <p className="text-xs leading-relaxed">
-                        Ends at <strong className="text-gray-900">11:59 PM</strong> based on your timezone settings (EST). Retailers in other regions will lose access at this exact moment.
-                    </p>
+                <div className="flex flex-col">
+                    <span className={`font-medium text-sm text-gray-900`}>Always Available</span>
+                    <span className="text-xs text-gray-500 mt-1">Campaign content remains accessible indefinitely until you manually end this campaign.</span>
                 </div>
             </div>
-        )}
+        </div>
     </div>
   );
 };

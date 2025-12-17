@@ -139,8 +139,7 @@ const CreateCampaignModal = ({ isOpen, onClose, onSave }) => {
 
               {/* 3. Availability */}
                <div>
-                  <label className="block text-sm font-bold text-gray-900 mb-1">Availability <span className="text-red-500">*</span></label>
-                  <p className="text-xs text-gray-500 mb-3">Define the active timeframe for this campaign.</p>
+                  <label className="block text-sm font-bold text-gray-900 mb-2">Availability <span className="text-red-500">*</span></label>
                   <AvailabilitySettings 
                     endDate={formData.validityType === 'permanent' ? 'Permanent' : formData.endDate}
                     onUpdate={(key, value) => {
@@ -160,8 +159,7 @@ const CreateCampaignModal = ({ isOpen, onClose, onSave }) => {
 
               {/* 4. Audience */}
               <div>
-                  <label className="block text-sm font-bold text-gray-900 mb-1">Audience <span className="text-red-500">*</span></label>
-                  <p className="text-xs text-gray-500 mb-3">Define which retailers can access this campaign.</p>
+                  <label className="block text-sm font-bold text-gray-900 mb-2">Audience <span className="text-red-500">*</span></label>
                  <AudienceSelector 
                     value={formData.audience}
                     onChange={(newAudience) => {
