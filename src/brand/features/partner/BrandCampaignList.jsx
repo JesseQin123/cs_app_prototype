@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Search, Grid, List as ListIcon, ChevronDown, Check, MoreHorizontal, Edit, Copy, Trash2, BarChart3, Clock, Download, Eye, Users, FileText, Image as ImageIcon, Video, Mail, Smartphone, Instagram, Pin, Flame, Archive, XCircle, Pencil, ArrowRight, MessageSquare, Facebook, Twitter, MapPin, Calendar, Infinity as InfinityIcon, Upload } from 'lucide-react';
+import { Plus, Search, Grid, List as ListIcon, ChevronDown, Check, MoreHorizontal, Edit, Copy, Trash2, BarChart3, Clock, Download, Eye, Users, FileText, Image as ImageIcon, Video, Mail, Smartphone, Instagram, Pin, Flame, Archive, XCircle, Pencil, ArrowRight, MessageSquare, Facebook, Twitter, MapPin, Calendar, Infinity as InfinityIcon, Upload, Activity } from 'lucide-react';
 import PerformanceOverview from './PerformanceOverview';
 import EmptyState from '../../components/EmptyState';
 import Tooltip from '../../../components/Tooltip';
@@ -34,7 +34,11 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
           if (b.endDate === 'Permanent') return -1;
           return new Date(a.endDate) - new Date(b.endDate);
       }
-      if (sortBy === 'active') return (b.usageCount || 0) - (a.usageCount || 0);
+      if (sortBy === 'active') {
+        const usageA = (a.activityCount || 0) + (a.downloadCount || 0);
+        const usageB = (b.activityCount || 0) + (b.downloadCount || 0);
+        return usageB - usageA;
+      }
       return 0;
   });
 
@@ -60,22 +64,87 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
       { id: 'active', label: 'Most Active' }
   ];
 
-  // Helper for expiration status
-  const getExpirationStatus = (campaign) => {
-      if (campaign.endDate === 'Permanent') return { type: 'permanent', label: 'No Expiration', color: 'text-green-600', icon: <InfinityIcon size={14} className="text-green-600"/> };
-      if (campaign.status === 'Draft' || campaign.status === 'Scheduled') return { type: 'normal', label: `${campaign.startDate || 'TBD'} → ${campaign.endDate}`, color: 'text-gray-500', icon: <Calendar size={12} className="text-gray-400"/> };
-      if (campaign.status === 'Ended') return { type: 'expired', label: `Ended ${campaign.endDate}`, color: 'text-gray-500', icon: <Clock size={12} className="text-gray-400"/> };
-      
+  // Helper for availability status
+  const getAvailabilityStatus = (campaign) => {
+      // 1. Permanent
+      if (campaign.endDate === 'Permanent') {
+          return { 
+              type: 'permanent', 
+              label: 'Always available', 
+              color: 'text-green-600', 
+              icon: <InfinityIcon size={14} className="text-green-600"/>,
+              tooltip: `Active since ${formatDate(campaign.startDate)}`
+          };
+      }
+
+      const now = new Date('2025-11-26');
+      const start = new Date(campaign.startDate);
       const end = new Date(campaign.endDate);
-      const now = new Date('2025-11-26'); // Simulated Now
       const diffTime = end - now;
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
       
-      if (diffDays <= 0) return { type: 'expired', label: `Ended ${campaign.endDate}`, color: 'text-gray-500', icon: <Clock size={12} className="text-gray-400"/> };
-      if (diffDays <= 1) return { type: 'urgent', label: 'Ends Today', color: 'text-red-600', icon: <Flame size={12} className="fill-red-600 text-red-600"/> };
-      if (diffDays <= 7) return { type: 'warning', label: `${diffDays} Days Left`, color: 'text-amber-600', icon: <Clock size={12} className="text-amber-600"/> };
-      
-      return { type: 'normal', label: `Ends ${campaign.endDate}`, color: 'text-gray-500', icon: <Clock size={12} className="text-gray-400"/> };
+      // 2. Scheduled (Future Start)
+      if (start > now) {
+           return { 
+              type: 'scheduled', 
+              label: `Starts ${formatDateShort(start)}`, 
+              color: 'text-gray-500', 
+              icon: <Calendar size={14} className="text-gray-400"/>,
+              tooltip: `Availability: Starts ${formatDate(start)}`
+           };
+      }
+
+      // 3. Expired
+      if (diffDays <= 0 || campaign.status === 'Ended' || campaign.status === 'Archived') {
+           return { 
+              type: 'expired', 
+              label: `Expired ${formatDateShort(end)}`, 
+              color: 'text-gray-400', 
+              icon: null,
+              tooltip: `Expired on ${formatDate(end)}`
+           };
+      }
+
+      // 4. Urgent / Ends Today (< 24h) - Logic implies diffDays <= 1 means today/tomorrow depending on calc
+      if (diffDays <= 1) {
+           return { 
+               type: 'critical', 
+               label: 'Ends Today', 
+               color: 'text-red-600', 
+               icon: <Flame size={14} className="fill-red-600 text-red-600"/>,
+               tooltip: `Ends: Today at 11:59 PM`
+           };
+      }
+
+      // 5. Warning (< 7 days)
+      if (diffDays <= 7) {
+          return { 
+              type: 'warning', 
+              label: `Ends in ${diffDays} days`, 
+              color: 'text-amber-600', 
+              icon: <Clock size={14} className="text-amber-600"/>,
+              tooltip: `Ends: ${formatDate(end)} at 11:59 PM`
+           };
+      }
+
+      // 6. Active (Far future)
+      return { 
+          type: 'active', 
+          label: `Until ${formatDateShort(end)}`, 
+          color: 'text-gray-500', 
+          icon: <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>,
+          tooltip: `Availability: Until ${formatDate(end)}`
+      };
+  };
+
+  // Date Formatters
+  const formatDate = (dateStr) => {
+      if (!dateStr) return '';
+      return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  };
+  
+  const formatDateShort = (date) => {
+      return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
   };
 
   // Helper for status badge
@@ -89,9 +158,7 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
       };
       
       return (
-          <span className={`inline-flex items-center gap-1.5 px-2 py-1 rounded-sm text-xs font-bold uppercase tracking-wider whitespace-nowrap ${styles[campaign.status] || styles['Draft']}`}>
-              {campaign.status === 'Active' && <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>}
-              {campaign.status === 'Scheduled' && <Calendar size={10} />}
+          <span className={`inline-flex items-center gap-1.5 px-1.5 py-0.5 rounded-sm text-[10px] font-bold whitespace-nowrap ${styles[campaign.status] || styles['Draft']}`}>
               {campaign.status}
           </span>
       );
@@ -185,40 +252,7 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
       );
   };
 
-  // Helper for Duration Formatting
-  const formatDuration = (startStr, endStr) => {
-      if (endStr === 'Permanent') {
-          const start = new Date(startStr);
-          const startMonth = start.toLocaleString('en-US', { month: 'short' });
-          const startDay = start.getDate();
-          const startYear = start.getFullYear();
-          return `Since ${startMonth} ${startDay}, '${startYear.toString().slice(2)}`;
-      }
 
-      const start = new Date(startStr);
-      const end = new Date(endStr);
-      
-      const startMonth = start.toLocaleString('en-US', { month: 'short' });
-      const startDay = start.getDate();
-      const startYear = start.getFullYear();
-      
-      const endMonth = end.toLocaleString('en-US', { month: 'short' });
-      const endDay = end.getDate();
-      const endYear = end.getFullYear();
-
-      // Same Year
-      if (startYear === endYear) {
-          // Same Month
-          if (startMonth === endMonth) {
-              return `${startMonth} ${startDay} - ${endDay}`;
-          }
-          // Diff Month
-          return `${startMonth} ${startDay} → ${endMonth} ${endDay}`;
-      }
-
-      // Cross Year
-      return `${startMonth} ${startDay}, '${startYear.toString().slice(2)} → ${endMonth} ${endDay}, '${endYear.toString().slice(2)}`;
-  };
 
   // Helper for Action Menu
   const renderActionMenu = (campaign, closeMenu) => {
@@ -347,7 +381,7 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
           /* [D1] Grid View */
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {displayedCampaigns.map(campaign => {
-                  const expiration = getExpirationStatus(campaign);
+                  const availability = getAvailabilityStatus(campaign);
                   return (
                   <div 
                       key={campaign.id} 
@@ -405,29 +439,37 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
                           
                           <div className="mb-4">
                               {campaign.endDate === 'Permanent' ? (
-                                  <div className="flex items-center gap-1 text-green-600 font-medium text-xs">
-                                      <InfinityIcon size={12} />
-                                      <span>No Expiration</span>
-                                  </div>
+                                  <Tooltip content={availability.tooltip}>
+                                      <div className="flex items-center gap-1.5 text-green-600 font-medium text-xs">
+                                          <InfinityIcon size={14} />
+                                          <span>Always available</span>
+                                      </div>
+                                  </Tooltip>
                               ) : (
-                                  <Tooltip content={`${campaign.startDate || 'TBD'} → ${campaign.endDate}`}>
-                                      <div className={`text-xs font-medium ${expiration.color} flex items-center gap-1.5`}>
-                                          {expiration.icon}
-                                          {formatDuration(campaign.startDate, campaign.endDate)}
+                                  <Tooltip content={availability.tooltip}>
+                                      <div className={`text-xs font-medium ${availability.color} flex items-center gap-1.5`}>
+                                          {availability.icon}
+                                          {availability.label}
                                       </div>
                                   </Tooltip>
                               )}
                           </div>
 
                           {/* Metrics Row */}
-                          <div className="flex items-center gap-4 mb-4 pb-4 border-b border-gray-100">
-                              <div className="flex items-center gap-1.5 text-sm font-medium text-gray-700">
+                          <div className="flex items-center justify-between mb-4 pb-4 border-b border-gray-100 px-1">
+                              <div className="flex items-center gap-1.5 text-sm font-medium text-gray-700" title="Adoption Rate">
                                   <span className="text-gray-400 text-xs font-normal">Adoption</span>
                                   {campaign.adoptionRate !== null ? `${campaign.adoptionRate}%` : '--'}
                               </div>
-                              <div className="flex items-center gap-1.5 text-sm font-medium text-gray-700">
-                                  <span className="text-gray-400 text-xs font-normal">Uses</span>
-                                  {campaign.usageCount !== null ? campaign.usageCount : '--'}
+                              <div className="flex items-center gap-3">
+                                <div className="flex items-center gap-1.5 text-sm font-medium text-gray-700" title="Activity Usage">
+                                    <Activity size={14} className="text-gray-400" />
+                                    {campaign.activityCount !== null && campaign.activityCount !== undefined ? campaign.activityCount : '--'}
+                                </div>
+                                <div className="flex items-center gap-1.5 text-sm font-medium text-gray-700" title="Downloads">
+                                    <Download size={14} className="text-gray-400" />
+                                    {campaign.downloadCount !== null && campaign.downloadCount !== undefined ? campaign.downloadCount : '--'}
+                                </div>
                               </div>
                           </div>
 
@@ -446,19 +488,19 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
               <table className="w-full text-left table-fixed">
                   <thead className="bg-gray-50 border-b border-gray-200 text-xs font-bold text-gray-500 uppercase tracking-wider">
                       <tr>
-                          <th className="px-6 py-4 w-[25%]">Campaign Info</th>
+                          <th className="px-6 py-4 w-[25%]">Campaign</th>
                           <th className="px-6 py-4 w-[12%]">Status</th>
-                          <th className="px-6 py-4 w-[15%]">Duration</th>
+                          <th className="px-6 py-4 w-[15%]">Availability</th>
                           <th className="px-6 py-4 w-[12%]">Audience</th>
                           <th className="px-6 py-4 w-[12%]">Content</th>
                           <th className="px-6 py-4 w-[10%]">Adoption</th>
-                          <th className="px-6 py-4 w-[8%]">Uses</th>
+                          <th className="px-6 py-4 w-[10%]">Usage</th>
                           <th className="px-6 py-4 w-[6%] text-right"></th>
                       </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100">
                       {displayedCampaigns.map(campaign => {
-                          const expiration = getExpirationStatus(campaign);
+                          const availability = getAvailabilityStatus(campaign);
                           return (
                           <tr 
                               key={campaign.id} 
@@ -498,24 +540,16 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
                                   {renderStatusBadge(campaign)}
                               </td>
                               <td className="px-6 py-4">
-                                  {campaign.endDate === 'Permanent' ? (
-                                      <div className="flex flex-col">
-                                          <div className="flex items-center gap-1 text-green-600 font-medium text-sm">
-                                              <InfinityIcon size={12} />
-                                              <span>No Expiration</span>
-                                          </div>
-                                          <span className="text-gray-400 text-[10px] uppercase">{formatDuration(campaign.startDate, campaign.endDate)}</span>
-                                      </div>
-                                  ) : (
-                                      <Tooltip content={`${campaign.startDate || 'TBD'} → ${campaign.endDate}`}>
-                                          <div className={`text-sm font-medium ${expiration.color} flex items-center gap-1 whitespace-nowrap`}>
-                                              {expiration.icon}
-                                              {formatDuration(campaign.startDate, campaign.endDate)}
+                                  <div className="flex flex-col">
+                                      <Tooltip content={availability.tooltip}>
+                                          <div className={`text-xs font-medium ${availability.color} flex items-center gap-1.5 whitespace-nowrap`}>
+                                              {availability.icon}
+                                              {availability.label}
                                           </div>
                                       </Tooltip>
-                                  )}
+                                  </div>
                               </td>
-                              <td className="px-6 py-4 text-sm text-gray-600">
+                              <td className="px-6 py-4 text-xs text-gray-600">
                                   {campaign.audience === 'Unspecified' ? (
                                       <span className="text-gray-400 italic">Unspecified</span>
                                   ) : (
@@ -533,10 +567,19 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
                                           </div>
                                           <div className="text-xs text-gray-400 mt-1">{campaign.adoptionRate}%</div>
                                       </>
-                                  ) : <span className="text-gray-400 text-sm">--</span>}
+                                  ) : <span className="text-gray-400 text-xs">--</span>}
                               </td>
-                              <td className="px-6 py-4 text-sm text-gray-600">
-                                  {campaign.usageCount !== null ? campaign.usageCount : '--'}
+                              <td className="px-6 py-4 text-xs text-gray-600">
+                                 <div className="flex items-center gap-3">
+                                  <div className="flex items-center gap-1.5" title="Activity Usage">
+                                      <Activity size={12} className="text-gray-400" />
+                                      <span>{campaign.activityCount !== null && campaign.activityCount !== undefined ? campaign.activityCount : '--'}</span>
+                                  </div>
+                                  <div className="flex items-center gap-1.5" title="Downloads">
+                                      <Download size={12} className="text-gray-400" />
+                                      <span>{campaign.downloadCount !== null && campaign.downloadCount !== undefined ? campaign.downloadCount : '--'}</span>
+                                  </div>
+                                 </div>
                               </td>
                               <td className="px-6 py-4 text-right relative" onClick={e => e.stopPropagation()}>
                                   <button 

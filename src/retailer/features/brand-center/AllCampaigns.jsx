@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Filter, ChevronRight, LayoutGrid, List, Search, Instagram, Facebook, Mail, Download, MessageSquare, Smartphone, Check, ArrowRight, Flame, ChevronDown, X, Pin, Lock } from 'lucide-react';
+import { Filter, ChevronRight, LayoutGrid, List, Search, Instagram, Facebook, Mail, Download, MessageSquare, Smartphone, Check, ArrowRight, Flame, ChevronDown, X, Pin, Lock, Infinity as InfinityIcon } from 'lucide-react';
 import Tooltip from '../../../components/Tooltip';
 import CampaignCard from './components/CampaignCard';
 
@@ -473,7 +473,7 @@ const AllCampaigns = ({ campaigns, brands, templates, files, initialBrandId = 'a
                 <div className="bg-white rounded-lg overflow-hidden border border-gray-200 overflow-x-auto">
                    {/* Header Row */}
                      <div className="min-w-[1000px] grid grid-cols-[1fr_120px_160px_300px_140px_120px] w-full gap-4 px-6 py-3 border-b border-gray-100 text-xs font-medium text-gray-400 uppercase tracking-wider">
-                       <div className="whitespace-nowrap min-w-72">Campaign Info</div>
+                       <div className="whitespace-nowrap min-w-72">Campaign</div>
                        <div className="whitespace-nowrap hidden md:block">Status</div>
                        <div className="whitespace-nowrap hidden lg:block">Brand</div>
                        <div className="whitespace-nowrap hidden sm:block">Assets & Usage</div>
@@ -495,23 +495,56 @@ const AllCampaigns = ({ campaigns, brands, templates, files, initialBrandId = 'a
                          const hasSMS = linkedTemplates.some(t => t.type === 'sms');
                          const hasFiles = linkedAssets.length > 0;
 
-                          // Expiration Logic
+                          // Expiration Logic (Unified "Ends On")
                           const getExpiration = () => {
                              // Override if status is explicitly Ended/Archived
-      if (campaign.status === 'Ended' || campaign.status === 'Archived') {
-         return { isExpired: true, isExpiring: false, label: `${campaign.endDate}`, color: 'text-gray-400', icon: <Lock size={14} /> };
-      }
+                             if (campaign.status === 'Ended' || campaign.status === 'Archived') {
+                                return { isExpired: true, isExpiring: false, label: 'Expired', color: 'text-gray-900', icon: <div className="w-1.5 h-1.5 rounded-full bg-black"></div>, tooltip: `Not available since ${campaign.endDate}` };
+                             }
 
-      if (campaign.endDate === 'Permanent') return { isExpired: false, isExpiring: false, label: 'No Expiration', color: 'text-green-600', icon: <span className="text-lg leading-none">∞</span> };
+                             if (campaign.endDate === 'Permanent') {
+                                 return { isExpired: false, isExpiring: false, label: 'No Expiration', color: 'text-green-600', icon: <InfinityIcon size={14} className="text-green-600" />, tooltip: 'Always available' };
+                             }
+
                              const end = new Date(campaign.endDate);
                              const now = new Date('2025-11-26');
                              const diffTime = end - now;
                              const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
                              
-                             if (diffDays <= 0) return { label: campaign.endDate, color: 'text-gray-400', isExpired: true };
-                             if (diffDays <= 1) return { label: 'Ends Today', color: 'text-red-600', icon: <Flame size={12} className="fill-red-600"/>, isExpiring: true };
-                             if (diffDays <= 7) return { label: `${diffDays} Days Left`, color: 'text-amber-600', isExpiring: true };
-                             return { label: campaign.endDate, color: 'text-gray-500' };
+                             // Date Formatters
+                             const formatTime = (date) => date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+                             const formatDate = (date) => date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                             const formatDateShort = (date) => date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+                             if (diffDays <= 0) return { label: 'Expired', color: 'text-gray-900', isExpired: true, icon: <div className="w-1.5 h-1.5 rounded-full bg-black"></div>, tooltip: `Not available since ${formatDate(end)}` };
+                             
+                             // Ends Today
+                             if (diffDays <= 1) {
+                                 return { 
+                                     label: `Today, ${formatTime(end)}`, 
+                                     color: 'text-red-600', 
+                                     icon: <Flame size={12} className="fill-red-600"/>, 
+                                     isExpiring: true,
+                                     tooltip: `Expires: Today, ${formatTime(end)}` 
+                                 };
+                             }
+                             
+                             // 5. Expiring Soon (< 7 Days)
+                             if (diffDays <= 7) {
+                                 return { 
+                                     label: `${formatDateShort(end)}`,
+                                     color: 'text-amber-600', 
+                                     isExpiring: true,
+                                     tooltip: `Expires: ${formatDate(end)}, ${formatTime(end)}`
+                                 };
+                             }
+
+                             // 6. Regular
+                             return { 
+                                 label: formatDate(end), 
+                                 color: 'text-gray-500',
+                                 tooltip: `Expires: ${formatDate(end)}, ${formatTime(end)}`
+                             };
                           };
                           const expiration = getExpiration();
 
@@ -527,7 +560,7 @@ const AllCampaigns = ({ campaigns, brands, templates, files, initialBrandId = 'a
 
                           return (
                              <div key={campaign.id} className="min-w-[1000px] grid grid-cols-[1fr_120px_160px_300px_140px_120px] w-full gap-4 px-6 py-4 items-start hover:bg-gray-50 transition group cursor-pointer">
-                                {/* Campaign Info */}
+                                {/* Campaign */}
                                 <div className="flex items-start gap-4 min-w-72 pr-4">
                                    <div 
                                       className={`w-16 h-9 rounded-sm shrink-0 bg-cover bg-center shadow-xs mt-1 bg-gray-100 ${campaign.coverImage && typeof campaign.coverImage === 'string' && campaign.coverImage.startsWith('http') ? '' : campaign.cover}`}
@@ -535,7 +568,7 @@ const AllCampaigns = ({ campaigns, brands, templates, files, initialBrandId = 'a
                                    ></div>
                                     <div className="min-w-0 flex-1">
                                        <Tooltip content={campaign.title}>
-                                            <h3 className="font-bold text-gray-900 leading-tight line-clamp-2 text-ellipsis group-hover:text-[#C5A065] transition">
+                                            <h3 className="font-semibold text-gray-900 leading-tight line-clamp-2 text-ellipsis group-hover:text-[#C5A065] transition">
                                                 {isNew && (
                                                    <span className="inline-flex items-center justify-center align-middle mr-1.5 relative overflow-hidden bg-linear-to-r from-amber-200 to-yellow-400 text-yellow-900 text-[9px] font-bold px-1.5 py-0.5 rounded-sm shadow-xs uppercase tracking-wider border border-yellow-300">
                                                        <span className="relative z-10">New</span>
@@ -596,14 +629,14 @@ const AllCampaigns = ({ campaigns, brands, templates, files, initialBrandId = 'a
                                 </div>
 
                                 {/* Assets & Usage (Merged) */}
-                                <div className="hidden sm:flex items-center gap-1.5 flex-wrap self-center">
+                                <div className="hidden sm:flex items-center gap-1.5 flex-wrap self-center max-w-[130px]">
                                    {/* Social Platforms */}
                                    {platforms.map(p => {
                                        const isUsed = usage.social;
                                        const count = socialTemplates.filter(t => t.platforms?.includes(p)).length;
                                        return (
                                            <div key={p} className="relative group/icon cursor-help">
-                                               <div className={`w-8 h-8 rounded-full flex items-center justify-center border ${isUsed ? 'bg-white border-green-200' : 'bg-gray-50 border-gray-100'}`}>
+                                               <div className={`w-6 h-6 rounded-full flex items-center justify-center border ${isUsed ? 'bg-white border-green-200' : 'bg-gray-50 border-gray-100'}`}>
                                                    {getPlatformIcon(p)}
                                                </div>
                                                {isUsed && (
@@ -623,7 +656,7 @@ const AllCampaigns = ({ campaigns, brands, templates, files, initialBrandId = 'a
                                    {/* Email */}
                                    {hasEmail && (
                                        <div className="relative group/icon cursor-help">
-                                           <div className={`w-8 h-8 rounded-full flex items-center justify-center border ${usage.email ? 'bg-white border-green-200' : 'bg-gray-50 border-gray-100'}`}>
+                                           <div className={`w-6 h-6 rounded-full flex items-center justify-center border ${usage.email ? 'bg-white border-green-200' : 'bg-gray-50 border-gray-100'}`}>
                                                <Mail size={14} className={usage.email ? 'text-green-600' : 'text-blue-600'}/>
                                            </div>
                                            {usage.email && (
@@ -641,7 +674,7 @@ const AllCampaigns = ({ campaigns, brands, templates, files, initialBrandId = 'a
                                    {/* SMS */}
                                    {hasSMS && (
                                        <div className="relative group/icon cursor-help">
-                                           <div className={`w-8 h-8 rounded-full flex items-center justify-center border ${usage.sms ? 'bg-white border-green-200' : 'bg-gray-50 border-gray-100'}`}>
+                                           <div className={`w-6 h-6 rounded-full flex items-center justify-center border ${usage.sms ? 'bg-white border-green-200' : 'bg-gray-50 border-gray-100'}`}>
                                                <MessageSquare size={14} className={usage.sms ? 'text-green-600' : 'text-purple-600'}/>
                                            </div>
                                            {usage.sms && (
@@ -659,7 +692,7 @@ const AllCampaigns = ({ campaigns, brands, templates, files, initialBrandId = 'a
                                    {/* Downloads */}
                                    {hasFiles && (
                                        <div className="relative group/icon cursor-help">
-                                           <div className={`w-8 h-8 rounded-full flex items-center justify-center border ${usage.download ? 'bg-white border-green-200' : 'bg-gray-50 border-gray-100'}`}>
+                                           <div className={`w-6 h-6 rounded-full flex items-center justify-center border ${usage.download ? 'bg-white border-green-200' : 'bg-gray-50 border-gray-100'}`}>
                                                <Download size={14} className={usage.download ? 'text-green-600' : 'text-gray-600'}/>
                                            </div>
                                            {usage.download && (
@@ -676,11 +709,14 @@ const AllCampaigns = ({ campaigns, brands, templates, files, initialBrandId = 'a
                                 </div>
 
                                 {/* Ends On (Left Aligned) */}
-                                <div className="hidden xl:flex text-left items-center justify-start gap-2 min-w-0 self-center">
-                                   <div className={`text-sm font-normal whitespace-nowrap ${expiration.color} flex items-center gap-1`}>
-                                      {expiration.icon}
-                                      {expiration.label}
-                                   </div>
+                                {/* Date Column */}
+                                <div className="self-center">
+                                    <Tooltip content={expiration.tooltip}>
+                                        <span className={`text-xs font-medium ${expiration.color} flex items-center gap-1.5`}>
+                                            {expiration.icon}
+                                            {expiration.label}
+                                        </span>
+                                    </Tooltip>
                                 </div>
 
                                 {/* Last Updated */}

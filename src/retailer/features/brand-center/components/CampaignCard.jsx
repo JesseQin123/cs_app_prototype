@@ -1,5 +1,5 @@
 import React from 'react';
-import { Clock, Pin, Instagram, Facebook, Mail, FileText, Download, Smartphone, Linkedin, Twitter, Globe, MessageSquare, Share2, Check, Flame, ArrowRight, Lock } from 'lucide-react';
+import { Clock, Pin, Instagram, Facebook, Mail, FileText, Download, Smartphone, Linkedin, Twitter, Globe, MessageSquare, Share2, Check, Flame, ArrowRight, Lock, Infinity as InfinityIcon } from 'lucide-react';
 import Tooltip from '../../../../components/Tooltip';
 
 const CampaignCard = ({ campaign, brand, templates = [], files = [], hideExpiringStatus = false }) => {
@@ -18,18 +18,77 @@ const CampaignCard = ({ campaign, brand, templates = [], files = [], hideExpirin
 
   // Helper for status
   const getExpirationStatus = () => {
-      if (campaign.endDate === 'Permanent') return { type: 'permanent', label: 'No Expiration', color: 'text-green-600', icon: <div className="text-lg leading-none">∞</div> };
+      // 1. Permanent
+      if (campaign.endDate === 'Permanent') {
+          return { 
+              type: 'permanent', 
+              label: 'No Expiration', 
+              color: 'text-green-600', 
+              icon: <InfinityIcon size={14} className="text-green-600" />,
+              tooltip: 'Always available'
+          };
+      }
+
+      // Override if status is explicitly Ended/Archived
+      if (campaign.status === 'Ended' || campaign.status === 'Archived') {
+          return { 
+              type: 'expired', 
+              label: 'Expired', 
+              color: 'text-gray-900', 
+              icon: <div className="w-1.5 h-1.5 rounded-full bg-black"></div>,
+              tooltip: `Not available since ${campaign.endDate}`
+          };
+      }
       
       const end = new Date(campaign.endDate);
       const now = new Date('2025-11-26'); // Simulated Now
       const diffTime = end - now;
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
       
-      if (diffDays <= 0) return { type: 'expired', label: `Expired ${campaign.endDate}`, color: 'text-gray-400' };
-      if (diffDays <= 1) return { type: 'urgent', label: 'Ends Today', color: 'text-red-600', icon: <Flame size={12} className="fill-red-600 text-red-600"/> };
-      if (diffDays <= 7) return { type: 'warning', label: `${diffDays} Days Left`, color: 'text-amber-600' };
+      // Date Formatter
+      const formatDate = (date) => date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      const formatTime = (date) => date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+
+      // 2. Expired
+      if (diffDays <= 0) {
+          return { 
+              type: 'expired', 
+              label: 'Expired', 
+              color: 'text-gray-900', 
+              icon: <div className="w-1.5 h-1.5 rounded-full bg-black"></div>,
+              tooltip: `Not available since ${formatDate(end)}`
+          };
+      }
+
+      // 3. Urgent (Ends Today)
+      if (diffDays <= 1) {
+          // Calculate hours if needed, but "Ends Today" is clean
+          return { 
+              type: 'urgent', 
+              label: 'Ends Today', 
+              color: 'text-red-600', 
+              icon: <Flame size={12} className="fill-red-600 text-red-600"/>,
+              tooltip: `Expires: Today, ${formatTime(end)}`
+          };
+      }
+
+      // 4. Warning (< 7 Days)
+      if (diffDays <= 7) {
+          return { 
+              type: 'warning', 
+              label: `${diffDays} days left`, 
+              color: 'text-amber-600',
+              tooltip: `Expires: ${formatDate(end)}, ${formatTime(end)}`
+          };
+      }
       
-      return { type: 'normal', label: `Ends ${campaign.endDate}`, color: 'text-gray-500' };
+      // 5. Regular
+      return { 
+          type: 'normal', 
+          label: `Ends ${formatDate(end)}`, 
+          color: 'text-gray-500',
+          tooltip: `Expires: ${formatDate(end)}, ${formatTime(end)}`
+      };
   };
 
   const expiration = getExpirationStatus();
@@ -144,8 +203,10 @@ const CampaignCard = ({ campaign, brand, templates = [], files = [], hideExpirin
          {/* Row 3: Expiration Date */}
           <div className="flex items-center justify-between mb-4">
              <div className={`text-xs font-medium flex items-center gap-1 ${expiration.color}`}>
-                {expiration.icon}
-                {expiration.label}
+                 {expiration.icon}
+                 <Tooltip content={expiration.tooltip}>
+                    <span>{expiration.label}</span>
+                 </Tooltip>
              </div>
           </div>
 
