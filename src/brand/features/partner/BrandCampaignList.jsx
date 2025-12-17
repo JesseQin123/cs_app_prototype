@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Search, Grid, List as ListIcon, ChevronDown, Check, MoreHorizontal, Edit, Copy, Trash2, BarChart3, Clock, Download, Eye, Users, FileText, Image as ImageIcon, Video, Mail, Smartphone, Instagram, Pin, Flame, Archive, XCircle, Pencil, ArrowRight, MessageSquare, Facebook, Twitter, MapPin, Calendar, Infinity as InfinityIcon, Upload, Activity } from 'lucide-react';
+import { Plus, Search, Grid, List as ListIcon, ChevronDown, Check, MoreHorizontal, Edit, Copy, Trash2, BarChart3, Clock, Download, Eye, Users, FileText, Image as ImageIcon, Video, Mail, Smartphone, Instagram, Pin, Flame, Archive, XCircle, Pencil, ArrowRight, MessageSquare, Facebook, Twitter, MapPin, Calendar, Infinity as InfinityIcon, Upload, Activity, Send } from 'lucide-react';
 import PerformanceOverview from './PerformanceOverview';
 import EmptyState from '../../components/EmptyState';
 import Tooltip from '../../../components/Tooltip';
@@ -456,20 +456,24 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
                           </div>
 
                           {/* Metrics Row */}
-                          <div className="flex items-center justify-between mb-4 pb-4 border-b border-gray-100 px-1">
-                              <div className="flex items-center gap-1.5 text-sm font-medium text-gray-700" title="Adoption Rate">
-                                  <span className="text-gray-400 text-xs font-normal">Adoption</span>
-                                  {campaign.adoptionRate !== null ? `${campaign.adoptionRate}%` : '--'}
+                          <div className="flex items-center gap-4 mb-4 pb-4 border-b border-gray-100">
+                              <div className="flex items-center gap-1.5 text-sm font-medium text-gray-700">
+                                <span className="text-gray-400 text-xs font-normal">Adoption</span>
+                                {campaign.adoptionRate !== null ? `${campaign.adoptionRate}%` : '--'}
                               </div>
                               <div className="flex items-center gap-3">
-                                <div className="flex items-center gap-1.5 text-sm font-medium text-gray-700" title="Activity Usage">
-                                    <Activity size={14} className="text-gray-400" />
-                                    {campaign.activityCount !== null && campaign.activityCount !== undefined ? campaign.activityCount : '--'}
-                                </div>
-                                <div className="flex items-center gap-1.5 text-sm font-medium text-gray-700" title="Downloads">
-                                    <Download size={14} className="text-gray-400" />
-                                    {campaign.downloadCount !== null && campaign.downloadCount !== undefined ? campaign.downloadCount : '--'}
-                                </div>
+                                  <Tooltip content="Activities Published">
+                                      <div className="flex items-center gap-1.5 text-sm font-medium text-gray-700">
+                                        <Send size={12} className="text-gray-400" />
+                                        {campaign.activityCount !== null && campaign.activityCount !== undefined ? campaign.activityCount : '--'}
+                                      </div>
+                                  </Tooltip>
+                                  <Tooltip content="Assets Downloaded">
+                                      <div className="flex items-center gap-1.5 text-sm font-medium text-gray-700">
+                                        <Download size={12} className="text-gray-400" />
+                                        {campaign.downloadCount !== null && campaign.downloadCount !== undefined ? campaign.downloadCount : '--'}
+                                      </div>
+                                  </Tooltip>
                               </div>
                           </div>
 
@@ -489,10 +493,10 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
                   <thead className="bg-gray-50 border-b border-gray-200 text-xs font-bold text-gray-500 uppercase tracking-wider">
                       <tr>
                           <th className="px-6 py-4 w-[25%]">Campaign</th>
-                          <th className="px-6 py-4 w-[12%]">Status</th>
-                          <th className="px-6 py-4 w-[15%]">Availability</th>
-                          <th className="px-6 py-4 w-[12%]">Audience</th>
-                          <th className="px-6 py-4 w-[12%]">Content</th>
+                          <th className="px-6 py-4 w-[8%]">Status</th>
+                          <th className="px-6 py-4 w-[13%]">Availability</th>
+                          <th className="px-6 py-4 w-[11%]">Audience</th>
+                          <th className="px-6 py-4 w-[17%]">Content</th>
                           <th className="px-6 py-4 w-[10%]">Adoption</th>
                           <th className="px-6 py-4 w-[10%]">Usage</th>
                           <th className="px-6 py-4 w-[6%] text-right"></th>
@@ -571,14 +575,18 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
                               </td>
                               <td className="px-6 py-4 text-xs text-gray-600">
                                  <div className="flex items-center gap-3">
-                                  <div className="flex items-center gap-1.5" title="Activity Usage">
-                                      <Activity size={12} className="text-gray-400" />
-                                      <span>{campaign.activityCount !== null && campaign.activityCount !== undefined ? campaign.activityCount : '--'}</span>
-                                  </div>
-                                  <div className="flex items-center gap-1.5" title="Downloads">
-                                      <Download size={12} className="text-gray-400" />
-                                      <span>{campaign.downloadCount !== null && campaign.downloadCount !== undefined ? campaign.downloadCount : '--'}</span>
-                                  </div>
+                                  <Tooltip content="Activities Published">
+                                      <div className="flex items-center gap-1.5">
+                                          <Send size={12} className="text-gray-400" />
+                                          <span>{campaign.activityCount !== null && campaign.activityCount !== undefined ? campaign.activityCount : '--'}</span>
+                                      </div>
+                                  </Tooltip>
+                                  <Tooltip content="Assets Downloaded">
+                                      <div className="flex items-center gap-1.5">
+                                          <Download size={12} className="text-gray-400" />
+                                          <span>{campaign.downloadCount !== null && campaign.downloadCount !== undefined ? campaign.downloadCount : '--'}</span>
+                                      </div>
+                                  </Tooltip>
                                  </div>
                               </td>
                               <td className="px-6 py-4 text-right relative" onClick={e => e.stopPropagation()}>
