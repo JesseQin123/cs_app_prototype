@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 import { X, Image as ImageIcon } from 'lucide-react';
 import AudienceSelector from '@/brand/components/audience/AudienceSelector';
 import FileUploadTrigger from '@/components/FileUploadTrigger';
+import AvailabilitySettings from './AvailabilitySettings';
 
 const CreateCampaignModal = ({ isOpen, onClose, onSave }) => {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
     coverImage: null,
-    validityType: 'permanent', // 'permanent' | 'custom'
+    validityType: 'expiration', // 'permanent' | 'expiration'
     startDate: new Date().toISOString().split('T')[0],
-    endDate: '',
+    endDate: new Date(new Date().setMonth(new Date().getMonth() + 1)).toISOString().split('T')[0], // Default 1 month
     // Universal Audience Structure
     audience: {
       type: 'all', // 'all' | 'segment' | 'specific'
@@ -27,7 +28,7 @@ const CreateCampaignModal = ({ isOpen, onClose, onSave }) => {
     const newErrors = {};
     if (!formData.title.trim()) newErrors.title = 'Title is required';
     if (!formData.coverImage) newErrors.coverImage = 'Cover image is required';
-    if (formData.validityType === 'custom' && !formData.endDate) newErrors.endDate = 'End date is required';
+    if (formData.validityType === 'expiration' && !formData.endDate) newErrors.endDate = 'End date is required';
     
     // Audience Validation
     if (formData.audience.type === 'segment' && formData.audience.segments.length === 0) {
@@ -136,67 +137,31 @@ const CreateCampaignModal = ({ isOpen, onClose, onSave }) => {
                  {errors.coverImage && <p className="text-xs text-red-500 mt-1">{errors.coverImage}</p>}
               </div>
 
-              {/* 3. Validity */}
-              <div>
-                 <label className="block text-sm font-bold text-gray-900 mb-2">Validity Period</label>
-                 <div className="flex gap-4 mb-3">
-                    <label className={`flex-1 p-3 border rounded-lg cursor-pointer transition flex items-center gap-3 ${formData.validityType === 'permanent' ? 'border-black bg-gray-50 ring-1 ring-black' : 'border-gray-200 hover:border-gray-300'}`}>
-                       <input 
-                         type="radio" 
-                         name="validity" 
-                         className="hidden"
-                         checked={formData.validityType === 'permanent'}
-                         onChange={() => setFormData({...formData, validityType: 'permanent'})}
-                       />
-                       <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${formData.validityType === 'permanent' ? 'border-black' : 'border-gray-300'}`}>
-                          {formData.validityType === 'permanent' && <div className="w-2 h-2 bg-black rounded-full"></div>}
-                       </div>
-                       <span className="text-sm font-medium">Permanent</span>
-                    </label>
-
-                    <label className={`flex-1 p-3 border rounded-lg cursor-pointer transition flex items-center gap-3 ${formData.validityType === 'custom' ? 'border-black bg-gray-50 ring-1 ring-black' : 'border-gray-200 hover:border-gray-300'}`}>
-                       <input 
-                         type="radio" 
-                         name="validity" 
-                         className="hidden"
-                         checked={formData.validityType === 'custom'}
-                         onChange={() => setFormData({...formData, validityType: 'custom'})}
-                       />
-                       <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${formData.validityType === 'custom' ? 'border-black' : 'border-gray-300'}`}>
-                          {formData.validityType === 'custom' && <div className="w-2 h-2 bg-black rounded-full"></div>}
-                       </div>
-                       <span className="text-sm font-medium">Custom Date</span>
-                    </label>
-                 </div>
-                 
-                 {formData.validityType === 'custom' && (
-                    <div className="grid grid-cols-2 gap-4 animate-in fade-in slide-in-from-top-2">
-                       <div>
-                          <label className="block text-xs font-medium text-gray-500 mb-1">Start Date</label>
-                          <input 
-                            type="date"
-                            value={formData.startDate}
-                            onChange={e => setFormData({...formData, startDate: e.target.value})}
-                            className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-black/5"
-                          />
-                       </div>
-                       <div>
-                          <label className="block text-xs font-medium text-gray-500 mb-1">End Date</label>
-                          <input 
-                            type="date"
-                            value={formData.endDate}
-                            onChange={e => setFormData({...formData, endDate: e.target.value})}
-                            className={`w-full px-3 py-2 border rounded-lg focus:outline-hidden focus:ring-2 focus:ring-black/5 ${errors.endDate ? 'border-red-300' : 'border-gray-200'}`}
-                          />
-                          {errors.endDate && <p className="text-xs text-red-500 mt-1">{errors.endDate}</p>}
-                       </div>
-                    </div>
-                 )}
+              {/* 3. Availability */}
+               <div>
+                  <label className="block text-sm font-bold text-gray-900 mb-1">Availability <span className="text-red-500">*</span></label>
+                  <p className="text-xs text-gray-500 mb-3">Define the active timeframe for this campaign.</p>
+                  <AvailabilitySettings 
+                    endDate={formData.validityType === 'permanent' ? 'Permanent' : formData.endDate}
+                    onUpdate={(key, value) => {
+                        // Key will be 'endDate'. Value will be 'Permanent' or 'YYYY-MM-DD'.
+                        if (key === 'endDate') {
+                            if (value === 'Permanent') {
+                                setFormData(prev => ({ ...prev, validityType: 'permanent', endDate: 'Permanent' }));
+                            } else {
+                                setFormData(prev => ({ ...prev, validityType: 'expiration', endDate: value }));
+                                if (errors.endDate) setErrors(prev => ({ ...prev, endDate: null }));
+                            }
+                        }
+                    }}
+                 />
+                 {errors.endDate && formData.validityType === 'expiration' && <p className="text-xs text-red-500 mt-1 pl-1">Expiration date is required</p>}
               </div>
 
               {/* 4. Audience */}
               <div>
-                 <label className="block text-sm font-bold text-gray-900 mb-2">Audience <span className="text-red-500">*</span></label>
+                  <label className="block text-sm font-bold text-gray-900 mb-1">Audience <span className="text-red-500">*</span></label>
+                  <p className="text-xs text-gray-500 mb-3">Define which retailers can access this campaign.</p>
                  <AudienceSelector 
                     value={formData.audience}
                     onChange={(newAudience) => {

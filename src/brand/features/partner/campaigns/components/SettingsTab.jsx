@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Users, Calendar, Shield, Lock, Unlock, Upload, Image as ImageIcon, X, Check, AlertCircle } from 'lucide-react';
 import AudienceSelector from '@/brand/components/audience/AudienceSelector';
+import AvailabilitySettings from './AvailabilitySettings';
 import FileUploadTrigger from '@/components/FileUploadTrigger';
 
 
@@ -22,7 +23,12 @@ const SettingsTab = ({ campaign, onUpdate }) => {
             enriched.audienceData = { type: 'specific', segments: [], retailers: [] };
         }
     }
-    setLocalCampaign(enriched);
+    setLocalCampaign(prev => {
+        // Avoid update if identical
+        if (JSON.stringify(prev) === JSON.stringify(enriched)) return prev;
+        // eslint-disable-next-line
+        return enriched;
+    });
   }, [campaign]);
 
   // Derived state for dirty check (fixes ESLint sync-state-in-effect error)
@@ -118,47 +124,15 @@ const SettingsTab = ({ campaign, onUpdate }) => {
         </div>
       </section>
 
-      {/* Section 2: Validity Period */}
+      {/* Section 2: Availability */}
       <section>
-        <h3 className="text-lg font-bold text-gray-900 mb-1">Validity Period</h3>
-        <p className="text-sm text-gray-500 mb-6">Set the timeframe for this campaign.</p>
+        <h3 className="text-lg font-bold text-gray-900 mb-1">Availability</h3>
+        <p className="text-sm text-gray-500 mb-6">Define the active timeframe for this campaign.</p>
         
-        <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-xs flex gap-6">
-           <div className="flex-1">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
-              <div className="relative">
-                 <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16}/>
-                 <input 
-                   type="date" 
-                   value={localCampaign.startDate}
-                   onChange={(e) => setLocalCampaign({...localCampaign, startDate: e.target.value})}
-                   className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-black/5"
-                 />
-              </div>
-           </div>
-           <div className="flex-1">
-              <label className="block text-sm font-medium text-gray-700 mb-1">End Date</label>
-              <div className="relative">
-                 <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16}/>
-                 <input 
-                   type="date" 
-                   value={localCampaign.endDate === 'Permanent' ? '' : localCampaign.endDate}
-                   disabled={localCampaign.endDate === 'Permanent'}
-                   onChange={(e) => setLocalCampaign({...localCampaign, endDate: e.target.value})}
-                   className={`w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-black/5 ${localCampaign.endDate === 'Permanent' ? 'bg-gray-50 text-gray-400' : ''}`}
-                 />
-              </div>
-              <label className="flex items-center gap-2 mt-2 cursor-pointer">
-                 <input 
-                   type="checkbox" 
-                   checked={localCampaign.endDate === 'Permanent'}
-                   onChange={(e) => setLocalCampaign({...localCampaign, endDate: e.target.checked ? 'Permanent' : ''})}
-                   className="rounded-sm border-gray-300 text-black focus:ring-black"
-                 />
-                 <span className="text-sm text-gray-600">No Expiration Date</span>
-              </label>
-           </div>
-        </div>
+        <AvailabilitySettings 
+            endDate={localCampaign.endDate}
+            onUpdate={(key, value) => setLocalCampaign(prev => ({ ...prev, [key]: value }))}
+        />
       </section>
 
       {/* Sticky Action Bar */}

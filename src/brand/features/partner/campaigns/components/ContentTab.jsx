@@ -136,12 +136,12 @@ const ContentTab = ({ campaign }) => {
          </button>
       </div>
 
-      {/* Section 1: Ready-to-Publish */}
+      {/* Section 1: Marketing Activities */}
       {(filter === 'all' || filter === 'ready') && (
         <section>
            <div className="mb-6">
-               <h3 className="text-lg font-bold text-gray-900">Publishable Content</h3>
-               <p className="text-sm text-gray-500">Multi-channel content that retailers can publish directly or customize before sharing.</p>
+               <h3 className="text-lg font-bold text-gray-900">Marketing Activities</h3>
+               <p className="text-sm text-gray-500">Multi-channel marketing drafts ready for retailers to customize and publish.</p>
            </div>
            
            {campaign.status === 'Draft' && readyContent.length === 0 ? (
@@ -149,10 +149,10 @@ const ContentTab = ({ campaign }) => {
                    <div className="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center text-gray-400 mb-4">
                        <Plus size={24} />
                    </div>
-                   <h4 className="font-bold text-gray-900 mb-1">No Content Yet</h4>
-                   <p className="text-sm text-gray-500 mb-4 max-w-xs">Add social posts, email templates, or SMS drafts for your retailers to use.</p>
+                   <h4 className="font-bold text-gray-900 mb-1">No activities created yet</h4>
+                   <p className="text-sm text-gray-500 mb-4 max-w-xs">Create ready-to-use marketing templates to engage customers across all channels.</p>
                    <button className="px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition">
-                       Create Content
+                       Create Activity
                    </button>
                </div>
            ) : (
@@ -183,7 +183,7 @@ const ContentTab = ({ campaign }) => {
         <section>
            <div className="mb-6">
                <h3 className="text-lg font-bold text-gray-900">Downloadable Assets</h3>
-               <p className="text-sm text-gray-500">Files and resources provided for retailers to download and use.</p>
+               <p className="text-sm text-gray-500">High-resolution visual assets and resources for digital and in-store use.</p>
            </div>
 
            {campaign.status === 'Draft' && assets.length === 0 ? (
@@ -191,8 +191,8 @@ const ContentTab = ({ campaign }) => {
                    <div className="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center text-gray-400 mb-4">
                        <UploadCloud size={24} />
                    </div>
-                   <h4 className="font-bold text-gray-900 mb-1">No Assets Uploaded</h4>
-                   <p className="text-sm text-gray-500 mb-4 max-w-xs">Upload high-res images, PDFs, or guidelines for your retailers.</p>
+                   <h4 className="font-bold text-gray-900 mb-1">No downloadable assets yet</h4>
+                   <p className="text-sm text-gray-500 mb-4 max-w-xs">Upload imagery, videos, and documentation for retailer distribution.</p>
                    <button className="px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition">
                        Upload Assets
                    </button>
