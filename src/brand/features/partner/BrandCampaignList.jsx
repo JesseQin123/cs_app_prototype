@@ -158,7 +158,7 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
       };
       
       return (
-          <span className={`inline-flex items-center gap-1.5 px-1.5 py-0.5 rounded-sm text-[10px] font-bold whitespace-nowrap ${styles[campaign.status] || styles['Draft']}`}>
+          <span className={`inline-flex items-center gap-1.5 px-2 py-1 rounded-sm uppercase tracking-wider text-[10px] font-bold whitespace-nowrap ${styles[campaign.status] || styles['Draft']}`}>
               {campaign.status}
           </span>
       );
