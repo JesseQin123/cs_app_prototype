@@ -51,15 +51,9 @@ const KpiCard = ({ kpi, onReview }) => {
                  {kpi.isAlert ? (
                      <div className="relative flex items-center justify-center text-red-500 transition duration-300">
                         
-                        {/* Default State: Shield + Dot */}
+                        {/* Default State: Shield Only (No Red Dot) */}
                         <div className="absolute inset-0 flex items-center justify-center transition duration-300 group-hover:scale-0 group-hover:opacity-0 origin-center">
                             <ShieldAlert size={18} />
-                            {parseInt(kpi.value) > 0 && (
-                                <span className="absolute -top-0.5 -right-0.5 flex h-2 w-2">
-                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
-                                </span>
-                            )}
                         </div>
 
                         {/* Hover State: Chevron */}
@@ -120,8 +114,12 @@ const KpiCard = ({ kpi, onReview }) => {
                              })}
                         </div>
                         {/* Time Context */}
-                        <div className="text-[9px] font-medium text-red-400 bg-red-50 px-1.5 py-0.5 rounded-sm">
-                           30d
+                        <div className="flex items-center gap-1.5 opacity-90">
+                            <span className="relative flex h-1.5 w-1.5">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-red-500"></span>
+                            </span>
+                            <span className="text-[9px] font-bold text-red-500 uppercase tracking-wider">Live</span>
                         </div>
                     </div>
                 )}
@@ -206,8 +204,6 @@ const PartnerOverview = () => {
         ...(kpiData[dateRange] || kpiData['Last 30 Days']),
         needsAttentionKPI
     ];
-    const [zone, setZone] = useState('All Zones');
-    const [tier, setTier] = useState('All Tiers');
 
     // Modals
     const [isAttentionDrawerOpen, setIsAttentionDrawerOpen] = useState(false);
@@ -245,24 +241,9 @@ const PartnerOverview = () => {
                 <div className="flex flex-wrap items-center gap-3">
                      <FilterDropdown 
                         value={dateRange} 
-                        options={['Last 30 Days', 'This Quarter', 'Year to Date']} 
+                        options={['Last 30 Days', 'Last 90 Days', 'Last 12 Months']} 
                         onChange={setDateRange} 
                         icon={Calendar} 
-                     />
-                     <div className="h-4 w-px bg-gray-200"></div>
-                     <FilterDropdown 
-                        label="Zone"
-                        value={zone} 
-                        options={['All Zones', 'Northeast', 'West', 'South', 'Midwest']} 
-                        onChange={setZone} 
-                        icon={Filter} 
-                     />
-                     <FilterDropdown 
-                        label="Tier"
-                        value={tier} 
-                        options={['All Tiers', 'Platinum', 'Gold', 'Silver']} 
-                        onChange={setTier} 
-                        icon={Filter} 
                      />
                 </div>
             </div>

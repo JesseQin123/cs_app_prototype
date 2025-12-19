@@ -92,7 +92,7 @@ const PerformanceOverview = ({ campaigns }) => {
          <div className="flex items-center gap-4 py-1">
             <div className="flex items-baseline gap-3">
                <h2 className="text-lg font-bold text-gray-900">Performance Overview</h2>
-               <span className="text-xs font-medium text-gray-400 bg-gray-50 px-2 py-0.5 rounded-sm border border-gray-200">Last 30 Days</span>
+               <span className="text-xs font-medium text-gray-400 bg-gray-50 px-2 py-0.5 rounded-sm border border-gray-200">Last 90 Days</span>
             </div>
             <button 
               onClick={() => setIsExpanded(!isExpanded)}

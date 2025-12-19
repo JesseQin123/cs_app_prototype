@@ -48,7 +48,7 @@ export const networkOverviewData = {
         iconName: "Zap",
       },
     ],
-    "This Quarter": [
+    "Last 90 Days": [
       {
         id: "active_partners",
         label: "Active Partners",
@@ -56,7 +56,7 @@ export const networkOverviewData = {
         total: "150",
         trend: "+5 (New)",
         trendDirection: "up",
-        description: "Login Activity",
+        description: "Login Activity (Last 90d)",
         iconName: "Users",
       },
       {
@@ -78,7 +78,7 @@ export const networkOverviewData = {
         iconName: "Zap",
       },
     ],
-    "Year to Date": [
+    "Last 12 Months": [
       {
         id: "active_partners",
         label: "Active Partners",
@@ -86,7 +86,7 @@ export const networkOverviewData = {
         total: "150",
         trend: "+12 (New)",
         trendDirection: "up",
-        description: "Login Activity",
+        description: "Login Activity (Last 12m)",
         iconName: "Users",
       },
       {

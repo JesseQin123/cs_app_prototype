@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Drawer from '../../components/Drawer';
-import { AlertCircle, ChevronDown, ChevronUp, CheckCircle2, MoreHorizontal, Bell, Clock, ShieldAlert } from 'lucide-react';
+import { AlertCircle, ChevronDown, ChevronUp, CheckCircle2, MoreHorizontal, Bell, Clock, ShieldAlert, X } from 'lucide-react';
 import { attentionData } from '../../data/mockStore/attentionStore';
 import NudgeModal, { RISKS } from '../features/partner/NudgeModal';
 import { useToast } from '../context/ToastContext';
@@ -159,6 +159,7 @@ const PartnerAttentionDrawer = ({ isOpen, onClose }) => {
     const { addToast } = useToast();
     const [resolvedIds, setResolvedIds] = useState([]); // Track resolved Retailer IDs
     const [expandedGroup, setExpandedGroup] = useState('disconnected'); // Default open high risk
+    const [showInfo, setShowInfo] = useState(true);
 
     // Nudge Modal State
     const [nudgeModalState, setNudgeModalState] = useState({
@@ -235,33 +236,42 @@ const PartnerAttentionDrawer = ({ isOpen, onClose }) => {
                 <div className="flex items-center gap-2">
                     <div className="relative">
                         <ShieldAlert className="text-red-600" size={20} />
-                        <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
-                        </span>
                     </div>
                     <span className="font-bold text-gray-900 text-lg">Needs Attention</span>
                     {totalRemaining > 0 && (
-                        <span className="bg-red-100 text-red-600 text-xs font-extrabold px-2 py-0.5 rounded-full ml-1">
-                            {totalRemaining}
-                        </span>
+                        <div className="flex items-center gap-1.5 bg-red-50 border border-red-100 px-2 py-0.5 rounded-full ml-1">
+                            <span className="relative flex h-1.5 w-1.5">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-red-500"></span>
+                            </span>
+                            <span className="text-[10px] font-bold text-red-600 uppercase tracking-wider">Live</span>
+                        </div>
                     )}
                 </div>
             }
         >
             <div className="px-6 py-6 pb-24">
                 {/* Intro Context */}
-                <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 mb-6 flex items-start gap-3">
-                    <div className="bg-white p-2 rounded-full border border-gray-100 shadow-xs text-gray-500">
-                        <Clock size={16} />
+                {/* Intro Context - Dismissible */}
+                {showInfo && (
+                    <div className="bg-gray-50 border border-gray-100 rounded-lg p-3.5 mb-6 flex items-start gap-3 relative group">
+                        <div className="text-gray-400 mt-0.5">
+                            <AlertCircle size={16} />
+                        </div>
+                        <div className="flex-1 pr-6">
+                            <h4 className="text-xs font-bold text-gray-900">Intervention Required</h4>
+                            <p className="text-[11px] text-gray-500 mt-0.5 leading-relaxed">
+                                Partners listed below are exhibiting risk behaviors. Timely communication can prevent churn and improve campaign adoption.
+                            </p>
+                        </div>
+                        <button 
+                            onClick={() => setShowInfo(false)}
+                            className="absolute top-2 right-2 text-gray-300 hover:text-gray-500 transition p-1"
+                        >
+                            <X size={14} />
+                        </button>
                     </div>
-                    <div>
-                        <h4 className="text-sm font-bold text-gray-900">Retailers requiring intervention</h4>
-                        <p className="text-xs text-gray-500 mt-1 leading-relaxed">
-                            These partners are exhibiting risk behaviors. Timely communication can prevent churn and improve adoption rates.
-                        </p>
-                    </div>
-                </div>
+                )}
 
                 {/* Groups */}
                 <div className="space-y-4">

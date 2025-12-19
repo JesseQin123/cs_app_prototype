@@ -18,7 +18,7 @@ const FilterDropdown = ({ label, value, options, onChange, icon: Icon }) => {
             {isOpen && (
                 <>
                     <div className="fixed inset-0 z-10" onClick={() => setIsOpen(false)}></div>
-                    <div className="absolute top-full left-0 mt-1 w-48 bg-white rounded-lg shadow-xl border border-gray-100 py-1 z-30 animate-in fade-in zoom-in-95">
+                    <div className="absolute top-full right-0 mt-1 w-48 bg-white rounded-lg shadow-xl border border-gray-100 py-1 z-30 animate-in fade-in zoom-in-95 origin-top-right">
                         {options.map(opt => (
                             <button
                                 key={opt}
