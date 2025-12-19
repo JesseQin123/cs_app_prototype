@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowUpRight, ArrowDownRight, Minus, Users, Download, Activity, AlertCircle, Eye, Bell, Calendar, Filter, PieChart, MousePointerClick, XCircle, ChevronRight, ShieldAlert } from 'lucide-react';
+import { ArrowUpRight, ArrowDownRight, Minus, Users, Download, Activity, AlertCircle, Eye, Bell, Calendar, Filter, PieChart, MousePointerClick, XCircle, ChevronRight, ShieldAlert, Zap } from 'lucide-react';
 import { networkOverviewData } from '../../../data/mockStore/networkOverviewStore';
 import FilterDropdown from '../analytics/components/FilterDropdown';
 import TierBadge from './retailers/TierBadge';
@@ -27,6 +27,7 @@ const KpiCard = ({ kpi, onReview }) => {
     const Icon = kpi.iconName === 'Users' ? Users 
         : kpi.iconName === 'PieChart' ? PieChart 
         : kpi.iconName === 'MousePointerClick' ? MousePointerClick
+        : kpi.iconName === 'Zap' ? Zap
         : Activity;
         
     // Specific icon assignment if needed, or rely on mapping
@@ -194,11 +195,17 @@ const EngagementTimeline = ({ data }) => (
 );
 
 const PartnerOverview = () => {
-    const { kpi, zoneMap, engagementTimeline, topPerformers, atRisk } = networkOverviewData;
+    const { kpiData, needsAttentionKPI, zoneMap, engagementTimeline, topPerformers, atRisk } = networkOverviewData;
     const { addToast } = useToast();
     
     // Filters
     const [dateRange, setDateRange] = useState('Last 30 Days');
+    
+    // Dynamic KPI Data Selection (First 3 from store + Static Needs Attention)
+    const currentKpi = [
+        ...(kpiData[dateRange] || kpiData['Last 30 Days']),
+        needsAttentionKPI
+    ];
     const [zone, setZone] = useState('All Zones');
     const [tier, setTier] = useState('All Tiers');
 
@@ -262,7 +269,7 @@ const PartnerOverview = () => {
 
             {/* Section A: KPIs */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {kpi.map(item => (
+                {currentKpi.map(item => (
                     <KpiCard 
                         key={item.id} 
                         kpi={item} 
