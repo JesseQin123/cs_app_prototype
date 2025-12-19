@@ -35,8 +35,8 @@ const KpiCard = ({ kpi, onReview }) => {
 
     return (
         <div 
-            onClick={kpi.isAlert ? onReview : undefined}
-            className={`p-5 rounded-xl border shadow-xs transition relative flex flex-col h-36 group ${kpi.isAlert ? 'bg-linear-to-br from-red-50 to-white border-red-100 ring-1 ring-red-50 cursor-pointer hover:shadow-md hover:border-red-200 hover:ring-red-100' : 'bg-white border-gray-100 hover:shadow-md'}`}
+            onClick={onReview}
+            className={`p-5 rounded-xl border shadow-xs transition relative flex flex-col h-36 group ${kpi.isAlert ? 'bg-linear-to-br from-red-50 to-white border-red-100 ring-1 ring-red-50 cursor-pointer hover:shadow-md hover:border-red-200 hover:ring-red-100' : onReview ? 'bg-white border-gray-100 hover:shadow-md cursor-pointer hover:border-gray-300' : 'bg-white border-gray-100 hover:shadow-md'}`}
         >
             
             {/* Header Section - Fixed Height for Alignment */}
@@ -48,12 +48,12 @@ const KpiCard = ({ kpi, onReview }) => {
                 </div>
                 
                  {/* Top Right: Icon for Standard, Navigation Icon for Alert */}
-                 {kpi.isAlert ? (
-                     <div className="relative flex items-center justify-center text-red-500 transition duration-300">
+                 {kpi.isAlert || onReview ? (
+                     <div className={`relative flex items-center justify-center transition duration-300 ${kpi.isAlert ? 'text-red-500' : 'text-gray-400 opacity-80 group-hover:opacity-100 group-hover:text-black'}`}>
                         
-                        {/* Default State: Shield Only (No Red Dot) */}
+                        {/* Default State: Icon */}
                         <div className="absolute inset-0 flex items-center justify-center transition duration-300 group-hover:scale-0 group-hover:opacity-0 origin-center">
-                            <ShieldAlert size={18} />
+                            {kpi.isAlert ? <ShieldAlert size={18} /> : <DisplayIcon size={18} />}
                         </div>
 
                         {/* Hover State: Chevron */}
@@ -192,14 +192,31 @@ const EngagementTimeline = ({ data }) => (
     </div>
 );
 
-const PartnerOverview = () => {
+const PartnerOverview = ({ files, campaigns, notify, isEmpty, navigateTo }) => {
     const { kpiData, needsAttentionKPI, zoneMap, engagementTimeline, topPerformers, atRisk } = networkOverviewData;
     const { addToast } = useToast();
     
     // Filters
     const [dateRange, setDateRange] = useState('Last 30 Days');
     
-    // Dynamic KPI Data Selection (First 3 from store + Static Needs Attention)
+    // Helper to get interaction handler
+    const getKpiInteraction = (kpi) => {
+        if (kpi.label === 'Active Partners') {
+            return () => navigateTo('partner-retailers', { status: 'Active' });
+        }
+        if (kpi.label === 'Adoption Rate') {
+            return () => navigateTo('partner-retailers', { sortBy: 'adoptionRate', sortDir: 'desc' });
+        }
+        if (kpi.label === 'Partner Actions') {
+            return () => navigateTo('analytics'); // Assuming Analytics is the value target
+        }
+        if (kpi.isAlert) {
+            return () => setIsAttentionDrawerOpen(true);
+        }
+        return undefined;
+    };
+    
+    // Dynamic KPI Data Collection
     const currentKpi = [
         ...(kpiData[dateRange] || kpiData['Last 30 Days']),
         needsAttentionKPI
@@ -254,7 +271,7 @@ const PartnerOverview = () => {
                     <KpiCard 
                         key={item.id} 
                         kpi={item} 
-                        onReview={() => setIsAttentionDrawerOpen(true)}
+                        onReview={getKpiInteraction(item)}
                     />
                 ))}
             </div>

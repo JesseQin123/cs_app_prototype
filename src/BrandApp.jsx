@@ -22,7 +22,14 @@ const BrandApp = ({
   retailers,
   showEmptyState 
 }) => {
+  // Navigation State
   const [activePage, setActivePage] = useState('home');
+  const [navParams, setNavParams] = useState({});
+
+  const navigateTo = (page, params = {}) => {
+    setActivePage(page);
+    setNavParams(params);
+  };
   const { addToast } = useToast();
 
   const notify = (message, type = 'success') => {
@@ -45,7 +52,13 @@ const BrandApp = ({
 
           // Partner Hub
           case 'partner-overview':
-              return <PartnerOverview files={files} campaigns={campaigns} notify={notify} isEmpty={showEmptyState} />;
+              return <PartnerOverview 
+                files={files} 
+                campaigns={campaigns} 
+                notify={notify} 
+                isEmpty={showEmptyState} 
+                navigateTo={navigateTo}
+              />;
           case 'partner-campaigns':
               return <CampaignManager campaigns={campaigns} setCampaigns={setCampaigns} notify={notify} allFiles={files} setFiles={setFiles} allTemplates={templates} retailers={retailers} isEmpty={showEmptyState} />;
           case 'partner-resources':
@@ -53,7 +66,7 @@ const BrandApp = ({
           case 'partner-tasks':
               return <TasksManager notify={notify} />;
           case 'partner-retailers':
-              return <RetailersManager notify={notify} />;
+              return <RetailersManager notify={notify} initialParams={navParams} />;
 
           // Direct Marketing
           case 'direct':
@@ -84,7 +97,7 @@ const BrandApp = ({
 
   return (
     <div className="flex h-screen w-full bg-gray-50 font-sans text-gray-900 relative">
-      <BrandSidebar activePage={activePage} setActivePage={setActivePage} />
+      <BrandSidebar activePage={activePage} setActivePage={(page) => navigateTo(page)} />
 
       <main className="flex-1 overflow-hidden flex flex-col bg-gray-50">
         <div className="h-full flex flex-col">

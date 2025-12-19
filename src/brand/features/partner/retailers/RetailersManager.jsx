@@ -7,7 +7,7 @@ import SegmentationManager from './SegmentationManager';
 import EditRetailerModal from './EditRetailerModal';
 import InviteRetailerModal from './InviteRetailerModal';
 
-const RetailersManager = ({ notify }) => {
+const RetailersManager = ({ notify, initialParams }) => {
   const [activeTab, setActiveTab] = useState('all-retailers'); // all-retailers, groups, invitations, settings
   const [selectedRetailer, setSelectedRetailer] = useState(null);
   const [editingRetailer, setEditingRetailer] = useState(null); // For Edit Modal
@@ -382,6 +382,7 @@ const RetailersManager = ({ notify }) => {
             onSelectRetailer={setSelectedRetailer} 
             onEditRetailer={setEditingRetailer}
             onInviteRetailers={() => setIsInviteModalOpen(true)}
+            initialParams={initialParams}
           />
         )}
         {activeTab === 'invitations' && (

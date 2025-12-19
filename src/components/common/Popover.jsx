@@ -6,9 +6,18 @@ const Popover = ({
   content, 
   position = 'bottom',
   className = '',
-  offset = 8
+  offset = 8,
+  isOpen: managedIsOpen, 
+  onOpenChange
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [internalIsOpen, setInternalIsOpen] = useState(false);
+  const isControlled = managedIsOpen !== undefined;
+  const isOpen = isControlled ? managedIsOpen : internalIsOpen;
+  const setIsOpen = (val) => {
+    if (onOpenChange) onOpenChange(val);
+    if (!isControlled) setInternalIsOpen(val);
+  };
+  
   const [coords, setCoords] = useState({ top: 0, left: 0 });
   const triggerRef = useRef(null);
   const contentRef = useRef(null);

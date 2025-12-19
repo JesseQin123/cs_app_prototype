@@ -1,10 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Search, Filter, Mail, Store, Info, MoreHorizontal, ChevronDown, Check, X, Bell, RefreshCw, Plus, Shield } from 'lucide-react';
+import { Search, Filter, Mail, Store, Info, MoreHorizontal, ChevronDown, Check, X, Bell, RefreshCw, Plus, Shield, ArrowUpRight, ArrowDownRight } from 'lucide-react';
 import Tooltip from '../../../components/Tooltip';
 import TierBadge from './TierBadge';
+import Popover from '../../../../components/common/Popover';
+import DropdownSelect from '../../../../components/common/DropdownSelect';
 
-// Custom Dropdown Component
-const FilterDropdown = ({ label, options, value, onChange, disabled = false, multi = false }) => {
+// Reusable Dropdown for Sort
+const FilterDropdown = ({ label, options, value, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -21,43 +23,238 @@ const FilterDropdown = ({ label, options, value, onChange, disabled = false, mul
   return (
     <div className="relative" ref={dropdownRef}>
       <button 
-        onClick={() => !disabled && setIsOpen(!isOpen)}
-        className={`px-3 py-2 border rounded-lg text-sm font-medium flex items-center gap-2 transition ${
+        onClick={() => setIsOpen(!isOpen)}
+        className={`h-10 px-4 border rounded-lg text-sm font-medium flex items-center gap-2 transition min-w-[160px] justify-between ${
           isOpen ? 'border-black ring-1 ring-black' : 'border-gray-200 hover:border-gray-300'
-        } ${disabled ? 'bg-gray-50 text-gray-400 cursor-not-allowed' : 'bg-white text-gray-700'}`}
+        } bg-white text-gray-700`}
       >
-        {label} <ChevronDown size={14} className={`transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+        <span className="truncate">{label}</span> 
+        <ChevronDown size={14} className={`transition-transform shrink-0 ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
       {isOpen && (
-        <div className="absolute top-full left-0 mt-1 w-56 bg-white border border-gray-200 rounded-lg shadow-xl z-30 animate-in fade-in zoom-in-95 duration-100">
+        <div className="absolute top-full right-0 mt-1 w-56 bg-white border border-gray-200 rounded-lg shadow-xl z-30 animate-in fade-in zoom-in-95 duration-100">
           <div className="p-1 max-h-60 overflow-y-auto">
-            {options.map((option) => {
-                const isSelected = multi 
-                    ? value.includes(option) 
-                    : value === option;
-                
-                return (
-                    <button
-                        key={option}
-                        onClick={() => {
-                            onChange(option);
-                            if (!multi) setIsOpen(false);
-                        }}
-                        className={`w-full text-left px-3 py-2 rounded-md text-sm flex items-center justify-between group ${
-                            isSelected ? 'bg-gray-50 text-black font-medium' : 'text-gray-600 hover:bg-gray-50'
-                        }`}
-                    >
-                        {option === 'All' ? `All ${label}s` : option}
-                        {isSelected && <Check size={14} className="text-black" />}
-                    </button>
-                );
-            })}
+            {options.map((option) => (
+                <button
+                    key={option}
+                    onClick={() => { onChange(option); setIsOpen(false); }}
+                    className={`w-full text-left px-3 py-2 rounded-md text-sm flex items-center justify-between group ${
+                        value === option ? 'bg-gray-50 text-black font-medium' : 'text-gray-600 hover:bg-gray-50'
+                    }`}
+                >
+                    {option}
+                    {value === option && <Check size={14} className="text-black" />}
+                </button>
+            ))}
           </div>
         </div>
       )}
     </div>
   );
+};
+
+
+
+// Filter Content Component (passed to standard Popover)
+const FilterContent = ({ filters, onApply, onCancel, options }) => {
+    const [tempFilters, setTempFilters] = useState(filters);
+    const [groupSearch, setGroupSearch] = useState('');
+    
+    // Create filtered options for Group Selection
+    const filteredGroups = options.GROUPS.filter(g => 
+        g.toLowerCase().includes(groupSearch.toLowerCase())
+    );
+
+    // Initialize temp filters when component mounts (Popover opens)
+    useEffect(() => {
+        setTempFilters(filters);
+    }, []); 
+
+    const handleClear = () => {
+        setTempFilters({
+            country: 'All',
+            zone: 'All',
+            groups: [],
+            tier: 'All',
+            status: 'All', // Assuming status is handled outside, but keeping structure
+            pendingOnly: tempFilters.pendingOnly
+        });
+    };
+
+    const activeCount = 
+        (filters.tier !== 'All' ? 1 : 0) + 
+        (filters.groups.length > 0 ? 1 : 0) + 
+        (filters.country !== 'All' ? 1 : 0);
+
+    return (
+        <div className="w-80 flex flex-col">
+            <div className="p-5 space-y-6 max-h-[600px] overflow-y-auto">
+                {/* Tier Section */}
+                <div className="space-y-3">
+                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Tier</label>
+                    <div className="grid grid-cols-2 gap-2">
+                        {options.TIERS.map(tier => (
+                            <button
+                                key={tier}
+                                onClick={() => setTempFilters({...tempFilters, tier})}
+                                className={`px-3 py-2 rounded-lg text-xs font-medium transition text-left border ${
+                                    tempFilters.tier === tier
+                                        ? 'bg-gray-50 border-black text-black ring-1 ring-black'
+                                        : 'bg-white text-gray-600 border-gray-200 hover:border-gray-300'
+                                }`}
+                            >
+                                {tier === 'All' ? 'All Tiers' : tier}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Groups Section */}
+                <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                        <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Groups</label>
+                        {tempFilters.groups.length > 0 && (
+                            <button 
+                                onClick={() => setTempFilters({...tempFilters, groups: []})}
+                                className="text-[10px] text-gray-500 hover:text-black underline"
+                            >
+                                Clear ({tempFilters.groups.length})
+                            </button>
+                        )}
+                    </div>
+                    
+                    <div className="relative">
+                        <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400" size={12} />
+                        <input 
+                            type="text" 
+                            placeholder="Search groups..." 
+                            value={groupSearch}
+                            onChange={(e) => setGroupSearch(e.target.value)}
+                            className="w-full pl-8 pr-3 py-1.5 text-xs border border-gray-200 rounded-md bg-gray-50 focus:bg-white focus:outline-hidden focus:border-black transition"
+                        />
+                    </div>
+
+                    <div className="space-y-1 max-h-[140px] overflow-y-auto pr-1">
+                        {filteredGroups.length > 0 ? filteredGroups.map(group => {
+                            const isSelected = tempFilters.groups.includes(group);
+                            return (
+                                <label key={group} className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded-lg cursor-pointer transition">
+                                    <div className={`w-4 h-4 rounded border flex items-center justify-center transition shrink-0 ${isSelected ? 'bg-black border-black text-white' : 'border-gray-300 bg-white'}`}>
+                                        {isSelected && <Check size={10} strokeWidth={3} />}
+                                    </div>
+                                    <input 
+                                        type="checkbox" 
+                                        className="hidden" 
+                                        checked={isSelected}
+                                        onChange={() => {
+                                            const newGroups = isSelected
+                                                ? tempFilters.groups.filter(g => g !== group)
+                                                : [...tempFilters.groups, group];
+                                            setTempFilters({...tempFilters, groups: newGroups});
+                                        }}
+                                    />
+                                    <span className={`text-xs font-medium truncate ${isSelected ? 'text-black' : 'text-gray-600'}`}>{group}</span>
+                                </label>
+                            );
+                        }) : (
+                            <div className="text-center py-4">
+                                <span className="text-xs text-gray-400">No groups found</span>
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                {/* Location Section */}
+                <div className="space-y-3 pt-2 border-t border-gray-100">
+                     <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Location</label>
+                     <div className="flex flex-col gap-3">
+                        <DropdownSelect 
+                            label="Country" 
+                            value={tempFilters.country}
+                            options={options.COUNTRIES}
+                            onChange={(val) => setTempFilters({...tempFilters, country: val, zone: 'All'})}
+                            usePortal={true}
+                        />
+                        <DropdownSelect 
+                            label="Zone" 
+                            value={tempFilters.zone}
+                            options={options.ZONES[tempFilters.country] || ['All']}
+                            onChange={(val) => setTempFilters({...tempFilters, zone: val})}
+                            disabled={tempFilters.country === 'All'} // Note: DropdownSelect needs disabled prop
+                            usePortal={true}
+                        />
+                     </div>
+                </div>
+            </div>
+
+            {/* Footer */}
+            <div className="p-4 border-t border-gray-100 bg-gray-50 rounded-b-xl flex items-center justify-between">
+                <button 
+                    onClick={handleClear}
+                    className="text-xs font-medium text-gray-500 hover:text-black transition"
+                >
+                    Clear All
+                </button>
+                <div className="flex items-center gap-3">
+                    <button 
+                        onClick={onCancel}
+                        className="text-xs font-medium text-gray-500 hover:text-black transition"
+                    >
+                        Cancel
+                    </button>
+                    <button 
+                        onClick={() => onApply(tempFilters)}
+                        className="text-xs font-medium bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition shadow-sm"
+                    >
+                        Apply Filters
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+// Filter Popover wrapper using standard components
+const FilterPopover = ({ filters, onApply, options }) => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    const activeCount = 
+        (filters.tier !== 'All' ? 1 : 0) + 
+        (filters.groups.length > 0 ? 1 : 0) + 
+        (filters.country !== 'All' ? 1 : 0);
+
+    return (
+        <Popover
+            isOpen={isOpen}
+            onOpenChange={setIsOpen}
+            trigger={
+                <button 
+                    className={`h-10 px-4 border rounded-lg text-sm font-medium flex items-center gap-2 transition ${
+                        isOpen || activeCount > 0 ? 'border-black ring-1 ring-black bg-gray-50' : 'border-gray-200 hover:border-gray-300 bg-white text-gray-700'
+                    }`}
+                >
+                    <Filter size={16} />
+                    More Filters
+                    {activeCount > 0 && (
+                        <span className="flex items-center justify-center bg-black text-white text-[10px] font-bold h-5 w-5 rounded-full ml-0.5">
+                            {activeCount}
+                        </span>
+                    )}
+                </button>
+            }
+            content={
+                <FilterContent 
+                    filters={filters} 
+                    onApply={(vals) => { onApply(vals); setIsOpen(false); }} 
+                    onCancel={() => setIsOpen(false)}
+                    options={options} 
+                />
+            }
+            position="bottom"
+            offset={8}
+        />
+    );
 };
 
 // Action Menu Component
@@ -112,15 +309,29 @@ const ActionMenu = ({ onEdit, onDeactivate, onReactivate, status }) => {
     );
 };
 
-const RetailerList = ({ retailers, onSelectRetailer, onEditRetailer, onInviteRetailers }) => {
+const RetailerList = ({ retailers, onSelectRetailer, onEditRetailer, onInviteRetailers, initialParams }) => {
+  // Initialize filters based on props (deep link support)
   const [filters, setFilters] = useState({
     country: 'All',
     zone: 'All',
     groups: [],
     tier: 'All',
-    status: 'All',
+    status: initialParams?.status || 'All', // e.g., 'Active'
     pendingOnly: false
   });
+
+  // Sorting State
+  const [sortKey, setSortKey] = useState(initialParams?.sortBy ? `${initialParams.sortBy}_${initialParams.sortDir || 'desc'}` : 'lastActive_desc');
+
+  // Sync with initialParams changes
+  useEffect(() => {
+    if (initialParams?.status) {
+        setFilters(prev => ({ ...prev, status: initialParams.status }));
+    }
+    if (initialParams?.sortBy) {
+        setSortKey(`${initialParams.sortBy}_${initialParams.sortDir || 'desc'}`);
+    }
+  }, [initialParams]);
 
   // Mock Options
   const COUNTRIES = ['All', 'United States', 'Canada'];
@@ -132,6 +343,26 @@ const RetailerList = ({ retailers, onSelectRetailer, onEditRetailer, onInviteRet
   const GROUPS = ['VIP', 'Department Store', 'Luxury', 'International', 'Boutique', 'Iconic', 'New Openings'];
   const TIERS = ['All', 'Platinum', 'Gold', 'Silver', 'Default Tier'];
   const STATUSES = ['All', 'Active', 'Inactive', 'Suspended'];
+  
+  const SORT_OPTIONS = [
+    'Recent Activity', 
+    'Adoption: High to Low', 
+    'Adoption: Low to High', 
+    'Retailer Name (A-Z)'
+  ];
+
+  const SORT_MAPPING = {
+    'Recent Activity': { key: 'lastActive', dir: 'desc' },
+    'Adoption: High to Low': { key: 'adoptionRate', dir: 'desc' },
+    'Adoption: Low to High': { key: 'adoptionRate', dir: 'asc' },
+    'Retailer Name (A-Z)': { key: 'name', dir: 'asc' }
+  };
+  
+  // Inverse Mapping for initial state
+  const getSortLabel = (key) => {
+      const entry = Object.entries(SORT_MAPPING).find(([_, config]) => `${config.key}_${config.dir}` === key);
+      return entry ? entry[0] : 'Recent Activity';
+  };
 
   const handleCountryChange = (val) => {
     setFilters({ ...filters, country: val, zone: 'All' });
@@ -153,6 +384,7 @@ const RetailerList = ({ retailers, onSelectRetailer, onEditRetailer, onInviteRet
         status: 'All',
         pendingOnly: false
     });
+    setSortKey('lastActive_desc');
   };
 
   const hasActiveFilters = filters.country !== 'All' || filters.zone !== 'All' || filters.groups.length > 0 || filters.tier !== 'All' || filters.status !== 'All' || filters.pendingOnly;
@@ -168,76 +400,107 @@ const RetailerList = ({ retailers, onSelectRetailer, onEditRetailer, onInviteRet
       return true;
   });
 
+  // Sorting Logic
+  const sortedRetailers = [...filteredRetailers].sort((a, b) => {
+      const label = getSortLabel(sortKey);
+      const { key, dir } = SORT_MAPPING[label] || { key: 'lastActive', dir: 'desc' };
+      
+      let valA, valB;
+      
+      switch(key) {
+          case 'adoptionRate':
+              valA = a.adoptionRate;
+              valB = b.adoptionRate;
+              break;
+          case 'name':
+              valA = a.name.toLowerCase();
+              valB = b.name.toLowerCase();
+              break;
+          case 'lastActive':
+          default:
+              valA = new Date(a.lastActive).getTime();
+              valB = new Date(b.lastActive).getTime();
+              break;
+      }
+
+      if (valA < valB) return dir === 'asc' ? -1 : 1;
+      if (valA > valB) return dir === 'asc' ? 1 : -1;
+      return 0;
+  });
+
   const pendingCount = retailers.filter(r => r.hasPendingAction).length;
 
   return (
     <div className="bg-white rounded-lg border border-gray-200 overflow-hidden flex flex-col h-full shadow-xs">
       {/* Filter Bar */}
       <div className="p-4 border-b border-gray-100 flex flex-col gap-4">
-        {/* Row 1: Search + Actions + Dropdowns */}
+        {/* Top Actions Row */}
         <div className="flex items-center justify-between gap-4">
-             {/* Search */}
-            <div className="relative flex-1 max-w-md">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-                <input 
-                    type="text" 
-                    placeholder="Search by name, ID, or email..." 
-                    className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-black/5 transition"
-                />
-            </div>
+            
+            {/* Left Group: Search & Primary Filters */}
+            <div className="flex items-center gap-3 flex-1">
+                 {/* Search */}
+                <div className="relative w-64">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                    <input 
+                        type="text" 
+                        placeholder="Search retailers..." 
+                        className="w-full pl-10 pr-4 h-10 border border-gray-200 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-black/5 transition"
+                    />
+                </div>
 
-            {/* Filters */}
-            <div className="flex items-center gap-3">
-                <button 
+                <div className="w-px h-6 bg-gray-200"></div>
+
+                {/* Status Dropdown (Primary) */}
+                 <div className="relative">
+                     <FilterDropdown 
+                        label={filters.status === 'All' ? 'Status' : filters.status} 
+                        options={STATUSES} 
+                        value={filters.status} 
+                        onChange={(val) => setFilters({...filters, status: val})} 
+                    />
+                 </div>
+
+                {/* More Filters Popover (Tier, Group, Geo) */}
+                <FilterPopover 
+                    filters={filters} 
+                    onApply={setFilters}
+                    options={{ TIERS, GROUPS, COUNTRIES, ZONES }}
+                />
+
+                {/* Quick Filter: Pending */}
+                 <button 
                     onClick={() => setFilters({...filters, pendingOnly: !filters.pendingOnly})}
-                    className={`px-3 py-2 border rounded-lg text-sm font-medium flex items-center gap-2 transition ${
+                    className={`h-10 px-3 border rounded-lg text-sm font-medium flex items-center gap-2 transition ${
                         filters.pendingOnly ? 'bg-amber-50 border-amber-200 text-amber-700' : 'bg-white border-gray-200 text-gray-700 hover:border-gray-300'
                     }`}
                 >
                     <Bell size={14} className={filters.pendingOnly ? 'fill-current' : ''} />
-                    Pending Actions ({pendingCount})
+                    Pending ({pendingCount})
                 </button>
-                <div className="w-px h-6 bg-gray-200 mx-1"></div>
-                <FilterDropdown 
-                    label="Country" 
-                    options={COUNTRIES} 
-                    value={filters.country} 
-                    onChange={handleCountryChange} 
-                />
-                <FilterDropdown 
-                    label="Zone" 
-                    options={ZONES[filters.country] || ['All']} 
-                    value={filters.zone} 
-                    onChange={(val) => setFilters({...filters, zone: val})}
-                    disabled={!ZONES[filters.country] || filters.country === 'All'}
-                />
-                <FilterDropdown 
-                    label="Groups" 
-                    options={GROUPS} 
-                    value={filters.groups} 
-                    onChange={toggleGroup} 
-                    multi={true}
-                />
-                <FilterDropdown 
-                    label="Tier" 
-                    options={TIERS} 
-                    value={filters.tier} 
-                    onChange={(val) => setFilters({...filters, tier: val})} 
-                />
-                <FilterDropdown 
-                    label="Status" 
-                    options={STATUSES} 
-                    value={filters.status} 
-                    onChange={(val) => setFilters({...filters, status: val})} 
-                />
             </div>
 
-             <button 
-                onClick={onInviteRetailers}
-                className="px-4 py-2 bg-black text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition flex items-center gap-2 shadow-xs ml-4"
-             >
-                <Plus size={16} /> Invite Retailers
-             </button>
+            {/* Right Group: Sort & Main Action */}
+            <div className="flex items-center gap-3">
+                 <div className="relative">
+                    <FilterDropdown 
+                        label={getSortLabel(sortKey)} 
+                        options={SORT_OPTIONS}
+                        value={getSortLabel(sortKey)}
+                        onChange={(val) => {
+                            const config = SORT_MAPPING[val];
+                            if (config) setSortKey(`${config.key}_${config.dir}`);
+                        }}
+                    />
+                </div>
+
+                 <button 
+                    onClick={onInviteRetailers}
+                    className="h-10 px-4 bg-black text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition flex items-center gap-2 shadow-xs"
+                 >
+                    <Plus size={16} /> Invite Retailers
+                 </button>
+            </div>
         </div>
         
         {/* Row 2: Active Filter Pills */}
@@ -317,7 +580,7 @@ const RetailerList = ({ retailers, onSelectRetailer, onEditRetailer, onInviteRet
                 </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
-                {filteredRetailers.map(retailer => (
+                {sortedRetailers.map(retailer => (
                 <tr 
                     key={retailer.id} 
                     onClick={() => onSelectRetailer(retailer)}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TrendingUp, Users, BarChart3, Activity, ArrowUpRight, ArrowDownRight, Megaphone, Store, ChevronUp, ChevronDown } from 'lucide-react';
+import { TrendingUp, Users, BarChart3, Activity, ArrowUpRight, ArrowDownRight, Megaphone, Store, ChevronUp, ChevronDown, Eye, MousePointerClick } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, Bar, Line, ComposedChart, CartesianGrid, Legend } from 'recharts';
 
 const PerformanceOverview = ({ campaigns }) => {
@@ -20,39 +20,80 @@ const PerformanceOverview = ({ campaigns }) => {
     { month: 'Nov', reach: 2.4, engagement: 185, invited: 1250, participating: 1150 },
   ];
 
-  // Core Metrics (Reduced to 4)
+  // 1. Active Campaigns
+  // Logic: Count (Status = 'Active')
+  const activeCount = activeCampaigns.length;
+
+  // 2. Retailer Adoption (Avg)
+  // Logic: Avg (Adoption Rate of all Active Campaigns)
+  const avgAdoption =
+    activeCampaigns.length > 0
+      ? Math.round(
+          activeCampaigns.reduce((acc, c) => acc + (c.adoptionRate || 0), 0) /
+            activeCampaigns.length
+        )
+      : 0;
+
+  // 3. Est. Audience Reach (B2C Breadth)
+  // Logic: Sum (Email Opens + Social Impressions) of Active Campaigns
+  const totalReach = activeCampaigns.reduce((acc, c) => {
+    const m = c.metrics || { emailOpens: 0, socialImpressions: 0 };
+    return acc + (m.emailOpens || 0) + (m.socialImpressions || 0);
+  }, 0);
+
+  // Helper to format large numbers (e.g., 1.2M, 45K)
+  const formatCompact = (num) =>
+    new Intl.NumberFormat("en-US", { notation: "compact", compactDisplay: "short" }).format(
+      num
+    );
+
+  // 4. Customer Interactions (B2C Depth/Quality)
+  // Logic: Sum (Clicks + Likes + Comments + Shares) of Active Campaigns
+  // Note: Explicitly EXCLUDES Email Opens as per requirements.
+  const totalInteractions = activeCampaigns.reduce((acc, c) => {
+    const m = c.metrics || { clicks: 0, likes: 0, comments: 0, shares: 0 };
+    return (
+      acc +
+      (m.clicks || 0) +
+      (m.likes || 0) +
+      (m.comments || 0) +
+      (m.shares || 0)
+    );
+  }, 0);
+
+  // Core Metrics (Updated for Brand Partner Hub)
   const metrics = [
     {
       label: 'Active Campaigns',
-      value: activeCampaigns.length,
-      sub: 'Currently running',
-      trend: '+2',
+      value: activeCount,
+      sub: 'Running in this timeframe',
+      trend: '+1', // Mock trend
       trendDir: 'up',
-      icon: <Megaphone size={16} className="text-gray-400"/>
+      icon: <Megaphone size={16} className="text-gray-400" />
     },
     {
-      label: 'Avg. Adoption Rate',
-      value: '68%',
+      label: 'Retailer Adoption',
+      value: `${avgAdoption}%`,
+      sub: 'Avg. per campaign', // Reflecting B2B Breadth
       trend: '+5%',
       trendDir: 'up',
-      sub: 'Retailer participation',
-      icon: <Store size={16} className="text-gray-400"/>
+      icon: <Store size={16} className="text-gray-400" />
     },
     {
-      label: 'Total Consumer Reach',
-      value: '2.4M',
-      trend: '+18%',
+      label: 'Est. Audience Reach',
+      value: formatCompact(totalReach),
+      sub: 'Total Opens & Impressions', // Reflecting B2C Breadth
+      trend: '+12%',
       trendDir: 'up',
-      sub: 'Across all channels',
-      icon: <Users size={16} className="text-gray-400"/>
+      icon: <Eye size={16} className="text-gray-400" />
     },
     {
-      label: 'Avg. Engagement Rate',
-      value: '4.2%',
-      trend: '-0.5%',
-      trendDir: 'down',
-      sub: 'Per campaign average',
-      icon: <Activity size={16} className="text-gray-400"/>
+      label: 'Customer Interactions',
+      value: formatCompact(totalInteractions),
+      sub: 'Clicks & Social Engagement', // Reflecting B2C Depth/Quality
+      trend: '+8%',
+      trendDir: 'up',
+      icon: <MousePointerClick size={16} className="text-gray-400" /> // Using MousePointerClick for interactions
     }
   ];
 
@@ -109,7 +150,7 @@ const PerformanceOverview = ({ campaigns }) => {
                     Active Campaigns: <strong className="text-gray-900">{activeCampaigns.length}</strong>
                   </span>
                   <span className="w-px h-3 bg-gray-200"></span>
-                  <span>Avg. Adoption: <strong className="text-gray-900">68%</strong></span>
+                  <span>Est. Reach: <strong className="text-gray-900">{formatCompact(totalReach)}</strong></span>
                </div>
             )}
          </div>
