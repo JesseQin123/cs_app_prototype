@@ -1,29 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { PenLine, ArrowRight, AlertTriangle, Send, FileText, Image as ImageIcon, Timer, Info, Bell, MessageSquare, X, Video, Users, Store, MousePointerClick, Download, Eye, BarChart2, Flag } from 'lucide-react';
 import { createPortal } from 'react-dom';
 import ReadinessChecklist from './ReadinessChecklist';
 import { useToast } from '../../../../context/ToastContext';
 import Tooltip from '@/components/Tooltip';
+import NudgeModal, { RISKS } from '../../NudgeModal';
 
 const OverviewTab = ({ campaign, data, setActiveTab }) => {
   const isDraft = campaign.status === 'Draft';
   const { addToast } = useToast();
-  
+
   // Prioritize campaign-specific metrics (if injected) over shared overview archetype data
   const metrics = campaign.metrics || data?.metrics || {};
 
   const [showNudgeModal, setShowNudgeModal] = useState(false);
-  const [nudgeMessage, setNudgeMessage] = useState('');
-  
+  const [nudgeTarget, setNudgeTarget] = useState(null);
+
+  // Ensure retailers have IDs for NudgeModal
+  const nudgeRetailers = useMemo(() => {
+    return (data?.needsAttention || []).map((r, i) => ({
+      ...r,
+      id: r.id || `na-temp-${i}`,
+      tier: 'Standard',
+      name: r.name
+    }));
+  }, [data?.needsAttention]);
+
   const handleNudge = (retailerName = null) => {
-    setNudgeMessage(`Hi ${retailerName ? 'Partner' : 'Team'}, \n\nJust a friendly reminder that our ${campaign.title} campaign is live. We'd love for you to participate!\n\nBest,\nThe CrownSync Team`);
+    if (retailerName) {
+        const target = nudgeRetailers.find(r => r.name === retailerName);
+        setNudgeTarget(target || { id: `manual-${Date.now()}`, name: retailerName });
+    } else {
+        setNudgeTarget(null);
+    }
     setShowNudgeModal(true);
   };
 
-  const confirmSendNudge = () => {
-    setShowNudgeModal(false);
-    setNudgeMessage('');
-    addToast('Reminder sent successfully!', 'success');
+  const handleSendNudge = (nudgeData) => {
+      addToast(`Reminder sent to ${nudgeData.count} retailer(s)`, 'success');
+      setShowNudgeModal(false);
   };
 
   // --- Draft State: Launchpad ---
@@ -125,15 +140,17 @@ const OverviewTab = ({ campaign, data, setActiveTab }) => {
            
            {/* Status Badge */}
            {campaign.status === 'Active' ? (
-                <div className="flex items-center gap-2 px-2.5 py-1 bg-emerald-50 border border-emerald-100 rounded-full text-[11px] font-bold text-emerald-700 shadow-xs">
-                   <div className="relative flex items-center justify-center w-2 h-2">
-                        <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping"></span>
-                        <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-600"></span>
-                   </div>
-                   Live Data
-                   <span className="w-px h-3 bg-emerald-200 mx-1"></span>
-                   <span className="text-emerald-600 font-medium">Started: {new Date(campaign.startDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
-                </div>
+                <Tooltip content="Auto-refreshes every 30 minutes">
+                    <div className="flex items-center gap-2 px-2.5 py-1 bg-emerald-50 border border-emerald-100 rounded-full text-[11px] font-bold text-emerald-700 shadow-xs cursor-help">
+                        <div className="relative flex items-center justify-center w-2 h-2">
+                                <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping"></span>
+                                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-600"></span>
+                        </div>
+                        Live Data
+                        <span className="w-px h-3 bg-emerald-200 mx-1"></span>
+                        <span className="text-emerald-600 font-medium">Started: {new Date(campaign.startDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                    </div>
+                </Tooltip>
            ) : (
                 <div className="flex items-center gap-1.5 px-2.5 py-1 bg-gray-100 border border-gray-200 rounded-full text-[11px] font-bold text-gray-600 shadow-xs">
                      <Flag size={12} className="fill-gray-500 text-gray-500" />
@@ -322,12 +339,14 @@ const OverviewTab = ({ campaign, data, setActiveTab }) => {
                     <div className="text-center text-gray-400 text-sm py-4">All good! No urgent items.</div>
                  )}
               </div>
-              <button 
-                onClick={() => handleNudge()}
-                className="w-full py-2 bg-gray-50 hover:bg-amber-50 text-gray-700 hover:text-amber-700 text-sm font-bold rounded-lg flex items-center justify-center gap-2 transition border border-transparent hover:border-amber-200"
-              >
-                 <Bell size={14}/> Nudge All
-              </button>
+              {needsAttentionList.length > 0 && (
+                  <button 
+                    onClick={() => handleNudge()}
+                    className="w-full py-2 bg-gray-50 hover:bg-amber-50 text-gray-700 hover:text-amber-700 text-sm font-bold rounded-lg flex items-center justify-center gap-2 transition border border-transparent hover:border-amber-200"
+                  >
+                     <Bell size={14}/> Nudge All
+                  </button>
+              )}
            </div>
 
            {/* Top Content - Refactored */}
@@ -357,57 +376,16 @@ const OverviewTab = ({ campaign, data, setActiveTab }) => {
         </div>
       </div>
 
-      {/* --- Nudge Modal --- */}
-      {showNudgeModal && createPortal(
-        <div className="fixed inset-0 z-9999 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/40 backdrop-blur-xs animate-in fade-in" onClick={() => setShowNudgeModal(false)}></div>
-          <div className="relative bg-white rounded-xl shadow-2xl max-w-2xl w-full p-6 animate-in zoom-in-95 duration-200">
-            <div className="flex justify-between items-start mb-4">
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-amber-100 rounded-lg">
-                  <MessageSquare size={20} className="text-amber-600" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-gray-900">Smart Nudge</h3>
-                  <p className="text-sm text-gray-500">Customize your reminder message</p>
-                </div>
-              </div>
-              <button onClick={() => setShowNudgeModal(false)} className="p-1 hover:bg-gray-100 rounded-full text-gray-500">
-                <X size={20}/>
-              </button>
-            </div>
-
-            <div className="mb-6">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Message Content
-              </label>
-              <textarea
-                value={nudgeMessage}
-                onChange={(e) => setNudgeMessage(e.target.value)}
-                rows={6}
-                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 resize-none"
-                placeholder="Write a friendly reminder..."
-              />
-            </div>
-
-            <div className="flex justify-end gap-3">
-              <button
-                onClick={() => setShowNudgeModal(false)}
-                className="px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100 rounded-lg transition"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={confirmSendNudge}
-                className="px-6 py-2 text-sm font-bold text-white bg-black hover:bg-gray-800 rounded-lg shadow-xs transition"
-              >
-                Send Reminder
-              </button>
-            </div>
-          </div>
-        </div>,
-        document.body
-      )}
+      {/* --- Global Nudge Modal --- */}
+      <NudgeModal
+        isOpen={showNudgeModal}
+        onClose={() => setShowNudgeModal(false)}
+        mode={nudgeTarget ? 'single' : 'bulk'}
+        retailer={nudgeTarget}
+        retailers={nudgeRetailers}
+        riskType={RISKS.GENERIC}
+        onSend={handleSendNudge}
+      />
 
     </div>
   );

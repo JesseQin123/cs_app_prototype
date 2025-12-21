@@ -378,13 +378,15 @@ const RetailerAdoptionTab = ({ campaign }) => {
         </div>
         <div className="flex items-center gap-3">
           {campaign.status === 'Active' ? (
-              <div className="flex items-center gap-2 px-2.5 py-1 bg-emerald-50 border border-emerald-100 rounded-full text-[11px] font-bold text-emerald-700 shadow-xs">
-                <div className="relative flex items-center justify-center w-2 h-2">
-                    <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping"></span>
-                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-600"></span>
-                </div>
-                Live Data
-              </div>
+              <Tooltip content="Auto-refreshes every 30 minutes">
+                  <div className="flex items-center gap-2 px-2.5 py-1 bg-emerald-50 border border-emerald-100 rounded-full text-[11px] font-bold text-emerald-700 shadow-xs cursor-help">
+                    <div className="relative flex items-center justify-center w-2 h-2">
+                        <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping"></span>
+                        <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-600"></span>
+                    </div>
+                    Live Data
+                  </div>
+              </Tooltip>
           ) : (
               <div className="flex items-center gap-1.5 px-2.5 py-1 bg-gray-100 border border-gray-200 rounded-full text-[11px] font-bold text-gray-600 shadow-xs">
                 <Flag size={12} className="fill-gray-500 text-gray-500" />
