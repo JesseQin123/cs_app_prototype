@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowUpRight, Video, Image as ImageIcon, FileText, Mail, Search, Download, Calendar, Filter } from 'lucide-react';
+import { AreaChart, Area, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, Bar, Line, ComposedChart } from 'recharts';
 import { analyticsData } from '../../../../data/mockStore/analyticsStore';
 import FilterDropdown from './FilterDropdown';
 
@@ -8,6 +9,16 @@ const ContentInsightsTab = ({ notify }) => {
     const [search, setSearch] = useState('');
     const [dateRange, setDateRange] = useState('Last 30 Days');
     const [zone, setZone] = useState('All Zones');
+
+    // Mock Trend Data (Migrated from PerformanceOverview)
+    const trendData = [
+        { month: 'Jun', reach: 1.2, engagement: 85, invited: 800, participating: 500 },
+        { month: 'Jul', reach: 1.5, engagement: 110, invited: 950, participating: 650 },
+        { month: 'Aug', reach: 1.8, engagement: 140, invited: 1100, participating: 800 },
+        { month: 'Sep', reach: 2.1, engagement: 160, invited: 1200, participating: 950 },
+        { month: 'Oct', reach: 2.3, engagement: 175, invited: 1248, participating: 1100 },
+        { month: 'Nov', reach: 2.4, engagement: 185, invited: 1250, participating: 1150 },
+    ];
 
     const filteredContent = contentDrilldown.filter(item => 
         item.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -43,6 +54,66 @@ const ContentInsightsTab = ({ notify }) => {
                     onChange={setZone} 
                     icon={Filter} 
                  />
+            </div>
+
+            {/* Participation & Engagement Trends (Migrated) */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Chart 1: Content Impact (Combo) */}
+                <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-xs">
+                   <div className="flex justify-between items-center mb-4">
+                      <h3 className="font-bold text-gray-900">Content Impact</h3>
+                      <div className="flex gap-4 text-xs">
+                          <span className="flex items-center gap-1.5 text-gray-400"><span className="w-2 h-2 rounded-full bg-[#C5D1C7]"></span> Reach</span>
+                          <span className="flex items-center gap-1.5 text-gray-400"><span className="w-2 h-2 rounded-full bg-brand-gold"></span> Engagement</span>
+                      </div>
+                   </div>
+                   <div className="h-64 w-full">
+                      <ResponsiveContainer width="100%" height="100%">
+                         <ComposedChart data={trendData}>
+                            <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{fontSize: 10, fill: '#9CA3AF'}} dy={10} />
+                            <YAxis yAxisId="left" hide />
+                            <YAxis yAxisId="right" orientation="right" hide />
+                            <RechartsTooltip 
+                                contentStyle={{backgroundColor: '#fff', borderRadius: '8px', border: '1px solid #f3f4f6', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'}}
+                                itemStyle={{fontSize: '12px', fontWeight: 500}}
+                                separator=": "
+                            />
+                            <Bar yAxisId="left" dataKey="reach" fill="#C5D1C7" barSize={32} radius={[4, 4, 0, 0]} />
+                            <Line yAxisId="right" type="monotone" dataKey="engagement" stroke="#b5984d" strokeWidth={3} dot={{r: 3, fill: '#b5984d', strokeWidth: 2, stroke: '#fff'}} />
+                         </ComposedChart>
+                      </ResponsiveContainer>
+                   </div>
+                </div>
+
+                {/* Chart 2: Retailer Participation (Double Area) */}
+                <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-xs">
+                   <div className="flex justify-between items-center mb-4">
+                      <h3 className="font-bold text-gray-900">Retailer Participation</h3>
+                      <div className="flex gap-4 text-xs">
+                          <span className="flex items-center gap-1.5 text-gray-400"><span className="w-2 h-2 rounded-full bg-gray-200"></span> Invited</span>
+                          <span className="flex items-center gap-1.5 text-gray-400"><span className="w-2 h-2 rounded-full bg-brand-gold"></span> Participating</span>
+                      </div>
+                   </div>
+                   <div className="h-64 w-full">
+                      <ResponsiveContainer width="100%" height="100%">
+                         <AreaChart data={trendData}>
+                            <defs>
+                                <linearGradient id="colorParticipating" x1="0" y1="0" x2="0" y2="1">
+                                  <stop offset="5%" stopColor="#b5984d" stopOpacity={0.1}/>
+                                  <stop offset="95%" stopColor="#b5984d" stopOpacity={0}/>
+                                </linearGradient>
+                            </defs>
+                            <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{fontSize: 10, fill: '#9CA3AF'}} dy={10} />
+                            <RechartsTooltip 
+                                contentStyle={{backgroundColor: '#fff', borderRadius: '8px', border: '1px solid #f3f4f6', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'}}
+                                itemStyle={{fontSize: '12px', fontWeight: 500}}
+                            />
+                            <Area type="monotone" dataKey="invited" stroke="#E5E7EB" strokeWidth={2} fill="transparent" strokeDasharray="4 4" />
+                            <Area type="monotone" dataKey="participating" stroke="#b5984d" strokeWidth={2} fill="url(#colorParticipating)" />
+                         </AreaChart>
+                      </ResponsiveContainer>
+                   </div>
+                </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { ArrowUpRight, ArrowDownRight, Minus, Users, Download, Activity, AlertCircle, Eye, Bell, Calendar, Filter, PieChart, MousePointerClick, XCircle, ChevronRight, ShieldAlert, Zap } from 'lucide-react';
+import { ArrowUpRight, ArrowDownRight, Minus, Users, Download, Activity, AlertCircle, Eye, Bell, Calendar, Filter, PieChart, MousePointerClick, XCircle, ChevronRight, ShieldAlert, Zap, Info } from 'lucide-react';
+import Tooltip from '../../../components/Tooltip';
 import { networkOverviewData } from '../../../data/mockStore/networkOverviewStore';
 import FilterDropdown from '../analytics/components/FilterDropdown';
 import TierBadge from './retailers/TierBadge';
@@ -41,10 +42,15 @@ const KpiCard = ({ kpi, onReview }) => {
             
             {/* Header Section - Fixed Height for Alignment */}
             <div className="flex justify-between items-center h-7 mb-2">
-                <div className="flex flex-col">
+                <div className="flex items-center gap-1.5">
                     <span className={`text-xs font-semibold uppercase tracking-wide ${kpi.isAlert ? 'text-red-700' : 'text-gray-500'}`}>
                         {kpi.label}
                     </span>
+                    {kpi.tooltip && (
+                        <Tooltip content={kpi.tooltip}>
+                             <Info size={12} className={`${kpi.isAlert ? 'text-red-300 hover:text-red-500' : 'text-gray-300 hover:text-gray-500'} transition`}/>
+                        </Tooltip>
+                    )}
                 </div>
                 
                  {/* Top Right: Icon for Standard, Navigation Icon for Alert */}
@@ -71,7 +77,7 @@ const KpiCard = ({ kpi, onReview }) => {
 
             {/* Main Value Section - Top Pinned */}
             <div className="flex items-end gap-2 mb-1">
-                 <h3 className={`text-3xl font-semibold tracking-tight leading-none ${kpi.isAlert ? 'text-red-600' : 'text-gray-900'}`}>
+                 <h3 className={`text-3xl font-bold tracking-tight leading-none ${kpi.isAlert ? 'text-red-600' : 'text-gray-900'}`}>
                     {kpi.value}
                  </h3>
                  {kpi.total && <span className="text-sm text-gray-400 font-medium mb-1">/ {kpi.total}</span>}
@@ -82,7 +88,7 @@ const KpiCard = ({ kpi, onReview }) => {
                  {/* Standard Trend */}
                  {!kpi.isAlert && kpi.trend && (
                     <div className="flex items-center justify-between">
-                         <span className="text-[10px] text-gray-400 font-medium">{kpi.description}</span>
+                         <span className="text-[11px] text-gray-400 font-medium">{kpi.description}</span>
                          <span className={`flex items-center text-xs font-bold px-1.5 py-0.5 rounded ${
                             isUp ? 'bg-emerald-50 text-emerald-600' :
                             isNeutral ? 'bg-gray-100 text-gray-600' :
@@ -267,13 +273,22 @@ const PartnerOverview = ({ files, campaigns, notify, isEmpty, navigateTo }) => {
 
             {/* Section A: KPIs */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {currentKpi.map(item => (
-                    <KpiCard 
-                        key={item.id} 
-                        kpi={item} 
-                        onReview={getKpiInteraction(item)}
-                    />
-                ))}
+                {currentKpi.map(item => {
+                    const tooltips = {
+                       'Active Partners': "Number of partners who logged into the portal at least once during the selected timeframe.",
+                       'Adoption Rate': "The percentage of your total connected network (excluding pending invites) that has logged in or performed an action.",
+                       'Partner Actions': "Total count of assets downloaded and marketing activities executed (social posts & emails) by all partners.",
+                       'Needs Attention': "Partners flagged as 'Inactive' have not logged in for 30+ days. 'Zero Actions' indicates partners who logged in but did not download or publish content."
+                    };
+
+                    return (
+                        <KpiCard 
+                            key={item.id} 
+                            kpi={{...item, tooltip: tooltips[item.label]}} 
+                            onReview={getKpiInteraction(item)}
+                        />
+                    );
+                })}
             </div>
 
             {/* Section B: Visual Insights */}

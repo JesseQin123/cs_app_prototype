@@ -462,7 +462,7 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
                                 {campaign.adoptionRate !== null ? `${campaign.adoptionRate}%` : '--'}
                               </div>
                               <div className="flex items-center gap-3">
-                                  <Tooltip content="Activities Published">
+                                  <Tooltip content="Activities Executed">
                                       <div className="flex items-center gap-1.5 text-sm font-medium text-gray-700">
                                         <Send size={12} className="text-gray-400" />
                                         {campaign.activityCount !== null && campaign.activityCount !== undefined ? campaign.activityCount : '--'}
@@ -575,7 +575,7 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
                               </td>
                               <td className="px-6 py-4 text-xs text-gray-600">
                                  <div className="flex items-center gap-3">
-                                  <Tooltip content="Activities Published">
+                                  <Tooltip content="Activities Executed">
                                       <div className="flex items-center gap-1.5">
                                           <Send size={12} className="text-gray-400" />
                                           <span>{campaign.activityCount !== null && campaign.activityCount !== undefined ? campaign.activityCount : '--'}</span>

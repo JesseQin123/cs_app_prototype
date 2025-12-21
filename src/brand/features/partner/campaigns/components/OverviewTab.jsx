@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
-import { PenLine, ArrowRight, AlertTriangle, Send, FileText, Image as ImageIcon, Timer, Info, Bell, MessageSquare, X, Video } from 'lucide-react';
+import { PenLine, ArrowRight, AlertTriangle, Send, FileText, Image as ImageIcon, Timer, Info, Bell, MessageSquare, X, Video, Users, Store, MousePointerClick, Download, Eye, BarChart2, Flag } from 'lucide-react';
 import { createPortal } from 'react-dom';
 import ReadinessChecklist from './ReadinessChecklist';
 import { useToast } from '../../../../context/ToastContext';
+import Tooltip from '@/components/Tooltip';
 
 const OverviewTab = ({ campaign, data, setActiveTab }) => {
   const isDraft = campaign.status === 'Draft';
   const { addToast } = useToast();
+  
+  // Prioritize campaign-specific metrics (if injected) over shared overview archetype data
+  const metrics = campaign.metrics || data?.metrics || {};
 
   const [showNudgeModal, setShowNudgeModal] = useState(false);
   const [nudgeMessage, setNudgeMessage] = useState('');
@@ -108,39 +112,145 @@ const OverviewTab = ({ campaign, data, setActiveTab }) => {
   }
 
   // --- Active State: Dashboard ---
-  const adoptionRate = data?.metrics?.adoptionRate ?? campaign.adoptionRate ?? 0;
-  const downloads = data?.metrics?.downloads ?? campaign.downloads ?? 0;
-  const totalViews = data?.metrics?.totalViews ?? campaign.views ?? 0;
-  const timeLeft = data?.metrics?.timeLeft || (campaign.endDate === 'Permanent' ? '∞' : '5 Days');
-  
   const needsAttentionList = data?.needsAttention || [];
   const topContentList = data?.topPerformingContent || [];
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      {/* Metrics Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-xs">
-          <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">Adoption Rate</div>
-          <div className="text-3xl font-bold text-gray-900">{adoptionRate}%</div>
-          <div className="text-xs text-emerald-600 mt-1 font-medium">+5% from last week</div>
+      {/* Header Status & KPI Cards */}
+      <div className="space-y-4">
+        {/* Status Indicator */}
+        <div className="flex items-center justify-between">
+           <h3 className="text-gray-900 font-bold hidden md:block">Campaign Performance</h3>
+           
+           {/* Status Badge */}
+           {campaign.status === 'Active' ? (
+                <div className="flex items-center gap-2 px-2.5 py-1 bg-emerald-50 border border-emerald-100 rounded-full text-[11px] font-bold text-emerald-700 shadow-xs">
+                   <div className="relative flex items-center justify-center w-2 h-2">
+                        <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping"></span>
+                        <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-600"></span>
+                   </div>
+                   Live Data
+                   <span className="w-px h-3 bg-emerald-200 mx-1"></span>
+                   <span className="text-emerald-600 font-medium">Started: {new Date(campaign.startDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                </div>
+           ) : (
+                <div className="flex items-center gap-1.5 px-2.5 py-1 bg-gray-100 border border-gray-200 rounded-full text-[11px] font-bold text-gray-600 shadow-xs">
+                     <Flag size={12} className="fill-gray-500 text-gray-500" />
+                     Ended on: {new Date(campaign.endDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                </div>
+           )}
         </div>
-        <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-xs">
-          <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">Total Views</div>
-          <div className="text-3xl font-bold text-gray-900">{totalViews.toLocaleString()}</div>
-          <div className="text-xs text-gray-400 mt-1 font-medium">Retailer impressions</div>
-        </div>
-        <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-xs">
-          <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">Downloads</div>
-          <div className="text-3xl font-bold text-gray-900">{downloads.toLocaleString()}</div>
-          <div className="text-xs text-gray-400 mt-1 font-medium">Asset downloads</div>
-        </div>
-        <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-xs">
-          <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">Time Left</div>
-          <div className="text-3xl font-bold text-gray-900">
-            {timeLeft}
-          </div>
-          <div className="text-xs text-gray-400 mt-1 font-medium">{campaign.endDate === 'Permanent' ? 'No Expiration' : `Ends ${campaign.endDate}`}</div>
+
+        {/* 4 KPI Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            
+            {/* Card 1: Retailer Adoption (Slot 1 - Funnel Top) */}
+            <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-xs hover:shadow-md transition duration-300 group relative">
+                 <div className="flex items-start justify-between mb-2">
+                     <div className="flex items-center gap-2">
+                        <h4 className="text-[11px] font-bold text-gray-500 uppercase tracking-wide">Retailer Adoption</h4>
+                        <Tooltip content="Percentage of invited retailers who have downloaded assets or executed marketing activities.">
+                            <Info size={12} className="text-gray-300 hover:text-gray-500 transition"/>
+                        </Tooltip>
+                     </div>
+                     <Store size={18} className="text-gray-400"/>
+                 </div>
+                 
+                 <div className="flex items-baseline gap-2 mb-2">
+                     <span className={`text-3xl font-bold tracking-tight ${campaign.status === 'Active' ? 'text-gray-900' : 'text-gray-500'}`}>
+                        {metrics?.retailerAdoption ? Math.round((metrics.retailerAdoption.participants / metrics.retailerAdoption.totalInvited) * 100) : campaign.adoptionRate}%
+                     </span>
+                 </div>
+                 <div className="text-[11px] text-gray-400 font-medium">
+                     {metrics?.retailerAdoption?.participants || Math.round((campaign.adoptionRate / 100) * 185)} / {metrics?.retailerAdoption?.totalInvited || 185} Participated
+                 </div>
+            </div>
+
+            {/* Card 2: Total Usage (Slot 2 - B2B Execution) */}
+            <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-xs hover:shadow-md transition duration-300 group relative">
+                 <div className="flex items-start justify-between mb-2">
+                     <div className="flex items-center gap-2">
+                        <h4 className="text-[11px] font-bold text-gray-500 uppercase tracking-wide">Total Usage</h4>
+                        <Tooltip content="Total volume of assets downloaded and marketing activities executed.">
+                            <Info size={12} className="text-gray-300 hover:text-gray-500 transition"/>
+                        </Tooltip>
+                     </div>
+                     <BarChart2 size={18} className="text-gray-400"/>
+                 </div>
+
+                 <div className="flex items-baseline gap-2 mb-2">
+                     <span className={`text-3xl font-bold tracking-tight ${campaign.status === 'Active' ? 'text-gray-900' : 'text-gray-500'}`}>
+                        {((metrics?.totalUsage?.downloads || 0) + (metrics?.totalUsage?.publishes || 0)).toLocaleString()}
+                     </span>
+                 </div>
+                 
+                 <div className="flex items-center gap-3 text-[11px] text-gray-400 font-medium mt-1">
+                    <span className="flex items-center gap-1"><Send size={12} className="text-gray-300"/> {metrics?.totalUsage?.publishes || 0}</span>
+                    <span className="w-px h-3 bg-gray-200"></span>
+                    <span className="flex items-center gap-1"><Download size={12} className="text-gray-300"/> {metrics?.totalUsage?.downloads || 0}</span>
+                 </div>
+            </div>
+
+            {/* Card 3: Est. Audience Reach (Slot 3 - C2B Exposure) */}
+            <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-xs hover:shadow-md transition duration-300 group relative">
+                 <div className="flex items-start justify-between mb-2">
+                     <div className="flex items-center gap-2">
+                        <h4 className="text-[11px] font-bold text-gray-500 uppercase tracking-wide">Est. Audience Reach</h4>
+                        <Tooltip content="Aggregate estimated reach across email opens and social impressions reported by platforms.">
+                            <Info size={12} className="text-gray-300 hover:text-gray-500 transition"/>
+                        </Tooltip>
+                     </div>
+                     <Eye size={18} className="text-gray-400"/>
+                 </div>
+
+                 <div className="flex items-baseline gap-2 mb-2">
+                     <span className="text-3xl font-bold tracking-tight text-gray-900">
+                        {/* Interactive Helper for Millions/Thousands */}
+                        {((metrics?.audienceReach?.emailOpens || 0) + (metrics?.audienceReach?.socialImpressions || 0)) > 1000000 
+                            ? (((metrics?.audienceReach?.emailOpens || 0) + (metrics?.audienceReach?.socialImpressions || 0)) / 1000000).toFixed(1) + 'M'
+                            : (((metrics?.audienceReach?.emailOpens || 0) + (metrics?.audienceReach?.socialImpressions || 0)) / 1000).toFixed(1) + 'K'
+                        }
+                     </span>
+                     {/* Dynamic Indicator for Ended campaigns showing growth */}
+                     {campaign.status === 'Ended' && (
+                        <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded ml-1 animate-pulse" title="Still growing">+</span>
+                     )}
+                 </div>
+                 <div className="text-[11px] text-gray-400 font-medium">
+                    Lifetime opens & impressions
+                 </div>
+            </div>
+
+            {/* Card 4: Customer Interactions (Slot 4 - C2B Conversion) */}
+            <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-xs hover:shadow-md transition duration-300 group relative">
+                 <div className="flex items-start justify-between mb-2">
+                     <div className="flex items-center gap-2">
+                        <h4 className="text-[11px] font-bold text-gray-500 uppercase tracking-wide">Customer Interactions</h4>
+                        <Tooltip content="Total clicks, likes, comments, and shares generated by this campaign.">
+                            <Info size={12} className="text-gray-300 hover:text-gray-500 transition"/>
+                        </Tooltip>
+                     </div>
+                     <MousePointerClick size={18} className="text-gray-400"/>
+                 </div>
+
+                 <div className="flex items-baseline gap-2 mb-2">
+                     <span className="text-3xl font-bold tracking-tight text-gray-900">
+                        {
+                            Object.values(metrics?.customerInteractions || {}).reduce((a, b) => a + b, 0) > 1000
+                            ? (Object.values(metrics?.customerInteractions || {}).reduce((a, b) => a + b, 0) / 1000).toFixed(1) + 'K'
+                            : Object.values(metrics?.customerInteractions || {}).reduce((a, b) => a + b, 0)
+                        }
+                     </span>
+                      {campaign.status === 'Ended' && (
+                        <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded ml-1 animate-pulse" title="Still growing">+</span>
+                     )}
+                 </div>
+                 
+                 <div className="flex items-center gap-2 text-[11px] text-gray-400 font-medium mt-1">
+                    <span>Clicks & Social Engagement</span>
+                 </div>
+            </div>
         </div>
       </div>
 

@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { campaignData } from '../../../../../data/mockStore/campaignStore';
-import { Search, Filter, ArrowUpRight, CheckCircle2, AlertCircle, Clock, MoreHorizontal, Mail, MessageSquare, Download, Instagram, Facebook, Twitter, Smartphone, Eye, XCircle, RefreshCw, TrendingUp, ChevronRight, X, Award, ChevronDown, Check, FileText, Video, ChevronLeft, User, Bell, Share2, Printer } from 'lucide-react'; // Added Share2, Printer
+import { Search, Filter, ArrowUpRight, CheckCircle2, AlertCircle, Clock, MoreHorizontal, Mail, MessageSquare, Download, Instagram, Facebook, Twitter, Smartphone, Eye, XCircle, RefreshCw, TrendingUp, ChevronRight, X, Award, ChevronDown, Check, FileText, Video, ChevronLeft, User, Bell, Share2, Printer, Info, Flag } from 'lucide-react'; 
 import Drawer from '../../../../../components/Drawer';
 import { useToast } from '../../../../context/ToastContext';
 import NudgeModal, { RISKS } from '../../NudgeModal';
+import Tooltip from '../../../../../components/Tooltip';
 
 // Helper to render usage icons (Aligned with BrandCampaignList)
 const UsageIcons = ({ usage }) => {
@@ -228,7 +229,8 @@ const RetailerAdoptionTab = ({ campaign }) => {
       const isViewed = status === 'Viewed';
 
       const adoptionRate = isParticipating ? 100 : 0; 
-      const totalActions = isParticipating ? (overrideMap.get(r.id)?.actions || 1) : (isViewed ? 1 : 0);
+      // Use store 'actions' if available, otherwise default to a realistic number (e.g. 3) for participants
+      const totalActions = isParticipating ? (overrideMap.get(r.id)?.actions || 3) : (isViewed ? 1 : 0);
       
       const usage = overrideMap.get(r.id)?.usage || [];
 
@@ -240,7 +242,7 @@ const RetailerAdoptionTab = ({ campaign }) => {
         campaignStatus: status,
         adoptionRate,
         totalActions,
-        estReach: isParticipating ? 1500 : 0,
+        estReach: isParticipating ? (overrideMap.get(r.id)?.estReach || 1500) : 0,
         lastActive: lastActiveOverride || (status !== 'Unopened' ? 'Recently' : null),
         usage,
         impact: overrideMap.get(r.id)?.impact || '-'
@@ -260,7 +262,28 @@ const RetailerAdoptionTab = ({ campaign }) => {
   // Check PRD/User request: "Zero-Action: 显示1，表述有一个Retailer没有行动". "Needs Attention: 需要mock 4个Retailer". 
   // Needs Attention typically = Unopened + Viewed (but not participated). 1 + 3 = 4. Checks out.
   const zeroActionCount = campaignRetailers.filter(r => r.campaignStatus === 'Unopened' || (r.campaignStatus === 'Viewed' && r.totalActions === 0)).length;
-  const totalEstReach = campaignRetailers.reduce((acc, r) => acc + r.estReach, 0);
+  
+  // Metrics for KPI Cards
+  const participatingRetailers = campaignRetailers.filter(r => r.campaignStatus === 'Participated');
+  const participatingCountFromList = participatingRetailers.length; // distinct from participatedCount defined above? No, same logic.
+
+  // Avg Reach / Partner (Participants only)
+  // Logic: Sum of estReach of participants / count
+  const totalParticipatingReach = participatingRetailers.reduce((acc, r) => acc + r.estReach, 0); 
+  const avgReachPerPartner = participatingCountFromList > 0 
+      ? (totalParticipatingReach / participatingCountFromList) 
+      : 0;
+  // Format: 1200 -> 1.2K
+  const formattedAvgReach = avgReachPerPartner >= 1000 
+      ? (avgReachPerPartner / 1000).toFixed(1) + 'K' 
+      : Math.round(avgReachPerPartner);
+
+  // Avg Actions / Partner (Participants only)
+  const totalParticipatingActions = participatingRetailers.reduce((acc, r) => acc + r.totalActions, 0);
+  const avgActionsPerPartner = participatingCountFromList > 0 
+      ? (totalParticipatingActions / participatingCountFromList).toFixed(1) 
+      : 0;
+
 
   // Needs Attention List
   // Logic: Platinum/Gold + Unopened/Viewed. 
@@ -312,7 +335,7 @@ const RetailerAdoptionTab = ({ campaign }) => {
   const handleRefresh = () => {
     setIsRefreshing(true);
     setTimeout(() => {
-  setIsRefreshing(false);
+      setIsRefreshing(false);
       setLastUpdated(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
     }, 1000);
   };
@@ -351,67 +374,92 @@ const RetailerAdoptionTab = ({ campaign }) => {
       {/* --- 1. Header --- */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-           <h2 className="text-lg font-bold text-gray-900">Adoption Overview</h2>
+           <h2 className="text-lg font-bold text-gray-900">Retailer Performance</h2>
         </div>
         <div className="flex items-center gap-3">
-          <div className="group relative flex items-center gap-2 text-[10px] text-gray-400 bg-white border border-gray-200 px-2 py-1 rounded-full shadow-xs cursor-help">
-            <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
-            <span>Updated {lastUpdated}</span>
-            <div className="absolute right-0 top-full mt-2 w-48 p-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition pointer-events-none z-50">
-              Auto-refreshes every 1 hour
-            </div>
-          </div>
-          <button 
-            onClick={handleRefresh}
-            disabled={isRefreshing}
-            className="p-1.5 text-gray-400 hover:text-black hover:bg-gray-100 rounded-full transition disabled:opacity-50"
-            title="Force Refresh"
-          >
-            <RefreshCw size={14} className={isRefreshing ? 'animate-spin' : ''} />
-          </button>
+          {campaign.status === 'Active' ? (
+              <div className="flex items-center gap-2 px-2.5 py-1 bg-emerald-50 border border-emerald-100 rounded-full text-[11px] font-bold text-emerald-700 shadow-xs">
+                <div className="relative flex items-center justify-center w-2 h-2">
+                    <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping"></span>
+                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-600"></span>
+                </div>
+                Live Data
+              </div>
+          ) : (
+              <div className="flex items-center gap-1.5 px-2.5 py-1 bg-gray-100 border border-gray-200 rounded-full text-[11px] font-bold text-gray-600 shadow-xs">
+                <Flag size={12} className="fill-gray-500 text-gray-500" />
+                Final Results
+              </div>
+          )}
+          
+
         </div>
       </div>
 
-      {/* --- 2. Adoption Summary (KPI Cards) --- */}
+      {/* --- 2. Adoption Summary (Compact KPI Cards) --- */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {/* Adoption Rate */}
-        <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-xs">
-          <div className="text-xs text-gray-500 font-medium mb-1 tracking-wide uppercase">Adoption Rate</div>
-          <div className="flex items-end gap-2">
-            <div className="text-3xl font-bold text-gray-900">{adoptionRate}%</div>
-            {adoptionRate > 0 && <div className="mb-1 text-xs font-medium text-emerald-600 flex items-center">
-              <TrendingUp size={12} className="mr-0.5" /> +5%
-            </div>}
-          </div>
+        {/* Card 1: Participation Progress */}
+        <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-xs flex flex-col justify-between h-28 relative group hover:shadow-md transition duration-200">
+           <div className="flex items-start justify-between">
+              <span className="text-[11px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-1.5">
+                  PARTICIPATION PROGRESS
+                  <Tooltip content="Percentage of invited retailers who have performed at least one action (download or execute activity).">
+                      <Info size={12} className="text-gray-300 hover:text-gray-500 transition"/>
+                  </Tooltip>
+              </span>
+           </div>
+           <div>
+               <div className="text-3xl font-bold text-gray-900 leading-none mb-1">{adoptionRate}%</div>
+               <div className="text-[11px] font-medium text-gray-400">% of invited retailers</div>
+           </div>
         </div>
 
-        {/* Active Retailers */}
-        <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-xs">
-          <div className="text-xs text-gray-500 font-medium mb-1 tracking-wide uppercase">Active Retailers</div>
-          <div className="flex items-end gap-2">
-            <div className="text-3xl font-bold text-gray-900">{participatedCount}</div>
-            <div className="mb-1 text-xs text-gray-400">/ {totalInvited} invited</div>
-          </div>
+        {/* Card 2: Zero Action (Action Card) */}
+        <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-xs flex flex-col justify-between h-28 relative group hover:shadow-md transition duration-200">
+           <div className="flex items-start justify-between">
+              <span className="text-[11px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-1.5">
+                  ZERO ACTION
+                  <Tooltip content="Count of invited retailers who have not downloaded assets or executed any marketing activities yet.">
+                      <Info size={12} className="text-gray-300 hover:text-gray-500 transition"/>
+                  </Tooltip>
+              </span>
+           </div>
+           <div>
+               <div className="text-3xl font-bold text-orange-500 leading-none mb-1">{zeroActionCount}</div>
+               <div className="text-[11px] font-medium text-gray-400">Retailers yet to engage</div>
+           </div>
         </div>
 
-        {/* Zero-Action (Negative) */}
-        <div className="bg-white p-5 rounded-xl border border-amber-100 shadow-xs relative overflow-hidden">
-          <div className="absolute top-0 right-0 p-4 opacity-10">
-            <AlertCircle size={48} className="text-amber-500" />
-          </div>
-          <div className="text-xs text-gray-500 font-medium mb-1 tracking-wide uppercase">Zero-Action</div>
-          <div className="flex items-end gap-2">
-            <div className="text-3xl font-bold text-amber-600">{zeroActionCount}</div>
-            <div className="mb-1 text-xs text-amber-600 font-medium">{zeroActionCount > 0 ? 'Needs Attention' : 'All Good'}</div>
-          </div>
+        {/* Card 3: Avg. Reach / Partner */}
+        <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-xs flex flex-col justify-between h-28 relative group hover:shadow-md transition duration-200">
+           <div className="flex items-start justify-between">
+              <span className="text-[11px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-1.5">
+                  AVG. REACH / PARTNER
+                  <Tooltip content="Average estimated reach generated per participating retailer.">
+                      <Info size={12} className="text-gray-300 hover:text-gray-500 transition"/>
+                  </Tooltip>
+              </span>
+           </div>
+           <div>
+               <div className="text-3xl font-bold text-gray-900 leading-none mb-1">{formattedAvgReach}</div>
+               <div className="text-[11px] font-medium text-gray-400">Est. opens & impressions</div>
+           </div>
         </div>
 
-        {/* Est. Reach */}
-        <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-xs">
-          <div className="text-xs text-gray-500 font-medium mb-1 tracking-wide uppercase">Est. Reach</div>
-          <div className="flex items-end gap-2">
-            <div className="text-3xl font-bold text-gray-900">{(totalEstReach / 1000).toFixed(1)}k</div>
-          </div>
+        {/* Card 4: Avg. Usage / Partner */}
+        <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-xs flex flex-col justify-between h-28 relative group hover:shadow-md transition duration-200">
+           <div className="flex items-start justify-between">
+              <span className="text-[11px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-1.5">
+                  AVG. USAGE / PARTNER
+                  <Tooltip content="Average number of assets downloaded and marketing activities executed per participating retailer.">
+                      <Info size={12} className="text-gray-300 hover:text-gray-500 transition"/>
+                  </Tooltip>
+              </span>
+           </div>
+           <div>
+               <div className="text-3xl font-bold text-gray-900 leading-none mb-1">{avgActionsPerPartner}</div>
+               <div className="text-[11px] font-medium text-gray-400">Downloads & activities</div>
+           </div>
         </div>
       </div>
 

@@ -64,6 +64,27 @@ Together, they embody elegance, commitment, and individuality.
       activityCount: 2100,
       downloadCount: 1350,
       metrics: {
+        // New Granular Metrics
+        retailerAdoption: {
+          participants: 156,
+          totalInvited: 200,
+        },
+        totalUsage: {
+          downloads: 1350,
+          publishes: 2100,
+        },
+        audienceReach: {
+          emailOpens: 850000,
+          socialImpressions: 1550000,
+        },
+        customerInteractions: {
+          clicks: 5200,
+          likes: 4500,
+          comments: 350,
+          shares: 2450,
+          saves: 890,
+        },
+        // Legacy fallbacks (optional, keeping for safety)
         emailOpens: 850,
         socialImpressions: 45000,
         clicks: 320,
@@ -103,6 +124,25 @@ Together, they embody elegance, commitment, and individuality.
       activityCount: 890,
       downloadCount: 0,
       metrics: {
+        retailerAdoption: {
+          participants: 45,
+          totalInvited: 100,
+        },
+        totalUsage: {
+          downloads: 250,
+          publishes: 640,
+        },
+        audienceReach: {
+          emailOpens: 400,
+          socialImpressions: 12500,
+        },
+        customerInteractions: {
+          clicks: 150,
+          likes: 450,
+          comments: 12,
+          shares: 25,
+          saves: 10,
+        },
         emailOpens: 400,
         socialImpressions: 12500,
         clicks: 150,
@@ -147,6 +187,25 @@ Together, they embody elegance, commitment, and individuality.
       activityCount: 80,
       downloadCount: 40,
       metrics: {
+        retailerAdoption: {
+          participants: 25,
+          totalInvited: 100,
+        },
+        totalUsage: {
+          downloads: 40,
+          publishes: 40,
+        },
+        audienceReach: {
+          emailOpens: 120,
+          socialImpressions: 5000,
+        },
+        customerInteractions: {
+          clicks: 45,
+          likes: 80,
+          comments: 5,
+          shares: 2,
+          saves: 1,
+        },
         emailOpens: 120,
         socialImpressions: 5000,
         clicks: 45,
@@ -195,12 +254,25 @@ This is more than an engagement ring—it’s a statement of your journey.
       activityCount: 0,
       downloadCount: 1200,
       metrics: {
-        emailOpens: 0,
-        socialImpressions: 0,
-        clicks: 0,
-        likes: 0,
-        comments: 0,
-        shares: 0,
+        retailerAdoption: {
+          participants: 120,
+          totalInvited: 200,
+        },
+        totalUsage: {
+          downloads: 1200,
+          publishes: 850,
+        },
+        audienceReach: {
+          emailOpens: 15600,
+          socialImpressions: 48000,
+        },
+        customerInteractions: {
+          clicks: 1250,
+          likes: 4200,
+          comments: 180,
+          shares: 450,
+          saves: 120,
+        },
       },
       overviewId: "active-avg",
       contentId: "files-only",
@@ -239,13 +311,27 @@ This is more than an engagement ring—it’s a statement of your journey.
       adoptionRate: 85,
       activityCount: 3500,
       downloadCount: 1500,
+
       metrics: {
-        emailOpens: 2500,
-        socialImpressions: 120000,
-        clicks: 1500,
-        likes: 3800,
-        comments: 240,
-        shares: 450,
+        retailerAdoption: {
+          participants: 170,
+          totalInvited: 200,
+        },
+        totalUsage: {
+          downloads: 1500,
+          publishes: 2100,
+        },
+        audienceReach: {
+          emailOpens: 2500,
+          socialImpressions: 120000,
+        },
+        customerInteractions: {
+          clicks: 1500,
+          likes: 3800,
+          comments: 240,
+          shares: 450,
+          saves: 180,
+        },
       },
       overviewId: "active-high",
       contentId: "full-content",
@@ -280,6 +366,27 @@ This is more than an engagement ring—it’s a statement of your journey.
         email: false,
         sms: false,
         download: false,
+      },
+      metrics: {
+        retailerAdoption: {
+          participants: 140,
+          totalInvited: 200,
+        },
+        totalUsage: {
+          downloads: 1000,
+          publishes: 1200,
+        },
+        audienceReach: {
+          emailOpens: 12000,
+          socialImpressions: 55000,
+        },
+        customerInteractions: {
+          clicks: 1800,
+          likes: 4200,
+          comments: 320,
+          shares: 550,
+          saves: 150,
+        },
       },
       createdAt: "2025-11-25",
       startDate: "2025-11-25",
@@ -324,6 +431,27 @@ This is more than an engagement ring—it’s a statement of your journey.
         sms: false,
         download: false,
       },
+      metrics: {
+        retailerAdoption: {
+          participants: 20,
+          totalInvited: 200,
+        },
+        totalUsage: {
+          downloads: 40,
+          publishes: 15,
+        },
+        audienceReach: {
+          emailOpens: 200,
+          socialImpressions: 1500,
+        },
+        customerInteractions: {
+          clicks: 50,
+          likes: 120,
+          comments: 5,
+          shares: 10,
+          saves: 2,
+        },
+      },
       createdAt: "2025-11-25", // Yesterday
       startDate: "2025-11-25", // New Arrival
       endDate: "Permanent",
@@ -356,6 +484,27 @@ This is more than an engagement ring—it’s a statement of your journey.
         sms: false,
         download: false,
       },
+      metrics: {
+        retailerAdoption: {
+          participants: 80,
+          totalInvited: 200,
+        },
+        totalUsage: {
+          downloads: 50,
+          publishes: 250,
+        },
+        audienceReach: {
+          emailOpens: 4500,
+          socialImpressions: 12500,
+        },
+        customerInteractions: {
+          clicks: 350,
+          likes: 890,
+          comments: 45,
+          shares: 120,
+          saves: 30,
+        },
+      },
       createdAt: "2025-11-10",
       startDate: "2025-11-15",
       endDate: "2026-06-01",
@@ -387,6 +536,27 @@ This is more than an engagement ring—it’s a statement of your journey.
         email: false,
         sms: false,
         download: false,
+      },
+      metrics: {
+        retailerAdoption: {
+          participants: 120,
+          totalInvited: 200,
+        },
+        totalUsage: {
+          downloads: 500,
+          publishes: 1000,
+        },
+        audienceReach: {
+          emailOpens: 8500,
+          socialImpressions: 48000,
+        },
+        customerInteractions: {
+          clicks: 1200,
+          likes: 3500,
+          comments: 210,
+          shares: 450,
+          saves: 90,
+        },
       },
       createdAt: "2025-11-24",
       startDate: "2025-11-26",
@@ -471,9 +641,30 @@ This is more than an engagement ring—it’s a statement of your journey.
       audience: "All Retailers",
       isPinned: false,
       updatePending: false,
-      adoptionRate: 88,
+      adoptionRate: 88, // 88%
       activityCount: 3000,
       downloadCount: 1500,
+      metrics: {
+        retailerAdoption: {
+          participants: 158,
+          totalInvited: 180,
+        },
+        totalUsage: {
+          downloads: 1450,
+          publishes: 2100,
+        },
+        audienceReach: {
+          emailOpens: 1200000,
+          socialImpressions: 3500000,
+        },
+        customerInteractions: {
+          clicks: 15200,
+          likes: 8900,
+          comments: 1200,
+          shares: 4500,
+          saves: 2100,
+        },
+      },
       overviewId: "ended-high",
       contentId: "full-content",
       insightsId: "high-perf",
@@ -553,6 +744,27 @@ This is more than an engagement ring—it’s a statement of your journey.
         sms: false,
         download: false,
       },
+      metrics: {
+        retailerAdoption: {
+          participants: 130,
+          totalInvited: 200,
+        },
+        totalUsage: {
+          downloads: 300,
+          publishes: 1500,
+        },
+        audienceReach: {
+          emailOpens: 45000,
+          socialImpressions: 120000,
+        },
+        customerInteractions: {
+          clicks: 850,
+          likes: 2400,
+          comments: 150,
+          shares: 300,
+          saves: 85,
+        },
+      },
       templates: ["t-3", "t-x"], // Added templates
       assets: ["f-full-3"],
       createdBy: {
@@ -623,6 +835,27 @@ This is more than an engagement ring—it’s a statement of your journey.
         sms: false,
         download: false,
       },
+      metrics: {
+        retailerAdoption: {
+          participants: 84,
+          totalInvited: 200,
+        },
+        totalUsage: {
+          downloads: 200,
+          publishes: 450,
+        },
+        audienceReach: {
+          emailOpens: 12000,
+          socialImpressions: 35000,
+        },
+        customerInteractions: {
+          clicks: 420,
+          likes: 1200,
+          comments: 45,
+          shares: 120,
+          saves: 60,
+        },
+      },
       templates: ["t-2"], // Added template
       assets: [],
       createdBy: {
@@ -653,6 +886,27 @@ This is more than an engagement ring—it’s a statement of your journey.
       endDate: "2026-02-14",
       brandId: "b-verragio",
       retailerUsage: { social: true, email: true, sms: false, download: false },
+      metrics: {
+        retailerAdoption: {
+          participants: 162,
+          totalInvited: 200,
+        },
+        totalUsage: {
+          downloads: 400,
+          publishes: 2400,
+        },
+        audienceReach: {
+          emailOpens: 89000,
+          socialImpressions: 210000,
+        },
+        customerInteractions: {
+          clicks: 2800,
+          likes: 6500,
+          comments: 320,
+          shares: 900,
+          saves: 450,
+        },
+      },
       createdBy: {
         name: getMember("u-admin").name,
         avatar: getMember("u-admin").avatarUrl,
@@ -725,6 +979,27 @@ This is more than an engagement ring—it’s a statement of your journey.
       },
       templates: ["t-x-google"], // Added template
       assets: ["f-full-1"],
+      metrics: {
+        retailerAdoption: {
+          participants: 100,
+          totalInvited: 200,
+        },
+        totalUsage: {
+          downloads: 200,
+          publishes: 700,
+        },
+        audienceReach: {
+          emailOpens: 25000,
+          socialImpressions: 80000,
+        },
+        customerInteractions: {
+          clicks: 650,
+          likes: 1800,
+          comments: 90,
+          shares: 200,
+          saves: 110,
+        },
+      },
       createdBy: {
         name: getMember("u-admin").name,
         avatar: getMember("u-admin").avatarUrl,
@@ -755,6 +1030,27 @@ This is more than an engagement ring—it’s a statement of your journey.
       retailerUsage: { social: true, email: true, sms: true, download: true },
       templates: ["t-all-social"],
       assets: ["f-full-1"],
+      metrics: {
+        retailerAdoption: {
+          participants: 190,
+          totalInvited: 200,
+        },
+        totalUsage: {
+          downloads: 1700,
+          publishes: 3300,
+        },
+        audienceReach: {
+          emailOpens: 500000,
+          socialImpressions: 2500000,
+        },
+        customerInteractions: {
+          clicks: 4000,
+          likes: 12000,
+          comments: 500,
+          shares: 800,
+          saves: 300,
+        },
+      },
       createdBy: {
         name: getMember("u-guest").name,
         avatar: getMember("u-guest").avatarUrl,
@@ -1237,16 +1533,19 @@ This is more than an engagement ring—it’s a statement of your journey.
 
       // Full List (32 items)
       list: Array.from({ length: 32 }).map((_, i) => {
+        const estReach = i < 10 ? 5000 + i * 200 : 1500 + i * 100;
         return {
           id: `r-good-${i}`,
           name: LUXURY_RETAILERS[i % LUXURY_RETAILERS.length],
           tier: i < 10 ? "Platinum" : i < 20 ? "Gold" : "Silver",
-          status: "Participated", // Critical Fix: Capitalized
+          status: "Participated", // 100% Adoption
           usage:
             i < 20
               ? { social: true, email: true, downloads: true }
-              : { social: true, email: false, downloads: true }, // Mixed usage
-          impact: i < 10 ? "2.4k Reach" : "1.2k Reach",
+              : { social: true, email: false, downloads: true },
+          actions: i < 10 ? 8 : 4, // High actions
+          estReach: estReach,
+          impact: `${(estReach / 1000).toFixed(1)}k Reach`,
           lastActive: "2 hours ago",
         };
       }),
@@ -1257,8 +1556,8 @@ This is more than an engagement ring—it’s a statement of your journey.
       totalInvited: 50,
       joined: 35, // 70%
       adoptionRate: 70,
-      needsAttentionCount: 15, // 30%
-      zeroActionCount: 15, // Same group usually
+      needsAttentionCount: 15,
+      zeroActionCount: 15,
 
       // Top Advocates: 3
       topAdvocates: [
@@ -1270,9 +1569,9 @@ This is more than an engagement ring—it’s a statement of your journey.
       // Full List (50 items: 35 Active, 15 Inactive)
       list: Array.from({ length: 50 }).map((_, i) => {
         // Logic:
-        // 0-34 (35): Participated (High tiers)
-        // 35-39 (5): Viewed (Should include some high tiers for Needs Attention)
-        // 40-49 (10): Unopened (Should include some high tiers for Needs Attention)
+        // 0-34 (35): Participated
+        // 35-39 (5): Viewed (Lazy)
+        // 40-49 (10): Unopened (Zero Action)
 
         let tier = "Silver";
         if (i < 10) tier = "Platinum";
@@ -1283,15 +1582,18 @@ This is more than an engagement ring—it’s a statement of your journey.
         if (i >= 35 && i < 40) status = "Viewed";
         if (i >= 40) status = "Unopened";
 
-        const name = LUXURY_RETAILERS[i % LUXURY_RETAILERS.length];
+        const estReach = i < 35 ? 1200 + i * 50 : 0;
+        const actions = i < 10 ? 6 : i < 35 ? 3 : 0;
 
         return {
           id: `r-avg-${i}`,
-          name,
+          name: LUXURY_RETAILERS[i % LUXURY_RETAILERS.length],
           tier,
           status,
           usage: i < 35 ? { social: i % 2 === 0, email: true } : {},
-          impact: i < 35 ? "1.2k Reach" : "-",
+          actions: actions,
+          estReach: estReach,
+          impact: i < 35 ? `${(estReach / 1000).toFixed(1)}k Reach` : "-",
           lastActive: i < 35 ? "Yesterday" : i < 40 ? "3 days ago" : "-",
         };
       }),
@@ -1302,7 +1604,7 @@ This is more than an engagement ring—it’s a statement of your journey.
       totalInvited: 120,
       joined: 48, // 40%
       adoptionRate: 40,
-      needsAttentionCount: 72, // 60%
+      needsAttentionCount: 72,
       zeroActionCount: 72,
 
       // Top Advocates: 0
@@ -1323,13 +1625,18 @@ This is more than an engagement ring—it’s a statement of your journey.
         if (i >= 48 && i < 60) status = "Viewed";
         if (i >= 60) status = "Unopened";
 
+        const estReach = i < 48 ? 800 : 0;
+        const actions = i < 48 ? 2 : 0;
+
         return {
           id: `r-poor-${i}`,
           name: LUXURY_RETAILERS[i % LUXURY_RETAILERS.length],
           tier,
           status,
           usage: i < 48 ? { downloads: true } : {},
-          impact: i < 48 ? "500 Reach" : "-",
+          actions: actions,
+          estReach: estReach,
+          impact: i < 48 ? "0.8k Reach" : "-",
           lastActive: i < 48 ? "Last week" : "-",
         };
       }),
