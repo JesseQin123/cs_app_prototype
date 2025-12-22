@@ -403,7 +403,7 @@ const RetailerAdoptionTab = ({ campaign }) => {
         {/* Card 1: Participation Progress */}
         <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-xs flex flex-col justify-between h-28 relative group hover:shadow-md transition duration-200">
            <div className="flex items-start justify-between">
-              <span className="text-[11px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-1.5">
+              <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wide flex items-center gap-1.5">
                   PARTICIPATION PROGRESS
                   <Tooltip content="Percentage of invited retailers who have performed at least one action (download or execute activity).">
                       <Info size={12} className="text-gray-300 hover:text-gray-500 transition"/>

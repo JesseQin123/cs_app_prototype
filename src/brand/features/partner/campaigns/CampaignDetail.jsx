@@ -259,8 +259,8 @@ const CampaignDetail = ({ campaign, onBack, onUpdate, notify, allFiles, retailer
 
         {/* Tabs */}
         <div className="px-6 flex items-center gap-8 border-t border-gray-100">
-          {['Overview', 'Content', 'Content Insights', 'Retailer Adoption', 'Settings']
-            .filter(tab => !((campaign.status === 'Draft' || campaign.status === 'Scheduled') && (tab === 'Content Insights' || tab === 'Retailer Adoption')))
+          {['Overview', 'Retailers', 'Content Insights', 'Content', 'Settings']
+            .filter(tab => !((campaign.status === 'Draft' || campaign.status === 'Scheduled') && (tab === 'Content Insights' || tab === 'Retailers')))
             .map((tab) => {
             const id = tab.toLowerCase();
             const isActive = activeTab === id;
@@ -308,6 +308,22 @@ const CampaignDetail = ({ campaign, onBack, onUpdate, notify, allFiles, retailer
                 />
             </div>
           )}
+          {activeTab === 'retailers' && (
+             <div className="p-6">
+                <RetailerAdoptionTab 
+                    campaign={campaign} 
+                    data={adoptionData}
+                    retailers={retailers} 
+                />
+             </div>
+          )}
+          {activeTab === 'content insights' && (
+             <ContentInsightsTab 
+                campaign={campaign} 
+                data={insightsData}
+                retailers={retailers} 
+             />
+          )}
           {activeTab === 'content' && (
             <div className="p-6">
                 <ContentTab 
@@ -318,22 +334,6 @@ const CampaignDetail = ({ campaign, onBack, onUpdate, notify, allFiles, retailer
                     allFiles={allFiles} 
                 />
             </div>
-          )}
-          {activeTab === 'content insights' && (
-             <ContentInsightsTab 
-                campaign={campaign} 
-                data={insightsData}
-                retailers={retailers} 
-             />
-          )}
-          {activeTab === 'retailer adoption' && (
-             <div className="p-6">
-                <RetailerAdoptionTab 
-                    campaign={campaign} 
-                    data={adoptionData}
-                    retailers={retailers} 
-                />
-             </div>
           )}
           {activeTab === 'settings' && <div className="p-6"><SettingsTab campaign={campaign} onUpdate={onUpdate} /></div>}
         </div>
