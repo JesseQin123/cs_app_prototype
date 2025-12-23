@@ -385,7 +385,7 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
                   return (
                   <div 
                       key={campaign.id} 
-                      className="group relative bg-white border border-gray-200 rounded-xl hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col h-full"
+                      className="group relative bg-white border border-gray-200 rounded-xl hover:shadow-md transition-all duration-300 cursor-pointer flex flex-col h-full"
                       onClick={() => onSelect(campaign)}
                   >
                       {/* Cover Image Area */}
@@ -488,7 +488,7 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
           </div>
       ) : (
           /* [D2] List View */
-          <div className="bg-white border border-gray-200 rounded-xl shadow-xs">
+          <div className="bg-white border border-gray-200 rounded-xl">
               <table className="w-full text-left table-fixed">
                   <thead className="bg-gray-50 border-b border-gray-200 text-xs font-bold text-gray-500 uppercase tracking-wider">
                       <tr>

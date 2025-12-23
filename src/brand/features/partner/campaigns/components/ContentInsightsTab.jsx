@@ -200,7 +200,7 @@ const ContentInsightsTab = ({ campaign, data }) => {
         {/* --- Section 1: Social Post --- */}
         <div ref={socialRef} className="scroll-mt-40">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+            <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
               <Instagram size={24} className="text-pink-500" />
               Social Post
             </h2>
@@ -295,7 +295,7 @@ const ContentInsightsTab = ({ campaign, data }) => {
         {/* --- Section 2: Email --- */}
         <div ref={emailRef} className="scroll-mt-40">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+            <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
               <Mail size={24} className="text-blue-500" />
               Email
             </h2>
@@ -355,7 +355,7 @@ const ContentInsightsTab = ({ campaign, data }) => {
         {/* --- Section 3: SMS --- */}
         <div ref={smsRef} className="scroll-mt-40">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+            <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
               <Smartphone size={24} className="text-emerald-500" />
               SMS
             </h2>
@@ -414,7 +414,7 @@ const ContentInsightsTab = ({ campaign, data }) => {
         {/* --- Section 4: Downloadable Assets --- */}
         <div ref={assetsRef} className="scroll-mt-40">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+            <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
               <Download size={24} className="text-purple-500" />
               Downloadable Assets
             </h2>

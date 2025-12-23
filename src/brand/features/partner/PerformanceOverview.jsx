@@ -106,7 +106,7 @@ const PerformanceOverview = ({ campaigns }) => {
   ];
 
   const MetricCard = ({ metric }) => (
-    <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-xs hover:shadow-md transition duration-300 group h-36 flex flex-col relative">
+    <div className="bg-white border border-gray-200 rounded-xl p-6 h-36 flex flex-col relative">
        <div className="flex justify-between items-center h-7 mb-2">
           <div className="flex items-center gap-1.5">
             <span className="text-xs font-semibold text-gray-500 tracking-wide uppercase">{metric.label}</span>

@@ -136,7 +136,7 @@ const OverviewTab = ({ campaign, data, setActiveTab }) => {
       <div className="space-y-4">
         {/* Status Indicator */}
         <div className="flex items-center justify-between">
-           <h3 className="text-gray-900 font-bold hidden md:block">Campaign Performance</h3>
+           <h3 className="text-gray-900 font-bold text-lg hidden md:block">Campaign Performance</h3>
            
            {/* Status Badge */}
            {campaign.status === 'Active' ? (
@@ -163,7 +163,7 @@ const OverviewTab = ({ campaign, data, setActiveTab }) => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             
             {/* Card 1: Retailer Adoption (Slot 1 - Funnel Top) */}
-            <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-xs hover:shadow-md transition duration-300 group relative">
+            <div className="bg-white border border-gray-200 rounded-xl p-6 relative">
                  <div className="flex items-start justify-between mb-2">
                      <div className="flex items-center gap-2">
                         <h4 className="text-[11px] font-bold text-gray-500 uppercase tracking-wide">Retailer Adoption</h4>
@@ -185,7 +185,7 @@ const OverviewTab = ({ campaign, data, setActiveTab }) => {
             </div>
 
             {/* Card 2: Total Usage (Slot 2 - B2B Execution) */}
-            <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-xs hover:shadow-md transition duration-300 group relative">
+            <div className="bg-white border border-gray-200 rounded-xl p-6 relative">
                  <div className="flex items-start justify-between mb-2">
                      <div className="flex items-center gap-2">
                         <h4 className="text-[11px] font-bold text-gray-500 uppercase tracking-wide">Total Usage</h4>
@@ -210,7 +210,7 @@ const OverviewTab = ({ campaign, data, setActiveTab }) => {
             </div>
 
             {/* Card 3: Est. Audience Reach (Slot 3 - C2B Exposure) */}
-            <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-xs hover:shadow-md transition duration-300 group relative">
+            <div className="bg-white border border-gray-200 rounded-xl p-6 relative">
                  <div className="flex items-start justify-between mb-2">
                      <div className="flex items-center gap-2">
                         <h4 className="text-[11px] font-bold text-gray-500 uppercase tracking-wide">Est. Audience Reach</h4>
@@ -240,7 +240,7 @@ const OverviewTab = ({ campaign, data, setActiveTab }) => {
             </div>
 
             {/* Card 4: Customer Interactions (Slot 4 - C2B Conversion) */}
-            <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-xs hover:shadow-md transition duration-300 group relative">
+            <div className="bg-white border border-gray-200 rounded-xl p-6 relative">
                  <div className="flex items-start justify-between mb-2">
                      <div className="flex items-center gap-2">
                         <h4 className="text-[11px] font-bold text-gray-500 uppercase tracking-wide">Customer Interactions</h4>

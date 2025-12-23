@@ -37,7 +37,7 @@ const KpiCard = ({ kpi, onReview }) => {
     return (
         <div 
             onClick={onReview}
-            className={`p-5 rounded-xl border shadow-xs transition relative flex flex-col h-36 group ${kpi.isAlert ? 'bg-linear-to-br from-red-50 to-white border-red-100 ring-1 ring-red-50 cursor-pointer hover:shadow-md hover:border-red-200 hover:ring-red-100' : onReview ? 'bg-white border-gray-100 hover:shadow-md cursor-pointer hover:border-gray-300' : 'bg-white border-gray-100 hover:shadow-md'}`}
+            className={`p-5 rounded-xl border transition relative flex flex-col shadow-xs h-36 group ${kpi.isAlert ? 'bg-linear-to-br from-red-50 to-white border-red-100 cursor-pointer hover:shadow-md hover:border-red-200' : onReview ? 'bg-white border-gray-200 hover:shadow-md cursor-pointer' : 'bg-white border-gray-200'}`}
         >
             
             {/* Header Section - Fixed Height for Alignment */}
@@ -64,7 +64,7 @@ const KpiCard = ({ kpi, onReview }) => {
 
                         {/* Hover State: Chevron */}
                         <div className="flex items-center justify-center absolute inset-0 transition duration-300 scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100">
-                             <ChevronRight size={18} />
+                             <ChevronRight size={18}/>
                         </div>
                         
                         {/* Spacer to maintain layout height since absolute children don't contribute size */}
@@ -146,7 +146,7 @@ const AbstractMap = ({ data }) => {
     };
 
     return (
-        <div className="relative bg-gray-50/50 rounded-xl border border-gray-100 p-6 flex items-center justify-center min-h-[300px]">
+        <div className="relative bg-gray-50/50 rounded-xl border border-gray-200 p-6 flex items-center justify-center min-h-[300px]">
              <div className="grid grid-cols-3 gap-2 sm:gap-4 w-full max-w-lg mx-auto">
                 {Object.entries(zones).map(([zoneName, pos]) => {
                     const zoneData = data.find(z => z.zone === zoneName) || { adoption: 0, color: 'bg-gray-200' };
@@ -293,11 +293,11 @@ const PartnerOverview = ({ files, campaigns, notify, isEmpty, navigateTo }) => {
 
             {/* Section B: Visual Insights */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div className="lg:col-span-2 bg-white p-6 rounded-xl border border-gray-100 shadow-xs">
+                <div className="lg:col-span-2 bg-white p-6 rounded-xl border border-gray-200">
                     <h3 className="font-bold text-gray-900 mb-6">Zone Performance</h3>
                     <AbstractMap data={zoneMap} />
                 </div>
-                <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-xs">
+                <div className="bg-white p-6 rounded-xl border border-gray-200">
                     <h3 className="font-bold text-gray-900 mb-6">Activity Trends</h3>
                     <EngagementTimeline data={engagementTimeline} />
                 </div>
@@ -306,7 +306,7 @@ const PartnerOverview = ({ files, campaigns, notify, isEmpty, navigateTo }) => {
             {/* Section C: Leaderboards */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Top Performers */}
-                <div className="bg-white rounded-xl border border-gray-100 shadow-xs overflow-hidden flex flex-col h-full">
+                <div className="bg-white rounded-xl border border-gray-200 overflow-hidden flex flex-col h-full">
                     <div className="p-6 border-b border-gray-50 flex justify-between items-center">
                         <h3 className="font-bold text-gray-900">Most Engaged Retailers</h3>
                         <button className="text-xs font-medium text-gray-500 hover:text-black">View All</button>
@@ -341,7 +341,7 @@ const PartnerOverview = ({ files, campaigns, notify, isEmpty, navigateTo }) => {
                 </div>
 
                 {/* At Risk */}
-                <div className="bg-white rounded-xl border border-gray-100 shadow-xs overflow-hidden flex flex-col h-full">
+                <div className="bg-white rounded-xl border border-gray-200 overflow-hidden flex flex-col h-full">
                     <div className="p-6 border-b border-gray-50 flex justify-between items-center">
                         <h3 className="font-bold text-gray-900">At Risk / Inactive</h3>
                         <div className="flex items-center gap-2 text-xs text-red-500 font-medium bg-red-50 px-2 py-1 rounded-sm">

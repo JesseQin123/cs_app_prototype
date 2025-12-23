@@ -5,7 +5,7 @@ import OverviewTab from './components/OverviewTab';
 import ContentTab from './components/ContentTab';
 import ContentInsightsTab from './components/ContentInsightsTab';
 import SettingsTab from './components/SettingsTab';
-import RetailerAdoptionTab from './components/RetailerAdoptionTab';
+import RetailerPerformanceTab from './components/RetailerPerformanceTab';
 import ReadinessChecklist from './components/ReadinessChecklist';
 
 const CampaignDetail = ({ campaign, onBack, onUpdate, notify, allFiles, retailers }) => {
@@ -259,8 +259,8 @@ const CampaignDetail = ({ campaign, onBack, onUpdate, notify, allFiles, retailer
 
         {/* Tabs */}
         <div className="px-6 flex items-center gap-8 border-t border-gray-100">
-          {['Overview', 'Retailers', 'Content Insights', 'Content', 'Settings']
-            .filter(tab => !((campaign.status === 'Draft' || campaign.status === 'Scheduled') && (tab === 'Content Insights' || tab === 'Retailers')))
+          {['Overview', 'Retailer Performance', 'Content Insights', 'Content', 'Settings']
+            .filter(tab => !((campaign.status === 'Draft' || campaign.status === 'Scheduled') && (tab === 'Content Insights' || tab === 'Retailer Performance')))
             .map((tab) => {
             const id = tab.toLowerCase();
             const isActive = activeTab === id;
@@ -308,9 +308,9 @@ const CampaignDetail = ({ campaign, onBack, onUpdate, notify, allFiles, retailer
                 />
             </div>
           )}
-          {activeTab === 'retailers' && (
+          {activeTab === 'retailer performance' && (
              <div className="p-6">
-                <RetailerAdoptionTab 
+                <RetailerPerformanceTab 
                     campaign={campaign} 
                     data={adoptionData}
                     retailers={retailers} 

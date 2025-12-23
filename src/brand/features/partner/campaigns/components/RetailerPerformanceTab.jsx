@@ -162,7 +162,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
 };
 
 
-const RetailerAdoptionTab = ({ campaign }) => {
+const RetailerPerformanceTab = ({ campaign }) => {
   // 1. Data Source Resolution
   // adoptionId can be 'good', 'avg', 'poor'
   const adoptionData = campaignData.adoptionMap[campaign.adoptionId] || campaignData.adoptionMap.avg;
@@ -374,7 +374,7 @@ const RetailerAdoptionTab = ({ campaign }) => {
       {/* --- 1. Header --- */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-           <h2 className="text-lg font-bold text-gray-900">Retailer Performance</h2>
+           <h2 className="text-lg font-bold text-gray-900">Execution Snapshot</h2>
         </div>
         <div className="flex items-center gap-3">
           {campaign.status === 'Active' ? (
@@ -401,7 +401,7 @@ const RetailerAdoptionTab = ({ campaign }) => {
       {/* --- 2. Adoption Summary (Compact KPI Cards) --- */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Card 1: Participation Progress */}
-        <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-xs flex flex-col justify-between h-28 relative group hover:shadow-md transition duration-200">
+        <div className="bg-white p-4 rounded-xl border border-gray-200 flex flex-col justify-between h-28 relative">
            <div className="flex items-start justify-between">
               <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wide flex items-center gap-1.5">
                   PARTICIPATION PROGRESS
@@ -417,7 +417,7 @@ const RetailerAdoptionTab = ({ campaign }) => {
         </div>
 
         {/* Card 2: Zero Action (Action Card) */}
-        <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-xs flex flex-col justify-between h-28 relative group hover:shadow-md transition duration-200">
+        <div className="bg-white p-4 rounded-xl border border-gray-200 flex flex-col justify-between h-28 relative">
            <div className="flex items-start justify-between">
               <span className="text-[11px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-1.5">
                   ZERO ACTION
@@ -433,7 +433,7 @@ const RetailerAdoptionTab = ({ campaign }) => {
         </div>
 
         {/* Card 3: Avg. Reach / Partner */}
-        <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-xs flex flex-col justify-between h-28 relative group hover:shadow-md transition duration-200">
+        <div className="bg-white p-4 rounded-xl border border-gray-200 flex flex-col justify-between h-28 relative">
            <div className="flex items-start justify-between">
               <span className="text-[11px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-1.5">
                   AVG. REACH / PARTNER
@@ -449,7 +449,7 @@ const RetailerAdoptionTab = ({ campaign }) => {
         </div>
 
         {/* Card 4: Avg. Usage / Partner */}
-        <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-xs flex flex-col justify-between h-28 relative group hover:shadow-md transition duration-200">
+        <div className="bg-white p-4 rounded-xl border border-gray-200 flex flex-col justify-between h-28 relative">
            <div className="flex items-start justify-between">
               <span className="text-[11px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-1.5">
                   AVG. USAGE / PARTNER
@@ -953,4 +953,4 @@ const RetailerAdoptionTab = ({ campaign }) => {
   );
 };
 
-export default RetailerAdoptionTab;
+export default RetailerPerformanceTab;

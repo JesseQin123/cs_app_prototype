@@ -431,7 +431,7 @@ const RetailerList = ({ retailers, onSelectRetailer, onEditRetailer, onInviteRet
   const pendingCount = retailers.filter(r => r.hasPendingAction).length;
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 overflow-hidden flex flex-col h-full shadow-xs">
+    <div className="bg-white rounded-xl border border-gray-200 overflow-hidden flex flex-col h-full">
       {/* Filter Bar */}
       <div className="p-4 border-b border-gray-100 flex flex-col gap-4">
         {/* Top Actions Row */}
