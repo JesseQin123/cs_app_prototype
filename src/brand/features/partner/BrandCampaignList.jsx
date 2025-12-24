@@ -1,17 +1,26 @@
 import React, { useState } from 'react';
-import { Plus, Search, Grid, List as ListIcon, ChevronDown, Check, MoreHorizontal, Edit, Copy, Trash2, BarChart3, Clock, Download, Eye, Users, FileText, Image as ImageIcon, Video, Mail, Smartphone, Instagram, Pin, Flame, Archive, XCircle, Pencil, ArrowRight, MessageSquare, Facebook, Twitter, MapPin, Calendar, Infinity as InfinityIcon, Upload, Activity, Send } from 'lucide-react';
+import { Plus, Search, Grid, List as ListIcon, ChevronDown, Check, MoreHorizontal, Edit, Copy, Trash2, BarChart3, Clock, Download, Eye, Users, FileText, Image as ImageIcon, Video, Mail, Smartphone, Instagram, Pin, Flame, Archive, XCircle, Pencil, ArrowRight, MessageSquare, Facebook, Twitter, MapPin, Calendar, Infinity as InfinityIcon, Upload, Activity, Send, Globe, Target, PieChart, Filter } from 'lucide-react';
+import AudienceCell from './components/AudienceCell';
 import PerformanceOverview from './PerformanceOverview';
 import EmptyState from '../../components/EmptyState';
 import Tooltip from '../../../components/Tooltip';
-import { campaignData } from '../../../data/mockStore/campaignStore';
 
-const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, onDuplicate, onPin, onArchive, onEnd, onPublish }) => {
+import { campaignData } from '../../../data/mockStore/campaignStore';
+import ImageWithLoader from '../../../components/common/ImageWithLoader';
+import GlobalDropdown from '../../../components/common/GlobalDropdown';
+import Popover from '../../../components/common/Popover';
+
+
+
+
+const BrandCampaignList = ({ campaigns, viewMode = 'grid', onViewModeChange, onCreate, onSelect, onEdit, onDelete, onDuplicate, onPin, onArchive, onEnd, onPublish }) => {
   const [filterStatus, setFilterStatus] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('newest');
-  const [viewMode, setViewMode] = useState('grid'); // 'grid' | 'list'
+  // View mode controlled by parent
   const [isSortDropdownOpen, setIsSortDropdownOpen] = useState(false);
-  const [openMenuId, setOpenMenuId] = useState(null);
+
+  const [activeMenu, setActiveMenu] = useState({ id: null, anchor: null }); // Global Dropdown State
 
   const [visibleCount, setVisibleCount] = useState(12);
 
@@ -254,8 +263,10 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
 
 
 
-  // Helper for Action Menu
-  const renderActionMenu = (campaign, closeMenu) => {
+
+
+  // Helper for Action Menu Content
+  const renderMenuContent = (campaign, closeMenu) => {
       const isDraft = campaign.status === 'Draft';
       const isScheduled = campaign.status === 'Scheduled';
       const isActive = campaign.status === 'Active';
@@ -272,8 +283,6 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
 
       return (
           <>
-              <div className="fixed inset-0 z-30" onClick={(e) => {e.stopPropagation(); closeMenu()}}></div>
-              <div className="absolute top-full right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-100 py-1 z-40 animate-in fade-in zoom-in-95 text-left">
                   {canPublish && <button onClick={(e) => {e.stopPropagation(); onPublish && onPublish(campaign.id); closeMenu()}} className="w-full text-left px-4 py-2 text-sm hover:bg-gray-50 flex items-center gap-2 text-indigo-600"><Upload size={14}/> Publish</button>}
                   {canPin && <button onClick={(e) => {e.stopPropagation(); onPin(campaign.id); closeMenu()}} className="w-full text-left px-4 py-2 text-sm hover:bg-gray-50 flex items-center gap-2"><Pin size={14}/> {campaign.isPinned ? 'Unpin' : 'Pin to Top'}</button>}
                   {canEdit && <button onClick={(e) => {e.stopPropagation(); onEdit(campaign); closeMenu()}} className="w-full text-left px-4 py-2 text-sm hover:bg-gray-50 flex items-center gap-2"><Edit size={14}/> Edit Campaign</button>}
@@ -283,7 +292,6 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
                   {canArchive && <button onClick={(e) => {e.stopPropagation(); onArchive(campaign.id); closeMenu()}} className="w-full text-left px-4 py-2 text-sm hover:bg-gray-50 flex items-center gap-2 text-gray-600"><Archive size={14}/> Archive</button>}
                   <div className="h-px bg-gray-100 my-1"></div>
                   <button onClick={(e) => {e.stopPropagation(); onDelete(campaign.id); closeMenu()}} className="w-full text-left px-4 py-2 text-sm hover:bg-red-50 flex items-center gap-2 text-red-600"><Trash2 size={14}/> Delete</button>
-              </div>
           </>
       );
   };
@@ -305,7 +313,7 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
       </div>
 
       {/* [C] Filter & Control Bar (Sticky) */}
-      <div className="sticky top-0 z-40 bg-gray-50 pt-2 pb-4 mb-4 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-200 px-8 shadow-xs">
+      <div className="sticky top-0 z-40 bg-gray-50 pt-2 pb-4 mb-4 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-200 px-8">
          {/* Left: Status Tabs */}
          <div className="flex items-center gap-2 flex-wrap">
             {statusTabs.map(tab => {
@@ -369,8 +377,18 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
 
             {/* View Switcher */}
             <div className="flex bg-gray-200 p-1 rounded-lg">
-               <button onClick={() => setViewMode('grid')} className={`p-1.5 rounded-sm ${viewMode === 'grid' ? 'bg-white shadow-xs text-black' : 'text-gray-500 hover:text-black'}`}><Grid size={16}/></button>
-               <button onClick={() => setViewMode('list')} className={`p-1.5 rounded-sm ${viewMode === 'list' ? 'bg-white shadow-xs text-black' : 'text-gray-500 hover:text-black'}`}><ListIcon size={16}/></button>
+               <button 
+                  onClick={() => onViewModeChange('grid')}
+                  className={`p-2 rounded-lg transition ${viewMode === 'grid' ? 'bg-gray-100 text-black shadow-xs' : 'text-gray-400 hover:text-black hover:bg-gray-50'}`}
+              >
+                  <Grid size={18} />
+              </button>
+              <button 
+                  onClick={() => onViewModeChange('list')}
+                  className={`p-2 rounded-lg transition ${viewMode === 'list' ? 'bg-gray-100 text-black shadow-xs' : 'text-gray-400 hover:text-black hover:bg-gray-50'}`}
+              >
+                  <ListIcon size={18} />
+              </button>
             </div>
          </div>
       </div>
@@ -385,23 +403,20 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
                   return (
                   <div 
                       key={campaign.id} 
-                      className="group relative bg-white border border-gray-200 rounded-xl hover:shadow-md transition-all duration-300 cursor-pointer flex flex-col h-full"
+                      className="group relative bg-white border border-gray-200 rounded-xl hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col h-full"
                       onClick={() => onSelect(campaign)}
                   >
                       {/* Cover Image Area */}
                       <div className={`aspect-video relative bg-gray-100 rounded-t-xl overflow-hidden`}>
                           {campaign.coverImage ? (
-                              <img 
+                              <ImageWithLoader 
                                 src={campaign.coverImage} 
                                 alt={campaign.title} 
-                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                                onError={(e) => {
-                                    e.target.style.display = 'none';
-                                    e.target.nextSibling.style.display = 'block';
-                                }}
+                                className="group-hover:scale-105 transition-transform duration-700 ease-out"
                               />
-                          ) : null}
-                          <div className={`w-full h-full ${campaign.cover} absolute inset-0 ${campaign.coverImage ? 'hidden' : ''}`}></div>
+                          ) : (
+                              <div className={`w-full h-full ${campaign.cover}`}></div>
+                          )}
 
                           {/* Status Badge */}
                           <div className="absolute top-3 left-3 z-10 flex items-center gap-2">
@@ -415,16 +430,18 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
                           </div>
                       </div>
 
-                      {/* Hover Actions Menu - MOVED OUTSIDE OVERFLOW-HIDDEN CONTAINER */}
+                      {/* Hover Actions Menu */}
                       <div className="absolute top-3 right-3 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                           <div className="relative">
                               <button 
-                                  onClick={(e) => {e.stopPropagation(); setOpenMenuId(openMenuId === campaign.id ? null : campaign.id)}}
-                                  className="p-2 bg-white rounded-lg shadow-md hover:bg-gray-50 text-gray-700"
+                                  onClick={(e) => {
+                                      e.stopPropagation(); 
+                                      setActiveMenu(prev => prev.id === campaign.id ? {id:null, anchor:null} : {id: campaign.id, anchor: e.currentTarget});
+                                  }}
+                                  className={`p-2 rounded-lg shadow-md hover:bg-gray-50 text-gray-700 ${activeMenu.id === campaign.id ? 'bg-gray-100 opacity-100' : 'bg-white'}`}
                               >
                                   <MoreHorizontal size={16}/>
                               </button>
-                              {openMenuId === campaign.id && renderActionMenu(campaign, () => setOpenMenuId(null))}
                           </div>
                       </div>
 
@@ -480,7 +497,7 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
                           {/* Asset Icons */}
                           <div className="mt-auto flex items-center gap-1.5">
                               {renderAssetIcons(campaign)}
-                              <div className="ml-auto text-gray-300 group-hover:text-indigo-600 transition"><ArrowRight size={16}/></div>
+                              <div className="ml-auto text-gray-300 group-hover:text-brand-gold transition"><ArrowRight size={16}/></div>
                           </div>
                       </div>
                   </div>
@@ -488,16 +505,16 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
           </div>
       ) : (
           /* [D2] List View */
-          <div className="bg-white border border-gray-200 rounded-xl">
+          <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
               <table className="w-full text-left table-fixed">
                   <thead className="bg-gray-50 border-b border-gray-200 text-xs font-bold text-gray-500 uppercase tracking-wider">
                       <tr>
                           <th className="px-6 py-4 w-[25%]">Campaign</th>
-                          <th className="px-6 py-4 w-[8%]">Status</th>
-                          <th className="px-6 py-4 w-[13%]">Availability</th>
-                          <th className="px-6 py-4 w-[11%]">Audience</th>
+                          <th className="px-6 py-4 w-[9%]">Status</th>
+                          <th className="px-6 py-4 w-[12%]">Availability</th>
+                          <th className="px-6 py-4 w-[12%]">Audience</th>
                           <th className="px-6 py-4 w-[17%]">Content</th>
-                          <th className="px-6 py-4 w-[10%]">Adoption</th>
+                          <th className="px-6 py-4 w-[9%]">Adoption</th>
                           <th className="px-6 py-4 w-[10%]">Usage</th>
                           <th className="px-6 py-4 w-[6%] text-right"></th>
                       </tr>
@@ -553,12 +570,8 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
                                       </Tooltip>
                                   </div>
                               </td>
-                              <td className="px-6 py-4 text-xs text-gray-600">
-                                  {campaign.audience === 'Unspecified' ? (
-                                      <span className="text-gray-400 italic">Unspecified</span>
-                                  ) : (
-                                      campaign.audience
-                                  )}
+                              <td className="px-6 py-4 whitespace-nowrap">
+                                  <AudienceCell campaign={campaign} showIcon={false} />
                               </td>
                               <td className="px-6 py-4">
                                   {renderAssetIcons(campaign)}
@@ -591,12 +604,14 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
                               </td>
                               <td className="px-6 py-4 text-right relative" onClick={e => e.stopPropagation()}>
                                   <button 
-                                      onClick={(e) => {e.stopPropagation(); setOpenMenuId(openMenuId === campaign.id ? null : campaign.id)}}
-                                      className="p-2 hover:bg-gray-200 rounded-sm text-gray-400 hover:text-black transition"
+                                      onClick={(e) => {
+                                          e.stopPropagation(); 
+                                          setActiveMenu(prev => prev.id === campaign.id ? {id:null, anchor:null} : {id: campaign.id, anchor: e.currentTarget});
+                                      }}
+                                      className={`p-2 hover:bg-gray-200 rounded-sm hover:text-black transition ${activeMenu.id === campaign.id ? 'bg-gray-200 text-black' : 'text-gray-400'}`}
                                   >
                                       <MoreHorizontal size={16}/>
                                   </button>
-                                  {openMenuId === campaign.id && renderActionMenu(campaign, () => setOpenMenuId(null))}
                               </td>
                           </tr>
                       )})}
@@ -610,7 +625,7 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
           {visibleCount < filteredCampaigns.length ? (
               <button 
                   onClick={() => setVisibleCount(prev => prev + 12)}
-                  className="px-6 py-2 bg-white border border-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-50 hover:border-gray-300 transition shadow-xs"
+                  className="px-6 py-2 bg-white border border-gray-200 text-gray-700 font-medium text-sm cursor-pointer rounded-lg hover:bg-gray-50 hover:border-gray-300 transition shadow-xs"
               >
                   Load More
               </button>
@@ -621,6 +636,15 @@ const BrandCampaignList = ({ campaigns, onCreate, onSelect, onEdit, onDelete, on
           )}
       </div>
       </div>
+
+      {/* Global Action Menu Dropdown */}
+      <GlobalDropdown
+         isOpen={!!activeMenu.id}
+         anchorEl={activeMenu.anchor}
+         onClose={() => setActiveMenu({ id: null, anchor: null })}
+      >
+          {activeMenu.id && renderMenuContent(campaigns.find(c => c.id === activeMenu.id), () => setActiveMenu({ id: null, anchor: null }))}
+      </GlobalDropdown>
     </div>
   );
 };

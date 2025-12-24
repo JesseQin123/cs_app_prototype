@@ -6,7 +6,7 @@ import FileUploadTrigger from '@/components/FileUploadTrigger';
 
 
 
-const SettingsTab = ({ campaign, onUpdate }) => {
+const SettingsTab = ({ campaign, onUpdate, onScrollComplete }) => {
   // Local state for buffering changes
   const [localCampaign, setLocalCampaign] = useState(campaign);
 
@@ -42,6 +42,21 @@ const SettingsTab = ({ campaign, onUpdate }) => {
   const handleCancel = () => {
     setLocalCampaign(campaign);
   };
+
+  // Scroll to target section on mount/update
+  useEffect(() => {
+    if (campaign.scrollTarget) {
+        const el = document.getElementById(campaign.scrollTarget);
+        if (el) {
+            // Small timeout to ensure DOM is ready
+            setTimeout(() => {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Reset scroll target after successful scroll
+                if (onScrollComplete) onScrollComplete();
+            }, 100);
+        }
+    }
+  }, [campaign.scrollTarget, onScrollComplete]);
 
 
 
@@ -102,7 +117,7 @@ const SettingsTab = ({ campaign, onUpdate }) => {
       </section>
 
       {/* Section 1: Availability */}
-      <section>
+      <section id="settings-availability" className="scroll-mt-24">
         <h3 className="text-lg font-bold text-gray-900 mb-1">Availability</h3>
         <p className="text-sm text-gray-500 mb-6">Define the active timeframe for this campaign.</p>
         
@@ -115,7 +130,7 @@ const SettingsTab = ({ campaign, onUpdate }) => {
       </section>
 
       {/* Section 2: Audience */}
-      <section>
+      <section id="settings-audience" className="scroll-mt-24">
         <h3 className="text-lg font-bold text-gray-900 mb-1">Audience</h3>
         <p className="text-sm text-gray-500 mb-6">Define which retailers can access this campaign.</p>
         

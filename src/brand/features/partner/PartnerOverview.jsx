@@ -37,7 +37,7 @@ const KpiCard = ({ kpi, onReview }) => {
     return (
         <div 
             onClick={onReview}
-            className={`p-5 rounded-xl border transition relative flex flex-col shadow-xs h-36 group ${kpi.isAlert ? 'bg-linear-to-br from-red-50 to-white border-red-100 cursor-pointer hover:shadow-md hover:border-red-200' : onReview ? 'bg-white border-gray-200 hover:shadow-md cursor-pointer' : 'bg-white border-gray-200'}`}
+            className={`py-5 px-6 rounded-xl border transition relative flex flex-col h-36 group ${kpi.isAlert ? 'bg-linear-to-br from-red-50 to-white border-red-100 cursor-pointer hover:shadow-md hover:border-red-200' : onReview ? 'bg-white border-gray-200 hover:shadow-md cursor-pointer' : 'bg-white border-gray-200'}`}
         >
             
             {/* Header Section - Fixed Height for Alignment */}
@@ -272,7 +272,7 @@ const PartnerOverview = ({ files, campaigns, notify, isEmpty, navigateTo }) => {
             </div>
 
             {/* Section A: KPIs */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 animate-in fade-in slide-in-from-top-3 duration-500">
                 {currentKpi.map(item => {
                     const tooltips = {
                        'Active Partners': "Number of partners who logged into the portal at least once during the selected timeframe.",

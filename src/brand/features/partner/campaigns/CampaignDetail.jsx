@@ -1,15 +1,19 @@
+
 import React, { useState } from 'react';
-import { ArrowLeft, MoreHorizontal, Settings, Share2, AlertCircle, Clock, Users, Calendar, CheckCircle2, Pin, X } from 'lucide-react';
+import { ArrowLeft, MoreHorizontal, Settings, Share2, AlertCircle, Clock, Users, Calendar, CheckCircle2, Pin, X, Flame, Infinity as InfinityIcon } from 'lucide-react';
 import { campaignData } from '../../../../data/mockStore/campaignStore'; // Added import
+import AudienceCell from '../components/AudienceCell';
 import OverviewTab from './components/OverviewTab';
 import ContentTab from './components/ContentTab';
 import ContentInsightsTab from './components/ContentInsightsTab';
 import SettingsTab from './components/SettingsTab';
 import RetailerPerformanceTab from './components/RetailerPerformanceTab';
 import ReadinessChecklist from './components/ReadinessChecklist';
+import Tooltip from '../../../../components/Tooltip';
 
 const CampaignDetail = ({ campaign, onBack, onUpdate, notify, allFiles, retailers }) => {
   const [activeTab, setActiveTab] = useState('overview');
+  const [settingsScrollTarget, setSettingsScrollTarget] = useState(null);
 
   const [confirmation, setConfirmation] = useState({
     isOpen: false,
@@ -71,10 +75,107 @@ const CampaignDetail = ({ campaign, onBack, onUpdate, notify, allFiles, retailer
     );
   };
 
-  // Helper for audience label
-  const getAudienceLabel = () => {
-     if (campaign.audience === 'All Retailers') return `All Retailers (${retailers?.length || 180})`;
-     return campaign.audience || 'Unspecified Audience';
+
+
+
+
+  // Helper to format date (YYYY-MM-DD -> MMM D, YYYY)
+  const formatDate = (dateString) => {
+    if (!dateString) return '';
+    if (dateString === 'Permanent') return 'Permanent';
+
+    let date;
+    if (typeof dateString === 'string') {
+        // Parse YYYY-MM-DD manual to avoid timezone issues
+        const [year, month, day] = dateString.split('-').map(Number);
+        date = new Date(year, month - 1, day);
+    } else {
+        // Assume it's a Date object
+        date = dateString;
+    }
+    
+    return date.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+    });
+  };
+
+  const formatDateShort = (date) => {
+      return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  };
+
+  // Helper for availability status (Matches Campaign List Logic)
+  const getAvailabilityStatus = (campaign) => {
+      // 1. Permanent
+      if (campaign.endDate === 'Permanent') {
+          return { 
+              type: 'permanent', 
+              label: 'Always available', 
+              color: 'text-green-600', 
+              icon: <InfinityIcon size={12} className="text-green-600"/>,
+              tooltip: `Active since ${formatDate(campaign.startDate)}`
+          };
+      }
+
+      const now = new Date('2025-11-26');
+      const start = new Date(campaign.startDate);
+      const end = new Date(campaign.endDate);
+      const diffTime = end - now;
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      
+      // 2. Scheduled (Future Start)
+      if (start > now) {
+           return { 
+              type: 'scheduled', 
+              label: `Starts ${formatDateShort(start)}`, 
+              color: 'text-gray-500', 
+              icon: <Calendar size={12} className="text-gray-400"/>,
+              tooltip: `Availability: Starts ${formatDate(start)}`
+           };
+      }
+
+      // 3. Expired
+      if (diffDays <= 0 || campaign.status === 'Ended' || campaign.status === 'Archived') {
+           return { 
+              type: 'expired', 
+              label: `Expired ${formatDateShort(end)}`, 
+              color: 'text-gray-400', 
+              icon: null,
+              tooltip: `Expired on ${formatDate(end)}`
+           };
+      }
+
+      // 4. Urgent / Ends Today (< 24h)
+      if (diffDays <= 1) {
+           return { 
+               type: 'critical', 
+               label: 'Ends Today', 
+               color: 'text-red-600', 
+               icon: <Flame size={12} className="fill-red-600 text-red-600"/>,
+               tooltip: `Ends: Today at 11:59 PM`
+           };
+      }
+
+      // 5. Warning (< 7 days)
+      if (diffDays <= 7) {
+          return { 
+              type: 'warning', 
+              label: `Ends in ${diffDays} days`, 
+              color: 'text-amber-600', 
+              icon: <Clock size={12} className="text-amber-600"/>,
+              tooltip: `Ends: ${formatDate(end)} at 11:59 PM`
+          };
+      }
+
+      // 6. Active (Far future)
+      return { 
+          type: 'active', 
+          label: `Until ${formatDateShort(end)}`, 
+          color: 'text-gray-500', 
+          icon: <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>,
+          tooltip: `Availability: Until ${formatDate(end)}`
+      };
   };
 
   // Resolve Tab Data based on campaign IDs
@@ -148,16 +249,34 @@ const CampaignDetail = ({ campaign, onBack, onUpdate, notify, allFiles, retailer
                     <span className="w-px h-3 bg-gray-300"></span>
                     
                     <div className="flex items-center gap-4 text-gray-500">
-                        <div className="flex items-center gap-1.5">
-                            <Calendar size={12} className="text-gray-400"/>
-                            <span className="font-medium">
-                                {campaign.endDate === 'Permanent' ? 'No Expiration' : `${campaign.startDate} - ${campaign.endDate}`}
-                            </span>
-                        </div>
-                        
-                        <div className="flex items-center gap-1.5">
-                            <Users size={12} className="text-gray-400"/>
-                            <span className="font-medium">{getAudienceLabel()}</span>
+                        {(() => {
+                            const status = getAvailabilityStatus(campaign);
+                            return (
+                                <Tooltip 
+                                    content={status.tooltip}
+                                    className={`flex items-center gap-1.5 cursor-pointer hover:bg-gray-100 p-1 -m-1 rounded transition-colors`}
+                                    onClick={() => {
+                                        setSettingsScrollTarget('settings-availability');
+                                        setActiveTab('settings');
+                                    }}
+                                >
+                                    {status.icon}
+                                    <span className={`font-medium ${status.color}`}>
+                                        {status.label}
+                                    </span>
+                                </Tooltip>
+                            );
+                        })()}
+                        <div 
+                            className="flex items-center gap-1.5 cursor-pointer hover:bg-gray-100 p-1 -m-1 rounded transition-colors" 
+                            title="Edit Audience"
+                            onClick={() => {
+                                setSettingsScrollTarget('settings-audience');
+                                setActiveTab('settings');
+                            }}
+                        >
+                            <Users size={12} className="text-gray-400" />
+                            <AudienceCell campaign={freshCampaign} showIcon={false} stopPropagation={false} />
                         </div>
                     </div>
                   </div>
@@ -170,7 +289,7 @@ const CampaignDetail = ({ campaign, onBack, onUpdate, notify, allFiles, retailer
                             <img src={campaign.createdBy.avatar} alt="" className="w-4 h-4 rounded-full object-cover" />
                             <span className="font-medium text-gray-900">{campaign.createdBy.name}</span>
                             <span className="text-gray-400">•</span>
-                            <span>{campaign.createdAt}</span>
+                  <span>{formatDate(campaign.startDate)}</span> {/* Using startDate as proxy for Created Date per mock */}
                         </div>
                     </div>
                   )}
@@ -335,7 +454,15 @@ const CampaignDetail = ({ campaign, onBack, onUpdate, notify, allFiles, retailer
                 />
             </div>
           )}
-          {activeTab === 'settings' && <div className="p-6"><SettingsTab campaign={campaign} onUpdate={onUpdate} /></div>}
+          {activeTab === 'settings' && (
+            <div className="p-6">
+                <SettingsTab 
+                    campaign={{...freshCampaign, scrollTarget: settingsScrollTarget}} 
+                    onUpdate={onUpdate} 
+                    onScrollComplete={() => setSettingsScrollTarget(null)}
+                />
+            </div>
+          )}
         </div>
       </div>
 

@@ -76,6 +76,7 @@ export const retailers = LUXURY_RETAILERS.map((name, index) => {
   return {
     id: `r-${index + 1}`,
     name: name,
+    email: `contact@${name.replace(/[^a-zA-Z0-9]/g, "").toLowerCase()}.com`,
     location: "New York, NY", // Mock
     tier: tier.id,
     zone: zone.id,

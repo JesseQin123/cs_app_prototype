@@ -106,7 +106,7 @@ const PerformanceOverview = ({ campaigns }) => {
   ];
 
   const MetricCard = ({ metric }) => (
-    <div className="bg-white border border-gray-200 rounded-xl p-6 h-36 flex flex-col relative">
+    <div className="bg-white border border-gray-200 rounded-xl py-5 px-6 h-36 flex flex-col relative">
        <div className="flex justify-between items-center h-7 mb-2">
           <div className="flex items-center gap-1.5">
             <span className="text-xs font-semibold text-gray-500 tracking-wide uppercase">{metric.label}</span>
@@ -134,7 +134,7 @@ const PerformanceOverview = ({ campaigns }) => {
   );
 
   return (
-    <div className="mb-8 animate-in fade-in slide-in-from-top-4 duration-500">
+    <div className="mb-8 animate-in fade-in slide-in-from-top-3 duration-500">
       
       {/* 1. Header & Controls */}
       <div className="flex items-center justify-between mb-4 h-9 border-gray-100 pb-0">

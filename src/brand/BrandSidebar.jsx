@@ -19,8 +19,8 @@ const BrandSidebar = ({ activePage, setActivePage }) => {
         { id: 'partner-overview', label: 'Overview' },
         { id: 'partner-campaigns', label: 'Campaigns' },
         { id: 'partner-resources', label: 'Resources' },
-        { id: 'partner-tasks', label: 'Tasks' },
         { id: 'partner-retailers', label: 'Retailers' },
+        // { id: 'partner-tasks', label: 'Tasks' },
       ]
     },
     {

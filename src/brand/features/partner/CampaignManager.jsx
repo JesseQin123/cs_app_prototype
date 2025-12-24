@@ -13,6 +13,7 @@ const CampaignManager = ({ campaigns: initialCampaigns, setCampaigns: setParentC
 
   const [selectedCampaign, setSelectedCampaign] = useState(null);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [viewMode, setViewMode] = useState('grid');
 
   // Initialize with Centralized Mock Data
   useEffect(() => {
@@ -105,6 +106,8 @@ const CampaignManager = ({ campaigns: initialCampaigns, setCampaigns: setParentC
       </div>
       <BrandCampaignList 
         campaigns={campaigns}
+        viewMode={viewMode}
+        onViewModeChange={setViewMode}
         // Removed unused files/templates props as they are now handled via internal campaign structure or no longer needed for list view
         onCreate={handleCreate}
         onSelect={setSelectedCampaign}

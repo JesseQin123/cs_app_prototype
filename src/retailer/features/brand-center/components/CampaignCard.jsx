@@ -1,6 +1,7 @@
 import React from 'react';
 import { Clock, Pin, Instagram, Facebook, Mail, FileText, Download, Smartphone, Linkedin, Twitter, Globe, MessageSquare, Share2, Check, Flame, ArrowRight, Lock, Infinity as InfinityIcon } from 'lucide-react';
 import Tooltip from '../../../../components/Tooltip';
+import ImageWithLoader from '../../../../components/common/ImageWithLoader';
 
 const CampaignCard = ({ campaign, brand, templates = [], files = [], hideExpiringStatus = false }) => {
   // Calculate asset counts
@@ -18,6 +19,26 @@ const CampaignCard = ({ campaign, brand, templates = [], files = [], hideExpirin
 
   // Helper for status
   const getExpirationStatus = () => {
+      // Date Formatter (Robust for YYYY-MM-DD)
+      const formatDateFull = (dateStringOrDate) => {
+          if (!dateStringOrDate) return '';
+          let date;
+          
+          if (typeof dateStringOrDate === 'string') {
+               if (dateStringOrDate === 'Permanent') return 'Permanent';
+               const [year, month, day] = dateStringOrDate.split('-').map(Number);
+               date = new Date(year, month - 1, day);
+          } else {
+               date = dateStringOrDate;
+          }
+
+          return date.toLocaleDateString('en-US', { 
+              month: 'short', 
+              day: 'numeric',
+              year: 'numeric'
+          });
+      };
+
       // 1. Permanent
       if (campaign.endDate === 'Permanent') {
           return { 
@@ -36,7 +57,7 @@ const CampaignCard = ({ campaign, brand, templates = [], files = [], hideExpirin
               label: 'Expired', 
               color: 'text-gray-900', 
               icon: <div className="w-1.5 h-1.5 rounded-full bg-black"></div>,
-              tooltip: `Not available since ${campaign.endDate}`
+              tooltip: `Not available since ${formatDateFull(campaign.endDate)}`
           };
       }
       
@@ -45,7 +66,7 @@ const CampaignCard = ({ campaign, brand, templates = [], files = [], hideExpirin
       const diffTime = end - now;
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
       
-      // Date Formatter
+      // Date Formatter for labels (Short)
       const formatDate = (date) => date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
       const formatTime = (date) => date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
 
@@ -56,7 +77,7 @@ const CampaignCard = ({ campaign, brand, templates = [], files = [], hideExpirin
               label: 'Expired', 
               color: 'text-gray-900', 
               icon: <div className="w-1.5 h-1.5 rounded-full bg-black"></div>,
-              tooltip: `Not available since ${formatDate(end)}`
+              tooltip: `Not available since ${formatDateFull(campaign.endDate)}`
           };
       }
 
@@ -121,10 +142,15 @@ const CampaignCard = ({ campaign, brand, templates = [], files = [], hideExpirin
       {/* Visual Area (Fixed Aspect Ratio 16:9) */}
       <div className="relative aspect-video w-full overflow-hidden bg-gray-100 rounded-t-xl shrink-0">
         {/* Cover Image */}
-        <div 
-           className={`absolute inset-0 bg-cover bg-center transition-transform duration-700 ${!isExpired && 'group-hover:scale-105'} ${campaign.coverImage && typeof campaign.coverImage === 'string' && campaign.coverImage.startsWith('http') ? '' : campaign.cover}`}
-           style={campaign.coverImage ? { backgroundImage: `url(${campaign.coverImage})` } : {}}
-        ></div>
+        {campaign.coverImage && typeof campaign.coverImage === 'string' ? (
+             <ImageWithLoader 
+                src={campaign.coverImage} 
+                alt={campaign.title}
+                containerClassName={`absolute inset-0 transition-transform duration-700 ${!isExpired && 'group-hover:scale-105'}`}
+             />
+        ) : (
+             <div className={`absolute inset-0 bg-cover bg-center transition-transform duration-700 ${!isExpired && 'group-hover:scale-105'} ${campaign.cover}`}></div>
+        )}
         
         {/* Expired Overlay */}
         {isExpired && <div className="absolute inset-0 bg-white/30 backdrop-grayscale"></div>}
