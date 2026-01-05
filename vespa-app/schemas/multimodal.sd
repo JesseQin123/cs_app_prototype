@@ -1,0 +1,140 @@
+# Copyright Vespa.ai. Licensed under the terms of the Apache 2.0 license. See LICENSE in the project root.
+
+schema multimodal {
+    document multimodal {
+
+        field language type string {
+            indexing: "en" | set_language
+        }
+
+        field id type string {
+            indexing: summary | attribute
+            attribute: fast-search
+        }
+
+        field content_type type string {
+            indexing: summary | attribute
+            attribute: fast-search
+        }
+
+        field title type string {
+            indexing: index | summary
+            index: enable-bm25
+        }
+
+        field body type string {
+            indexing: index | summary
+            summary: dynamic
+            index: enable-bm25
+        }
+
+        field url type string {
+            indexing: index | summary
+            index: enable-bm25
+        }
+
+        field image_file_name type string {
+            indexing: summary | attribute
+        }
+
+        field image_embedding type tensor<float>(x[512]) {
+            indexing: attribute | index
+            attribute {
+                distance-metric: euclidean
+            }
+            index {
+                hnsw {
+                    max-links-per-node: 16
+                    neighbors-to-explore-at-insert: 200
+                }
+            }
+        }
+
+        field created_at type long {
+            indexing: summary | attribute
+            attribute: fast-search
+        }
+    }
+
+    document-summary minimal {
+        summary id {}
+        summary content_type {}
+    }
+
+    document-summary text_only {
+        summary id {}
+        summary title {}
+        summary url {}
+        summary body {
+            source: body
+            dynamic
+        }
+        summary created_at {}
+        from-disk
+    }
+
+    document-summary image_only {
+        summary id {}
+        summary image_file_name {}
+        summary created_at {}
+    }
+
+    fieldset default {
+        fields: title, body, url
+    }
+
+    rank-profile default {
+        first-phase {
+            expression: nativeRank(title, body, url)
+        }
+    }
+
+    rank-profile text_search inherits default {
+        first-phase {
+            expression: bm25(title) + bm25(body) + bm25(url)
+        }
+    }
+
+    rank-profile image_search inherits default {
+        inputs {
+            query(text_embedding) tensor<float>(x[512])
+        }
+
+        first-phase {
+            expression: closeness(field, image_embedding)
+        }
+    }
+
+    rank-profile hybrid inherits default {
+        inputs {
+            query(text_embedding) tensor<float>(x[512])
+            query(text_weight) double: 0.5
+            query(image_weight) double: 0.5
+        }
+
+        function text_score() {
+            expression {
+                if (attribute(content_type) == "text",
+                    bm25(title) + bm25(body) + bm25(url),
+                    0
+                )
+            }
+        }
+
+        function image_score() {
+            expression {
+                if (attribute(content_type) == "image" || attribute(content_type) == "hybrid",
+                    closeness(field, image_embedding),
+                    0
+                )
+            }
+        }
+
+        first-phase {
+            expression {
+                query(text_weight) * text_score() +
+                query(image_weight) * image_score()
+            }
+        }
+    }
+}
