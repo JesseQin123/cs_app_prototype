@@ -1,10 +1,10 @@
 // Load environment variables
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 
 const express = require('express');
 const multer = require('multer');
 const axios = require('axios');
-const path = require('path');
 const fs = require('fs');
 const pdfParse = require('pdf-parse');
 const mammoth = require('mammoth');
