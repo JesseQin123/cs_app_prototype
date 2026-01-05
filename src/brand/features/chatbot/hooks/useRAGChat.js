@@ -25,8 +25,9 @@ export function useRAGChat(initialOptions = {}) {
   const [error, setError] = useState(null);
   const [options, setOptions] = useState({ ...DEFAULT_OPTIONS, ...initialOptions });
 
-  // Refs for cleanup
+  // Refs for cleanup and streaming content
   const abortControllerRef = useRef(null);
+  const streamingContentRef = useRef('');
 
   // Persist conversation ID to session storage
   useEffect(() => {
@@ -65,6 +66,9 @@ export function useRAGChat(initialOptions = {}) {
     };
     setMessages(prev => [...prev, assistantMessage]);
     setIsStreaming(true);
+
+    // Reset streaming content ref
+    streamingContentRef.current = '';
 
     // Create abort controller for this request
     abortControllerRef.current = new AbortController();
@@ -119,26 +123,31 @@ export function useRAGChat(initialOptions = {}) {
 
               switch (event) {
                 case 'token':
-                  // Append token to assistant message
+                  // Append token using ref to avoid React state issues
+                  streamingContentRef.current += data.token;
                   setMessages(prev => {
-                    const updated = [...prev];
-                    const lastMsg = updated[updated.length - 1];
-                    if (lastMsg.id === assistantMessageId) {
-                      lastMsg.content += data.token;
+                    const lastMsg = prev[prev.length - 1];
+                    if (lastMsg?.id === assistantMessageId) {
+                      return [
+                        ...prev.slice(0, -1),
+                        { ...lastMsg, content: streamingContentRef.current }
+                      ];
                     }
-                    return updated;
+                    return prev;
                   });
                   break;
 
                 case 'sources':
-                  // Update sources
+                  // Update sources (immutable update)
                   setMessages(prev => {
-                    const updated = [...prev];
-                    const lastMsg = updated[updated.length - 1];
-                    if (lastMsg.id === assistantMessageId) {
-                      lastMsg.sources = data.documents || [];
+                    const lastMsg = prev[prev.length - 1];
+                    if (lastMsg?.id === assistantMessageId) {
+                      return [
+                        ...prev.slice(0, -1),
+                        { ...lastMsg, sources: data.documents || [] }
+                      ];
                     }
-                    return updated;
+                    return prev;
                   });
                   break;
 
@@ -146,12 +155,14 @@ export function useRAGChat(initialOptions = {}) {
                   // Mark message as complete and save conversation ID
                   setConversationId(data.conversationId);
                   setMessages(prev => {
-                    const updated = [...prev];
-                    const lastMsg = updated[updated.length - 1];
-                    if (lastMsg.id === assistantMessageId) {
-                      lastMsg.isStreaming = false;
+                    const lastMsg = prev[prev.length - 1];
+                    if (lastMsg?.id === assistantMessageId) {
+                      return [
+                        ...prev.slice(0, -1),
+                        { ...lastMsg, content: streamingContentRef.current, isStreaming: false }
+                      ];
                     }
-                    return updated;
+                    return prev;
                   });
                   break;
 
