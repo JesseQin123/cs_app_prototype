@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Wallet, ChevronDown, HelpCircle, Info, Plus, X } from 'lucide-react';
 import { retailerActivityData } from '@/data/mockStore/retailerActivityStore';
 import * as Popover from '@radix-ui/react-popover';
+import Dialog from '@/components/common/Dialog';
 
 const CreditWallet = () => {
     const { credits } = retailerActivityData;
@@ -135,73 +136,67 @@ const CreditWallet = () => {
         </Popover.Root>
 
         {/* Request Modal */}
-        {isRequestModalOpen && (
-            <div className="fixed inset-0 z-60 flex items-center justify-center bg-black/50 backdrop-blur-xs animate-in fade-in duration-200">
-                <div className="bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200 flex flex-col">
-                    {/* Header */}
-                    <div className="flex items-center justify-between p-4 border-b border-gray-100 bg-gray-50">
-                        <h3 className="font-bold text-gray-900">Request Email Limit Increase</h3>
-                        <button onClick={() => setIsRequestModalOpen(false)} className="p-1.5 hover:bg-gray-200 rounded-full text-gray-500 transition"><X size={16}/></button>
-                    </div>
+        {/* Request Modal */}
+        <Dialog
+            isOpen={isRequestModalOpen}
+            onOpenChange={setIsRequestModalOpen}
+            title="Request Email Limit Increase"
+            footer={
+                <>
+                    <button type="button" onClick={() => setIsRequestModalOpen(false)} className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-black">Cancel</button>
+                    <button onClick={handleRequestSubmit} className="px-4 py-2 text-sm font-bold text-white bg-black rounded-lg hover:bg-gray-800 shadow-xs">Submit Request</button>
+                </>
+            }
+        >
+            <form id="credit-request-form" onSubmit={handleRequestSubmit} className="space-y-4">
+                 {/* Context */}
+                 <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg border border-gray-100">
+                     <div className="w-8 h-8 rounded-full bg-white border border-gray-100 flex items-center justify-center font-bold text-xs text-gray-500 overflow-hidden">
+                        {selectedBrand?.logo ? <img src={selectedBrand.logo} className="w-full h-full object-cover"/> : selectedBrand?.brandName.substring(0,2)}
+                     </div>
+                     <div>
+                         <p className="text-sm font-medium text-gray-900">Requesting for {selectedBrand?.brandName}</p>
+                         <p className="text-xs text-gray-500">Current Email Limit: {selectedBrand?.total.toLocaleString()}</p>
+                     </div>
+                 </div>
 
-                    <form onSubmit={handleRequestSubmit}>
-                    <div className="p-6 space-y-4">
-                         {/* Context */}
-                         <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg border border-gray-100">
-                             <div className="w-8 h-8 rounded-full bg-white border border-gray-100 flex items-center justify-center font-bold text-xs text-gray-500 overflow-hidden">
-                                {selectedBrand?.logo ? <img src={selectedBrand.logo} className="w-full h-full object-cover"/> : selectedBrand?.brandName.substring(0,2)}
-                             </div>
-                             <div>
-                                 <p className="text-sm font-medium text-gray-900">Requesting for {selectedBrand?.brandName}</p>
-                                 <p className="text-xs text-gray-500">Current Email Limit: {selectedBrand?.total.toLocaleString()}</p>
-                             </div>
-                         </div>
+                 {/* Amount */}
+                 <div>
+                     <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Requested Increase Amount</label>
+                     <input 
+                        type="number" 
+                        required
+                        value={requestAmount}
+                        onChange={e => setRequestAmount(e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-black/5 font-mono text-sm"
+                        placeholder="e.g. 5000"
+                     />
+                 </div>
 
-                         {/* Amount */}
-                         <div>
-                             <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Requested Increase Amount</label>
-                             <input 
-                                type="number" 
-                                required
-                                value={requestAmount}
-                                onChange={e => setRequestAmount(e.target.value)}
-                                className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-black/5 font-mono text-sm"
-                                placeholder="e.g. 5000"
-                             />
-                         </div>
+                 {/* Reason */}
+                 <div>
+                     <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Reason</label>
+                     <textarea 
+                        required
+                        value={requestReason}
+                        onChange={e => setRequestReason(e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-black/5 text-sm resize-none h-20"
+                        placeholder="Why do you need more credits?"
+                     />
+                 </div>
 
-                         {/* Reason */}
-                         <div>
-                             <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Reason</label>
-                             <textarea 
-                                required
-                                value={requestReason}
-                                onChange={e => setRequestReason(e.target.value)}
-                                className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-black/5 text-sm resize-none h-20"
-                                placeholder="Why do you need more credits?"
-                             />
-                         </div>
-
-                         {/* Email Checkbox */}
-                         <label className="flex items-center gap-2 cursor-pointer group">
-                             <input 
-                                type="checkbox" 
-                                checked={sendEmail}
-                                onChange={e => setSendEmail(e.target.checked)}
-                                className="w-4 h-4 rounded-sm border-gray-300 text-black focus:ring-black/5"
-                             />
-                             <span className="text-sm text-gray-600 group-hover:text-gray-900">Send email notification to Brand Rep</span>
-                         </label>
-                    </div>
-
-                    <div className="p-4 border-t border-gray-100 bg-gray-50 flex justify-end gap-2">
-                        <button type="button" onClick={() => setIsRequestModalOpen(false)} className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-black">Cancel</button>
-                        <button type="submit" className="px-4 py-2 text-sm font-bold text-white bg-black rounded-lg hover:bg-gray-800 shadow-xs">Submit Request</button>
-                    </div>
-                    </form>
-                </div>
-            </div>
-        )}
+                 {/* Email Checkbox */}
+                 <label className="flex items-center gap-2 cursor-pointer group">
+                     <input 
+                        type="checkbox" 
+                        checked={sendEmail}
+                        onChange={e => setSendEmail(e.target.checked)}
+                        className="w-4 h-4 rounded-sm border-gray-300 text-black focus:ring-black/5"
+                     />
+                     <span className="text-sm text-gray-600 group-hover:text-gray-900">Send email notification to Brand Rep</span>
+                 </label>
+            </form>
+        </Dialog>
         </>
     );
 };

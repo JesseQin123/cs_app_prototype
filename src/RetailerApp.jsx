@@ -7,6 +7,9 @@ import RetailerAnalytics from './retailer/features/analytics/RetailerAnalytics';
 
 import { currentRetailerUser } from './data/mockStore/retailerStore';
 
+import { NotificationProvider } from './context/NotificationContext';
+import NotificationPanel from './components/NotificationCenter/NotificationPanel';
+
 const RetailerApp = ({ campaigns, catalogs, templates, files, showEmptyState }) => {
   const [activePage, setActivePage] = useState('dashboard');
   const [navigationParams, setNavigationParams] = useState({});
@@ -17,36 +20,44 @@ const RetailerApp = ({ campaigns, catalogs, templates, files, showEmptyState }) 
       setActivePage(page);
       setNavigationParams(params);
   };
+  
+  // Map Role
+  const userRole = user.role === 'Admin' ? 'retailer_admin' : 'retailer_member';
 
   return (
-    <div className="flex h-screen w-full bg-gray-50 font-sans text-gray-900 relative">
-      <RetailerSidebar activePage={activePage} setActivePage={handleNavigate} user={user} />
+    <NotificationProvider userRole={userRole}>
+      <div className="flex h-screen w-full bg-gray-50 font-sans text-gray-900 relative">
+        <RetailerSidebar activePage={activePage} setActivePage={handleNavigate} user={user} />
 
-      <main className="flex-1 overflow-hidden flex flex-col bg-gray-50">
-        {activePage.startsWith('brand-center') ? (
-           <BrandCenter 
-              view={activePage.replace('brand-center-', '') || 'overview'} 
-              campaigns={campaigns} 
-              catalogs={catalogs} 
-              templates={templates} 
-              files={files} 
-              onNavigate={(pageId) => handleNavigate(pageId)}
-           />
-        ) : activePage === 'dashboard' ? (
-           <Dashboard user={user} onNavigate={handleNavigate} />
-        ) : activePage === 'my-marketing' ? (
-           <MyMarketing onNavigate={handleNavigate} initialParams={navigationParams} />
-        ) : activePage === 'analytics' ? (
-           <div className="h-full overflow-y-auto">
-              <RetailerAnalytics showEmptyState={showEmptyState} onNavigate={handleNavigate} />
-           </div>
-        ) : (
-           <div className="p-12 flex items-center justify-center h-full text-gray-400">
-              {activePage.charAt(0).toUpperCase() + activePage.slice(1)} View Placeholder
-           </div>
-        )}
-      </main>
-    </div>
+        <main className="flex-1 overflow-hidden flex flex-col bg-gray-50">
+          {activePage.startsWith('brand-center') ? (
+             <BrandCenter 
+                view={activePage.replace('brand-center-', '') || 'overview'} 
+                campaigns={campaigns} 
+                catalogs={catalogs} 
+                templates={templates} 
+                files={files} 
+                onNavigate={(pageId) => handleNavigate(pageId)}
+             />
+          ) : activePage === 'dashboard' ? (
+             <Dashboard user={user} onNavigate={handleNavigate} />
+          ) : activePage === 'my-marketing' ? (
+             <MyMarketing onNavigate={handleNavigate} initialParams={navigationParams} />
+          ) : activePage === 'analytics' ? (
+             <div className="h-full overflow-y-auto">
+                <RetailerAnalytics showEmptyState={showEmptyState} onNavigate={handleNavigate} />
+             </div>
+          ) : (
+             <div className="p-12 flex items-center justify-center h-full text-gray-400">
+                {activePage.charAt(0).toUpperCase() + activePage.slice(1)} View Placeholder
+             </div>
+          )}
+        </main>
+        
+        {/* Global Notification Panel */}
+        <NotificationPanel onNavigate={handleNavigate} currentView={activePage} />
+      </div>
+    </NotificationProvider>
   );
 };
 

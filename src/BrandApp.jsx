@@ -14,6 +14,10 @@ import BrandHome from './brand/features/home/BrandHome';
 import UnifiedInbox from './brand/features/inbox/UnifiedInbox';
 import { useToast } from './brand/context/ToastContext';
 
+import { NotificationProvider } from './context/NotificationContext';
+import NotificationPanel from './components/NotificationCenter/NotificationPanel';
+import { currentUser } from './data/mockStore/userStore';
+
 const BrandApp = ({ 
   files, setFiles, 
   campaigns, setCampaigns, 
@@ -35,6 +39,9 @@ const BrandApp = ({
   const notify = (message, type = 'success') => {
     addToast(message, type);
   };
+ 
+  // Map User Role
+  const userRole = currentUser.role === 'Admin' ? 'brand_admin' : 'brand_member';
 
   const renderContent = () => {
       switch(activePage) {
@@ -96,18 +103,23 @@ const BrandApp = ({
   };
 
   return (
-    <div className="flex h-screen w-full bg-gray-50 font-sans text-gray-900 relative">
-      <BrandSidebar activePage={activePage} setActivePage={(page) => navigateTo(page)} />
+    <NotificationProvider userRole={userRole}>
+        <div className="flex h-screen w-full bg-gray-50 font-sans text-gray-900 relative">
+        <BrandSidebar activePage={activePage} setActivePage={(page) => navigateTo(page)} />
 
-      <main className="flex-1 overflow-hidden flex flex-col bg-gray-50">
-        <div className="h-full flex flex-col">
-          <div className="flex-1 overflow-hidden relative">
-             {renderContent()}
-          </div>
+        <main className="flex-1 overflow-hidden flex flex-col bg-gray-50">
+            <div className="h-full flex flex-col">
+            <div className="flex-1 overflow-hidden relative">
+                {renderContent()}
+            </div>
+            </div>
+        </main>
+        
+        {/* Global Notification Panel */}
+        <NotificationPanel onNavigate={navigateTo} currentView={activePage} />
+
         </div>
-      </main>
-
-    </div>
+    </NotificationProvider>
   );
 };
 

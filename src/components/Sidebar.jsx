@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ChevronDown, MoreHorizontal, LogOut, Settings } from 'lucide-react';
+import { ChevronDown, ChevronsUpDown, LogOut, Settings } from 'lucide-react';
+import NotificationTrigger from './NotificationCenter/NotificationTrigger';
 
 const cn = (...classes) => classes.filter(Boolean).join(' ');
 
@@ -114,7 +115,7 @@ const Sidebar = ({
   };
 
   return (
-    <aside className="w-20 md:w-60 bg-white border-r border-gray-200 flex flex-col shrink-0 transition-all duration-300 z-20 h-screen font-sans">
+    <aside className="w-20 md:w-60 bg-white border-r border-gray-200 flex flex-col shrink-0 transition-all duration-300 z-[70] h-screen font-sans">
       {/* 1. Logo Area */}
       <div className="h-20 flex items-center justify-center md:justify-start md:px-8">
         {logo}
@@ -135,8 +136,13 @@ const Sidebar = ({
             ))}
         </div>
 
-        {/* User Info Section */}
-        <div className="p-4 relative" ref={userMenuRef}>
+      {/* 4. Notification Trigger (New) */}
+      <div className="px-4 pb-2">
+         <NotificationTrigger />
+      </div>
+
+       {/* User Info Section */}
+       <div className="p-4 relative" ref={userMenuRef}>
              <div 
                 className={`flex items-center gap-3 cursor-pointer p-2.5 rounded-xl transition border ${isUserMenuOpen ? 'bg-white border-gray-200 shadow-xs' : 'border-transparent hover:bg-white hover:border-gray-200 hover:shadow-xs'}`}
                 onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
@@ -152,7 +158,7 @@ const Sidebar = ({
                    <div className="text-sm font-bold text-gray-900 truncate tracking-tight">{user.name}</div>
                    <div className="text-[10px] text-gray-500 font-medium uppercase tracking-wider">{user.role || 'Admin'}</div>
                 </div>
-                <MoreHorizontal size={16} className={`text-gray-400 hidden md:block transition-transform ${isUserMenuOpen ? 'rotate-90 text-gray-600' : ''}`}/>
+                <ChevronsUpDown size={16} className={`text-gray-400 hidden md:block transition-transform ${isUserMenuOpen ? 'text-gray-600' : ''}`}/>
              </div>
              
              {/* Logout Popover */}
