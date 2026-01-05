@@ -10,6 +10,7 @@ import TasksManager from './brand/features/partner/TasksManager';
 import DirectMarketingPage from './brand/features/direct/DirectMarketingPage';
 import BrandAnalytics from './brand/features/analytics/BrandAnalytics';
 import BrandHome from './brand/features/home/BrandHome';
+import ChatbotPage from './brand/features/chatbot/ChatbotPage';
 
 import UnifiedInbox from './brand/features/inbox/UnifiedInbox';
 import { useToast } from './brand/context/ToastContext';
@@ -82,6 +83,10 @@ const BrandApp = ({
           // Analytics
           case 'analytics':
               return <BrandAnalytics />;
+
+          // AI Assistant
+          case 'chatbot':
+              return <ChatbotPage />;
 
           // Settings
           case 'settings':

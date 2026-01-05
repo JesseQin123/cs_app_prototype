@@ -1,0 +1,854 @@
+[
+  {
+    "fields": {
+      "id": "b-verragio",
+      "content_type": "brand",
+      "title": "Verragio",
+      "body": "Luxury engagement and wedding ring designer known for intricate detailing and exceptional craftsmanship.",
+      "category": "luxury-brand",
+      "metadata": "{\"brandId\":\"b-verragio\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "b-gucci",
+      "content_type": "brand",
+      "title": "Gucci",
+      "body": "Italian luxury fashion house renowned for contemporary and eclectic designs.",
+      "category": "luxury-brand",
+      "metadata": "{\"brandId\":\"b-gucci\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "b-louisvuitton",
+      "content_type": "brand",
+      "title": "Louis Vuitton",
+      "body": "French fashion house and luxury goods company known for leather goods and ready-to-wear.",
+      "category": "luxury-brand",
+      "metadata": "{\"brandId\":\"b-louisvuitton\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "b-dior",
+      "content_type": "brand",
+      "title": "Dior",
+      "body": "French luxury goods company known for haute couture, leather goods, and accessories.",
+      "category": "luxury-brand",
+      "metadata": "{\"brandId\":\"b-dior\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "b-hermes",
+      "content_type": "brand",
+      "title": "Hermès",
+      "body": "French luxury design house known for leather goods, lifestyle accessories, and perfumery.",
+      "category": "luxury-brand",
+      "metadata": "{\"brandId\":\"b-hermes\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "b-prada",
+      "content_type": "brand",
+      "title": "Prada",
+      "body": "Italian luxury fashion house specializing in leather handbags, travel accessories, and fashion.",
+      "category": "luxury-brand",
+      "metadata": "{\"brandId\":\"b-prada\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "b-tiffany",
+      "content_type": "brand",
+      "title": "Tiffany & Co.",
+      "body": "American luxury jewelry and specialty retailer famous for diamond and sterling silver jewelry.",
+      "category": "luxury-brand",
+      "metadata": "{\"brandId\":\"b-tiffany\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "b-cartier",
+      "content_type": "brand",
+      "title": "Cartier",
+      "body": "French luxury goods conglomerate known for jewelry, watches, and accessories.",
+      "category": "luxury-brand",
+      "metadata": "{\"brandId\":\"b-cartier\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "b-rolex",
+      "content_type": "brand",
+      "title": "Rolex",
+      "body": "Swiss luxury watch manufacturer known for precision timepieces and iconic designs.",
+      "category": "luxury-brand",
+      "metadata": "{\"brandId\":\"b-rolex\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "b-patek",
+      "content_type": "brand",
+      "title": "Patek Philippe",
+      "body": "Swiss luxury watch manufacturer renowned for complicated mechanical watches.",
+      "category": "luxury-brand",
+      "metadata": "{\"brandId\":\"b-patek\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "b-omega",
+      "content_type": "brand",
+      "title": "Omega",
+      "body": "Swiss luxury watchmaker known for precision and as the official timekeeper of the Olympics.",
+      "category": "luxury-brand",
+      "metadata": "{\"brandId\":\"b-omega\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "b-burberry",
+      "content_type": "brand",
+      "title": "Burberry",
+      "body": "British luxury fashion house known for outerwear and iconic check pattern.",
+      "category": "luxury-brand",
+      "metadata": "{\"brandId\":\"b-burberry\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "camp-001",
+      "content_type": "campaign",
+      "title": "A perfect pair in radiant yellow gold",
+      "body": "Celebrate your love story with two timeless designs: Tradition-250DFR engagement ring and VWRD7703 men's band featuring channel-set round diamonds.",
+      "category": "campaign-active",
+      "metadata": "{\"brandId\":\"b-verragio\",\"brandName\":\"Verragio\",\"status\":\"Active\",\"adoptionRate\":78}",
+      "image_file_name": "cover.png",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "camp-002",
+      "content_type": "campaign",
+      "title": "Celebrate Love This Thanksgiving - Holiday Collection Launch",
+      "body": "Gratitude is all about cherishing the moments that truly matter. Our gorgeous bridal set radiating in yellow gold showcases an elegant oval-cut diamond engagement ring.",
+      "category": "campaign-active",
+      "metadata": "{\"brandId\":\"b-verragio\",\"brandName\":\"Verragio\",\"status\":\"Active\",\"adoptionRate\":45}",
+      "image_file_name": "cover.png",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "camp-003",
+      "content_type": "campaign",
+      "title": "Diamond Guide - Education Series",
+      "body": "Help your customers understand diamond quality with our comprehensive 4C education guide. Perfect for in-store displays and email campaigns.",
+      "category": "campaign-active",
+      "metadata": "{\"brandId\":\"b-verragio\",\"brandName\":\"Verragio\",\"status\":\"Active\",\"adoptionRate\":82}",
+      "image_file_name": "cover.png",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "camp-004",
+      "content_type": "campaign",
+      "title": "Holiday Gift Guide 2025",
+      "body": "Curated selection of engagement rings and wedding bands perfect for holiday proposals and gifts.",
+      "category": "campaign-active",
+      "metadata": "{\"brandId\":\"b-verragio\",\"brandName\":\"Verragio\",\"status\":\"Active\",\"adoptionRate\":65}",
+      "image_file_name": "cover.png",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "camp-005",
+      "content_type": "campaign",
+      "title": "Spring Essentials Collection",
+      "body": "Fresh designs for the spring season featuring floral-inspired settings and rose gold options.",
+      "category": "campaign-draft",
+      "metadata": "{\"brandId\":\"b-verragio\",\"brandName\":\"Verragio\",\"status\":\"Draft\",\"adoptionRate\":0}",
+      "image_file_name": "cover.png",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "camp-006",
+      "content_type": "campaign",
+      "title": "Venetian Collection Spotlight",
+      "body": "Showcase the intricate scrollwork and signature Verragio beading of our Venetian collection.",
+      "category": "campaign-active",
+      "metadata": "{\"brandId\":\"b-verragio\",\"brandName\":\"Verragio\",\"status\":\"Active\",\"adoptionRate\":72}",
+      "image_file_name": "cover.png",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "camp-007",
+      "content_type": "campaign",
+      "title": "Couture Collection Launch",
+      "body": "Introducing our most sophisticated designs yet. The Couture collection features hand-set diamonds and exceptional craftsmanship.",
+      "category": "campaign-active",
+      "metadata": "{\"brandId\":\"b-verragio\",\"brandName\":\"Verragio\",\"status\":\"Active\",\"adoptionRate\":88}",
+      "image_file_name": "cover.png",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "camp-008",
+      "content_type": "campaign",
+      "title": "Valentine's Day Campaign",
+      "body": "Love is in the air. Promote our romantic designs perfect for Valentine's Day proposals.",
+      "category": "campaign-closed",
+      "metadata": "{\"brandId\":\"b-verragio\",\"brandName\":\"Verragio\",\"status\":\"Closed\",\"adoptionRate\":91}",
+      "image_file_name": "cover.png",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "camp-009",
+      "content_type": "campaign",
+      "title": "Men's Wedding Band Collection",
+      "body": "Strong, sophisticated, and timeless. Explore our men's wedding band collection featuring various metals and styles.",
+      "category": "campaign-active",
+      "metadata": "{\"brandId\":\"b-verragio\",\"brandName\":\"Verragio\",\"status\":\"Active\",\"adoptionRate\":55}",
+      "image_file_name": "cover.png",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "camp-010",
+      "content_type": "campaign",
+      "title": "Engagement Ring Customization Guide",
+      "body": "Guide customers through our customization options. From metal choices to diamond settings.",
+      "category": "campaign-active",
+      "metadata": "{\"brandId\":\"b-verragio\",\"brandName\":\"Verragio\",\"status\":\"Active\",\"adoptionRate\":60}",
+      "image_file_name": "cover.png",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "camp-011",
+      "content_type": "campaign",
+      "title": "Anniversary Band Collection",
+      "body": "Celebrate milestone moments with our anniversary band collection. Perfect for upgrading or adding to a stack.",
+      "category": "campaign-active",
+      "metadata": "{\"brandId\":\"b-verragio\",\"brandName\":\"Verragio\",\"status\":\"Active\",\"adoptionRate\":48}",
+      "image_file_name": "cover.png",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "camp-012",
+      "content_type": "campaign",
+      "title": "Bridal Show Marketing Kit",
+      "body": "Everything you need for bridal show season. Display materials, lookbooks, and promotional assets.",
+      "category": "campaign-active",
+      "metadata": "{\"brandId\":\"b-verragio\",\"brandName\":\"Verragio\",\"status\":\"Active\",\"adoptionRate\":75}",
+      "image_file_name": "cover.png",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "camp-013",
+      "content_type": "campaign",
+      "title": "Rolex Oyster Perpetual Launch",
+      "body": "The new Oyster Perpetual collection featuring vibrant dial colors and refined aesthetics.",
+      "category": "campaign-active",
+      "metadata": "{\"brandId\":\"b-rolex\",\"brandName\":\"Rolex\",\"status\":\"Active\",\"adoptionRate\":85}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "camp-014",
+      "content_type": "campaign",
+      "title": "Cartier Love Collection",
+      "body": "The iconic Love bracelet and matching accessories. Symbol of love that transcends time.",
+      "category": "campaign-active",
+      "metadata": "{\"brandId\":\"b-cartier\",\"brandName\":\"Cartier\",\"status\":\"Active\",\"adoptionRate\":70}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "camp-015",
+      "content_type": "campaign",
+      "title": "Omega Seamaster Diver 300M",
+      "body": "Professional diving watches combining elegance with performance. Water resistant to 300 meters.",
+      "category": "campaign-active",
+      "metadata": "{\"brandId\":\"b-omega\",\"brandName\":\"Omega\",\"status\":\"Active\",\"adoptionRate\":62}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "camp-016",
+      "content_type": "campaign",
+      "title": "Tiffany Setting Campaign",
+      "body": "The engagement ring that started it all. Celebrate 130+ years of the iconic Tiffany Setting.",
+      "category": "campaign-active",
+      "metadata": "{\"brandId\":\"b-tiffany\",\"brandName\":\"Tiffany & Co.\",\"status\":\"Active\",\"adoptionRate\":78}",
+      "image_file_name": "cover.png",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "camp-017",
+      "content_type": "campaign",
+      "title": "Patek Philippe Nautilus Collection",
+      "body": "The legendary Nautilus. Sporty elegance in its purest form.",
+      "category": "campaign-active",
+      "metadata": "{\"brandId\":\"b-patek\",\"brandName\":\"Patek Philippe\",\"status\":\"Active\",\"adoptionRate\":58}",
+      "image_file_name": "cover.png",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-1",
+      "content_type": "retailer",
+      "title": "Alson Jewelers",
+      "body": "Alson Jewelers is a luxury jewelry retailer located in the North East region. They are classified as a T1 - Strategic Partner.",
+      "category": "t-1",
+      "metadata": "{\"tier\":\"t-1\",\"tierLabel\":\"T1 - Strategic Partner\",\"zone\":\"z-ne\",\"zoneLabel\":\"North East\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-2",
+      "content_type": "retailer",
+      "title": "Brent L. Miller Jewelers & Goldsmiths",
+      "body": "Brent L. Miller Jewelers & Goldsmiths is a luxury jewelry retailer located in the South East region. They are classified as a T1 - Strategic Partner.",
+      "category": "t-1",
+      "metadata": "{\"tier\":\"t-1\",\"tierLabel\":\"T1 - Strategic Partner\",\"zone\":\"z-se\",\"zoneLabel\":\"South East\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-3",
+      "content_type": "retailer",
+      "title": "CD Peacock",
+      "body": "CD Peacock is a luxury jewelry retailer located in the Midwest region. They are classified as a T1 - Strategic Partner.",
+      "category": "t-1",
+      "metadata": "{\"tier\":\"t-1\",\"tierLabel\":\"T1 - Strategic Partner\",\"zone\":\"z-mw\",\"zoneLabel\":\"Midwest\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-4",
+      "content_type": "retailer",
+      "title": "Clarkson Jewelers",
+      "body": "Clarkson Jewelers is a luxury jewelry retailer located in the West Coast region. They are classified as a T1 - Strategic Partner.",
+      "category": "t-1",
+      "metadata": "{\"tier\":\"t-1\",\"tierLabel\":\"T1 - Strategic Partner\",\"zone\":\"z-w\",\"zoneLabel\":\"West Coast\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-5",
+      "content_type": "retailer",
+      "title": "Davis Jewelers",
+      "body": "Davis Jewelers is a luxury jewelry retailer located in the South West region. They are classified as a T1 - Strategic Partner.",
+      "category": "t-1",
+      "metadata": "{\"tier\":\"t-1\",\"tierLabel\":\"T1 - Strategic Partner\",\"zone\":\"z-sw\",\"zoneLabel\":\"South West\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-6",
+      "content_type": "retailer",
+      "title": "De Boulle Diamond & Jewelry",
+      "body": "De Boulle Diamond & Jewelry is a luxury jewelry retailer located in the North East region. They are classified as a T2 - Growth Partner.",
+      "category": "t-2",
+      "metadata": "{\"tier\":\"t-2\",\"tierLabel\":\"T2 - Growth Partner\",\"zone\":\"z-ne\",\"zoneLabel\":\"North East\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-7",
+      "content_type": "retailer",
+      "title": "DeVons Jewelers",
+      "body": "DeVons Jewelers is a luxury jewelry retailer located in the South East region. They are classified as a T2 - Growth Partner.",
+      "category": "t-2",
+      "metadata": "{\"tier\":\"t-2\",\"tierLabel\":\"T2 - Growth Partner\",\"zone\":\"z-se\",\"zoneLabel\":\"South East\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-8",
+      "content_type": "retailer",
+      "title": "Feldmar Watch Co.",
+      "body": "Feldmar Watch Co. is a luxury jewelry retailer located in the Midwest region. They are classified as a T2 - Growth Partner.",
+      "category": "t-2",
+      "metadata": "{\"tier\":\"t-2\",\"tierLabel\":\"T2 - Growth Partner\",\"zone\":\"z-mw\",\"zoneLabel\":\"Midwest\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-9",
+      "content_type": "retailer",
+      "title": "Gunderson's Jewelers",
+      "body": "Gunderson's Jewelers is a luxury jewelry retailer located in the West Coast region. They are classified as a T2 - Growth Partner.",
+      "category": "t-2",
+      "metadata": "{\"tier\":\"t-2\",\"tierLabel\":\"T2 - Growth Partner\",\"zone\":\"z-w\",\"zoneLabel\":\"West Coast\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-10",
+      "content_type": "retailer",
+      "title": "Heller Jewelers",
+      "body": "Heller Jewelers is a luxury jewelry retailer located in the South West region. They are classified as a T2 - Growth Partner.",
+      "category": "t-2",
+      "metadata": "{\"tier\":\"t-2\",\"tierLabel\":\"T2 - Growth Partner\",\"zone\":\"z-sw\",\"zoneLabel\":\"South West\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-11",
+      "content_type": "retailer",
+      "title": "Henne Jewelers",
+      "body": "Henne Jewelers is a luxury jewelry retailer located in the North East region. They are classified as a T2 - Growth Partner.",
+      "category": "t-2",
+      "metadata": "{\"tier\":\"t-2\",\"tierLabel\":\"T2 - Growth Partner\",\"zone\":\"z-ne\",\"zoneLabel\":\"North East\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-12",
+      "content_type": "retailer",
+      "title": "J.R Dunn Jewelry",
+      "body": "J.R Dunn Jewelry is a luxury jewelry retailer located in the South East region. They are classified as a T2 - Growth Partner.",
+      "category": "t-2",
+      "metadata": "{\"tier\":\"t-2\",\"tierLabel\":\"T2 - Growth Partner\",\"zone\":\"z-se\",\"zoneLabel\":\"South East\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-13",
+      "content_type": "retailer",
+      "title": "James & Sons Fine Jewelers",
+      "body": "James & Sons Fine Jewelers is a luxury jewelry retailer located in the Midwest region. They are classified as a T2 - Growth Partner.",
+      "category": "t-2",
+      "metadata": "{\"tier\":\"t-2\",\"tierLabel\":\"T2 - Growth Partner\",\"zone\":\"z-mw\",\"zoneLabel\":\"Midwest\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-14",
+      "content_type": "retailer",
+      "title": "James Free Jewelers",
+      "body": "James Free Jewelers is a luxury jewelry retailer located in the West Coast region. They are classified as a T2 - Growth Partner.",
+      "category": "t-2",
+      "metadata": "{\"tier\":\"t-2\",\"tierLabel\":\"T2 - Growth Partner\",\"zone\":\"z-w\",\"zoneLabel\":\"West Coast\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-15",
+      "content_type": "retailer",
+      "title": "King Jewelers Fine Jewelry & Luxury",
+      "body": "King Jewelers Fine Jewelry & Luxury is a luxury jewelry retailer located in the South West region. They are classified as a T2 - Growth Partner.",
+      "category": "t-2",
+      "metadata": "{\"tier\":\"t-2\",\"tierLabel\":\"T2 - Growth Partner\",\"zone\":\"z-sw\",\"zoneLabel\":\"South West\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-16",
+      "content_type": "retailer",
+      "title": "Lee Michaels Fine Jewelry",
+      "body": "Lee Michaels Fine Jewelry is a luxury jewelry retailer located in the North East region. They are classified as a T3 - Authorized Retailer.",
+      "category": "t-3",
+      "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-ne\",\"zoneLabel\":\"North East\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-17",
+      "content_type": "retailer",
+      "title": "Leonardo Jewelers",
+      "body": "Leonardo Jewelers is a luxury jewelry retailer located in the South East region. They are classified as a T3 - Authorized Retailer.",
+      "category": "t-3",
+      "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-se\",\"zoneLabel\":\"South East\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-18",
+      "content_type": "retailer",
+      "title": "Little Switzerland",
+      "body": "Little Switzerland is a luxury jewelry retailer located in the Midwest region. They are classified as a T3 - Authorized Retailer.",
+      "category": "t-3",
+      "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-mw\",\"zoneLabel\":\"Midwest\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-19",
+      "content_type": "retailer",
+      "title": "Littlebirdms",
+      "body": "Littlebirdms is a luxury jewelry retailer located in the West Coast region. They are classified as a T3 - Authorized Retailer.",
+      "category": "t-3",
+      "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-w\",\"zoneLabel\":\"West Coast\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-20",
+      "content_type": "retailer",
+      "title": "London Jewelers",
+      "body": "London Jewelers is a luxury jewelry retailer located in the South West region. They are classified as a T3 - Authorized Retailer.",
+      "category": "t-3",
+      "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-sw\",\"zoneLabel\":\"South West\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-21",
+      "content_type": "retailer",
+      "title": "Long's Jewelers",
+      "body": "Long's Jewelers is a luxury jewelry retailer located in the North East region. They are classified as a T3 - Authorized Retailer.",
+      "category": "t-3",
+      "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-ne\",\"zoneLabel\":\"North East\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-22",
+      "content_type": "retailer",
+      "title": "Louis Anthony Jewelers",
+      "body": "Louis Anthony Jewelers is a luxury jewelry retailer located in the South East region. They are classified as a T3 - Authorized Retailer.",
+      "category": "t-3",
+      "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-se\",\"zoneLabel\":\"South East\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-23",
+      "content_type": "retailer",
+      "title": "Lux Bond & Green",
+      "body": "Lux Bond & Green is a luxury jewelry retailer located in the Midwest region. They are classified as a T3 - Authorized Retailer.",
+      "category": "t-3",
+      "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-mw\",\"zoneLabel\":\"Midwest\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-24",
+      "content_type": "retailer",
+      "title": "Manfredi Jewels",
+      "body": "Manfredi Jewels is a luxury jewelry retailer located in the West Coast region. They are classified as a T3 - Authorized Retailer.",
+      "category": "t-3",
+      "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-w\",\"zoneLabel\":\"West Coast\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-25",
+      "content_type": "retailer",
+      "title": "MP Demetre Jewelers",
+      "body": "MP Demetre Jewelers is a luxury jewelry retailer located in the South West region. They are classified as a T3 - Authorized Retailer.",
+      "category": "t-3",
+      "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-sw\",\"zoneLabel\":\"South West\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-26",
+      "content_type": "retailer",
+      "title": "O.C. Tanner Jewelers",
+      "body": "O.C. Tanner Jewelers is a luxury jewelry retailer located in the North East region. They are classified as a T3 - Authorized Retailer.",
+      "category": "t-3",
+      "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-ne\",\"zoneLabel\":\"North East\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-27",
+      "content_type": "retailer",
+      "title": "Polacheck's Jewelers",
+      "body": "Polacheck's Jewelers is a luxury jewelry retailer located in the South East region. They are classified as a T3 - Authorized Retailer.",
+      "category": "t-3",
+      "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-se\",\"zoneLabel\":\"South East\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-28",
+      "content_type": "retailer",
+      "title": "Razny Jewelers",
+      "body": "Razny Jewelers is a luxury jewelry retailer located in the Midwest region. They are classified as a T3 - Authorized Retailer.",
+      "category": "t-3",
+      "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-mw\",\"zoneLabel\":\"Midwest\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-29",
+      "content_type": "retailer",
+      "title": "REEDS Jewelers",
+      "body": "REEDS Jewelers is a luxury jewelry retailer located in the West Coast region. They are classified as a T3 - Authorized Retailer.",
+      "category": "t-3",
+      "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-w\",\"zoneLabel\":\"West Coast\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-30",
+      "content_type": "retailer",
+      "title": "R.F. Moeller Jeweler",
+      "body": "R.F. Moeller Jeweler is a luxury jewelry retailer located in the South West region. They are classified as a T3 - Authorized Retailer.",
+      "category": "t-3",
+      "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-sw\",\"zoneLabel\":\"South West\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-31",
+      "content_type": "retailer",
+      "title": "Richter & Phillips Jewelers",
+      "body": "Richter & Phillips Jewelers is a luxury jewelry retailer located in the North East region. They are classified as a T3 - Authorized Retailer.",
+      "category": "t-3",
+      "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-ne\",\"zoneLabel\":\"North East\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-32",
+      "content_type": "retailer",
+      "title": "The 1916 Company",
+      "body": "The 1916 Company is a luxury jewelry retailer located in the South East region. They are classified as a T3 - Authorized Retailer.",
+      "category": "t-3",
+      "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-se\",\"zoneLabel\":\"South East\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-33",
+      "content_type": "retailer",
+      "title": "TIVOL",
+      "body": "TIVOL is a luxury jewelry retailer located in the Midwest region. They are classified as a T3 - Authorized Retailer.",
+      "category": "t-3",
+      "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-mw\",\"zoneLabel\":\"Midwest\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-34",
+      "content_type": "retailer",
+      "title": "Tourneau | Bucherer",
+      "body": "Tourneau | Bucherer is a luxury jewelry retailer located in the West Coast region. They are classified as a T3 - Authorized Retailer.",
+      "category": "t-3",
+      "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-w\",\"zoneLabel\":\"West Coast\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-35",
+      "content_type": "retailer",
+      "title": "Trout Fine Jewellers",
+      "body": "Trout Fine Jewellers is a luxury jewelry retailer located in the South West region. They are classified as a T3 - Authorized Retailer.",
+      "category": "t-3",
+      "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-sw\",\"zoneLabel\":\"South West\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "retailer-36",
+      "content_type": "retailer",
+      "title": "Walters & Hogsett Jewelers",
+      "body": "Walters & Hogsett Jewelers is a luxury jewelry retailer located in the North East region. They are classified as a T3 - Authorized Retailer.",
+      "category": "t-3",
+      "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-ne\",\"zoneLabel\":\"North East\"}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "res-001",
+      "content_type": "resource",
+      "title": "Visual Merchandising 2025",
+      "body": "Complete visual merchandising guidelines for 2025 including display setups and lighting recommendations.",
+      "category": "marketing-resource",
+      "metadata": "{\"fileCount\":15}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "res-002",
+      "content_type": "resource",
+      "title": "Brand Identity Guidelines",
+      "body": "Official brand identity guidelines including logo usage, color palettes, and typography standards.",
+      "category": "marketing-resource",
+      "metadata": "{\"fileCount\":4}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "res-003",
+      "content_type": "resource",
+      "title": "Platinum Exclusive Assets",
+      "body": "Premium marketing materials available only to Platinum tier retailers.",
+      "category": "marketing-resource",
+      "metadata": "{\"fileCount\":8}",
+      "image_file_name": "",
+      "created_at": 1767621271923
+    }
+  },
+  {
+    "fields": {
+      "id": "res-004",
+      "content_type": "resource",
+      "title": "Store Display Setup Guide",
+      "body": "Step-by-step instructions for setting up in-store displays and product presentations.",
+      "category": "marketing-resource",
+      "metadata": "{\"fileCount\":1}",
+      "image_file_name": "",
+      "created_at": 1767621271924
+    }
+  },
+  {
+    "fields": {
+      "id": "res-005",
+      "content_type": "resource",
+      "title": "Q1 Marketing Claims",
+      "body": "Approved marketing claims and product descriptions for Q1 campaigns.",
+      "category": "marketing-resource",
+      "metadata": "{\"fileCount\":12}",
+      "image_file_name": "",
+      "created_at": 1767621271924
+    }
+  },
+  {
+    "fields": {
+      "id": "res-006",
+      "content_type": "resource",
+      "title": "Staff Training Manuals",
+      "body": "Comprehensive training materials for retail staff on product knowledge and sales techniques.",
+      "category": "marketing-resource",
+      "metadata": "{\"fileCount\":6}",
+      "image_file_name": "",
+      "created_at": 1767621271924
+    }
+  }
+]

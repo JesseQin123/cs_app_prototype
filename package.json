@@ -9,7 +9,12 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "vespa:export": "node scripts/export-to-vespa.js",
+    "vespa:generate": "node scripts/generate-extended-data.js",
+    "vespa:import": "node scripts/import-to-vespa.js --extended",
+    "vespa:import:text": "node scripts/import-to-vespa.js --extended --text-only",
+    "vespa:import:images": "node scripts/import-to-vespa.js --images-only"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.15",

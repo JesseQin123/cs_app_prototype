@@ -1,6 +1,6 @@
 import React from 'react';
 import { currentUser } from '../data/mockStore/userStore.js';
-import { Home, Users, BarChart3, Settings, FolderOpen, Target, MessageSquare } from 'lucide-react';
+import { Home, Users, BarChart3, Settings, FolderOpen, Target, MessageSquare, Bot } from 'lucide-react';
 import BrandLogo from '@/assets/crownsync_logo-with-text.svg';
 import Sidebar from '../components/Sidebar';
 
@@ -33,6 +33,12 @@ const BrandSidebar = ({ activePage, setActivePage }) => {
       id: 'analytics',
       icon: BarChart3,
       label: 'Analytics',
+    },
+    { type: 'separator' },
+    {
+      id: 'chatbot',
+      icon: Bot,
+      label: 'AI Assistant',
     }
   ];
 

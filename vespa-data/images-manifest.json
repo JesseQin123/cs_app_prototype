@@ -1,0 +1,342 @@
+[
+  {
+    "id": "img-cover-1",
+    "content_type": "image",
+    "title": "Campaign 1 Cover Image",
+    "body": "Cover image for Verragio campaign 1",
+    "file_path": "/mock/verragio/brand/campaigns/1/cover.png",
+    "full_path": "/Users/jqhobbies/Documents/Projects/cs_app_prototype/public/mock/verragio/brand/campaigns/1/cover.png",
+    "category": "campaign-cover",
+    "associated_id": "camp-001"
+  },
+  {
+    "id": "img-product-1",
+    "content_type": "image",
+    "title": "Campaign 1 Product Image",
+    "body": "Product image for Verragio campaign 1",
+    "file_path": "/mock/verragio/brand/campaigns/1/product.jpg",
+    "full_path": "/Users/jqhobbies/Documents/Projects/cs_app_prototype/public/mock/verragio/brand/campaigns/1/product.jpg",
+    "category": "product-image",
+    "associated_id": "camp-001"
+  },
+  {
+    "id": "img-cover-2",
+    "content_type": "image",
+    "title": "Campaign 2 Cover Image",
+    "body": "Cover image for Verragio campaign 2",
+    "file_path": "/mock/verragio/brand/campaigns/2/cover.png",
+    "full_path": "/Users/jqhobbies/Documents/Projects/cs_app_prototype/public/mock/verragio/brand/campaigns/2/cover.png",
+    "category": "campaign-cover",
+    "associated_id": "camp-002"
+  },
+  {
+    "id": "img-product-2",
+    "content_type": "image",
+    "title": "Campaign 2 Product Image",
+    "body": "Product image for Verragio campaign 2",
+    "file_path": "/mock/verragio/brand/campaigns/2/product.jpg",
+    "full_path": "/Users/jqhobbies/Documents/Projects/cs_app_prototype/public/mock/verragio/brand/campaigns/2/product.jpg",
+    "category": "product-image",
+    "associated_id": "camp-002"
+  },
+  {
+    "id": "img-cover-3",
+    "content_type": "image",
+    "title": "Campaign 3 Cover Image",
+    "body": "Cover image for Verragio campaign 3",
+    "file_path": "/mock/verragio/brand/campaigns/3/cover.png",
+    "full_path": "/Users/jqhobbies/Documents/Projects/cs_app_prototype/public/mock/verragio/brand/campaigns/3/cover.png",
+    "category": "campaign-cover",
+    "associated_id": "camp-003"
+  },
+  {
+    "id": "img-product-3",
+    "content_type": "image",
+    "title": "Campaign 3 Product Image",
+    "body": "Product image for Verragio campaign 3",
+    "file_path": "/mock/verragio/brand/campaigns/3/product.jpg",
+    "full_path": "/Users/jqhobbies/Documents/Projects/cs_app_prototype/public/mock/verragio/brand/campaigns/3/product.jpg",
+    "category": "product-image",
+    "associated_id": "camp-003"
+  },
+  {
+    "id": "img-cover-4",
+    "content_type": "image",
+    "title": "Campaign 4 Cover Image",
+    "body": "Cover image for Verragio campaign 4",
+    "file_path": "/mock/verragio/brand/campaigns/4/cover.png",
+    "full_path": "/Users/jqhobbies/Documents/Projects/cs_app_prototype/public/mock/verragio/brand/campaigns/4/cover.png",
+    "category": "campaign-cover",
+    "associated_id": "camp-004"
+  },
+  {
+    "id": "img-product-4",
+    "content_type": "image",
+    "title": "Campaign 4 Product Image",
+    "body": "Product image for Verragio campaign 4",
+    "file_path": "/mock/verragio/brand/campaigns/4/product.jpg",
+    "full_path": "/Users/jqhobbies/Documents/Projects/cs_app_prototype/public/mock/verragio/brand/campaigns/4/product.jpg",
+    "category": "product-image",
+    "associated_id": "camp-004"
+  },
+  {
+    "id": "img-cover-5",
+    "content_type": "image",
+    "title": "Campaign 5 Cover Image",
+    "body": "Cover image for Verragio campaign 5",
+    "file_path": "/mock/verragio/brand/campaigns/5/cover.png",
+    "full_path": "/Users/jqhobbies/Documents/Projects/cs_app_prototype/public/mock/verragio/brand/campaigns/5/cover.png",
+    "category": "campaign-cover",
+    "associated_id": "camp-005"
+  },
+  {
+    "id": "img-product-5",
+    "content_type": "image",
+    "title": "Campaign 5 Product Image",
+    "body": "Product image for Verragio campaign 5",
+    "file_path": "/mock/verragio/brand/campaigns/5/product.png",
+    "full_path": "/Users/jqhobbies/Documents/Projects/cs_app_prototype/public/mock/verragio/brand/campaigns/5/product.png",
+    "category": "product-image",
+    "associated_id": "camp-005"
+  },
+  {
+    "id": "img-cover-6",
+    "content_type": "image",
+    "title": "Campaign 6 Cover Image",
+    "body": "Cover image for Verragio campaign 6",
+    "file_path": "/mock/verragio/brand/campaigns/6/cover.png",
+    "full_path": "/Users/jqhobbies/Documents/Projects/cs_app_prototype/public/mock/verragio/brand/campaigns/6/cover.png",
+    "category": "campaign-cover",
+    "associated_id": "camp-006"
+  },
+  {
+    "id": "img-product-6",
+    "content_type": "image",
+    "title": "Campaign 6 Product Image",
+    "body": "Product image for Verragio campaign 6",
+    "file_path": "/mock/verragio/brand/campaigns/6/product.jpg",
+    "full_path": "/Users/jqhobbies/Documents/Projects/cs_app_prototype/public/mock/verragio/brand/campaigns/6/product.jpg",
+    "category": "product-image",
+    "associated_id": "camp-006"
+  },
+  {
+    "id": "img-cover-7",
+    "content_type": "image",
+    "title": "Campaign 7 Cover Image",
+    "body": "Cover image for Verragio campaign 7",
+    "file_path": "/mock/verragio/brand/campaigns/7/cover.png",
+    "full_path": "/Users/jqhobbies/Documents/Projects/cs_app_prototype/public/mock/verragio/brand/campaigns/7/cover.png",
+    "category": "campaign-cover",
+    "associated_id": "camp-007"
+  },
+  {
+    "id": "img-product-7",
+    "content_type": "image",
+    "title": "Campaign 7 Product Image",
+    "body": "Product image for Verragio campaign 7",
+    "file_path": "/mock/verragio/brand/campaigns/7/product.jpg",
+    "full_path": "/Users/jqhobbies/Documents/Projects/cs_app_prototype/public/mock/verragio/brand/campaigns/7/product.jpg",
+    "category": "product-image",
+    "associated_id": "camp-007"
+  },
+  {
+    "id": "img-cover-8",
+    "content_type": "image",
+    "title": "Campaign 8 Cover Image",
+    "body": "Cover image for Verragio campaign 8",
+    "file_path": "/mock/verragio/brand/campaigns/8/cover.png",
+    "full_path": "/Users/jqhobbies/Documents/Projects/cs_app_prototype/public/mock/verragio/brand/campaigns/8/cover.png",
+    "category": "campaign-cover",
+    "associated_id": "camp-008"
+  },
+  {
+    "id": "img-product-8",
+    "content_type": "image",
+    "title": "Campaign 8 Product Image",
+    "body": "Product image for Verragio campaign 8",
+    "file_path": "/mock/verragio/brand/campaigns/8/product.jpg",
+    "full_path": "/Users/jqhobbies/Documents/Projects/cs_app_prototype/public/mock/verragio/brand/campaigns/8/product.jpg",
+    "category": "product-image",
+    "associated_id": "camp-008"
+  },
+  {
+    "id": "img-cover-9",
+    "content_type": "image",
+    "title": "Campaign 9 Cover Image",
+    "body": "Cover image for Verragio campaign 9",
+    "file_path": "/mock/verragio/brand/campaigns/9/cover.png",
+    "full_path": "/Users/jqhobbies/Documents/Projects/cs_app_prototype/public/mock/verragio/brand/campaigns/9/cover.png",
+    "category": "campaign-cover",
+    "associated_id": "camp-009"
+  },
+  {
+    "id": "img-product-9",
+    "content_type": "image",
+    "title": "Campaign 9 Product Image",
+    "body": "Product image for Verragio campaign 9",
+    "file_path": "/mock/verragio/brand/campaigns/9/product.png",
+    "full_path": "/Users/jqhobbies/Documents/Projects/cs_app_prototype/public/mock/verragio/brand/campaigns/9/product.png",
+    "category": "product-image",
+    "associated_id": "camp-009"
+  },
+  {
+    "id": "img-cover-10",
+    "content_type": "image",
+    "title": "Campaign 10 Cover Image",
+    "body": "Cover image for Verragio campaign 10",
+    "file_path": "/mock/verragio/brand/campaigns/10/cover.png",
+    "full_path": "/Users/jqhobbies/Documents/Projects/cs_app_prototype/public/mock/verragio/brand/campaigns/10/cover.png",
+    "category": "campaign-cover",
+    "associated_id": "camp-010"
+  },
+  {
+    "id": "img-product-10",
+    "content_type": "image",
+    "title": "Campaign 10 Product Image",
+    "body": "Product image for Verragio campaign 10",
+    "file_path": "/mock/verragio/brand/campaigns/10/product.jpg",
+    "full_path": "/Users/jqhobbies/Documents/Projects/cs_app_prototype/public/mock/verragio/brand/campaigns/10/product.jpg",
+    "category": "product-image",
+    "associated_id": "camp-010"
+  },
+  {
+    "id": "img-cover-11",
+    "content_type": "image",
+    "title": "Campaign 11 Cover Image",
+    "body": "Cover image for Verragio campaign 11",
+    "file_path": "/mock/verragio/brand/campaigns/11/cover.png",
+    "full_path": "/Users/jqhobbies/Documents/Projects/cs_app_prototype/public/mock/verragio/brand/campaigns/11/cover.png",
+    "category": "campaign-cover",
+    "associated_id": "camp-011"
+  },
+  {
+    "id": "img-product-11",
+    "content_type": "image",
+    "title": "Campaign 11 Product Image",
+    "body": "Product image for Verragio campaign 11",
+    "file_path": "/mock/verragio/brand/campaigns/11/product.jpg",
+    "full_path": "/Users/jqhobbies/Documents/Projects/cs_app_prototype/public/mock/verragio/brand/campaigns/11/product.jpg",
+    "category": "product-image",
+    "associated_id": "camp-011"
+  },
+  {
+    "id": "img-cover-12",
+    "content_type": "image",
+    "title": "Campaign 12 Cover Image",
+    "body": "Cover image for Verragio campaign 12",
+    "file_path": "/mock/verragio/brand/campaigns/12/cover.png",
+    "full_path": "/Users/jqhobbies/Documents/Projects/cs_app_prototype/public/mock/verragio/brand/campaigns/12/cover.png",
+    "category": "campaign-cover",
+    "associated_id": "camp-012"
+  },
+  {
+    "id": "img-product-12",
+    "content_type": "image",
+    "title": "Campaign 12 Product Image",
+    "body": "Product image for Verragio campaign 12",
+    "file_path": "/mock/verragio/brand/campaigns/12/product.jpg",
+    "full_path": "/Users/jqhobbies/Documents/Projects/cs_app_prototype/public/mock/verragio/brand/campaigns/12/product.jpg",
+    "category": "product-image",
+    "associated_id": "camp-012"
+  },
+  {
+    "id": "img-cover-13",
+    "content_type": "image",
+    "title": "Campaign 13 Cover Image",
+    "body": "Cover image for Verragio campaign 13",
+    "file_path": "/mock/verragio/brand/campaigns/13/cover.png",
+    "full_path": "/Users/jqhobbies/Documents/Projects/cs_app_prototype/public/mock/verragio/brand/campaigns/13/cover.png",
+    "category": "campaign-cover",
+    "associated_id": "camp-013"
+  },
+  {
+    "id": "img-product-13",
+    "content_type": "image",
+    "title": "Campaign 13 Product Image",
+    "body": "Product image for Verragio campaign 13",
+    "file_path": "/mock/verragio/brand/campaigns/13/product.png",
+    "full_path": "/Users/jqhobbies/Documents/Projects/cs_app_prototype/public/mock/verragio/brand/campaigns/13/product.png",
+    "category": "product-image",
+    "associated_id": "camp-013"
+  },
+  {
+    "id": "img-cover-14",
+    "content_type": "image",
+    "title": "Campaign 14 Cover Image",
+    "body": "Cover image for Verragio campaign 14",
+    "file_path": "/mock/verragio/brand/campaigns/14/cover.png",
+    "full_path": "/Users/jqhobbies/Documents/Projects/cs_app_prototype/public/mock/verragio/brand/campaigns/14/cover.png",
+    "category": "campaign-cover",
+    "associated_id": "camp-014"
+  },
+  {
+    "id": "img-product-14",
+    "content_type": "image",
+    "title": "Campaign 14 Product Image",
+    "body": "Product image for Verragio campaign 14",
+    "file_path": "/mock/verragio/brand/campaigns/14/product.jpg",
+    "full_path": "/Users/jqhobbies/Documents/Projects/cs_app_prototype/public/mock/verragio/brand/campaigns/14/product.jpg",
+    "category": "product-image",
+    "associated_id": "camp-014"
+  },
+  {
+    "id": "img-cover-15",
+    "content_type": "image",
+    "title": "Campaign 15 Cover Image",
+    "body": "Cover image for Verragio campaign 15",
+    "file_path": "/mock/verragio/brand/campaigns/15/cover.png",
+    "full_path": "/Users/jqhobbies/Documents/Projects/cs_app_prototype/public/mock/verragio/brand/campaigns/15/cover.png",
+    "category": "campaign-cover",
+    "associated_id": "camp-015"
+  },
+  {
+    "id": "img-product-15",
+    "content_type": "image",
+    "title": "Campaign 15 Product Image",
+    "body": "Product image for Verragio campaign 15",
+    "file_path": "/mock/verragio/brand/campaigns/15/product.jpg",
+    "full_path": "/Users/jqhobbies/Documents/Projects/cs_app_prototype/public/mock/verragio/brand/campaigns/15/product.jpg",
+    "category": "product-image",
+    "associated_id": "camp-015"
+  },
+  {
+    "id": "img-cover-16",
+    "content_type": "image",
+    "title": "Campaign 16 Cover Image",
+    "body": "Cover image for Verragio campaign 16",
+    "file_path": "/mock/verragio/brand/campaigns/16/cover.png",
+    "full_path": "/Users/jqhobbies/Documents/Projects/cs_app_prototype/public/mock/verragio/brand/campaigns/16/cover.png",
+    "category": "campaign-cover",
+    "associated_id": "camp-016"
+  },
+  {
+    "id": "img-product-16",
+    "content_type": "image",
+    "title": "Campaign 16 Product Image",
+    "body": "Product image for Verragio campaign 16",
+    "file_path": "/mock/verragio/brand/campaigns/16/product.jpg",
+    "full_path": "/Users/jqhobbies/Documents/Projects/cs_app_prototype/public/mock/verragio/brand/campaigns/16/product.jpg",
+    "category": "product-image",
+    "associated_id": "camp-016"
+  },
+  {
+    "id": "img-cover-17",
+    "content_type": "image",
+    "title": "Campaign 17 Cover Image",
+    "body": "Cover image for Verragio campaign 17",
+    "file_path": "/mock/verragio/brand/campaigns/17/cover.png",
+    "full_path": "/Users/jqhobbies/Documents/Projects/cs_app_prototype/public/mock/verragio/brand/campaigns/17/cover.png",
+    "category": "campaign-cover",
+    "associated_id": "camp-017"
+  },
+  {
+    "id": "img-product-17",
+    "content_type": "image",
+    "title": "Campaign 17 Product Image",
+    "body": "Product image for Verragio campaign 17",
+    "file_path": "/mock/verragio/brand/campaigns/17/product.png",
+    "full_path": "/Users/jqhobbies/Documents/Projects/cs_app_prototype/public/mock/verragio/brand/campaigns/17/product.png",
+    "category": "product-image",
+    "associated_id": "camp-017"
+  }
+]
