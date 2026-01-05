@@ -40,3 +40,5 @@ __pycache__/
 
 # Server uploads
 server/uploads/
+
+embedding-service/venv/
