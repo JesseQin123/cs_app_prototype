@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Megaphone,
   Package,
@@ -7,7 +7,10 @@ import {
   FolderOpen,
   HelpCircle,
   FileText,
-  ExternalLink
+  ExternalLink,
+  Image as ImageIcon,
+  ChevronDown,
+  ChevronUp
 } from 'lucide-react';
 
 /**
@@ -53,6 +56,12 @@ const CONTENT_TYPE_CONFIG = {
     bgColor: 'bg-teal-50',
     label: 'FAQ'
   },
+  image: {
+    icon: ImageIcon,
+    color: 'text-pink-600',
+    bgColor: 'bg-pink-50',
+    label: 'Image'
+  },
   default: {
     icon: FileText,
     color: 'text-gray-600',
@@ -62,8 +71,10 @@ const CONTENT_TYPE_CONFIG = {
 };
 
 function SourceDocument({ doc, index }) {
+  const [imageError, setImageError] = useState(false);
   const config = CONTENT_TYPE_CONFIG[doc.content_type] || CONTENT_TYPE_CONFIG.default;
   const Icon = config.icon;
+  const hasImage = doc.image_file_name && !imageError;
 
   const truncateBody = (text, maxLength = 100) => {
     if (!text) return '';
@@ -87,6 +98,18 @@ function SourceDocument({ doc, index }) {
         <span className={`${config.color} font-medium text-xs mt-0.5`}>
           [{index + 1}]
         </span>
+
+        {/* Image thumbnail (if available) */}
+        {hasImage && (
+          <div className="flex-shrink-0 w-16 h-16 rounded-md overflow-hidden bg-gray-100">
+            <img
+              src={`/uploads/${doc.image_file_name}`}
+              alt={doc.title || 'Image'}
+              className="w-full h-full object-cover"
+              onError={() => setImageError(true)}
+            />
+          </div>
+        )}
 
         {/* Content */}
         <div className="flex-1 min-w-0">
@@ -134,14 +157,43 @@ function SourceDocuments({ documents }) {
     return null;
   }
 
+  // Separate images from other documents
+  const imageDocuments = documents.filter(doc => doc.image_file_name);
+  const textDocuments = documents.filter(doc => !doc.image_file_name);
+
   return (
-    <div className="mt-2 w-full">
+    <div className="mt-3 w-full">
       <div className="bg-white border border-gray-200 rounded-lg p-3 shadow-sm">
-        <h5 className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
-          Sources Used
+        <h5 className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-3 flex items-center gap-1.5">
+          <span className="w-1.5 h-1.5 bg-indigo-500 rounded-full"></span>
+          Citations
         </h5>
+
+        {/* Image gallery (if any) */}
+        {imageDocuments.length > 0 && (
+          <div className="mb-3">
+            <div className="text-xs text-gray-400 mb-2">Related Images</div>
+            <div className="flex gap-2 overflow-x-auto pb-2">
+              {imageDocuments.map((doc, index) => (
+                <div key={doc.id || `img-${index}`} className="flex-shrink-0">
+                  <div className="w-24 h-24 rounded-lg overflow-hidden bg-gray-100 border border-gray-200">
+                    <img
+                      src={`/uploads/${doc.image_file_name}`}
+                      alt={doc.title || 'Image'}
+                      className="w-full h-full object-cover"
+                      onError={(e) => e.target.style.display = 'none'}
+                    />
+                  </div>
+                  <p className="text-xs text-gray-500 mt-1 truncate w-24">{doc.title}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Text documents */}
         <div className="space-y-2">
-          {documents.map((doc, index) => (
+          {textDocuments.map((doc, index) => (
             <SourceDocument key={doc.id || index} doc={doc} index={index} />
           ))}
         </div>

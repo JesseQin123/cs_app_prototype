@@ -171,9 +171,22 @@ export function ResultCard({ result }) {
       {/* Image Preview (if available) */}
       {result.image_file_name && (
         <div className="mt-3 pt-3 border-t border-gray-50">
-          <div className="flex items-center gap-2 text-xs text-gray-500">
-            <ImageIcon className="w-3.5 h-3.5" />
-            <span>{result.image_file_name}</span>
+          <div className="relative w-full h-48 bg-gray-100 rounded-lg overflow-hidden">
+            <img
+              src={`/uploads/${result.image_file_name}`}
+              alt={result.title || 'Image'}
+              className="w-full h-full object-contain"
+              onError={(e) => {
+                e.target.style.display = 'none';
+                e.target.nextSibling.style.display = 'flex';
+              }}
+            />
+            <div className="absolute inset-0 hidden items-center justify-center bg-gray-100">
+              <div className="text-center text-gray-400">
+                <ImageIcon className="w-8 h-8 mx-auto mb-1" />
+                <span className="text-xs">{result.image_file_name}</span>
+              </div>
+            </div>
           </div>
         </div>
       )}

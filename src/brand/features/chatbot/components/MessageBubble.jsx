@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { Copy, Check, ChevronDown, ChevronUp, User, Bot, AlertCircle } from 'lucide-react';
+import { Copy, Check, ChevronDown, ChevronUp, User, Bot, AlertCircle, BookOpen } from 'lucide-react';
 import SourceDocuments from './SourceDocuments';
 
 /**
@@ -11,7 +11,7 @@ import SourceDocuments from './SourceDocuments';
  */
 function MessageBubble({ message, isLast }) {
   const [copied, setCopied] = useState(false);
-  const [showSources, setShowSources] = useState(false);
+  const [showSources, setShowSources] = useState(true); // Default to showing sources
 
   const isUser = message.role === 'user';
   const isAssistant = message.role === 'assistant';
@@ -105,17 +105,22 @@ function MessageBubble({ message, isLast }) {
               )}
             </button>
 
-            {/* Sources toggle */}
+            {/* Sources/Citations toggle */}
             {hasSources && (
               <button
                 onClick={() => setShowSources(!showSources)}
-                className="flex items-center gap-1 text-xs text-gray-400 hover:text-gray-600 transition-colors"
+                className={`flex items-center gap-1 text-xs px-2 py-0.5 rounded-full transition-colors ${
+                  showSources
+                    ? 'bg-indigo-100 text-indigo-700'
+                    : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+                }`}
               >
-                <span>{message.sources.length} sources</span>
+                <BookOpen className="w-3 h-3" />
+                <span>{message.sources.length} citations</span>
                 {showSources ? (
-                  <ChevronUp className="w-3.5 h-3.5" />
+                  <ChevronUp className="w-3 h-3" />
                 ) : (
-                  <ChevronDown className="w-3.5 h-3.5" />
+                  <ChevronDown className="w-3 h-3" />
                 )}
               </button>
             )}
