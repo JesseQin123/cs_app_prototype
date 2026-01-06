@@ -23,38 +23,45 @@
 
 ---
 
-## Quick Start (Frontend Only)
+## Quick Start
 
 ```bash
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-```
-
----
-
-## Full Stack Setup (with RAG Chatbot)
-
-### Step 1: Start Vespa (Docker)
-
-```bash
-# Pull and run Vespa container
+# 1. Start Vespa (first time: downloads ~1.2GB image)
 docker run --detach --name vespa --hostname vespa-container \
   --publish 8080:8080 --publish 19071:19071 \
   vespaengine/vespa
 
-# Wait for Vespa to be ready (about 30 seconds)
-# Check status:
-curl -s http://localhost:8080/state/v1/health
+# 2. Wait for Vespa to be ready (~30 seconds), then deploy schema
+cd vespa-app && vespa deploy --wait 300 && cd ..
 
-# Deploy the schema
-cd vespa-app
-vespa deploy --wait 300
+# 3. Configure OpenAI API Key
+cp server/.env.example server/.env
+# Edit server/.env and add: OPENAI_API_KEY=sk-your-key-here
+
+# 4. Install dependencies & start server
+npm install && npm run server
+
+# 5. Import test data (in a new terminal)
+npm run vespa:import
+
+# 6. Start frontend (in a new terminal)
+npm run dev
 ```
 
-### Step 2: Start Embedding Service (Python)
+Visit http://localhost:5173 → **AI Assistant** to use the RAG chatbot.
+
+**Subsequent starts (after first setup):**
+```bash
+docker start vespa          # Start Vespa
+npm run server              # Start API server (terminal 1)
+npm run dev                 # Start frontend (terminal 2)
+```
+
+---
+
+## Full Stack Setup (Detailed)
+
+### Step 1: Start Embedding Service (Python) - Optional
 
 ```bash
 cd embedding-service
@@ -75,7 +82,7 @@ python embedding_service.py
 
 The embedding service will run on `http://localhost:5000`
 
-### Step 3: Configure Server Environment
+### Step 2: Configure Server Environment
 
 ```bash
 cd server
@@ -87,7 +94,7 @@ cp .env.example .env
 # OPENAI_API_KEY=sk-your-api-key-here
 ```
 
-### Step 4: Start API Server
+### Step 3: Start API Server
 
 ```bash
 # From project root
@@ -96,13 +103,12 @@ npm run server
 
 The server will run on `http://localhost:3003`
 
-### Step 5: Import Data to Vespa
+### Step 4: Import Data to Vespa
+
+The project includes **default test data** in `vespa-data/` directory (already committed to Git).
 
 ```bash
-# Generate extended mock data
-npm run vespa:generate
-
-# Import data (text + images)
+# Import existing test data to Vespa (recommended for quick start)
 npm run vespa:import
 
 # Or import separately:
@@ -110,7 +116,21 @@ npm run vespa:import:text    # Text documents only
 npm run vespa:import:images  # Images only
 ```
 
-### Step 6: Start Frontend
+**Optional: Regenerate test data**
+```bash
+# Only if you want to regenerate the mock data
+npm run vespa:generate
+
+# Then import the newly generated data
+npm run vespa:import
+```
+
+**Test data includes:**
+- 300-500 records across multiple luxury brands
+- Campaigns, Products, Retailers, FAQs
+- Brands: Verragio, Gucci, Tiffany, Cartier, Rolex, etc.
+
+### Step 5: Start Frontend
 
 ```bash
 npm run dev
