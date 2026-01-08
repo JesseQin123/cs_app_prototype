@@ -10,6 +10,55 @@ const ragService = require('../services/ragService');
 const conversationService = require('../services/conversationService');
 
 /**
+ * Filter documents to only include those that were actually referenced in the response
+ * @param {Array} documents - Retrieved documents
+ * @param {string} response - The LLM's response text
+ * @returns {Array} - Filtered documents that were actually used
+ */
+function filterUsedDocuments(documents, response) {
+  if (!documents || documents.length === 0 || !response) {
+    return [];
+  }
+
+  const responseLower = response.toLowerCase();
+
+  return documents.filter(doc => {
+    // Check if the document title is mentioned in the response
+    if (doc.title) {
+      const titleWords = doc.title.toLowerCase().split(/\s+/).filter(w => w.length > 3);
+      // If at least 2 significant words from the title appear in the response
+      const matchingWords = titleWords.filter(word => responseLower.includes(word));
+      if (matchingWords.length >= Math.min(2, titleWords.length)) {
+        return true;
+      }
+    }
+
+    // Check if the document ID is mentioned
+    if (doc.id && responseLower.includes(doc.id.toLowerCase())) {
+      return true;
+    }
+
+    // For specific content types, check for key identifiers
+    if (doc.content_type === 'campaign' || doc.content_type === 'product') {
+      // Check for brand name mentions
+      try {
+        const metadata = doc.metadata ? JSON.parse(doc.metadata) : {};
+        if (metadata.brandName && responseLower.includes(metadata.brandName.toLowerCase())) {
+          // Also verify the specific item is mentioned
+          if (doc.title && responseLower.includes(doc.title.toLowerCase().substring(0, 20))) {
+            return true;
+          }
+        }
+      } catch (e) {
+        // Ignore JSON parse errors
+      }
+    }
+
+    return false;
+  });
+}
+
+/**
  * POST /api/chat
  *
  * Main chat endpoint with streaming response
@@ -81,9 +130,6 @@ router.post('/', async (req, res) => {
       }
     );
 
-    // Send retrieved sources first
-    res.write(`event: sources\ndata: ${JSON.stringify({ documents })}\n\n`);
-
     // Add user message to history
     conversationService.addMessage(conversation.id, 'user', message.trim());
 
@@ -105,15 +151,23 @@ router.post('/', async (req, res) => {
       return;
     }
 
+    // Filter documents to only include those actually used in the response
+    const usedDocuments = filterUsedDocuments(documents, fullResponse);
+    console.log(`[Chat] Filtered citations: ${documents.length} retrieved -> ${usedDocuments.length} actually used`);
+
+    // Send filtered sources AFTER response is complete (so we know which were actually used)
+    res.write(`event: sources\ndata: ${JSON.stringify({ documents: usedDocuments })}\n\n`);
+
     // Add assistant response to history
     conversationService.addMessage(conversation.id, 'assistant', fullResponse, {
-      sources: documents.map(d => d.id)
+      sources: usedDocuments.map(d => d.id)
     });
 
     // Send completion signal
     res.write(`event: done\ndata: ${JSON.stringify({
       conversationId: conversation.id,
-      messageCount: conversation.messages.length
+      messageCount: conversation.messages.length,
+      citationsCount: usedDocuments.length
     })}\n\n`);
 
     res.end();

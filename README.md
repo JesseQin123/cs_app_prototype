@@ -25,8 +25,10 @@
 
 ## Quick Start
 
+### First Time Setup
+
 ```bash
-# 1. Start Vespa (first time: downloads ~1.2GB image)
+# 1. Start Vespa (downloads ~1.2GB image on first run)
 docker run --detach --name vespa --hostname vespa-container \
   --publish 8080:8080 --publish 19071:19071 \
   vespaengine/vespa
@@ -38,23 +40,128 @@ cd vespa-app && vespa deploy --wait 300 && cd ..
 cp server/.env.example server/.env
 # Edit server/.env and add: OPENAI_API_KEY=sk-your-key-here
 
-# 4. Install dependencies & start server
-npm install && npm run server
+# 4. Install dependencies
+npm install
 
-# 5. Import test data (in a new terminal)
+# 5. Start API server (Terminal 1) - REQUIRED!
+npm run server
+
+# 6. Import test data (Terminal 2)
 npm run vespa:import
 
-# 6. Start frontend (in a new terminal)
+# 7. Start frontend (Terminal 2, after import completes)
 npm run dev
 ```
 
 Visit http://localhost:5173 → **AI Assistant** to use the RAG chatbot.
 
-**Subsequent starts (after first setup):**
+### Subsequent Starts (Vespa image already exists)
+
+When you've already set up the project before, use these commands:
+
 ```bash
-docker start vespa          # Start Vespa
-npm run server              # Start API server (terminal 1)
-npm run dev                 # Start frontend (terminal 2)
+# Terminal 1: Start Vespa container (if not running)
+docker start vespa
+
+# Terminal 1: Start API server (REQUIRED - must run before frontend!)
+npm run server
+
+# Terminal 2: Start frontend
+npm run dev
+```
+
+**Important**: The API server (`npm run server`) must be running before starting the frontend, otherwise you'll see `ECONNREFUSED` errors.
+
+---
+
+## All Services Summary
+
+You need **3 services** running for full functionality:
+
+| Service | Port | Command | Required |
+|---------|------|---------|----------|
+| Vespa | 8080 | `docker start vespa` | Yes |
+| API Server | 3003 | `npm run server` | Yes |
+| Frontend | 5173 | `npm run dev` | Yes |
+| Embedding Service | 5000 | See below | Optional |
+
+**Startup Order**: Vespa → API Server → Frontend
+
+---
+
+## Vespa Data Management
+
+### Import Data
+
+```bash
+# Import all data (text + images)
+npm run vespa:import
+
+# Import text documents only
+npm run vespa:import:text
+
+# Import images only
+npm run vespa:import:images
+```
+
+### Export/Backup Data
+
+```bash
+# Export current data as backup before making changes
+npm run vespa:export
+```
+
+### Delete Data
+
+#### Delete a Single Document
+
+```bash
+# Delete by document ID
+curl -X DELETE "http://localhost:8080/document/v1/default/multimodal/docid/{document-id}"
+
+# Example: Delete campaign with ID "camp-001"
+curl -X DELETE "http://localhost:8080/document/v1/default/multimodal/docid/camp-001"
+```
+
+#### Delete All Documents (Reset Data)
+
+```bash
+# Delete all documents from Vespa
+curl -X DELETE "http://localhost:8080/document/v1/default/multimodal/docid?selection=true&cluster=default"
+
+# Then re-import data if needed
+npm run vespa:import
+```
+
+#### Complete Reset (Recreate Vespa Container)
+
+If you want a completely fresh start:
+
+```bash
+# Stop and remove the container
+docker stop vespa
+docker rm vespa
+
+# Start a new container (no need to download image again)
+docker run --detach --name vespa --hostname vespa-container \
+  --publish 8080:8080 --publish 19071:19071 \
+  vespaengine/vespa
+
+# Wait for Vespa to be ready, then redeploy schema
+cd vespa-app && vespa deploy --wait 300 && cd ..
+
+# Re-import data
+npm run vespa:import
+```
+
+### Regenerate Test Data
+
+```bash
+# Generate new mock data
+npm run vespa:generate
+
+# Import the newly generated data
+npm run vespa:import
 ```
 
 ---
@@ -116,15 +223,6 @@ npm run vespa:import:text    # Text documents only
 npm run vespa:import:images  # Images only
 ```
 
-**Optional: Regenerate test data**
-```bash
-# Only if you want to regenerate the mock data
-npm run vespa:generate
-
-# Then import the newly generated data
-npm run vespa:import
-```
-
 **Test data includes:**
 - 300-500 records across multiple luxury brands
 - Campaigns, Products, Retailers, FAQs
@@ -140,17 +238,6 @@ Visit `http://localhost:5173` and navigate to **AI Assistant** to use the RAG ch
 
 ---
 
-## All Services Summary
-
-| Service | Port | Command |
-|---------|------|---------|
-| Vespa | 8080 | `docker start vespa` |
-| Embedding Service | 5000 | `cd embedding-service && source venv/bin/activate && python embedding_service.py` |
-| API Server | 3003 | `npm run server` |
-| Frontend | 5173 | `npm run dev` |
-
----
-
 ## Available Scripts
 
 ```bash
@@ -160,14 +247,14 @@ npm run build         # Build for production
 npm run preview       # Preview production build
 
 # Server
-npm run server        # Start API server
+npm run server        # Start API server (port 3003)
 
 # Vespa Data
 npm run vespa:generate      # Generate extended mock data
 npm run vespa:import        # Import all data to Vespa
 npm run vespa:import:text   # Import text documents only
 npm run vespa:import:images # Import images only
-npm run vespa:export        # Export data from app
+npm run vespa:export        # Export/backup data from Vespa
 ```
 
 ---
@@ -202,6 +289,11 @@ crownsync-app/
 │   ├── schemas/
 │   │   └── multimodal.sd
 │   └── services.xml
+├── vespa-data/                   # Data files for Vespa
+│   ├── text-documents.json
+│   ├── extended-documents.json
+│   ├── images-manifest.json
+│   └── rag-structured-data.json  # Structured data for RAG
 ├── scripts/                      # Data import/export
 │   ├── import-to-vespa.js
 │   ├── export-to-vespa.js
@@ -230,6 +322,14 @@ NODE_ENV=development
 
 ## Troubleshooting
 
+### ECONNREFUSED errors on frontend
+
+This means the API server is not running. Make sure to start it first:
+
+```bash
+npm run server
+```
+
 ### Port already in use
 
 ```bash
@@ -251,6 +351,17 @@ docker start vespa
 
 # Check logs
 docker logs vespa
+
+# If container doesn't exist, create it
+docker run --detach --name vespa --hostname vespa-container \
+  --publish 8080:8080 --publish 19071:19071 \
+  vespaengine/vespa
+```
+
+### Vespa schema not deployed
+
+```bash
+cd vespa-app && vespa deploy --wait 300 && cd ..
 ```
 
 ### Embedding service errors

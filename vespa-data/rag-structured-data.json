@@ -1,0 +1,1163 @@
+{
+  "metadata": {
+    "exportDate": "2026-01-08",
+    "source": "CrownSync Partner Hub",
+    "version": "1.0",
+    "totalRecords": {
+      "brands": 12,
+      "campaigns": 22,
+      "retailers": 36,
+      "resources": 6,
+      "images": 34
+    }
+  },
+  "brands": [
+    {
+      "id": "b-verragio",
+      "name": "Verragio",
+      "description": "Luxury engagement and wedding ring designer known for intricate detailing and exceptional craftsmanship.",
+      "category": "luxury-brand"
+    },
+    {
+      "id": "b-gucci",
+      "name": "Gucci",
+      "description": "Italian luxury fashion house renowned for contemporary and eclectic designs.",
+      "category": "luxury-brand"
+    },
+    {
+      "id": "b-louisvuitton",
+      "name": "Louis Vuitton",
+      "description": "French fashion house and luxury goods company known for leather goods and ready-to-wear.",
+      "category": "luxury-brand"
+    },
+    {
+      "id": "b-dior",
+      "name": "Dior",
+      "description": "French luxury goods company known for haute couture, leather goods, and accessories.",
+      "category": "luxury-brand"
+    },
+    {
+      "id": "b-hermes",
+      "name": "Hermes",
+      "description": "French luxury design house known for leather goods, lifestyle accessories, and perfumery.",
+      "category": "luxury-brand"
+    },
+    {
+      "id": "b-prada",
+      "name": "Prada",
+      "description": "Italian luxury fashion house specializing in leather handbags, travel accessories, and fashion.",
+      "category": "luxury-brand"
+    },
+    {
+      "id": "b-tiffany",
+      "name": "Tiffany & Co.",
+      "description": "American luxury jewelry and specialty retailer famous for diamond and sterling silver jewelry.",
+      "category": "luxury-brand"
+    },
+    {
+      "id": "b-cartier",
+      "name": "Cartier",
+      "description": "French luxury goods conglomerate known for jewelry, watches, and accessories.",
+      "category": "luxury-brand"
+    },
+    {
+      "id": "b-rolex",
+      "name": "Rolex",
+      "description": "Swiss luxury watch manufacturer known for precision timepieces and iconic designs.",
+      "category": "luxury-brand"
+    },
+    {
+      "id": "b-patek",
+      "name": "Patek Philippe",
+      "description": "Swiss luxury watch manufacturer renowned for complicated mechanical watches.",
+      "category": "luxury-brand"
+    },
+    {
+      "id": "b-omega",
+      "name": "Omega",
+      "description": "Swiss luxury watchmaker known for precision and as the official timekeeper of the Olympics.",
+      "category": "luxury-brand"
+    },
+    {
+      "id": "b-burberry",
+      "name": "Burberry",
+      "description": "British luxury fashion house known for outerwear and iconic check pattern.",
+      "category": "luxury-brand"
+    }
+  ],
+  "campaigns": [
+    {
+      "id": "camp-001",
+      "brandId": "b-verragio",
+      "brandName": "Verragio",
+      "title": "A perfect pair in radiant yellow gold",
+      "description": "Celebrate your love story with two timeless designs: Tradition-250DFR - A classic engagement ring with Verragio's signature detailing and unmatched craftsmanship. VWRD7703 - A bold men's band featuring channel-set round diamonds for a look that's strong, sleek, and sophisticated. Together, they embody elegance, commitment, and individuality.",
+      "status": "Active",
+      "isPinned": true,
+      "createdAt": "2025-11-26",
+      "startDate": "2025-11-26",
+      "endDate": "2026-03-15",
+      "audience": {
+        "type": "all",
+        "description": "All Retailers",
+        "count": 156
+      },
+      "images": {
+        "cover": "/mock/verragio/brand/campaigns/1/cover.png",
+        "product": "/mock/verragio/brand/campaigns/1/product.jpg"
+      },
+      "metrics": {
+        "adoptionRate": 78,
+        "retailerAdoption": {
+          "participants": 156,
+          "totalInvited": 200
+        },
+        "totalUsage": {
+          "downloads": 1350,
+          "publishes": 2100
+        },
+        "audienceReach": {
+          "emailOpens": 850000,
+          "socialImpressions": 1550000
+        },
+        "customerInteractions": {
+          "clicks": 5200,
+          "likes": 4500,
+          "comments": 350,
+          "shares": 2450,
+          "saves": 890
+        }
+      },
+      "channels": {
+        "social": true,
+        "email": false,
+        "sms": false,
+        "download": true
+      },
+      "platforms": ["instagram", "facebook", "x", "google"],
+      "contentType": "full-content"
+    },
+    {
+      "id": "camp-002",
+      "brandId": "b-verragio",
+      "brandName": "Verragio",
+      "title": "Celebrate Love This Thanksgiving - Holiday Collection Launch",
+      "description": "Gratitude is all about cherishing the moments that truly matter, and what could be more meaningful than a love that stands the test of time? Our gorgeous bridal set, radiating in yellow gold, showcases an elegant oval-cut diamond engagement ring, perfectly complemented by a stunning diamond wedding band. For him, a stylish yellow gold band with channel-set diamonds offers a touch of refined sophistication.",
+      "status": "Active",
+      "isPinned": true,
+      "createdAt": "2025-11-25",
+      "startDate": "2025-11-25",
+      "endDate": "2026-02-28",
+      "audience": {
+        "type": "segment",
+        "description": "VIP Retailers",
+        "count": 45,
+        "filters": ["VIP Retailers"]
+      },
+      "images": {
+        "cover": "/mock/verragio/brand/campaigns/2/cover.png",
+        "product": "/mock/verragio/brand/campaigns/2/product.jpg"
+      },
+      "metrics": {
+        "adoptionRate": 45,
+        "retailerAdoption": {
+          "participants": 45,
+          "totalInvited": 100
+        },
+        "totalUsage": {
+          "downloads": 250,
+          "publishes": 640
+        },
+        "audienceReach": {
+          "emailOpens": 400,
+          "socialImpressions": 12500
+        },
+        "customerInteractions": {
+          "clicks": 150,
+          "likes": 450,
+          "comments": 12,
+          "shares": 25,
+          "saves": 10
+        }
+      },
+      "channels": {
+        "social": false,
+        "email": false,
+        "sms": false,
+        "download": false
+      },
+      "platforms": ["instagram", "facebook"],
+      "contentType": "social-heavy"
+    },
+    {
+      "id": "camp-003",
+      "brandId": "b-verragio",
+      "brandName": "Verragio",
+      "title": "Delicate or dramatic - you decide!",
+      "description": "Delicate or dramatic--you decide! The elegant twist of the Verragio 18k yellow gold and diamond braided hoop is made to be cherished.",
+      "status": "Active",
+      "isPinned": false,
+      "createdAt": "2025-11-20",
+      "startDate": "2025-11-20",
+      "endDate": "2026-02-14",
+      "audience": {
+        "type": "specific",
+        "description": "Specific Retailers",
+        "count": 12,
+        "retailers": ["London Jewelers", "Parisian Chic", "Dubai Luxury", "Tokyo Trends", "Milano Style", "Nordic Design House", "Seoul Streetwear", "Bond Street Collective", "Sydney Harbour Fashion", "Toronto Trends", "Berlin Modern", "Shanghai Chic"]
+      },
+      "images": {
+        "cover": "/mock/verragio/brand/campaigns/3/cover.png",
+        "product": "/mock/verragio/brand/campaigns/3/product.jpg"
+      },
+      "metrics": {
+        "adoptionRate": 25,
+        "retailerAdoption": {
+          "participants": 25,
+          "totalInvited": 100
+        },
+        "totalUsage": {
+          "downloads": 40,
+          "publishes": 40
+        },
+        "audienceReach": {
+          "emailOpens": 120,
+          "socialImpressions": 5000
+        },
+        "customerInteractions": {
+          "clicks": 45,
+          "likes": 80,
+          "comments": 5,
+          "shares": 2,
+          "saves": 1
+        }
+      },
+      "channels": {
+        "social": true,
+        "email": true,
+        "sms": true,
+        "download": true
+      },
+      "platforms": ["instagram", "facebook"],
+      "contentType": "full-content"
+    },
+    {
+      "id": "camp-004",
+      "brandId": "b-verragio",
+      "brandName": "Verragio",
+      "title": "LUMINO Collection - Pure brilliance",
+      "description": "An oval-cut diamond. Sleek white gold. Every detail is designed for those who value understated luxury and unparalleled craftsmanship. This is more than an engagement ring - it's a statement of your journey. Lumino-801-Oval {NEW}",
+      "status": "Active",
+      "isPinned": false,
+      "createdAt": "2025-11-19",
+      "startDate": "2025-11-20",
+      "endDate": "Permanent",
+      "audience": {
+        "type": "all",
+        "description": "All Retailers",
+        "count": 156
+      },
+      "images": {
+        "cover": "/mock/verragio/brand/campaigns/4/cover.png",
+        "product": "/mock/verragio/brand/campaigns/4/product.jpg"
+      },
+      "metrics": {
+        "adoptionRate": 60,
+        "retailerAdoption": {
+          "participants": 120,
+          "totalInvited": 200
+        },
+        "totalUsage": {
+          "downloads": 1200,
+          "publishes": 850
+        },
+        "audienceReach": {
+          "emailOpens": 15600,
+          "socialImpressions": 48000
+        },
+        "customerInteractions": {
+          "clicks": 1250,
+          "likes": 4200,
+          "comments": 180,
+          "shares": 450,
+          "saves": 120
+        }
+      },
+      "channels": {
+        "social": false,
+        "email": false,
+        "sms": false,
+        "download": true
+      },
+      "platforms": [],
+      "contentType": "files-only"
+    },
+    {
+      "id": "camp-005",
+      "brandId": "b-verragio",
+      "brandName": "Verragio",
+      "title": "Spring Renew",
+      "description": "Refresh your inventory with our spring collection.",
+      "status": "Scheduled",
+      "isPinned": false,
+      "createdAt": "2025-12-01",
+      "startDate": "2026-03-01",
+      "endDate": "2026-04-30",
+      "audience": {
+        "type": "specific",
+        "description": "Specific Retailers",
+        "count": 12,
+        "retailers": ["Alson Jewelers", "Brent L. Miller Jewelers & Goldsmiths", "CD Peacock", "Clarkson Jewelers", "Davis Jewelers", "De Boulle Diamond & Jewelry", "DeVons Jewelers", "Feldmar Watch Co.", "Gunderson's Jewelers", "Heller Jewelers", "Henne Jewelers", "J.R Dunn Jewelry"]
+      },
+      "images": {
+        "cover": "/mock/verragio/brand/campaigns/5/cover.png",
+        "product": "/mock/verragio/brand/campaigns/5/product.png"
+      },
+      "metrics": {
+        "adoptionRate": 0
+      },
+      "channels": {
+        "social": false,
+        "email": false,
+        "sms": false,
+        "download": false
+      },
+      "platforms": ["instagram", "facebook"],
+      "contentType": "full-content"
+    },
+    {
+      "id": "camp-006",
+      "brandId": "b-verragio",
+      "brandName": "Verragio",
+      "title": "Diamond Guide 2026",
+      "description": "Educational guide for staff and customers.",
+      "status": "Draft",
+      "isPinned": false,
+      "createdAt": "2025-11-30",
+      "startDate": "TBD",
+      "endDate": "Permanent",
+      "audience": {
+        "type": "all",
+        "description": "All Retailers",
+        "count": 156
+      },
+      "images": {
+        "cover": "/mock/verragio/brand/campaigns/6/cover.png",
+        "product": "/mock/verragio/brand/campaigns/6/product.jpg"
+      },
+      "metrics": {
+        "adoptionRate": null
+      },
+      "channels": {
+        "social": true,
+        "email": false,
+        "sms": false,
+        "download": true
+      },
+      "platforms": ["instagram", "facebook"],
+      "contentType": "draft-empty"
+    },
+    {
+      "id": "camp-007",
+      "brandId": "b-verragio",
+      "brandName": "Verragio",
+      "title": "Autumn Gold",
+      "description": "Fall season specific marketing assets.",
+      "status": "Ended",
+      "isPinned": false,
+      "createdAt": "2025-09-01",
+      "startDate": "2025-09-01",
+      "endDate": "2025-11-20",
+      "audience": {
+        "type": "all",
+        "description": "All Retailers",
+        "count": 156
+      },
+      "images": {
+        "cover": "/mock/verragio/brand/campaigns/7/cover.png",
+        "product": "/mock/verragio/brand/campaigns/7/product.jpg"
+      },
+      "metrics": {
+        "adoptionRate": 88,
+        "retailerAdoption": {
+          "participants": 158,
+          "totalInvited": 180
+        },
+        "totalUsage": {
+          "downloads": 1450,
+          "publishes": 2100
+        },
+        "audienceReach": {
+          "emailOpens": 1200000,
+          "socialImpressions": 3500000
+        },
+        "customerInteractions": {
+          "clicks": 15200,
+          "likes": 8900,
+          "comments": 1200,
+          "shares": 4500,
+          "saves": 2100
+        }
+      },
+      "channels": {
+        "social": true,
+        "email": true,
+        "sms": true,
+        "download": true
+      },
+      "platforms": ["instagram", "facebook", "x"],
+      "contentType": "full-content"
+    },
+    {
+      "id": "camp-008",
+      "brandId": "b-verragio",
+      "brandName": "Verragio",
+      "title": "Mother's Day Early Bird",
+      "description": "Early access assets for Mother's Day planning.",
+      "status": "Scheduled",
+      "isPinned": false,
+      "createdAt": "2025-11-28",
+      "startDate": "2026-04-01",
+      "endDate": "2026-05-10",
+      "audience": {
+        "type": "all",
+        "description": "All Retailers",
+        "count": 156
+      },
+      "images": {
+        "cover": "/mock/verragio/brand/campaigns/8/cover.png",
+        "product": null
+      },
+      "metrics": {
+        "adoptionRate": 0
+      },
+      "channels": {
+        "social": false,
+        "email": false,
+        "sms": false,
+        "download": false
+      },
+      "platforms": ["instagram", "facebook"],
+      "contentType": "social-heavy"
+    },
+    {
+      "id": "camp-009",
+      "brandId": "b-verragio",
+      "brandName": "Verragio",
+      "title": "Classic Bands",
+      "description": "Evergreen content for our classic wedding bands.",
+      "status": "Active",
+      "isPinned": false,
+      "createdAt": "2025-11-27",
+      "startDate": "2025-01-01",
+      "endDate": "Permanent",
+      "audience": {
+        "type": "all",
+        "description": "All Retailers",
+        "count": 156
+      },
+      "images": {
+        "cover": "/mock/verragio/brand/campaigns/9/cover.png",
+        "product": "/mock/verragio/brand/campaigns/9/product.png"
+      },
+      "metrics": {
+        "adoptionRate": 65,
+        "retailerAdoption": {
+          "participants": 130,
+          "totalInvited": 200
+        },
+        "totalUsage": {
+          "downloads": 300,
+          "publishes": 1500
+        },
+        "audienceReach": {
+          "emailOpens": 45000,
+          "socialImpressions": 120000
+        },
+        "customerInteractions": {
+          "clicks": 850,
+          "likes": 2400,
+          "comments": 150,
+          "shares": 300,
+          "saves": 85
+        }
+      },
+      "channels": {
+        "social": true,
+        "email": false,
+        "sms": false,
+        "download": false
+      },
+      "platforms": ["x"],
+      "contentType": "files-only"
+    },
+    {
+      "id": "camp-010",
+      "brandId": "b-verragio",
+      "brandName": "Verragio",
+      "title": "Summer 2025 Clearance",
+      "description": "Old assets from the summer sale.",
+      "status": "Archived",
+      "isPinned": false,
+      "createdAt": "2025-11-26",
+      "startDate": "2025-06-01",
+      "endDate": "2025-08-31",
+      "audience": {
+        "type": "all",
+        "description": "All Retailers",
+        "count": 156
+      },
+      "images": {
+        "cover": "/mock/verragio/brand/campaigns/10/cover.png",
+        "product": "/mock/verragio/brand/campaigns/10/product.jpg"
+      },
+      "metrics": {
+        "adoptionRate": 55
+      },
+      "channels": {
+        "social": false,
+        "email": false,
+        "sms": false,
+        "download": false
+      },
+      "platforms": [],
+      "contentType": "full-content"
+    },
+    {
+      "id": "camp-011",
+      "brandId": "b-verragio",
+      "brandName": "Verragio",
+      "title": "Platinum Perfection",
+      "description": "Highlighting our platinum range.",
+      "status": "Active",
+      "isPinned": false,
+      "createdAt": "2025-11-25",
+      "startDate": "2025-11-26",
+      "endDate": "2026-03-31",
+      "audience": {
+        "type": "all",
+        "description": "All Retailers",
+        "count": 156
+      },
+      "images": {
+        "cover": "/mock/verragio/brand/campaigns/11/cover.png",
+        "product": "/mock/verragio/brand/campaigns/11/product.jpg"
+      },
+      "metrics": {
+        "adoptionRate": 42,
+        "retailerAdoption": {
+          "participants": 84,
+          "totalInvited": 200
+        },
+        "totalUsage": {
+          "downloads": 200,
+          "publishes": 450
+        },
+        "audienceReach": {
+          "emailOpens": 12000,
+          "socialImpressions": 35000
+        },
+        "customerInteractions": {
+          "clicks": 420,
+          "likes": 1200,
+          "comments": 45,
+          "shares": 120,
+          "saves": 60
+        }
+      },
+      "channels": {
+        "social": false,
+        "email": false,
+        "sms": false,
+        "download": false
+      },
+      "platforms": [],
+      "contentType": "social-heavy"
+    },
+    {
+      "id": "camp-012",
+      "brandId": "b-verragio",
+      "brandName": "Verragio",
+      "title": "Rose Gold Romance",
+      "description": "Targeting the romantic demographic.",
+      "status": "Active",
+      "isPinned": false,
+      "createdAt": "2025-11-24",
+      "startDate": "2025-09-15",
+      "endDate": "2026-02-14",
+      "audience": {
+        "type": "all",
+        "description": "All Retailers",
+        "count": 156
+      },
+      "images": {
+        "cover": "/mock/verragio/brand/campaigns/12/cover.png",
+        "product": "/mock/verragio/brand/campaigns/12/product.jpg"
+      },
+      "metrics": {
+        "adoptionRate": 81,
+        "retailerAdoption": {
+          "participants": 162,
+          "totalInvited": 200
+        },
+        "totalUsage": {
+          "downloads": 400,
+          "publishes": 2400
+        },
+        "audienceReach": {
+          "emailOpens": 89000,
+          "socialImpressions": 210000
+        },
+        "customerInteractions": {
+          "clicks": 2800,
+          "likes": 6500,
+          "comments": 320,
+          "shares": 900,
+          "saves": 450
+        }
+      },
+      "channels": {
+        "social": true,
+        "email": true,
+        "sms": false,
+        "download": false
+      },
+      "platforms": ["instagram", "facebook", "x"],
+      "contentType": "full-content"
+    },
+    {
+      "id": "camp-013",
+      "brandId": "b-verragio",
+      "brandName": "Verragio",
+      "title": "Sustainability Initiative",
+      "description": "Communicating our green efforts.",
+      "status": "Draft",
+      "isPinned": false,
+      "createdAt": "2025-11-23",
+      "startDate": "TBD",
+      "endDate": "Permanent",
+      "audience": {
+        "type": "all",
+        "description": "All Retailers",
+        "count": 156
+      },
+      "images": {
+        "cover": "/mock/verragio/brand/campaigns/13/cover.png",
+        "product": "/mock/verragio/brand/campaigns/13/product.png"
+      },
+      "metrics": {
+        "adoptionRate": null
+      },
+      "channels": {
+        "social": false,
+        "email": false,
+        "sms": false,
+        "download": false
+      },
+      "platforms": ["instagram", "x"],
+      "contentType": "draft-empty"
+    },
+    {
+      "id": "camp-014",
+      "brandId": "b-verragio",
+      "brandName": "Verragio",
+      "title": "Men's Wedding Bands",
+      "description": "Focus on the groom.",
+      "status": "Active",
+      "isPinned": false,
+      "createdAt": "2025-11-24",
+      "startDate": "2025-11-26",
+      "endDate": "Permanent",
+      "audience": {
+        "type": "all",
+        "description": "All Retailers",
+        "count": 156
+      },
+      "images": {
+        "cover": "/mock/verragio/brand/campaigns/14/cover.png",
+        "product": "/mock/verragio/brand/campaigns/14/product.jpg"
+      },
+      "metrics": {
+        "adoptionRate": 50,
+        "retailerAdoption": {
+          "participants": 100,
+          "totalInvited": 200
+        },
+        "totalUsage": {
+          "downloads": 200,
+          "publishes": 700
+        },
+        "audienceReach": {
+          "emailOpens": 25000,
+          "socialImpressions": 80000
+        },
+        "customerInteractions": {
+          "clicks": 650,
+          "likes": 1800,
+          "comments": 90,
+          "shares": 200,
+          "saves": 110
+        }
+      },
+      "channels": {
+        "social": false,
+        "email": false,
+        "sms": false,
+        "download": false
+      },
+      "platforms": ["x", "google"],
+      "contentType": "files-only"
+    },
+    {
+      "id": "camp-015",
+      "brandId": "b-verragio",
+      "brandName": "Verragio",
+      "title": "Black Friday 2024",
+      "description": "Past Black Friday assets.",
+      "status": "Archived",
+      "isPinned": false,
+      "createdAt": "2025-11-21",
+      "startDate": "2024-11-01",
+      "endDate": "2024-11-30",
+      "audience": {
+        "type": "all",
+        "description": "All Retailers",
+        "count": 156
+      },
+      "images": {
+        "cover": "/mock/verragio/brand/campaigns/15/cover.png",
+        "product": "/mock/verragio/brand/campaigns/15/product.jpg"
+      },
+      "metrics": {
+        "adoptionRate": 95,
+        "retailerAdoption": {
+          "participants": 190,
+          "totalInvited": 200
+        },
+        "totalUsage": {
+          "downloads": 1700,
+          "publishes": 3300
+        },
+        "audienceReach": {
+          "emailOpens": 500000,
+          "socialImpressions": 2500000
+        },
+        "customerInteractions": {
+          "clicks": 4000,
+          "likes": 12000,
+          "comments": 500,
+          "shares": 800,
+          "saves": 300
+        }
+      },
+      "channels": {
+        "social": true,
+        "email": true,
+        "sms": true,
+        "download": true
+      },
+      "platforms": ["instagram", "facebook", "x", "google"],
+      "contentType": "full-content"
+    },
+    {
+      "id": "camp-016",
+      "brandId": "b-verragio",
+      "brandName": "Verragio",
+      "title": "Anniversary Collection",
+      "description": "Celebrating 20 years of excellence.",
+      "status": "Active",
+      "isPinned": false,
+      "createdAt": "2025-11-20",
+      "startDate": "2025-05-01",
+      "endDate": "2026-05-01",
+      "audience": {
+        "type": "all",
+        "description": "All Retailers",
+        "count": 156
+      },
+      "images": {
+        "cover": "/mock/verragio/brand/campaigns/16/cover.png",
+        "product": "/mock/verragio/brand/campaigns/16/product.jpg"
+      },
+      "metrics": {
+        "adoptionRate": 68
+      },
+      "channels": {
+        "social": true,
+        "email": false,
+        "sms": false,
+        "download": false
+      },
+      "platforms": ["instagram", "facebook", "x", "google"],
+      "contentType": "social-heavy"
+    },
+    {
+      "id": "camp-017",
+      "brandId": "b-verragio",
+      "brandName": "Verragio",
+      "title": "Gemstone Gala",
+      "description": "Colorful stones for the season.",
+      "status": "Active",
+      "isPinned": false,
+      "createdAt": "2025-11-19",
+      "startDate": "2025-11-01",
+      "endDate": "2026-01-31",
+      "audience": {
+        "type": "all",
+        "description": "All Retailers",
+        "count": 156
+      },
+      "images": {
+        "cover": "/mock/verragio/brand/campaigns/17/cover.png",
+        "product": "/mock/verragio/brand/campaigns/17/product.png"
+      },
+      "metrics": {
+        "adoptionRate": 30
+      },
+      "channels": {
+        "social": false,
+        "email": false,
+        "sms": false,
+        "download": false
+      },
+      "platforms": [],
+      "contentType": "full-content"
+    },
+    {
+      "id": "camp-ext-001",
+      "brandId": "b-cartier",
+      "brandName": "Cartier",
+      "title": "Panthere de Cartier Collection",
+      "description": "The timeless icon returns. Push the new collection assets to your top clients.",
+      "status": "Active",
+      "isPinned": true,
+      "createdAt": "2025-11-20",
+      "startDate": "2025-11-01",
+      "endDate": "2025-11-27",
+      "audience": {
+        "type": "segment",
+        "description": "Platinum & Northeast",
+        "count": 28,
+        "filters": ["Platinum", "Northeast", "VIP", "Boutique"]
+      },
+      "images": {
+        "cover": "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?auto=format&fit=crop&q=80&w=800",
+        "product": null
+      },
+      "metrics": {
+        "adoptionRate": 85,
+        "retailerAdoption": {
+          "participants": 170,
+          "totalInvited": 200
+        },
+        "totalUsage": {
+          "downloads": 1500,
+          "publishes": 2100
+        },
+        "audienceReach": {
+          "emailOpens": 2500,
+          "socialImpressions": 120000
+        },
+        "customerInteractions": {
+          "clicks": 1500,
+          "likes": 3800,
+          "comments": 240,
+          "shares": 450,
+          "saves": 180
+        }
+      },
+      "channels": {
+        "social": false,
+        "email": false,
+        "sms": false,
+        "download": false
+      },
+      "platforms": ["instagram", "facebook"],
+      "contentType": "full-content"
+    },
+    {
+      "id": "camp-ext-002",
+      "brandId": "b-rolex",
+      "brandName": "Rolex",
+      "title": "Rolex Deepsea Challenge",
+      "description": "The ultimate diver's watch. Assets for digital and print.",
+      "status": "Active",
+      "isPinned": false,
+      "createdAt": "2025-11-25",
+      "startDate": "2025-11-25",
+      "endDate": "Permanent",
+      "audience": {
+        "type": "specific",
+        "description": "Specific Retailers",
+        "count": 5,
+        "retailers": ["Alson Jewelers", "CD Peacock", "Davis Jewelers", "Heller Jewelers", "London Jewelers"]
+      },
+      "images": {
+        "cover": "https://images.unsplash.com/photo-1620625515032-6ed0c1790c75?auto=format&fit=crop&q=80&w=800",
+        "product": null
+      },
+      "metrics": {
+        "adoptionRate": 10,
+        "retailerAdoption": {
+          "participants": 20,
+          "totalInvited": 200
+        },
+        "totalUsage": {
+          "downloads": 40,
+          "publishes": 15
+        },
+        "audienceReach": {
+          "emailOpens": 200,
+          "socialImpressions": 1500
+        },
+        "customerInteractions": {
+          "clicks": 50,
+          "likes": 120,
+          "comments": 5,
+          "shares": 10,
+          "saves": 2
+        }
+      },
+      "channels": {
+        "social": false,
+        "email": false,
+        "sms": false,
+        "download": false
+      },
+      "platforms": ["instagram", "facebook"],
+      "contentType": "files-only"
+    },
+    {
+      "id": "camp-ext-003",
+      "brandId": "b-patek",
+      "brandName": "Patek Philippe",
+      "title": "Nautilus Annual Calendar",
+      "description": "Focus on the Ref. 5726/1A-014. Blue dial elegance.",
+      "status": "Active",
+      "isPinned": false,
+      "createdAt": "2025-11-10",
+      "startDate": "2025-11-15",
+      "endDate": "2026-06-01",
+      "audience": {
+        "type": "all",
+        "description": "All Retailers",
+        "count": 156
+      },
+      "images": {
+        "cover": "https://images.unsplash.com/photo-1596568359553-a56de6970068?auto=format&fit=crop&q=80&w=800",
+        "product": null
+      },
+      "metrics": {
+        "adoptionRate": 40,
+        "retailerAdoption": {
+          "participants": 80,
+          "totalInvited": 200
+        },
+        "totalUsage": {
+          "downloads": 50,
+          "publishes": 250
+        },
+        "audienceReach": {
+          "emailOpens": 4500,
+          "socialImpressions": 12500
+        },
+        "customerInteractions": {
+          "clicks": 350,
+          "likes": 890,
+          "comments": 45,
+          "shares": 120,
+          "saves": 30
+        }
+      },
+      "channels": {
+        "social": true,
+        "email": false,
+        "sms": false,
+        "download": false
+      },
+      "platforms": ["instagram", "facebook", "x"],
+      "contentType": "social-heavy"
+    },
+    {
+      "id": "camp-ext-004",
+      "brandId": "b-omega",
+      "brandName": "Omega",
+      "title": "Speedmaster '57",
+      "description": "Celebrating the 65th anniversary.",
+      "status": "Active",
+      "isPinned": false,
+      "createdAt": "2025-11-24",
+      "startDate": "2025-11-26",
+      "endDate": "2026-02-20",
+      "audience": {
+        "type": "all",
+        "description": "All Retailers",
+        "count": 156
+      },
+      "images": {
+        "cover": "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&q=80&w=800",
+        "product": null
+      },
+      "metrics": {
+        "adoptionRate": 60,
+        "retailerAdoption": {
+          "participants": 120,
+          "totalInvited": 200
+        },
+        "totalUsage": {
+          "downloads": 500,
+          "publishes": 1000
+        },
+        "audienceReach": {
+          "emailOpens": 8500,
+          "socialImpressions": 48000
+        },
+        "customerInteractions": {
+          "clicks": 1200,
+          "likes": 3500,
+          "comments": 210,
+          "shares": 450,
+          "saves": 90
+        }
+      },
+      "channels": {
+        "social": false,
+        "email": false,
+        "sms": false,
+        "download": false
+      },
+      "platforms": ["instagram", "facebook", "x"],
+      "contentType": "full-content"
+    },
+    {
+      "id": "camp-ext-005",
+      "brandId": "b-burberry",
+      "brandName": "Burberry",
+      "title": "Burberry Check Collection",
+      "description": "Iconic patterns for the holiday season.",
+      "status": "Active",
+      "isPinned": false,
+      "createdAt": "2025-11-25",
+      "startDate": "2025-11-25",
+      "endDate": "2025-11-28",
+      "audience": {
+        "type": "all",
+        "description": "All Retailers",
+        "count": 156
+      },
+      "images": {
+        "cover": "https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&q=80&w=800",
+        "product": null
+      },
+      "metrics": {
+        "adoptionRate": 70,
+        "retailerAdoption": {
+          "participants": 140,
+          "totalInvited": 200
+        },
+        "totalUsage": {
+          "downloads": 1000,
+          "publishes": 1200
+        },
+        "audienceReach": {
+          "emailOpens": 12000,
+          "socialImpressions": 55000
+        },
+        "customerInteractions": {
+          "clicks": 1800,
+          "likes": 4200,
+          "comments": 320,
+          "shares": 550,
+          "saves": 150
+        }
+      },
+      "channels": {
+        "social": false,
+        "email": false,
+        "sms": false,
+        "download": false
+      },
+      "platforms": ["instagram", "x"],
+      "contentType": "full-content"
+    }
+  ],
+  "retailers": [
+    {"id": "retailer-1", "name": "Alson Jewelers", "tier": "T1 - Strategic Partner", "zone": "North East"},
+    {"id": "retailer-2", "name": "Brent L. Miller Jewelers & Goldsmiths", "tier": "T1 - Strategic Partner", "zone": "South East"},
+    {"id": "retailer-3", "name": "CD Peacock", "tier": "T1 - Strategic Partner", "zone": "Midwest"},
+    {"id": "retailer-4", "name": "Clarkson Jewelers", "tier": "T1 - Strategic Partner", "zone": "West Coast"},
+    {"id": "retailer-5", "name": "Davis Jewelers", "tier": "T1 - Strategic Partner", "zone": "South West"},
+    {"id": "retailer-6", "name": "De Boulle Diamond & Jewelry", "tier": "T2 - Growth Partner", "zone": "North East"},
+    {"id": "retailer-7", "name": "DeVons Jewelers", "tier": "T2 - Growth Partner", "zone": "South East"},
+    {"id": "retailer-8", "name": "Feldmar Watch Co.", "tier": "T2 - Growth Partner", "zone": "Midwest"},
+    {"id": "retailer-9", "name": "Gunderson's Jewelers", "tier": "T2 - Growth Partner", "zone": "West Coast"},
+    {"id": "retailer-10", "name": "Heller Jewelers", "tier": "T2 - Growth Partner", "zone": "South West"},
+    {"id": "retailer-11", "name": "Henne Jewelers", "tier": "T2 - Growth Partner", "zone": "North East"},
+    {"id": "retailer-12", "name": "J.R Dunn Jewelry", "tier": "T2 - Growth Partner", "zone": "South East"},
+    {"id": "retailer-13", "name": "James & Sons Fine Jewelers", "tier": "T2 - Growth Partner", "zone": "Midwest"},
+    {"id": "retailer-14", "name": "James Free Jewelers", "tier": "T2 - Growth Partner", "zone": "West Coast"},
+    {"id": "retailer-15", "name": "King Jewelers Fine Jewelry & Luxury", "tier": "T2 - Growth Partner", "zone": "South West"},
+    {"id": "retailer-16", "name": "Lee Michaels Fine Jewelry", "tier": "T3 - Authorized Retailer", "zone": "North East"},
+    {"id": "retailer-17", "name": "Leonardo Jewelers", "tier": "T3 - Authorized Retailer", "zone": "South East"},
+    {"id": "retailer-18", "name": "Little Switzerland", "tier": "T3 - Authorized Retailer", "zone": "Midwest"},
+    {"id": "retailer-19", "name": "Littlebirdms", "tier": "T3 - Authorized Retailer", "zone": "West Coast"},
+    {"id": "retailer-20", "name": "London Jewelers", "tier": "T3 - Authorized Retailer", "zone": "South West"},
+    {"id": "retailer-21", "name": "Long's Jewelers", "tier": "T3 - Authorized Retailer", "zone": "North East"},
+    {"id": "retailer-22", "name": "Louis Anthony Jewelers", "tier": "T3 - Authorized Retailer", "zone": "South East"},
+    {"id": "retailer-23", "name": "Lux Bond & Green", "tier": "T3 - Authorized Retailer", "zone": "Midwest"},
+    {"id": "retailer-24", "name": "Manfredi Jewels", "tier": "T3 - Authorized Retailer", "zone": "West Coast"},
+    {"id": "retailer-25", "name": "MP Demetre Jewelers", "tier": "T3 - Authorized Retailer", "zone": "South West"},
+    {"id": "retailer-26", "name": "O.C. Tanner Jewelers", "tier": "T3 - Authorized Retailer", "zone": "North East"},
+    {"id": "retailer-27", "name": "Polacheck's Jewelers", "tier": "T3 - Authorized Retailer", "zone": "South East"},
+    {"id": "retailer-28", "name": "Razny Jewelers", "tier": "T3 - Authorized Retailer", "zone": "Midwest"},
+    {"id": "retailer-29", "name": "REEDS Jewelers", "tier": "T3 - Authorized Retailer", "zone": "West Coast"},
+    {"id": "retailer-30", "name": "R.F. Moeller Jeweler", "tier": "T3 - Authorized Retailer", "zone": "South West"},
+    {"id": "retailer-31", "name": "Richter & Phillips Jewelers", "tier": "T3 - Authorized Retailer", "zone": "North East"},
+    {"id": "retailer-32", "name": "The 1916 Company", "tier": "T3 - Authorized Retailer", "zone": "South East"},
+    {"id": "retailer-33", "name": "TIVOL", "tier": "T3 - Authorized Retailer", "zone": "Midwest"},
+    {"id": "retailer-34", "name": "Tourneau | Bucherer", "tier": "T3 - Authorized Retailer", "zone": "West Coast"},
+    {"id": "retailer-35", "name": "Trout Fine Jewellers", "tier": "T3 - Authorized Retailer", "zone": "South West"},
+    {"id": "retailer-36", "name": "Walters & Hogsett Jewelers", "tier": "T3 - Authorized Retailer", "zone": "North East"}
+  ],
+  "resources": [
+    {"id": "res-001", "title": "Visual Merchandising 2025", "description": "Complete visual merchandising guidelines for 2025 including display setups and lighting recommendations.", "fileCount": 15},
+    {"id": "res-002", "title": "Brand Identity Guidelines", "description": "Official brand identity guidelines including logo usage, color palettes, and typography standards.", "fileCount": 4},
+    {"id": "res-003", "title": "Platinum Exclusive Assets", "description": "Premium marketing materials available only to Platinum tier retailers.", "fileCount": 8},
+    {"id": "res-004", "title": "Store Display Setup Guide", "description": "Step-by-step instructions for setting up in-store displays and product presentations.", "fileCount": 1},
+    {"id": "res-005", "title": "Q1 Marketing Claims", "description": "Approved marketing claims and product descriptions for Q1 campaigns.", "fileCount": 12},
+    {"id": "res-006", "title": "Staff Training Manuals", "description": "Comprehensive training materials for retail staff on product knowledge and sales techniques.", "fileCount": 6}
+  ],
+  "campaignSummary": {
+    "byStatus": {
+      "Active": 15,
+      "Scheduled": 2,
+      "Draft": 2,
+      "Ended": 1,
+      "Archived": 2
+    },
+    "byBrand": {
+      "Verragio": 17,
+      "Cartier": 1,
+      "Rolex": 1,
+      "Patek Philippe": 1,
+      "Omega": 1,
+      "Burberry": 1
+    },
+    "topPerformingCampaigns": [
+      {"id": "camp-015", "title": "Black Friday 2024", "adoptionRate": 95, "brand": "Verragio"},
+      {"id": "camp-007", "title": "Autumn Gold", "adoptionRate": 88, "brand": "Verragio"},
+      {"id": "camp-ext-001", "title": "Panthere de Cartier Collection", "adoptionRate": 85, "brand": "Cartier"},
+      {"id": "camp-012", "title": "Rose Gold Romance", "adoptionRate": 81, "brand": "Verragio"},
+      {"id": "camp-001", "title": "A perfect pair in radiant yellow gold", "adoptionRate": 78, "brand": "Verragio"}
+    ],
+    "totalMetrics": {
+      "totalCampaigns": 22,
+      "activeCampaigns": 15,
+      "averageAdoptionRate": 54,
+      "totalSocialImpressions": 8152000,
+      "totalEmailOpens": 2765200,
+      "totalDownloads": 9010,
+      "totalPublishes": 16245
+    }
+  }
+}

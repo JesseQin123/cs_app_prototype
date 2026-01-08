@@ -18,6 +18,10 @@ const DEFAULT_MODEL = 'gpt-4o';
 const DEFAULT_TEMPERATURE = 0.7;
 const DEFAULT_MAX_TOKENS = 1000;
 
+// Relevance thresholds - only show results above these scores
+const TEXT_RELEVANCE_THRESHOLD = 1.0;   // Minimum relevance for text documents
+const IMAGE_RELEVANCE_THRESHOLD = 0.5;  // Higher threshold for images (more strict)
+
 // Initialize OpenAI client
 let openai = null;
 
@@ -34,13 +38,30 @@ function initOpenAI() {
  * Build system prompt with retrieved context
  */
 function buildSystemPrompt(documents) {
+  if (!documents || documents.length === 0) {
+    return `You are a helpful AI assistant for CrownSync, a brand management platform that connects luxury brands with retailers.
+
+Your role is to help brand administrators find information about campaigns, products, retailers, and other business data.
+
+## Important
+No relevant documents were found for this query. Please provide a helpful response based on your general knowledge, and acknowledge that you don't have specific data from the CrownSync platform for this query.
+
+## Response Format
+- Use markdown formatting for better readability
+- Use bullet points for lists
+- Bold important terms or names
+- Keep paragraphs short`;
+  }
+
   const contextParts = documents.map((doc, i) => {
     const contentType = doc.content_type?.toUpperCase() || 'DOCUMENT';
     const title = doc.title || 'Untitled';
     const body = doc.body || '';
+    const docId = doc.id || `doc-${i + 1}`;
 
-    return `[${i + 1}. ${contentType}] ${title}
-${body.substring(0, 500)}${body.length > 500 ? '...' : ''}`;
+    return `[SOURCE ${i + 1}] (ID: ${docId}, Type: ${contentType})
+Title: ${title}
+Content: ${body.substring(0, 500)}${body.length > 500 ? '...' : ''}`;
   });
 
   const context = contextParts.join('\n\n---\n\n');
@@ -50,13 +71,17 @@ ${body.substring(0, 500)}${body.length > 500 ? '...' : ''}`;
 Your role is to help brand administrators find information about campaigns, products, retailers, and other business data.
 
 ## Retrieved Context
-The following documents were retrieved based on the user's question:
+The following ${documents.length} document(s) were retrieved based on the user's question:
 
 ${context}
 
-## Guidelines
-- Answer based on the provided context when relevant information is available
-- If the context doesn't contain relevant information, acknowledge this and provide general guidance
+## CRITICAL Guidelines for Citations
+- ONLY use information from the sources above that is DIRECTLY relevant to the user's question
+- If a source is NOT relevant to answering the question, DO NOT mention it
+- If NONE of the sources contain relevant information, say "I don't have specific information about [topic] in the current data" and provide general guidance if possible
+- When you use information from a source, mention the source title naturally in your response
+
+## Response Guidelines
 - Be concise but thorough in your responses
 - Reference specific campaigns, products, retailers, or brands when applicable
 - Use professional but friendly language
@@ -71,6 +96,7 @@ ${context}
 
 /**
  * Retrieve relevant documents from Vespa
+ * Now with relevance filtering to only return truly relevant results
  */
 async function retrieveContext(query, options = {}) {
   const {
@@ -82,41 +108,50 @@ async function retrieveContext(query, options = {}) {
   try {
     console.log(`[RAG] Retrieving context for: "${query}" (limit: ${limit}, type: ${contentType})`);
 
-    const params = {
-      hits: limit,
-      ranking: rankingProfile,
-      timeout: '10s'
-    };
+    // Step 1: Text search for documents
+    const textDocuments = await searchTextDocuments(query, limit, contentType);
 
-    let yql;
-
-    // Try hybrid search with embeddings
+    // Step 2: Image search (only if embedding service is available)
+    let imageDocuments = [];
     if (rankingProfile === 'hybrid' || rankingProfile === 'image_search') {
-      try {
-        // Generate text embedding
-        const embeddingResponse = await axios.post(
-          `${EMBEDDING_SERVICE_URL}/embed_text`,
-          { text: query },
-          { timeout: 5000 }
-        );
+      imageDocuments = await searchImages(query, limit);
+    }
 
-        if (embeddingResponse.data.success) {
-          params['input.query(text_embedding)'] = JSON.stringify(embeddingResponse.data.embedding);
-          yql = `select * from multimodal where ({targetHits: ${limit}}nearestNeighbor(image_embedding, text_embedding)) or userQuery()`;
-          params.query = query;
-        }
-      } catch (embeddingError) {
-        console.warn('[RAG] Embedding generation failed, falling back to text search:', embeddingError.message);
+    // Step 3: Combine and deduplicate results
+    const allDocuments = [...textDocuments];
+    const seenIds = new Set(textDocuments.map(d => d.id));
+
+    for (const imgDoc of imageDocuments) {
+      if (!seenIds.has(imgDoc.id)) {
+        allDocuments.push(imgDoc);
+        seenIds.add(imgDoc.id);
       }
     }
 
-    // Fallback to text search
-    if (!yql) {
-      yql = `select * from multimodal where userQuery()`;
-      params.query = query;
-    }
+    console.log(`[RAG] Retrieved ${allDocuments.length} documents (${textDocuments.length} text, ${imageDocuments.length} images)`);
+    return allDocuments;
 
-    // Add content type filter if specified
+  } catch (error) {
+    console.error('[RAG] Context retrieval failed:', error.message);
+    return [];
+  }
+}
+
+/**
+ * Search for text documents using text-based search
+ */
+async function searchTextDocuments(query, limit, contentType) {
+  try {
+    const params = {
+      hits: limit * 2, // Fetch more to allow for filtering
+      ranking: 'bm25',
+      timeout: '10s',
+      query: query
+    };
+
+    let yql = `select * from multimodal where userQuery()`;
+
+    // Filter to non-image content types for text search
     if (contentType !== 'all') {
       yql += ` and content_type contains "${contentType}"`;
     }
@@ -129,22 +164,86 @@ async function retrieveContext(query, options = {}) {
       { params }
     );
 
-    const documents = (response.data.root.children || []).map(hit => ({
-      id: hit.fields.id,
-      content_type: hit.fields.content_type,
-      relevance: hit.relevance,
-      title: hit.fields.title,
-      body: hit.fields.body,
-      url: hit.fields.url,
-      image_file_name: hit.fields.image_file_name,
-      created_at: hit.fields.created_at
-    }));
+    const documents = (response.data.root.children || [])
+      .map(hit => ({
+        id: hit.fields.id,
+        content_type: hit.fields.content_type,
+        relevance: hit.relevance,
+        title: hit.fields.title,
+        body: hit.fields.body,
+        url: hit.fields.url,
+        image_file_name: hit.fields.image_file_name,
+        created_at: hit.fields.created_at
+      }))
+      // Filter by relevance threshold
+      .filter(doc => doc.relevance >= TEXT_RELEVANCE_THRESHOLD)
+      // Take only the top results after filtering
+      .slice(0, limit);
 
-    console.log(`[RAG] Retrieved ${documents.length} documents`);
+    console.log(`[RAG] Text search: found ${response.data.root.children?.length || 0}, kept ${documents.length} above threshold ${TEXT_RELEVANCE_THRESHOLD}`);
     return documents;
 
   } catch (error) {
-    console.error('[RAG] Context retrieval failed:', error.message);
+    console.error('[RAG] Text search failed:', error.message);
+    return [];
+  }
+}
+
+/**
+ * Search for images using embedding-based search
+ * Only returns images that are highly relevant to the query
+ */
+async function searchImages(query, limit) {
+  try {
+    // Generate text embedding for image search
+    const embeddingResponse = await axios.post(
+      `${EMBEDDING_SERVICE_URL}/embed_text`,
+      { text: query },
+      { timeout: 5000 }
+    );
+
+    if (!embeddingResponse.data.success) {
+      console.warn('[RAG] Image embedding generation failed');
+      return [];
+    }
+
+    const params = {
+      hits: limit * 2,
+      ranking: 'image_search',
+      timeout: '10s',
+      'input.query(text_embedding)': JSON.stringify(embeddingResponse.data.embedding)
+    };
+
+    // Only search for image content types
+    const yql = `select * from multimodal where ({targetHits: ${limit * 2}}nearestNeighbor(image_embedding, text_embedding)) and image_file_name != ""`;
+    params.yql = yql;
+
+    const response = await axios.post(
+      `${VESPA_URL}/search/`,
+      null,
+      { params }
+    );
+
+    const documents = (response.data.root.children || [])
+      .map(hit => ({
+        id: hit.fields.id,
+        content_type: hit.fields.content_type || 'image',
+        relevance: hit.relevance,
+        title: hit.fields.title,
+        body: hit.fields.body,
+        url: hit.fields.url,
+        image_file_name: hit.fields.image_file_name,
+        created_at: hit.fields.created_at
+      }))
+      // Strict filtering for images - must be highly relevant
+      .filter(doc => doc.relevance >= IMAGE_RELEVANCE_THRESHOLD)
+      .slice(0, limit);
+
+    console.log(`[RAG] Image search: found ${response.data.root.children?.length || 0}, kept ${documents.length} above threshold ${IMAGE_RELEVANCE_THRESHOLD}`);
+    return documents;
+
+  } catch (error) {
+    console.warn('[RAG] Image search failed (embedding service may be down):', error.message);
     return [];
   }
 }
