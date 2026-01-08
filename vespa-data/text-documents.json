@@ -8,7 +8,7 @@
       "category": "luxury-brand",
       "metadata": "{\"brandId\":\"b-verragio\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722369
     }
   },
   {
@@ -20,7 +20,7 @@
       "category": "luxury-brand",
       "metadata": "{\"brandId\":\"b-gucci\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722369
     }
   },
   {
@@ -32,7 +32,7 @@
       "category": "luxury-brand",
       "metadata": "{\"brandId\":\"b-louisvuitton\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722369
     }
   },
   {
@@ -44,7 +44,7 @@
       "category": "luxury-brand",
       "metadata": "{\"brandId\":\"b-dior\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722369
     }
   },
   {
@@ -56,7 +56,7 @@
       "category": "luxury-brand",
       "metadata": "{\"brandId\":\"b-hermes\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722369
     }
   },
   {
@@ -68,7 +68,7 @@
       "category": "luxury-brand",
       "metadata": "{\"brandId\":\"b-prada\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722369
     }
   },
   {
@@ -80,7 +80,7 @@
       "category": "luxury-brand",
       "metadata": "{\"brandId\":\"b-tiffany\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722369
     }
   },
   {
@@ -92,7 +92,7 @@
       "category": "luxury-brand",
       "metadata": "{\"brandId\":\"b-cartier\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722369
     }
   },
   {
@@ -104,7 +104,7 @@
       "category": "luxury-brand",
       "metadata": "{\"brandId\":\"b-rolex\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722369
     }
   },
   {
@@ -116,7 +116,7 @@
       "category": "luxury-brand",
       "metadata": "{\"brandId\":\"b-patek\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722369
     }
   },
   {
@@ -128,7 +128,7 @@
       "category": "luxury-brand",
       "metadata": "{\"brandId\":\"b-omega\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722369
     }
   },
   {
@@ -140,7 +140,7 @@
       "category": "luxury-brand",
       "metadata": "{\"brandId\":\"b-burberry\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722369
     }
   },
   {
@@ -152,7 +152,7 @@
       "category": "campaign-active",
       "metadata": "{\"brandId\":\"b-verragio\",\"brandName\":\"Verragio\",\"status\":\"Active\",\"adoptionRate\":78}",
       "image_file_name": "cover.png",
-      "created_at": 1767621271923
+      "created_at": 1767884722369
     }
   },
   {
@@ -164,7 +164,7 @@
       "category": "campaign-active",
       "metadata": "{\"brandId\":\"b-verragio\",\"brandName\":\"Verragio\",\"status\":\"Active\",\"adoptionRate\":45}",
       "image_file_name": "cover.png",
-      "created_at": 1767621271923
+      "created_at": 1767884722369
     }
   },
   {
@@ -176,7 +176,7 @@
       "category": "campaign-active",
       "metadata": "{\"brandId\":\"b-verragio\",\"brandName\":\"Verragio\",\"status\":\"Active\",\"adoptionRate\":82}",
       "image_file_name": "cover.png",
-      "created_at": 1767621271923
+      "created_at": 1767884722369
     }
   },
   {
@@ -188,7 +188,7 @@
       "category": "campaign-active",
       "metadata": "{\"brandId\":\"b-verragio\",\"brandName\":\"Verragio\",\"status\":\"Active\",\"adoptionRate\":65}",
       "image_file_name": "cover.png",
-      "created_at": 1767621271923
+      "created_at": 1767884722369
     }
   },
   {
@@ -200,7 +200,7 @@
       "category": "campaign-draft",
       "metadata": "{\"brandId\":\"b-verragio\",\"brandName\":\"Verragio\",\"status\":\"Draft\",\"adoptionRate\":0}",
       "image_file_name": "cover.png",
-      "created_at": 1767621271923
+      "created_at": 1767884722369
     }
   },
   {
@@ -212,7 +212,7 @@
       "category": "campaign-active",
       "metadata": "{\"brandId\":\"b-verragio\",\"brandName\":\"Verragio\",\"status\":\"Active\",\"adoptionRate\":72}",
       "image_file_name": "cover.png",
-      "created_at": 1767621271923
+      "created_at": 1767884722369
     }
   },
   {
@@ -224,7 +224,7 @@
       "category": "campaign-active",
       "metadata": "{\"brandId\":\"b-verragio\",\"brandName\":\"Verragio\",\"status\":\"Active\",\"adoptionRate\":88}",
       "image_file_name": "cover.png",
-      "created_at": 1767621271923
+      "created_at": 1767884722369
     }
   },
   {
@@ -236,7 +236,7 @@
       "category": "campaign-closed",
       "metadata": "{\"brandId\":\"b-verragio\",\"brandName\":\"Verragio\",\"status\":\"Closed\",\"adoptionRate\":91}",
       "image_file_name": "cover.png",
-      "created_at": 1767621271923
+      "created_at": 1767884722369
     }
   },
   {
@@ -248,7 +248,7 @@
       "category": "campaign-active",
       "metadata": "{\"brandId\":\"b-verragio\",\"brandName\":\"Verragio\",\"status\":\"Active\",\"adoptionRate\":55}",
       "image_file_name": "cover.png",
-      "created_at": 1767621271923
+      "created_at": 1767884722369
     }
   },
   {
@@ -260,7 +260,7 @@
       "category": "campaign-active",
       "metadata": "{\"brandId\":\"b-verragio\",\"brandName\":\"Verragio\",\"status\":\"Active\",\"adoptionRate\":60}",
       "image_file_name": "cover.png",
-      "created_at": 1767621271923
+      "created_at": 1767884722369
     }
   },
   {
@@ -272,7 +272,7 @@
       "category": "campaign-active",
       "metadata": "{\"brandId\":\"b-verragio\",\"brandName\":\"Verragio\",\"status\":\"Active\",\"adoptionRate\":48}",
       "image_file_name": "cover.png",
-      "created_at": 1767621271923
+      "created_at": 1767884722369
     }
   },
   {
@@ -284,7 +284,7 @@
       "category": "campaign-active",
       "metadata": "{\"brandId\":\"b-verragio\",\"brandName\":\"Verragio\",\"status\":\"Active\",\"adoptionRate\":75}",
       "image_file_name": "cover.png",
-      "created_at": 1767621271923
+      "created_at": 1767884722369
     }
   },
   {
@@ -296,7 +296,7 @@
       "category": "campaign-active",
       "metadata": "{\"brandId\":\"b-rolex\",\"brandName\":\"Rolex\",\"status\":\"Active\",\"adoptionRate\":85}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722369
     }
   },
   {
@@ -308,7 +308,7 @@
       "category": "campaign-active",
       "metadata": "{\"brandId\":\"b-cartier\",\"brandName\":\"Cartier\",\"status\":\"Active\",\"adoptionRate\":70}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722369
     }
   },
   {
@@ -320,7 +320,7 @@
       "category": "campaign-active",
       "metadata": "{\"brandId\":\"b-omega\",\"brandName\":\"Omega\",\"status\":\"Active\",\"adoptionRate\":62}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722369
     }
   },
   {
@@ -332,7 +332,7 @@
       "category": "campaign-active",
       "metadata": "{\"brandId\":\"b-tiffany\",\"brandName\":\"Tiffany & Co.\",\"status\":\"Active\",\"adoptionRate\":78}",
       "image_file_name": "cover.png",
-      "created_at": 1767621271923
+      "created_at": 1767884722369
     }
   },
   {
@@ -344,7 +344,7 @@
       "category": "campaign-active",
       "metadata": "{\"brandId\":\"b-patek\",\"brandName\":\"Patek Philippe\",\"status\":\"Active\",\"adoptionRate\":58}",
       "image_file_name": "cover.png",
-      "created_at": 1767621271923
+      "created_at": 1767884722369
     }
   },
   {
@@ -356,7 +356,7 @@
       "category": "t-1",
       "metadata": "{\"tier\":\"t-1\",\"tierLabel\":\"T1 - Strategic Partner\",\"zone\":\"z-ne\",\"zoneLabel\":\"North East\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722369
     }
   },
   {
@@ -368,7 +368,7 @@
       "category": "t-1",
       "metadata": "{\"tier\":\"t-1\",\"tierLabel\":\"T1 - Strategic Partner\",\"zone\":\"z-se\",\"zoneLabel\":\"South East\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722369
     }
   },
   {
@@ -380,7 +380,7 @@
       "category": "t-1",
       "metadata": "{\"tier\":\"t-1\",\"tierLabel\":\"T1 - Strategic Partner\",\"zone\":\"z-mw\",\"zoneLabel\":\"Midwest\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722369
     }
   },
   {
@@ -392,7 +392,7 @@
       "category": "t-1",
       "metadata": "{\"tier\":\"t-1\",\"tierLabel\":\"T1 - Strategic Partner\",\"zone\":\"z-w\",\"zoneLabel\":\"West Coast\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722369
     }
   },
   {
@@ -404,7 +404,7 @@
       "category": "t-1",
       "metadata": "{\"tier\":\"t-1\",\"tierLabel\":\"T1 - Strategic Partner\",\"zone\":\"z-sw\",\"zoneLabel\":\"South West\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722369
     }
   },
   {
@@ -416,7 +416,7 @@
       "category": "t-2",
       "metadata": "{\"tier\":\"t-2\",\"tierLabel\":\"T2 - Growth Partner\",\"zone\":\"z-ne\",\"zoneLabel\":\"North East\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722369
     }
   },
   {
@@ -428,7 +428,7 @@
       "category": "t-2",
       "metadata": "{\"tier\":\"t-2\",\"tierLabel\":\"T2 - Growth Partner\",\"zone\":\"z-se\",\"zoneLabel\":\"South East\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722370
     }
   },
   {
@@ -440,7 +440,7 @@
       "category": "t-2",
       "metadata": "{\"tier\":\"t-2\",\"tierLabel\":\"T2 - Growth Partner\",\"zone\":\"z-mw\",\"zoneLabel\":\"Midwest\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722370
     }
   },
   {
@@ -452,7 +452,7 @@
       "category": "t-2",
       "metadata": "{\"tier\":\"t-2\",\"tierLabel\":\"T2 - Growth Partner\",\"zone\":\"z-w\",\"zoneLabel\":\"West Coast\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722370
     }
   },
   {
@@ -464,7 +464,7 @@
       "category": "t-2",
       "metadata": "{\"tier\":\"t-2\",\"tierLabel\":\"T2 - Growth Partner\",\"zone\":\"z-sw\",\"zoneLabel\":\"South West\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722370
     }
   },
   {
@@ -476,7 +476,7 @@
       "category": "t-2",
       "metadata": "{\"tier\":\"t-2\",\"tierLabel\":\"T2 - Growth Partner\",\"zone\":\"z-ne\",\"zoneLabel\":\"North East\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722370
     }
   },
   {
@@ -488,7 +488,7 @@
       "category": "t-2",
       "metadata": "{\"tier\":\"t-2\",\"tierLabel\":\"T2 - Growth Partner\",\"zone\":\"z-se\",\"zoneLabel\":\"South East\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722370
     }
   },
   {
@@ -500,7 +500,7 @@
       "category": "t-2",
       "metadata": "{\"tier\":\"t-2\",\"tierLabel\":\"T2 - Growth Partner\",\"zone\":\"z-mw\",\"zoneLabel\":\"Midwest\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722370
     }
   },
   {
@@ -512,7 +512,7 @@
       "category": "t-2",
       "metadata": "{\"tier\":\"t-2\",\"tierLabel\":\"T2 - Growth Partner\",\"zone\":\"z-w\",\"zoneLabel\":\"West Coast\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722370
     }
   },
   {
@@ -524,7 +524,7 @@
       "category": "t-2",
       "metadata": "{\"tier\":\"t-2\",\"tierLabel\":\"T2 - Growth Partner\",\"zone\":\"z-sw\",\"zoneLabel\":\"South West\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722370
     }
   },
   {
@@ -536,7 +536,7 @@
       "category": "t-3",
       "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-ne\",\"zoneLabel\":\"North East\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722370
     }
   },
   {
@@ -548,7 +548,7 @@
       "category": "t-3",
       "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-se\",\"zoneLabel\":\"South East\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722370
     }
   },
   {
@@ -560,7 +560,7 @@
       "category": "t-3",
       "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-mw\",\"zoneLabel\":\"Midwest\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722370
     }
   },
   {
@@ -572,7 +572,7 @@
       "category": "t-3",
       "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-w\",\"zoneLabel\":\"West Coast\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722370
     }
   },
   {
@@ -584,7 +584,7 @@
       "category": "t-3",
       "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-sw\",\"zoneLabel\":\"South West\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722370
     }
   },
   {
@@ -596,7 +596,7 @@
       "category": "t-3",
       "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-ne\",\"zoneLabel\":\"North East\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722370
     }
   },
   {
@@ -608,7 +608,7 @@
       "category": "t-3",
       "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-se\",\"zoneLabel\":\"South East\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722370
     }
   },
   {
@@ -620,7 +620,7 @@
       "category": "t-3",
       "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-mw\",\"zoneLabel\":\"Midwest\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722370
     }
   },
   {
@@ -632,7 +632,7 @@
       "category": "t-3",
       "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-w\",\"zoneLabel\":\"West Coast\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722370
     }
   },
   {
@@ -644,7 +644,7 @@
       "category": "t-3",
       "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-sw\",\"zoneLabel\":\"South West\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722370
     }
   },
   {
@@ -656,7 +656,7 @@
       "category": "t-3",
       "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-ne\",\"zoneLabel\":\"North East\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722370
     }
   },
   {
@@ -668,7 +668,7 @@
       "category": "t-3",
       "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-se\",\"zoneLabel\":\"South East\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722370
     }
   },
   {
@@ -680,7 +680,7 @@
       "category": "t-3",
       "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-mw\",\"zoneLabel\":\"Midwest\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722370
     }
   },
   {
@@ -692,7 +692,7 @@
       "category": "t-3",
       "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-w\",\"zoneLabel\":\"West Coast\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722370
     }
   },
   {
@@ -704,7 +704,7 @@
       "category": "t-3",
       "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-sw\",\"zoneLabel\":\"South West\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722370
     }
   },
   {
@@ -716,7 +716,7 @@
       "category": "t-3",
       "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-ne\",\"zoneLabel\":\"North East\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722370
     }
   },
   {
@@ -728,7 +728,7 @@
       "category": "t-3",
       "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-se\",\"zoneLabel\":\"South East\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722370
     }
   },
   {
@@ -740,7 +740,7 @@
       "category": "t-3",
       "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-mw\",\"zoneLabel\":\"Midwest\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722370
     }
   },
   {
@@ -752,7 +752,7 @@
       "category": "t-3",
       "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-w\",\"zoneLabel\":\"West Coast\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722370
     }
   },
   {
@@ -764,7 +764,7 @@
       "category": "t-3",
       "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-sw\",\"zoneLabel\":\"South West\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722370
     }
   },
   {
@@ -776,7 +776,7 @@
       "category": "t-3",
       "metadata": "{\"tier\":\"t-3\",\"tierLabel\":\"T3 - Authorized Retailer\",\"zone\":\"z-ne\",\"zoneLabel\":\"North East\"}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722370
     }
   },
   {
@@ -788,7 +788,7 @@
       "category": "marketing-resource",
       "metadata": "{\"fileCount\":15}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722370
     }
   },
   {
@@ -800,7 +800,7 @@
       "category": "marketing-resource",
       "metadata": "{\"fileCount\":4}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722370
     }
   },
   {
@@ -812,7 +812,7 @@
       "category": "marketing-resource",
       "metadata": "{\"fileCount\":8}",
       "image_file_name": "",
-      "created_at": 1767621271923
+      "created_at": 1767884722370
     }
   },
   {
@@ -824,7 +824,7 @@
       "category": "marketing-resource",
       "metadata": "{\"fileCount\":1}",
       "image_file_name": "",
-      "created_at": 1767621271924
+      "created_at": 1767884722370
     }
   },
   {
@@ -836,7 +836,7 @@
       "category": "marketing-resource",
       "metadata": "{\"fileCount\":12}",
       "image_file_name": "",
-      "created_at": 1767621271924
+      "created_at": 1767884722370
     }
   },
   {
@@ -848,7 +848,7 @@
       "category": "marketing-resource",
       "metadata": "{\"fileCount\":6}",
       "image_file_name": "",
-      "created_at": 1767621271924
+      "created_at": 1767884722370
     }
   }
 ]
